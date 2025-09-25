@@ -288,32 +288,304 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is `TheRealDeal` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: Delete a person**
+#### Use case: Add contact
 
-**MSS**
+**Main Success Scenario:**
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User chooses to add a new contact
+2.  System requests contact details (name, phone number, email, etc.)
+3.  User enters the required information
+4.  System stores the required information
+5.  System displays a success message
 
-    Use case ends.
+    Use case ends
 
 **Extensions**
 
-* 2a. The list is empty.
+* 3a. System detects missing, incorrect or duplicate information
 
-  Use case ends.
+    * 3a1. System displays an error message and requests new inputs
+    * 3a2. User enters information again
 
-* 3a. The given index is invalid.
+      Steps 3a1 - 3a2 are repeated until all data are valid
 
-    * 3a1. AddressBook shows an error message.
+      Use case resumes at step 4
 
-      Use case resumes at step 2.
 
-*{More to be added}*
+#### Use case: Delete contact
+
+**Main Success Scenario:**
+
+1.  User chooses to delete a contact
+2.  System requests for which contact to delete
+3.  User enters the contact to be deleted
+4.  System removes the contact from the storage
+5.  System displays a success message
+
+    Use case ends
+
+**Extensions**
+
+* 3a. System detects missing, incorrect or duplicate information
+
+    * 3a1. System displays an error message and requests new inputs
+    * 3a2. User enters information again
+
+      Steps 3a1 - 3a2 are repeated until all data are valid
+
+      Use case resumes at step 4
+
+#### Use case: Filter contact
+
+**Main Success Scenario:**
+
+1.  User chooses to filter contacts by contact details
+2.  System requests contact details (name, phone number, email, etc.)
+3.  User enters the required information
+4.  System retrieves information and displays the contacts
+
+    Use case ends
+
+**Extensions**
+
+* 3a. System detects missing, incorrect or duplicate information
+
+    * 3a1. System displays an error message and requests new inputs
+    * 3a2. User enters information again
+
+      Steps 3a1 - 3a2 are repeated until all data are valid
+
+      Use case resumes at step 4
+
+
+* 4a. System finds no contacts matching the properties
+    * 4a1. System displays "No contacts found" message
+
+      Use case ends
+
+#### Use case: Add property
+
+**Main Success Scenario:**
+
+1.  User chooses to add a new property
+2.  System requests property details (address, no. of bedrooms, etc.)
+3.  User enters the required information
+4.  System stores the required information
+5.  System displays a success message
+
+    Use case ends
+
+**Extensions**
+
+* 3a. System detects missing, incorrect or duplicate information
+
+    * 3a1. System displays an error message and requests new inputs
+    * 3a2. User enters information again
+
+      Steps 3a1 - 3a2 are repeated until all data are valid
+
+      Use case resumes at step 4
+
+#### Use case: Delete property
+
+**Main Success Scenario:**
+
+1.  User chooses to delete a property
+2.  System requests for which property to delete
+3.  User enters the property to be deleted
+4.  System removes the property from the storage
+5.  System displays a success message
+
+    Use case ends
+
+**Extensions**
+
+* 3a. System detects missing, incorrect or duplicate information
+
+    * 3a1. System displays an error message and requests new inputs
+    * 3a2. User enters information again
+
+      Steps 3a1 - 3a2 are repeated until all data are valid
+
+      Use case resumes at step 4
+
+#### Use case: Filter property
+
+**Main Success Scenario:**
+
+1.  User chooses to filter properties by property details
+2.  System requests property details (address, no. of bedrooms, etc.)
+3.  User enters the required information
+4.  System retrieves information and displays the properties
+
+    Use case ends
+
+**Extensions**
+
+* 3a. System detects missing, incorrect or duplicate information
+
+    * 3a1. System displays an error message and requests new inputs
+    * 3a2. User enters information again
+
+      Steps 3a1 - 3a2 are repeated until all data are valid
+
+      Use case resumes at step 4
+
+
+* 4a. System finds no properties matching the properties
+    * 4a1. System displays "No properties found" message
+
+      Use case ends
+
+#### Use case: Associate property to client
+
+**Main Success Scenario:**
+
+1.  User chooses to associate property to client
+2.  System requests property details and client details
+3.  User enters the required information
+4.  System stores the required information
+5.  System displays a success message
+
+    Use case ends
+
+**Extensions**
+
+* 3a. System detects missing, incorrect or duplicate information
+
+    * 3a1. System displays an error message and requests new inputs
+    * 3a2. User enters information again
+
+      Steps 3a1 - 3a2 are repeated until all data are valid
+
+      Use case resumes at step 4
+
+#### Use case: Unassociate property client
+
+**Main Success Scenario:**
+
+1.  User chooses to unassociate property to client
+2.  System requests property details and client details
+3.  User enters the required information
+4.  System stores the required information
+5.  System displays a success message
+
+    Use case ends
+
+**Extensions**
+
+* 3a. System detects missing, incorrect or duplicate information
+
+    * 3a1. System displays an error message and requests new inputs
+    * 3a2. User enters information again
+
+      Steps 3a1 - 3a2 are repeated until all data are valid
+
+      Use case resumes at step 4
+
+#### Use case: Mark property as sold
+
+**Main Success Scenario:**
+
+1.  User chooses to mark property as sold
+2.  System requests property details
+3.  User enters the required information
+4.  System stores the required information
+5.  System displays a success message
+
+    Use case ends
+
+**Extensions**
+
+* 3a. System detects missing, incorrect or duplicate information
+
+    * 3a1. System displays an error message and requests new inputs
+    * 3a2. User enters information again
+
+      Steps 3a1 - 3a2 are repeated until all data are valid
+
+      Use case resumes at step 4
+
+#### Use case: Mark property as unsold
+
+**Main Success Scenario:**
+
+1.  User chooses to mark property as unsold
+2.  System requests property details
+3.  User enters the required information
+4.  System stores the required information
+5.  System displays a success message
+
+    Use case ends
+
+**Extensions**
+
+* 3a. System detects missing, incorrect or duplicate information
+
+    * 3a1. System displays an error message and requests new inputs
+    * 3a2. User enters information again
+
+      Steps 3a1 - 3a2 are repeated until all data are valid
+
+      Use case resumes at step 4
+
+#### Use case: Find clients associated to property
+
+**Main Success Scenario:**
+
+1.  User chooses to find clients associated to a specific property
+2.  System requests property details
+3.  User enters the required information
+4.  System retrieves information and displays the clients
+
+    Use case ends
+
+**Extensions**
+
+* 3a. System detects missing, incorrect or duplicate information
+
+    * 3a1. System displays an error message and requests new inputs
+    * 3a2. User enters information again
+
+      Steps 3a1 - 3a2 are repeated until all data are valid
+
+      Use case resumes at step 4
+
+
+* 4a. System finds no clients associated to the property
+    * 4a1. System displays "No clients found" message
+
+      Use case ends
+
+#### Use case: Find properties associated to client
+
+**Main Success Scenario:**
+
+1.  User chooses to find properties associated to a specific client
+2.  System requests client details
+3.  User enters the required information
+4.  System retrieves information and displays the properties
+
+    Use case ends
+
+**Extensions**
+
+* 3a. System detects missing, incorrect or duplicate information
+
+    * 3a1. System displays an error message and requests new inputs
+    * 3a2. User enters information again
+
+      Steps 3a1 - 3a2 are repeated until all data are valid
+
+      Use case resumes at step 4
+
+
+* 4a. System finds no properties associated to the client
+    * 4a1. System displays "No properties found" message
+
+      Use case ends
 
 ### Non-Functional Requirements
 

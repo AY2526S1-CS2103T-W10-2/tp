@@ -34,7 +34,7 @@ We are a team based in the [School of Computing, National University of Singapor
 
 <img src="images/inzk0518.png" width="200px">
 
-[[github](http://github.com/inzk0518)] 
+[[github](http://github.com/inzk0518)]
 [[portfolio](team/inzk0518.md)]
 
 * Role: Developer
