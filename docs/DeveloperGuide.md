@@ -275,16 +275,33 @@ _{Explain here how the data archiving feature will be implemented}_
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                     | So that I can…​                                                        |
-| -------- | ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
-| `* * *`  | new user                                   | see usage instructions         | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person               |                                                                        |
-| `* * *`  | user                                       | delete a person                | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name          | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details   | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name           | locate a person easily                                                 |
-
-*{More to be added}*
+| Priority | As a…                        | I want to…                                       | So that I can…                                                           |
+| -------- | ---------------------------- | ------------------------------------------------ | ------------------------------------------------------------------------ |
+| `* * *`  | user                         | add contacts                                     | keep track of my clients                                                 |
+| `* * *`  | user                         | store properties                                 | keep track of my advertising properties                                  |
+| `* * *`  | user                         | delete contacts                                  | remove contacts that I no longer need                                    |
+| `* * *`  | user                         | delete properties                                | remove properties that I no longer need                                  |
+| `* * *`  | user                         | filter my contacts by their details              | find and prioritise clients easily                                       |
+| `* * *`  | user                         | filter properties by criteria                    | find my properties for my clients easily and better match client's needs |
+| `* * *`  | user                         | track client associations to properties          | easily cross-reference clients                                           |
+| `* * *`  | user                         | track when properties are sold                   | filter them from searches                                                |
+| `* *`    | user                         | edit stored information                          | avoid manually deleting and adding data back when something changes      |
+| `* *`    | collaborating user           | import Excel contact lists into the system       | avoid adding contacts one by one                                         |
+| `* *`    | user                         | record the dates of client property visits       | maintain a clear history of interactions                                 |
+| `* *`    | collaborating user           | export data of contacts                          | pass the information to associated contacts                              |
+| `* *`    | user                         | draft messages based on client profiles          | provide updates quickly and professionally                               |
+| `* *`    | user                         | mark clients as “active” or “inactive”           |                                                                          |
+| `* *`    | detail-oriented user         | view a client’s full profile                     | prepare before meeting or calling them                                   |
+| `* *`    | user                         | store signed contracts                           | quickly retrieve them if disputes or clarifications arise                |
+| `* *`    | user                         | generate reports                                 | analyze performance and opportunities                                    |
+| `* *`    | user                         | tag clients with labels                          | organize them better                                                     |
+| `* *`    | user                         | track commission earned from each deal           | measure my performance                                                   |
+| `* *`    | user                         | have a recent contact list                       |                                                                          |
+| `*`      | user dealing with complaints | see the whole interaction history                | understand the context fully and manage the situation well               |
+| `*`      | forgetful user               | set automatic reminders for contract expirations | avoid missing key dates                                                  |
+| `*`      | user                         | mark and track the negotiation stage of a deal   | see deal progress                                                        |
+| `*`      | user                         | generate detailed draft contracts automatically  | speed up the transaction process                                         |
+| `*`      | forgetful user               | set reminders for follow-ups with clients        | avoid forgetting to contact them at the right time                             |
 
 ### Use cases
 
