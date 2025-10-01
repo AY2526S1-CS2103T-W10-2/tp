@@ -589,54 +589,16 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Non-Functional Requirements
 
-#### Business Rules
+1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
+2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
-1. **User Accessibility**
-   * The system should be usable by real estate agents with moderate computer skills
-   * Command syntax should be intuitive for real estate professionals
-   * Error messages should be domain-specific and actionable for real estate scenarios
+*{More to be added}*
 
-2. **Data Integrity**
-   * No duplicate clients or properties should be allowed based on unique identifiers
+### Glossary
 
-#### Technical Requirements
-
-1. **Platform Support**
-   * The system should support every mainstream OS (Windows, Linux, MacOS) that have Java 17 installed
-   * Must work offline without internet connectivity for core functionalities
-   * Should be deployable as a single JAR file for easy distribution
-
-2. **Data Management**
-   * The system should have automated backups and error recovery processes
-   * The system's storage should be scalable and handle large datasets efficiently
-
-3. **User Interface**
-   * CLI commands should follow consistent patterns across all operations
-   * Display should clearly distinguish between clients, properties, and associations
-   * Must support standard copy-paste operations for data entry
-
-#### Performance Requirements
-
-1. **Response Time**
-   * The system should respond to each command within 3 seconds under normal load
-
-2. **Scalability**
-   * The system should be able to hold up to 10,000 properties and 10,000 clients
-   * Should efficiently handle relationships between clients and properties
-
-3. **Resource Efficiency**
-   * Memory usage should not exceed 512MB during normal operation
-   * Application should run smoothly on systems with 4GB RAM
-   * Disk space usage should grow linearly with data volume
-
-#### Constraints
-
-1. **Business Constraints**
-   * Must accommodate typical real estate agency workflows
-
-2. **Technical Constraints**
-   * Must be developed using Java 17 and JavaFX for GUI components
-   * Command-line interface must remain the primary interaction method
+* **Mainstream OS**: Windows, Linux, Unix, MacOS
+* **Private contact detail**: A contact detail that is not meant to be shared with others
 
 --------------------------------------------------------------------------------------------------------------------
 
