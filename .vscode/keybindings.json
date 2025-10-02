@@ -1,0 +1,7 @@
+[
+    {
+        "key":"ctrl+s",
+        "command":"workbench.action.files.saveWithoutFormatting",
+        "when":"config.workspaceKeybindings.enabled"
+    }
+]
