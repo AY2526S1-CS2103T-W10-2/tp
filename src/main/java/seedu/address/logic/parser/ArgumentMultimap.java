@@ -75,4 +75,17 @@ public class ArgumentMultimap {
             throw new ParseException(Messages.getErrorMessageForDuplicatePrefixes(duplicatedPrefixes));
         }
     }
+
+    /**
+     * Returns a set of all prefixes that are present in this {@code ArgumentMultimap}.
+     * <p>
+     * This includes all prefixes that were recognized during tokenization,
+     * even if they have no associated values (e.g., {@code e/} with no value).
+     * The special empty prefix will also be included if present.
+     *
+     * @return A set of {@link Prefix} objects corresponding to the keys in this multimap.
+     */
+    public java.util.Set<Prefix> getAllPrefixes() {
+        return new java.util.HashSet<>(argMultimap.keySet());
+    }
 }

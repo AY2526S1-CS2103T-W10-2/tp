@@ -14,9 +14,8 @@ public class EmailTest {
     }
 
     @Test
-    public void constructor_invalidEmail_throwsIllegalArgumentException() {
-        String invalidEmail = "";
-        assertThrows(IllegalArgumentException.class, () -> new Email(invalidEmail));
+    public void constructor_blankEmail_isAllowed() {
+        assertTrue(Email.isValidEmail(""));
     }
 
     @Test
@@ -25,7 +24,7 @@ public class EmailTest {
         assertThrows(NullPointerException.class, () -> Email.isValidEmail(null));
 
         // blank email
-        assertFalse(Email.isValidEmail("")); // empty string
+        assertTrue(Email.isValidEmail("")); // empty string is allowed because email is optional
         assertFalse(Email.isValidEmail(" ")); // spaces only
 
         // missing parts

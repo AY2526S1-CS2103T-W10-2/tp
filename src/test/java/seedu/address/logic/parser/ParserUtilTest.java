@@ -14,9 +14,9 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.PersonAddress;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 
@@ -103,31 +103,34 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseAddress_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseAddress((String) null));
+    public void parseAddress_null_returnsEmptyAddress() throws Exception {
+        PersonAddress emptyAddress = ParserUtil.parseAddress(null);
+        assertEquals(new PersonAddress(""), emptyAddress);
     }
 
     @Test
-    public void parseAddress_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseAddress(INVALID_ADDRESS));
+    public void parseAddress_blankValue_returnsEmptyAddress() throws Exception {
+        PersonAddress emptyAddress = ParserUtil.parseAddress(" ");
+        assertEquals(new PersonAddress(""), emptyAddress);
     }
 
     @Test
     public void parseAddress_validValueWithoutWhitespace_returnsAddress() throws Exception {
-        Address expectedAddress = new Address(VALID_ADDRESS);
+        PersonAddress expectedAddress = new PersonAddress(VALID_ADDRESS);
         assertEquals(expectedAddress, ParserUtil.parseAddress(VALID_ADDRESS));
     }
 
     @Test
     public void parseAddress_validValueWithWhitespace_returnsTrimmedAddress() throws Exception {
         String addressWithWhitespace = WHITESPACE + VALID_ADDRESS + WHITESPACE;
-        Address expectedAddress = new Address(VALID_ADDRESS);
+        PersonAddress expectedAddress = new PersonAddress(VALID_ADDRESS);
         assertEquals(expectedAddress, ParserUtil.parseAddress(addressWithWhitespace));
     }
 
     @Test
-    public void parseEmail_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseEmail((String) null));
+    public void parseEmail_null_returnsEmptyEmail() throws Exception {
+        Email emptyEmail = ParserUtil.parseEmail(null);
+        assertEquals(new Email(""), emptyEmail);
     }
 
     @Test

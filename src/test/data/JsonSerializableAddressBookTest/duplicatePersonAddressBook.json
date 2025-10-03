@@ -1,14 +1,25 @@
 {
   "persons": [ {
+    "uuid": 1,
     "name": "Alice Pauline",
     "phone": "94351253",
     "email": "alice@example.com",
     "address": "123, Jurong West Ave 6, #08-111",
-    "tags": [ "friends" ]
+    "tags": [ "friends" ],
+    "budgetMin" : "800000",
+    "budgetMax" : "1000000",
+    "notes" : "",
+    "status" : ""
   }, {
+    "uuid": 2,
     "name": "Alice Pauline",
     "phone": "94351253",
     "email": "pauline@example.com",
-    "address": "4th street"
+    "address": "4th street",
+    "tags": [ ],
+    "budgetMin" : "800000",
+    "budgetMax" : "1000000",
+    "notes" : "",
+    "status" : ""
   } ]
 }

@@ -39,6 +39,28 @@ public class StringUtil {
     }
 
     /**
+     * Returns true if the {@code text} contains the {@code substring}, ignoring case.
+     * Matches substrings, not just whole words.
+     * <br>Examples:<pre>
+     * containsSubstringIgnoreCase("britany tan", "bri") == true
+     * containsSubstringIgnoreCase("britany tan", "TAN") == true
+     * containsSubstringIgnoreCase("britany tan", "xyz") == false
+     * </pre>
+     *
+     * @param text cannot be null
+     * @param substring cannot be null or empty
+     */
+    public static boolean containsSubstringIgnoreCase(String text, String substring) {
+        requireNonNull(text);
+        requireNonNull(substring);
+
+        String preppedSubstring = substring.trim();
+        checkArgument(!preppedSubstring.isEmpty(), "Substring parameter cannot be empty");
+
+        return text.toLowerCase().contains(preppedSubstring.toLowerCase());
+    }
+
+    /**
      * Returns a detailed message of the t, including the stack trace.
      */
     public static String getDetails(Throwable t) {
