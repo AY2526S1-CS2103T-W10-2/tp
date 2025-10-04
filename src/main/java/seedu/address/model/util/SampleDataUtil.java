@@ -5,12 +5,15 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
+import seedu.address.model.PropertyBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyPropertyBook;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.property.Property;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -40,12 +43,26 @@ public class SampleDataUtil {
         };
     }
 
+    public static Property[] getSampleProperties() {
+        return new Property[] {
+            // Sample properties can be added here in the future
+        };
+    }
+
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
         for (Person samplePerson : getSamplePersons()) {
             sampleAb.addPerson(samplePerson);
         }
         return sampleAb;
+    }
+
+    public static ReadOnlyPropertyBook getSamplePropertyBook() {
+        PropertyBook samplePb = new PropertyBook();
+        for (Property sampleProperty : getSampleProperties()) {
+            samplePb.addProperty(sampleProperty);
+        }
+        return samplePb;
     }
 
     /**

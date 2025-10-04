@@ -13,6 +13,16 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.property.Bathroom;
+import seedu.address.model.property.Bedroom;
+import seedu.address.model.property.FloorArea;
+import seedu.address.model.property.Listing;
+import seedu.address.model.property.Owner;
+import seedu.address.model.property.Postal;
+import seedu.address.model.property.Price;
+import seedu.address.model.property.PropertyAddress;
+import seedu.address.model.property.Status;
+import seedu.address.model.property.Type;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -120,5 +130,157 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    // ================ Property parsing methods ================
+
+    /**
+     * Parses a {@code String address} into a property {@code Address}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code address} is invalid.
+     */
+    public static PropertyAddress parsePropertyAddress(String address) throws ParseException {
+        requireNonNull(address);
+        String trimmedAddress = address.trim();
+        if (!PropertyAddress.isValidPropertyAddress(trimmedAddress)) {
+            throw new ParseException(PropertyAddress.MESSAGE_CONSTRAINTS);
+        }
+        return new PropertyAddress(trimmedAddress);
+    }
+
+    /**
+     * Parses a {@code String postal} into a {@code Postal}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code postal} is invalid.
+     */
+    public static Postal parsePostal(String postal) throws ParseException {
+        requireNonNull(postal);
+        String trimmedPostal = postal.trim();
+        if (!Postal.isValidPostal(trimmedPostal)) {
+            throw new ParseException(Postal.MESSAGE_CONSTRAINTS);
+        }
+        return new Postal(trimmedPostal);
+    }
+
+    /**
+     * Parses a {@code String price} into a {@code Price}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code price} is invalid.
+     */
+    public static Price parsePrice(String price) throws ParseException {
+        requireNonNull(price);
+        String trimmedPrice = price.trim();
+        if (!Price.isValidPrice(trimmedPrice)) {
+            throw new ParseException(Price.MESSAGE_CONSTRAINTS);
+        }
+        return new Price(trimmedPrice);
+    }
+
+    /**
+     * Parses a {@code String type} into a {@code Type}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code type} is invalid.
+     */
+    public static Type parseType(String type) throws ParseException {
+        requireNonNull(type);
+        String trimmedType = type.trim();
+        if (!Type.isValidType(trimmedType)) {
+            throw new ParseException(Type.MESSAGE_CONSTRAINTS);
+        }
+        return new Type(trimmedType);
+    }
+
+    /**
+     * Parses a {@code String status} into a {@code Status}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code status} is invalid.
+     */
+    public static Status parseStatus(String status) throws ParseException {
+        requireNonNull(status);
+        String trimmedStatus = status.trim();
+        if (!Status.isValidStatus(trimmedStatus)) {
+            throw new ParseException(Status.MESSAGE_CONSTRAINTS);
+        }
+        return new Status(trimmedStatus);
+    }
+
+    /**
+     * Parses a {@code String bedroom} into a {@code Bedroom}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code bedroom} is invalid.
+     */
+    public static Bedroom parseBedroom(String bedroom) throws ParseException {
+        requireNonNull(bedroom);
+        String trimmedBedroom = bedroom.trim();
+        if (!Bedroom.isValidBedroom(trimmedBedroom)) {
+            throw new ParseException(Bedroom.MESSAGE_CONSTRAINTS);
+        }
+        return new Bedroom(trimmedBedroom);
+    }
+
+    /**
+     * Parses a {@code String bathroom} into a {@code Bathroom}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code bathroom} is invalid.
+     */
+    public static Bathroom parseBathroom(String bathroom) throws ParseException {
+        requireNonNull(bathroom);
+        String trimmedBathroom = bathroom.trim();
+        if (!Bathroom.isValidBathroom(trimmedBathroom)) {
+            throw new ParseException(Bathroom.MESSAGE_CONSTRAINTS);
+        }
+        return new Bathroom(trimmedBathroom);
+    }
+
+    /**
+     * Parses a {@code String floorArea} into a {@code FloorArea}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code floorArea} is invalid.
+     */
+    public static FloorArea parseFloorArea(String floorArea) throws ParseException {
+        requireNonNull(floorArea);
+        String trimmedFloorArea = floorArea.trim();
+        if (!FloorArea.isValidFloorArea(trimmedFloorArea)) {
+            throw new ParseException(FloorArea.MESSAGE_CONSTRAINTS);
+        }
+        return new FloorArea(trimmedFloorArea);
+    }
+
+    /**
+     * Parses a {@code String listing} into a {@code Listing}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code listing} is invalid.
+     */
+    public static Listing parseListing(String listing) throws ParseException {
+        requireNonNull(listing);
+        String trimmedListing = listing.trim();
+        if (!Listing.isValidListing(trimmedListing)) {
+            throw new ParseException(Listing.MESSAGE_CONSTRAINTS);
+        }
+        return new Listing(trimmedListing);
+    }
+
+    /**
+     * Parses a {@code String owner} into a {@code Owner}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code owner} is invalid.
+     */
+    public static Owner parseOwner(String owner) throws ParseException {
+        requireNonNull(owner);
+        String trimmedOwner = owner.trim();
+        if (!Owner.isValidOwner(trimmedOwner)) {
+            throw new ParseException(Owner.MESSAGE_CONSTRAINTS);
+        }
+        return new Owner(trimmedOwner);
     }
 }
