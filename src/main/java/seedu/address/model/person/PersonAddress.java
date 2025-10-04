@@ -7,15 +7,18 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Represents a Person's address in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidAddress(String)}
  */
-public class Address {
+public class PersonAddress {
 
-    public static final String MESSAGE_CONSTRAINTS = "Addresses can take any values, and it should not be blank";
+    public static final String MESSAGE_CONSTRAINTS =
+            "Addresses can take any values, and it can be blank. Maximum 200 characters.";
 
     /*
      * The first character of the address must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
+     * also "" (a blank string) is a valid input.
+     * Maximum 200 characters
      */
-    public static final String VALIDATION_REGEX = "[^\\s].*";
+    public static final String VALIDATION_REGEX = "^$|[^\\s].{0,199}$";
+
 
     public final String value;
 
@@ -24,7 +27,7 @@ public class Address {
      *
      * @param address A valid address.
      */
-    public Address(String address) {
+    public PersonAddress(String address) {
         requireNonNull(address);
         checkArgument(isValidAddress(address), MESSAGE_CONSTRAINTS);
         value = address;
@@ -49,11 +52,11 @@ public class Address {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof Address)) {
+        if (!(other instanceof PersonAddress)) {
             return false;
         }
 
-        Address otherAddress = (Address) other;
+        PersonAddress otherAddress = (PersonAddress) other;
         return value.equals(otherAddress.value);
     }
 

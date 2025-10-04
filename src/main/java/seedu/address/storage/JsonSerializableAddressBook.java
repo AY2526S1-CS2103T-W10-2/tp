@@ -22,13 +22,20 @@ class JsonSerializableAddressBook {
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
 
     private final List<JsonAdaptedPerson> persons = new ArrayList<>();
+    @JsonProperty("nextUuid")
+    private final int nextUuid; // stored UUID counter
 
     /**
-     * Constructs a {@code JsonSerializableAddressBook} with the given persons.
+     * Constructs a {@code JsonSerializableAddressBook} with persons and UUID.
+     * @param persons List of persons adapted for JSON.
+     * @param nextUuid Next UUID counter to store.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons) {
+    public JsonSerializableAddressBook(
+            @JsonProperty("persons") List<JsonAdaptedPerson> persons,
+            @JsonProperty("nextUuid") int nextUuid) {
         this.persons.addAll(persons);
+        this.nextUuid = nextUuid;
     }
 
     /**
@@ -38,11 +45,19 @@ class JsonSerializableAddressBook {
      */
     public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
         persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
+        nextUuid = source.getNextUuid();
+    }
+
+    /**
+     * Returns the stored UUID counter.
+     */
+    public int getNextUuid() {
+        return nextUuid;
     }
 
     /**
      * Converts this address book into the model's {@code AddressBook} object.
-     *
+     * @return AddressBook model with persons and nextUuid restored.
      * @throws IllegalValueException if there were any data constraints violated.
      */
     public AddressBook toModelType() throws IllegalValueException {
@@ -54,6 +69,7 @@ class JsonSerializableAddressBook {
             }
             addressBook.addPerson(person);
         }
+        addressBook.setNextUuid(this.nextUuid);
         return addressBook;
     }
 

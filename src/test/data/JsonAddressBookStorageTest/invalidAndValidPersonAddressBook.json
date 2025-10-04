@@ -1,9 +1,15 @@
 {
   "persons": [ {
-    "name": "Valid Person",
-    "phone": "9482424",
-    "email": "hans@example.com",
-    "address": "4th street"
+    "uuid": 1,
+    "name" : "Valid Person",
+    "phone" : "9482442",
+    "email" : "anna@example.com",
+    "address" : "4th street",
+    "tags" : [ ],
+    "budgetMin" : "800000",
+    "budgetMax" : "1000000",
+    "notes" : "",
+    "status" : ""
   }, {
     "name": "Person With Invalid Phone Field",
     "phone": "948asdf2424",

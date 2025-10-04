@@ -3,11 +3,13 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Objects;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.person.Uuid;
 
 /**
  * Wraps all data at the address-book level
@@ -16,6 +18,7 @@ import seedu.address.model.person.UniquePersonList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
+    private int nextUuid = 1;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -53,8 +56,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
-
         setPersons(newData.getPersonList());
+        setNextUuid(newData.getNextUuid());
     }
 
     //// person-level operations
@@ -65,6 +68,27 @@ public class AddressBook implements ReadOnlyAddressBook {
     public boolean hasPerson(Person person) {
         requireNonNull(person);
         return persons.contains(person);
+    }
+
+    /**
+     * Sets the next UUID to be used.
+     */
+    public Uuid generateNextUuid() {
+        return new Uuid(nextUuid++);
+    }
+
+    /**
+     * Returns current UUID that can be used.
+     */
+    public int getNextUuid() {
+        return nextUuid;
+    }
+
+    /**
+     * Updates the UUID in this class to be the one stored in the address book.
+     */
+    public void setNextUuid(int nextUuid) {
+        this.nextUuid = nextUuid;
     }
 
     /**
@@ -125,6 +149,6 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public int hashCode() {
-        return persons.hashCode();
+        return Objects.hash(persons, nextUuid);
     }
 }
