@@ -1,10 +1,11 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static java.util.Objects.requireNonNull;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.person.Remark;
 
 /**
  * Changes the remark of an existing person in the address book.
@@ -25,14 +26,14 @@ public class RemarkCommand extends Command {
     public static final String MESSAGE_ARGUMENTS = "Index: %1$d, Remark: %2$s";
 
     private final Index index;
-    private final String remark;
+    private final Remark remark;
 
     /**
      * @param index of the person in the filtered person list to edit the remark
      * @param remark of the person to be updated to
      */
-    public RemarkCommand(Index index, String remark) {
-        requireAllNonNull(index, remark);
+    public RemarkCommand(Index index, Remark remark) {
+        requireNonNull(index);
 
         this.index = index;
         this.remark = remark;
