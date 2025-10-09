@@ -168,6 +168,25 @@ public class ModelManager implements Model {
         propertyBook.setProperty(target, editedProperty);
     }
 
+    // =========== Property ID-based operations =================================================
+
+    /**
+     * Returns the {@code Property} with the specified {@code id} from the current filtered property list.
+     * Returns {@code null} if no such property exists.
+     *
+     * @param id The unique ID of the property to retrieve.
+     * @return The {@code Property} object with the matching ID, or {@code null} if not found.
+     */
+    @Override
+    public Property getPropertyById(String id) {
+        requireNonNull(id);
+        for (Property property : propertyBook.getPropertyList()) {
+            if (property.getId().equals(id)) {
+                return property;
+            }
+        }
+        return null;
+    }
     // =========== Filtered List Accessors
     // =============================================================
 

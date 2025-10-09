@@ -57,7 +57,7 @@ public class ParserUtilTest {
     private static final String VALID_POSTAL = "123456";
     private static final String VALID_PRICE = "500000";
     private static final String VALID_TYPE = "HDB";
-    private static final String VALID_STATUS = "listed";
+    private static final String VALID_STATUS = "sold";
     private static final String VALID_BEDROOM = "3";
     private static final String VALID_BATHROOM = "2";
     private static final String VALID_FLOOR_AREA = "120";

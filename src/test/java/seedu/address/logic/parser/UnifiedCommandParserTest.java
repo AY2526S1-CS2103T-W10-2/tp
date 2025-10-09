@@ -33,11 +33,11 @@ class UnifiedCommandParserTest {
             "postal/654321",
             "price/750000",
             "type/Condo",
-            "status/rented",
+            "status/sold",
             "bedroom/4",
             "bathroom/3",
             "floorarea/150",
-            "listing/rent",
+            "listing/sale",
             "owner/owner321");
 
     private static final String CONFLICTING_ADD_PROPERTY_COMMAND = String.join(" ",
@@ -73,8 +73,8 @@ class UnifiedCommandParserTest {
     @Test
     void parseCommand_propertyBookCommand_success() throws ParseException {
         Property expectedProperty = new Property(new PropertyAddress("321 Market St 9"), new Bathroom("3"),
-                new Bedroom("4"), new FloorArea("150"), new Listing("rent"), new Postal("654321"),
-                new Price("750000"), new Status("rented"), new Type("Condo"), new Owner("owner321"));
+                new Bedroom("4"), new FloorArea("150"), new Listing("sale"), new Postal("654321"),
+                new Price("750000"), new Status("sold"), new Type("Condo"), new Owner("owner321"));
         AddPropertyCommand expectedCommand = new AddPropertyCommand(expectedProperty);
 
         AddPropertyCommand command = (AddPropertyCommand) parser.parseCommand(VALID_ADD_PROPERTY_COMMAND);

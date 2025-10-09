@@ -24,7 +24,7 @@ class JsonAdaptedPropertyTest {
     private static final Property VALID_PROPERTY = new Property(
             new PropertyAddress("123 Main St 5"), new Bathroom("2"), new Bedroom("3"),
             new FloorArea("120"), new Listing("sale"), new Postal("123456"), new Price("500000"),
-            new Status("listed"), new Type("HDB"), new Owner("owner123"));
+            new Status("sold"), new Type("HDB"), new Owner("owner123"));
 
     private static final String VALID_ID = VALID_PROPERTY.getId();
     private static final String VALID_ADDRESS = VALID_PROPERTY.getPropertyAddress().value;

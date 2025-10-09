@@ -87,13 +87,13 @@ class AddPropertyCommandTest {
     private static Property buildAlphaProperty() {
         return new Property(new PropertyAddress("123 Main St 5"), new Bathroom("2"), new Bedroom("3"),
                 new FloorArea("120"), new Listing("sale"), new Postal("123456"), new Price("500000"),
-                new Status("listed"), new Type("HDB"), new Owner("owner123"));
+                new Status("sold"), new Type("HDB"), new Owner("owner123"));
     }
 
     private static Property buildBetaProperty() {
         return new Property(new PropertyAddress("456 Market Ave 9"), new Bathroom("1"), new Bedroom("2"),
                 new FloorArea("80"), new Listing("rent"), new Postal("654321"), new Price("3500"),
-                new Status("listed"), new Type("apartment"), new Owner("owner456"));
+                new Status("unsold"), new Type("apartment"), new Owner("owner456"));
     }
 
     private static class ModelStub implements Model {
@@ -214,6 +214,11 @@ class AddPropertyCommandTest {
 
         @Override
         public void updateFilteredPropertyList(Predicate<Property> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Property getPropertyById(String id) {
             throw new AssertionError("This method should not be called.");
         }
     }

@@ -111,6 +111,11 @@ public class PropertyBook implements ReadOnlyPropertyBook {
                 .toString();
     }
 
+    /**
+     * Returns an unmodifiable view of the list of properties in this {@code PropertyBook}.
+     *
+     * @return The observable list of {@code Property} objects.
+     */
     @Override
     public ObservableList<Property> getPropertyList() {
         return properties.asUnmodifiableObservableList();
