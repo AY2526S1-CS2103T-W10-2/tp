@@ -35,6 +35,9 @@ import seedu.address.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_PROPERTY_ID = "Property ID must be 6 alphanumeric characters.";
+
+    private static final String PROPERTY_ID_VALIDATION_REGEX = "(?i)[a-z0-9]{6}";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -209,6 +212,21 @@ public class ParserUtil {
         return new PersonStatus(trimmedStatus);
     }
     // ================ Property parsing methods ================
+
+    /**
+     * Parses a {@code String propertyId} into a property ID.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code propertyId} does not satisfy the ID constraints.
+     */
+    public static String parsePropertyId(String propertyId) throws ParseException {
+        requireNonNull(propertyId);
+        String trimmedPropertyId = propertyId.trim();
+        if (!trimmedPropertyId.matches(PROPERTY_ID_VALIDATION_REGEX)) {
+            throw new ParseException(MESSAGE_INVALID_PROPERTY_ID);
+        }
+        return trimmedPropertyId;
+    }
 
     /**
      * Parses a {@code String address} into a property {@code Address}.
