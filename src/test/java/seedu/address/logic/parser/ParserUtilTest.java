@@ -46,6 +46,8 @@ public class ParserUtilTest {
     private static final String INVALID_FLOOR_AREA = "49";
     private static final String INVALID_LISTING = "lease";
     private static final String INVALID_OWNER = "owner 1";
+    private static final String INVALID_PROPERTY_ID_SHORT = "abc12";
+    private static final String INVALID_PROPERTY_ID_CHAR = "abc12#";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
@@ -57,12 +59,13 @@ public class ParserUtilTest {
     private static final String VALID_POSTAL = "123456";
     private static final String VALID_PRICE = "500000";
     private static final String VALID_TYPE = "HDB";
-    private static final String VALID_STATUS = "listed";
+    private static final String VALID_STATUS = "sold";
     private static final String VALID_BEDROOM = "3";
     private static final String VALID_BATHROOM = "2";
     private static final String VALID_FLOOR_AREA = "120";
     private static final String VALID_LISTING = "sale";
     private static final String VALID_OWNER = "owner123";
+    private static final String VALID_PROPERTY_ID = "abc123";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -202,6 +205,28 @@ public class ParserUtilTest {
         String tagWithWhitespace = WHITESPACE + VALID_TAG_1 + WHITESPACE;
         Tag expectedTag = new Tag(VALID_TAG_1);
         assertEquals(expectedTag, ParserUtil.parseTag(tagWithWhitespace));
+    }
+
+    @Test
+    public void parsePropertyId_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parsePropertyId(null));
+    }
+
+    @Test
+    public void parsePropertyId_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parsePropertyId(INVALID_PROPERTY_ID_SHORT));
+        assertThrows(ParseException.class, () -> ParserUtil.parsePropertyId(INVALID_PROPERTY_ID_CHAR));
+    }
+
+    @Test
+    public void parsePropertyId_validValueWithoutWhitespace_returnsId() throws Exception {
+        assertEquals(VALID_PROPERTY_ID, ParserUtil.parsePropertyId(VALID_PROPERTY_ID));
+    }
+
+    @Test
+    public void parsePropertyId_validValueWithWhitespace_returnsTrimmedId() throws Exception {
+        String propertyIdWithWhitespace = WHITESPACE + VALID_PROPERTY_ID + WHITESPACE;
+        assertEquals(VALID_PROPERTY_ID, ParserUtil.parsePropertyId(propertyIdWithWhitespace));
     }
 
     @Test

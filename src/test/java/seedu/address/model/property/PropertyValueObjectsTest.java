@@ -150,19 +150,19 @@ class PropertyValueObjectsTest {
         assertThrows(NullPointerException.class, () -> new Status(null));
         assertThrows(IllegalArgumentException.class, () -> new Status("pending"));
         assertThrows(NullPointerException.class, () -> Status.isValidStatus(null));
-        assertTrue(Status.isValidStatus("listed"));
+        assertTrue(Status.isValidStatus("unsold"));
         assertTrue(Status.isValidStatus("sold"));
-        assertEquals("rented", new Status("RENTED").toString());
+        assertEquals("sold", new Status("sold").toString());
     }
 
     @Test
     void status_equals() {
-        Status status = new Status("listed");
-        assertTrue(status.equals(new Status("listed")));
-        assertTrue(status.equals(new Status("LISTED")));
+        Status status = new Status("sold");
+        assertTrue(status.equals(new Status("sold")));
+        assertTrue(status.equals(new Status("SOLD")));
         assertTrue(status.equals(status));
         assertFalse(status.equals(null));
-        assertFalse(status.equals(new Status("sold")));
+        assertFalse(status.equals(new Status("UNsold")));
     }
 
     @Test

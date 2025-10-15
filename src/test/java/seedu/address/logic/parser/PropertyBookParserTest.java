@@ -8,6 +8,7 @@ import static seedu.address.testutil.TypicalProperties.PROPERTY_ALPHA;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddPropertyCommand;
+import seedu.address.logic.commands.DeletePropertyCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.property.Property;
 
@@ -19,7 +20,7 @@ class PropertyBookParserTest {
             "postal/123456",
             "price/500000",
             "type/HDB",
-            "status/listed",
+            "status/unsold",
             "bedroom/3",
             "bathroom/2",
             "floorarea/120",
@@ -39,6 +40,10 @@ class PropertyBookParserTest {
             "owner/owner123",
             "listing/rent");
 
+    private static final String VALID_DELETE_PROPERTY_COMMAND = String.join(" ",
+            DeletePropertyCommand.COMMAND_WORD,
+            "abc123");
+
     private final PropertyBookParser parser = new PropertyBookParser();
 
     @Test
@@ -51,6 +56,13 @@ class PropertyBookParserTest {
     }
 
     @Test
+    void parseCommand_deleteProperty() throws Exception {
+        DeletePropertyCommand expectedCommand = new DeletePropertyCommand("abc123");
+        DeletePropertyCommand command = (DeletePropertyCommand) parser.parseCommand(VALID_DELETE_PROPERTY_COMMAND);
+        assertTrue(command.equals(expectedCommand));
+    }
+
+    @Test
     void parseCommand_unknownCommand_throwsParseException() {
         assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, () -> parser.parseCommand("random"));
     }
@@ -58,6 +70,7 @@ class PropertyBookParserTest {
     @Test
     void parseCommand_invalidArguments_throwsParseException() {
         assertThrows(ParseException.class, () -> parser.parseCommand(AddPropertyCommand.COMMAND_WORD));
+        assertThrows(ParseException.class, () -> parser.parseCommand(DeletePropertyCommand.COMMAND_WORD));
     }
 
     @Test

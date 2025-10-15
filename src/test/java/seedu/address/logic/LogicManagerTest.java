@@ -49,7 +49,7 @@ public class LogicManagerTest {
             "postal/123456",
             "price/500000",
             "type/HDB",
-            "status/listed",
+            "status/unsold",
             "bedroom/3",
             "bathroom/2",
             "floorarea/120",

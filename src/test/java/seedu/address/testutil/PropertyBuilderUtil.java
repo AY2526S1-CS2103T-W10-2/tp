@@ -27,10 +27,10 @@ public class PropertyBuilderUtil {
     public static final String DEFAULT_BATHROOM = "1";
     public static final String DEFAULT_BEDROOM = "2";
     public static final String DEFAULT_FLOORAREA = "2000";
-    public static final String DEFAULT_LISTING = "rent";
+    public static final String DEFAULT_LISTING = "sale";
     public static final String DEFAULT_POSTAL = "886231";
     public static final String DEFAULT_PRICE = "210000";
-    public static final String DEFAULT_STATUS = "listed";
+    public static final String DEFAULT_STATUS = "sold";
     public static final String DEFAULT_TYPE = "landed";
     public static final String DEFAULT_OWNER = "owner123";
     public static final Set<Uuid> DEFAULT_BUYING_PERSON_IDS = new HashSet<>();
@@ -51,7 +51,7 @@ public class PropertyBuilderUtil {
     private Set<Uuid> sellingPersonIds;
 
     /**
-     * Creates a {@code PropertyBuilder} with the default details.
+     * Creates a {@code PropertyBuilderUtil} with the default details.
      */
     public PropertyBuilderUtil() {
         id = DEFAULT_ID;
@@ -70,7 +70,7 @@ public class PropertyBuilderUtil {
     }
 
     /**
-     * Initializes the PropertyBuilder with the data of {@code propertyToCopy}.
+     * Initializes the PropertyBuilderUtil with the data of {@code propertyToCopy}.
      */
     public PropertyBuilderUtil(Property propertyToCopy) {
         id = propertyToCopy.getId();

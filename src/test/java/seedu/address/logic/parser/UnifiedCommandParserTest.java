@@ -24,7 +24,7 @@ class UnifiedCommandParserTest {
             "postal/654321",
             "price/750000",
             "type/Condo",
-            "status/rented",
+            "status/unsold",
             "bedroom/4",
             "bathroom/3",
             "floorarea/150",

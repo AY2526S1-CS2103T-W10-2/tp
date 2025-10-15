@@ -6,6 +6,7 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.parser.Prefix;
 import seedu.address.model.person.Person;
+import seedu.address.model.property.Property;
 
 /**
  * Container for user visible messages.
@@ -17,9 +18,10 @@ public class Messages {
     public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "A person index provided is invalid";
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
     public static final String MESSAGE_DUPLICATE_FIELDS =
-                "Multiple values specified for the following single-valued field(s): ";
+            "Multiple values specified for the following single-valued field(s): ";
     public static final String MESSAGE_INVALID_PROPERTY_DISPLAYED_INDEX = "A property index provided is invalid";
     public static final String MESSAGE_INVALID_RELATIONSHIP = "The relationship provided is invalid";
+    public static final String MESSAGE_INVALID_PROPERTY_DISPLAYED_ID = "The property's id provided is invalid";
 
     /**
      * Returns an error message indicating the duplicate prefixes.
@@ -27,8 +29,7 @@ public class Messages {
     public static String getErrorMessageForDuplicatePrefixes(Prefix... duplicatePrefixes) {
         assert duplicatePrefixes.length > 0;
 
-        Set<String> duplicateFields =
-                Stream.of(duplicatePrefixes).map(Prefix::toString).collect(Collectors.toSet());
+        Set<String> duplicateFields = Stream.of(duplicatePrefixes).map(Prefix::toString).collect(Collectors.toSet());
 
         return MESSAGE_DUPLICATE_FIELDS + String.join(" ", duplicateFields);
     }
@@ -54,4 +55,34 @@ public class Messages {
         return builder.toString();
     }
 
+    /**
+     * Formats the {@code property} for display to the user.
+     */
+    public static String format(Property property) {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(property.getPropertyAddress())
+                .append("; ID: ")
+                .append(property.getId())
+                .append("; Type: ")
+                .append(property.getType())
+                .append("; Price: ")
+                .append(property.getPrice())
+                .append("; Status: ")
+                .append(property.getStatus())
+                .append("; Bedrooms: ")
+                .append(property.getBedroom())
+                .append("; Bathrooms: ")
+                .append(property.getBathroom())
+                .append("; Floor Area: ")
+                .append(property.getFloorArea())
+                .append("; Owner: ")
+                .append(property.getOwner());
+
+        if (property.getListing() != null) {
+            builder.append("; Listing: ")
+                    .append(property.getListing());
+        }
+
+        return builder.toString();
+    }
 }
