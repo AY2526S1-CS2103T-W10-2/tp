@@ -11,7 +11,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddPropertyCommand;
-import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.EditContactCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.property.Property;
@@ -77,9 +77,9 @@ class UnifiedCommandParserTest {
 
     @Test
     void parseCommand_addressBookSpecificError_propagatesParseException() {
-        String invalidEdit = EditCommand.COMMAND_WORD; // Missing index and fields
+        String invalidEdit = EditContactCommand.COMMAND_WORD; // Missing index and fields
         assertThrows(ParseException.class,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    EditCommand.MESSAGE_USAGE), () -> parser.parseCommand(invalidEdit));
+                    EditContactCommand.MESSAGE_USAGE), () -> parser.parseCommand(invalidEdit));
     }
 }
