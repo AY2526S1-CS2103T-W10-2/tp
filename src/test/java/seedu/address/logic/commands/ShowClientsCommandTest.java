@@ -41,9 +41,9 @@ public class ShowClientsCommandTest {
         ShowClientsCommand command = new ShowClientsCommand(nonExistentId);
         ModelStubWithEmptyPropertyList modelStub = new ModelStubWithEmptyPropertyList();
 
-        assertThrows(CommandException.class,
-                String.format(ShowClientsCommand.MESSAGE_PROPERTY_NOT_FOUND, nonExistentId),
-                () -> command.execute(modelStub));
+        String expectedMessage = String.format(ShowClientsCommand.MESSAGE_PROPERTY_NOT_FOUND,
+                nonExistentId);
+        assertThrows(CommandException.class, expectedMessage, () -> command.execute(modelStub));
     }
 
     @Test
@@ -74,8 +74,8 @@ public class ShowClientsCommandTest {
         Property propertyWithLinks = new PropertyBuilderUtil()
                 .withId("test456")
                 .withOwner("1")
-                .withBuyingPersonIds(2)  // BENSON
-                .withSellingPersonIds(3)  // CARL
+                .withBuyingPersonIds(2)
+                .withSellingPersonIds(3)
                 .build();
 
         ModelStubWithPropertyAndPersons modelStub = new ModelStubWithPropertyAndPersons(
