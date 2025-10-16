@@ -9,6 +9,8 @@ import static seedu.address.model.uuid.Uuid.StoredItem.PERSON;
 import static seedu.address.model.uuid.Uuid.StoredItem.PROPERTY;
 import static seedu.address.testutil.Assert.assertThrows;
 
+import java.util.Set;
+
 import org.junit.jupiter.api.Test;
 
 public class UuidTest {
@@ -37,6 +39,14 @@ public class UuidTest {
         assertFalse(Uuid.isValidUuid(-10));
         assertTrue(Uuid.isValidUuid(1));
         assertTrue(Uuid.isValidUuid(100));
+    }
+
+    @Test
+    public void getGuiSetDisplayAsString_validUuidSet_success() {
+        Set<Uuid> uuids = Set.of(new Uuid(1, PERSON), new Uuid(2, PERSON), new Uuid(3, PERSON));
+        String displayString = Uuid.getGuiSetDisplayAsString(uuids);
+        String expectedString = "1, 2, 3";
+        assertEquals(expectedString, displayString);
     }
 
     @Test

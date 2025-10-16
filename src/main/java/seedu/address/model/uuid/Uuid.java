@@ -3,6 +3,9 @@ package seedu.address.model.uuid;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.util.Set;
+import java.util.stream.Collectors;
+
 /**
  * Represents a Person or Properties's unique identifier in the address or property book.
  * Guarantees: immutable; is valid as declared in {@link #isValidUuid(int)}.
@@ -58,6 +61,10 @@ public class Uuid {
      */
     public int getValue() {
         return value;
+    }
+
+    public static String getGuiSetDisplayAsString(Set<Uuid> uuids) {
+        return uuids.stream().map(id -> id.getValue() + "").sorted().collect(Collectors.joining(", "));
     }
 
     @Override

@@ -81,6 +81,7 @@ public class SampleDataUtil {
         for (Person samplePerson : getSamplePersons()) {
             sampleAb.addPerson(samplePerson);
         }
+        sampleAb.setNextUuid(getSamplePersons().length + 1);
         return sampleAb;
     }
 
@@ -89,6 +90,7 @@ public class SampleDataUtil {
         for (Property sampleProperty : getSampleProperties()) {
             samplePb.addProperty(sampleProperty);
         }
+        samplePb.setNextUuid(getSampleProperties().length + 1);
         return samplePb;
     }
 
