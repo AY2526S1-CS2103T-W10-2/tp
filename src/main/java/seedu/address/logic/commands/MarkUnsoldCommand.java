@@ -9,6 +9,7 @@ import seedu.address.model.Model;
 import seedu.address.model.property.Property;
 import seedu.address.model.property.Status;
 import seedu.address.model.uuid.Uuid;
+import seedu.address.ui.MainWindow;
 
 /**
  * This command finds properties by their IDs and marks them as unsold.
@@ -81,6 +82,10 @@ public class MarkUnsoldCommand extends Command {
             );
             model.setProperty(property, updated);
             count++;
+        }
+        //Toggle from properties list to contact list
+        if (MainWindow.getInstance() != null) {
+            MainWindow.getInstance().showContactsView();
         }
         return new CommandResult(String.format(MESSAGE_MARK_UNSOLD_SUCCESS, count));
     }

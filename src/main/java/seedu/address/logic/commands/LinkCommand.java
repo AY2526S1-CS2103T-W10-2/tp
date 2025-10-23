@@ -20,6 +20,7 @@ import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.property.Property;
 import seedu.address.model.uuid.Uuid;
+import seedu.address.ui.MainWindow;
 
 /**
  * Links properties to contacts.
@@ -70,7 +71,10 @@ public class LinkCommand extends Command {
                 .forEach(i -> model.setContact(targetContacts.get(i), updatedContacts.get(i)));
         Stream.iterate(0, x -> x < targetProperties.size(), x -> x + 1)
                 .forEach(i -> model.setProperty(targetProperties.get(i), updatedProperties.get(i)));
-
+        //Toggle from contacts list to property list
+        if (MainWindow.getInstance() != null) {
+            MainWindow.getInstance().showPropertiesView();
+        }
         switch (linkDescriptor.getRelationship()) {
         case "buyer":
             return new CommandResult(String.format(MESSAGE_LINK_BUYER_SUCCESS, linkDescriptor.getPropertyIds(),
