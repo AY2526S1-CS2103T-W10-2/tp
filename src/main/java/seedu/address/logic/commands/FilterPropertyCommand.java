@@ -8,6 +8,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.property.Property;
 import seedu.address.model.property.predicates.PropertyMatchesFilterPredicate;
+import seedu.address.ui.MainWindow;
 
 /**
  * Filters properties using various optional attributes with pagination.
@@ -60,6 +61,11 @@ public class FilterPropertyCommand extends Command {
         List<Property> page = allMatches.subList(start, endExclusive);
 
         model.updateFilteredPropertyList(page::contains);
+
+        //Toggle from contacts list to property list
+        if (MainWindow.getInstance() != null) {
+            MainWindow.getInstance().showPropertiesView();
+        }
 
         // Build “X properties matched (showing i–j)”
         int from = total == 0 ? 0 : start + 1;

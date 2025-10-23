@@ -13,6 +13,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.uuid.Uuid;
+import seedu.address.ui.MainWindow;
 
 /**
  * Adds a contact to the address book.
@@ -59,6 +60,11 @@ public class AddContactCommand extends Command {
 
         if (model.hasContact(contactWithUuid)) {
             throw new CommandException(MESSAGE_DUPLICATE_CONTACT);
+        }
+
+        //Toggle from properties list to contact list
+        if (MainWindow.getInstance() != null) {
+            MainWindow.getInstance().showContactsView();
         }
 
         model.addContact(contactWithUuid);

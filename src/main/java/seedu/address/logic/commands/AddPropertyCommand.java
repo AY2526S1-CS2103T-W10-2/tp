@@ -18,6 +18,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.property.Property;
 import seedu.address.model.uuid.Uuid;
+import seedu.address.ui.MainWindow;
 
 /**
  * Adds a property to the property list.
@@ -73,6 +74,11 @@ public class AddPropertyCommand extends Command {
 
         if (model.hasProperty(propertyWithUuid)) {
             throw new CommandException(MESSAGE_DUPLICATE_PROPERTY);
+        }
+
+        //Toggle from contacts list to property list
+        if (MainWindow.getInstance() != null) {
+            MainWindow.getInstance().showPropertiesView();
         }
 
         model.addProperty(propertyWithUuid);

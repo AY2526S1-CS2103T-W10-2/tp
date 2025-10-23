@@ -13,7 +13,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.uuid.Uuid;
-
+import seedu.address.ui.MainWindow;
 
 
 /**
@@ -61,6 +61,12 @@ public class DeleteContactCommand extends Command {
 
         model.deleteContact(contactToDelete.get());
         logger.log(Level.INFO, "Successfully deleted contact: {0}", contactToDelete.get().getName());
+
+        //Toggle from properties list to contact list
+        if (MainWindow.getInstance() != null) {
+            MainWindow.getInstance().showContactsView();
+        }
+
         return new CommandResult(String.format(
                 MESSAGE_DELETE_CONTACT_SUCCESS, Messages.format(contactToDelete.get())));
     }

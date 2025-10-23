@@ -35,6 +35,7 @@ import seedu.address.model.contact.Notes;
 import seedu.address.model.contact.Phone;
 import seedu.address.model.contact.Tag;
 import seedu.address.model.uuid.Uuid;
+import seedu.address.ui.MainWindow;
 
 /**
  * Edits the details of an existing contact in the address book.
@@ -98,6 +99,12 @@ public class EditContactCommand extends Command {
 
         model.setContact(contactToEdit, editedContact);
         model.updateFilteredContactList(PREDICATE_SHOW_ALL_CONTACTS);
+
+        //Toggle from properties list to contact list
+        if (MainWindow.getInstance() != null) {
+            MainWindow.getInstance().showContactsView();
+        }
+
         return new CommandResult(String.format(MESSAGE_EDIT_CONTACT_SUCCESS, Messages.format(editedContact)));
     }
 
