@@ -39,21 +39,39 @@ public class Messages {
      */
     public static String format(Contact contact) {
         final StringBuilder builder = new StringBuilder();
-        builder.append(contact.getName())
-                .append("; Id: ")
-                .append(contact.getUuid())
-                .append("; Phone: ")
+        builder.append("Id: ")
+                .append(contact.getUuid().getValue())
+                .append(", Name: ")
+                .append(contact.getName())
+                .append(", Phone: ")
                 .append(contact.getPhone())
-                .append("; Email: ")
+                .append(", Email: ")
                 .append(contact.getEmail())
-                .append("; Address: ")
+                .append(", Address: ")
                 .append(contact.getAddress())
-                .append("; Tags: [");
-        contact.getTags().forEach(builder::append);
-        builder.append("]; Buying Property Ids: [");
-        contact.getBuyingPropertyIds().forEach(builder::append);
-        builder.append("]; Selling Property Ids: [");
-        contact.getSellingPropertyIds().forEach(builder::append);
+                .append(", Min Budget: ")
+                .append(contact.getBudgetMin())
+                .append(", Max Budget: ")
+                .append(contact.getBudgetMax())
+                .append(", Tags: [");
+        contact.getTags().forEach(tag -> builder.append(tag.toString() + ", "));
+        if (!contact.getTags().isEmpty()) {
+            builder.delete(builder.length() - 2, builder.length()); //remove extra comma and space
+        }
+        builder.append("], Notes: ")
+                .append(contact.getNotes())
+                .append(", Status: ")
+                .append(contact.getStatus());
+        builder.append(", Buying Property Ids: [");
+        contact.getBuyingPropertyIds().forEach(id -> builder.append(id.toString() + ", "));
+        if (!contact.getBuyingPropertyIds().isEmpty()) {
+            builder.delete(builder.length() - 2, builder.length()); //remove extra comma and space
+        }
+        builder.append("], Selling Property Ids: [");
+        contact.getSellingPropertyIds().forEach(id -> builder.append(id.toString() + ", "));
+        if (!contact.getSellingPropertyIds().isEmpty()) {
+            builder.delete(builder.length() - 2, builder.length()); //remove extra comma and space
+        }
         builder.append("]");
         return builder.toString();
     }

@@ -8,6 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
@@ -89,14 +90,15 @@ public class EditContactCommandParserTest {
         assertParseFailure(parser, uuid + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS);
         assertParseFailure(parser, uuid + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS);
         assertParseFailure(parser, uuid + INVALID_EMAIL_DESC, Email.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, uuid + INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, uuid + INVALID_TAG_DESC, String.format(Tag.MESSAGE_CONSTRAINTS, INVALID_TAG));
 
         // invalid phone followed by valid email
         assertParseFailure(parser, uuid + INVALID_PHONE_DESC + EMAIL_DESC_AMY, Phone.MESSAGE_CONSTRAINTS);
 
         // invalid + valid tag combinations
-        assertParseFailure(parser, uuid + TAG_DESC_BUYER + TAG_DESC_TENANT + TAG_EMPTY, Tag.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, uuid + TAG_EMPTY + TAG_DESC_BUYER, Tag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, uuid + TAG_DESC_BUYER + TAG_DESC_TENANT + INVALID_TAG_DESC,
+                                    String.format(Tag.MESSAGE_CONSTRAINTS, INVALID_TAG));
+        assertParseFailure(parser, uuid + INVALID_TAG_DESC, String.format(Tag.MESSAGE_CONSTRAINTS, INVALID_TAG));
 
         // multiple invalid values — first error message expected
         assertParseFailure(parser, uuid + INVALID_NAME_DESC + INVALID_EMAIL_DESC + VALID_ADDRESS_AMY + VALID_PHONE_AMY,

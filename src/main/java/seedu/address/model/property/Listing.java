@@ -9,7 +9,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * {@link #isValidListing(String)}
  */
 public class Listing {
-    public static final String MESSAGE_CONSTRAINTS = "Invalid listing \"VALUE\". Allowed: sale, rent.";
+    public static final String MESSAGE_CONSTRAINTS =
+            "Invalid listing value \"%s\". Allowed (case-insensitive): sale, rent.";
 
     /*
      * The listing must be either "sale" or "rent".
@@ -29,7 +30,7 @@ public class Listing {
         listing = listing.trim();
 
         requireNonNull(listing);
-        checkArgument(isValidListing(listing), MESSAGE_CONSTRAINTS.replace("VALUE", listing));
+        checkArgument(isValidListing(listing), String.format(MESSAGE_CONSTRAINTS, listing));
         value = listing.toLowerCase(); // Store in lowercase for consistency
     }
 

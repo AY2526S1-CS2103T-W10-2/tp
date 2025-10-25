@@ -9,7 +9,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Type {
     public static final String MESSAGE_CONSTRAINTS =
-            "Invalid type. Allowed: hdb, condo, landed, apartment, office or others.";
+            "Invalid type value \"%s\". Allowed (case-insensitive): hdb, condo, landed, apartment, office, others.";
 
     public static final String VALIDATION_REGEX = "(?i)HDB|Condo|Landed|Apartment|Office|Others";
 
@@ -24,7 +24,7 @@ public class Type {
         type = type.trim().toLowerCase();
 
         requireNonNull(type);
-        checkArgument(isValidType(type), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidType(type), String.format(MESSAGE_CONSTRAINTS, type));
         value = type;
     }
 

@@ -192,7 +192,7 @@ public class Contact {
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("uuid", uuid)
+                .add("uuid", uuid.getValue())
                 .add("name", name)
                 .add("phone", phone)
                 .add("email", email)

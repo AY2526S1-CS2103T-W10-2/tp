@@ -99,7 +99,7 @@ public class ContactTest {
     @Test
     public void toStringMethod() {
         String expected = Contact.class.getCanonicalName()
-                + "{uuid=" + ALICE.getUuid()
+                + "{uuid=" + ALICE.getUuid().getValue()
                 + ", name=" + ALICE.getName()
                 + ", phone=" + ALICE.getPhone()
                 + ", email=" + ALICE.getEmail()

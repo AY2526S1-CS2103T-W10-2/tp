@@ -15,8 +15,9 @@ public class Name {
     /*
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
+     * Allows multiple spaces between words (e.g., "Charlie   Tan" is valid).
      */
-    public static final String VALIDATION_REGEX = "^[A-Za-z]+( [A-Za-z]+)*$";
+    public static final String VALIDATION_REGEX = "^[A-Za-z]+(\\s+[A-Za-z]+)*$";
 
     public final String fullName;
 

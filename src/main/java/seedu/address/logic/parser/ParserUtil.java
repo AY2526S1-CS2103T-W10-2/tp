@@ -39,6 +39,8 @@ public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String MESSAGE_INVALID_UUID = "UUID is not a valid format.";
+    public static final String DEFAULT_BUDGET_MIN = "0";
+    public static final String DEFAULT_BUDGET_MAX = String.valueOf(200_000_000_000L);
 
     /**
      * Returns true if the given string looks like an unrecognized prefix (e.g., "x/foo").
@@ -95,7 +97,8 @@ public class ParserUtil {
      */
     public static Name parseName(String name) throws ParseException {
         requireNonNull(name);
-        String trimmedName = name.trim();
+        // remove extra spaces start/end of name and between name/surname
+        String trimmedName = name.trim().replaceAll("\\s+", " ");
         if (!Name.isValidName(trimmedName)) {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
@@ -127,7 +130,7 @@ public class ParserUtil {
      * @return {@code value} if non-null, otherwise {@code defaultValue}
      */
     private static String sanitiseNull(String value, String defaultValue) {
-        return value == null ? defaultValue : value;
+        return value == null || value.isEmpty() ? defaultValue : value;
     }
 
     /**
@@ -168,7 +171,7 @@ public class ParserUtil {
         requireNonNull(tag);
         String trimmedTag = tag.trim();
         if (!Tag.isValidTagName(trimmedTag)) {
-            throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
+            throw new ParseException(String.format(Tag.MESSAGE_CONSTRAINTS, trimmedTag));
         }
         return new Tag(trimmedTag);
     }
@@ -180,7 +183,9 @@ public class ParserUtil {
         requireNonNull(tags);
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
-            tagSet.add(parseTag(tagName));
+            if (!tagName.isEmpty()) {
+                tagSet.add(parseTag(tagName));
+            }
         }
         return tagSet;
     }
@@ -191,7 +196,7 @@ public class ParserUtil {
      * @throws ParseException if the given {@code budgetMin} is not a valid integer or violates constraints.
      */
     public static BudgetMin parseBudgetMin(String budgetMin) throws ParseException {
-        String trimmedBudgetMin = sanitiseNull(budgetMin, "0").trim();
+        String trimmedBudgetMin = sanitiseNull(budgetMin, DEFAULT_BUDGET_MIN).trim();
 
         if (!BudgetMin.isValidBudgetMin(trimmedBudgetMin)) {
             throw new ParseException(BudgetMin.MESSAGE_CONSTRAINTS);
@@ -206,7 +211,7 @@ public class ParserUtil {
      * @throws ParseException if the given {@code budgetMax} is not a valid integer or violates constraints.
      */
     public static BudgetMax parseBudgetMax(String budgetMax) throws ParseException {
-        String trimmedBudgetMax = sanitiseNull(budgetMax, String.valueOf(200_000_000_000L)).trim();
+        String trimmedBudgetMax = sanitiseNull(budgetMax, DEFAULT_BUDGET_MAX).trim();
 
         if (!BudgetMax.isValidBudgetMax(trimmedBudgetMax)) {
             throw new ParseException(BudgetMax.MESSAGE_CONSTRAINTS);
@@ -234,7 +239,7 @@ public class ParserUtil {
     public static ContactStatus parseContactStatus(String status) throws ParseException {
         String trimmedStatus = sanitiseNull(status, "").trim();
         if (!ContactStatus.isValidStatus(trimmedStatus)) {
-            throw new ParseException(ContactStatus.MESSAGE_CONSTRAINTS);
+            throw new ParseException(String.format(ContactStatus.MESSAGE_CONSTRAINTS, trimmedStatus));
         }
         return new ContactStatus(trimmedStatus);
     }
@@ -322,7 +327,7 @@ public class ParserUtil {
         requireNonNull(type);
         String trimmedType = type.trim();
         if (!Type.isValidType(trimmedType)) {
-            throw new ParseException(Type.MESSAGE_CONSTRAINTS);
+            throw new ParseException(String.format(Type.MESSAGE_CONSTRAINTS, trimmedType));
         }
         return new Type(trimmedType);
     }
@@ -337,7 +342,7 @@ public class ParserUtil {
         requireNonNull(status);
         String trimmedStatus = status.trim();
         if (!Status.isValidStatus(trimmedStatus)) {
-            throw new ParseException(Status.MESSAGE_CONSTRAINTS);
+            throw new ParseException(String.format(Status.MESSAGE_CONSTRAINTS, trimmedStatus));
         }
         return new Status(trimmedStatus);
     }
@@ -397,7 +402,7 @@ public class ParserUtil {
         requireNonNull(listing);
         String trimmedListing = listing.trim();
         if (!Listing.isValidListing(trimmedListing)) {
-            throw new ParseException(Listing.MESSAGE_CONSTRAINTS);
+            throw new ParseException(String.format(Listing.MESSAGE_CONSTRAINTS, trimmedListing));
         }
         return new Listing(trimmedListing);
     }

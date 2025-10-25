@@ -9,7 +9,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Status {
     public static final String MESSAGE_CONSTRAINTS =
-            "Invalid status \"VALUE\". Allowed: available, unavailable.";
+            "Invalid status \"%s\". Allowed (case-insensitive): available, unavailable.";
 
     /*
      * The status must be one of the predefined values: unavailable, available
@@ -29,7 +29,7 @@ public class Status {
         status = status.trim();
 
         requireNonNull(status);
-        checkArgument(isValidStatus(status), MESSAGE_CONSTRAINTS.replace("VALUE", status));
+        checkArgument(isValidStatus(status), String.format(MESSAGE_CONSTRAINTS, status));
         value = status.toLowerCase(); // Store in lowercase for consistency
     }
 
@@ -39,15 +39,6 @@ public class Status {
     public static boolean isValidStatus(String test) {
         return test.matches(VALIDATION_REGEX);
     }
-
-    public boolean isSold() {
-        return value.equals("sold");
-    }
-
-    public boolean isRented() {
-        return value.equals("rented");
-    }
-
     @Override
     public String toString() {
         return value;

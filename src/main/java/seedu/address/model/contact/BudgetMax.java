@@ -9,8 +9,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class BudgetMax {
 
-    public static final String MESSAGE_CONSTRAINTS = "BudgetMax should be a non-negative integer.";
-    public static final String VALIDATION_REGEX = "^\\d+$"; // zero or more
+    public static final String MESSAGE_CONSTRAINTS = "Maximum Budget should be a non-negative integer.";
+    public static final String VALIDATION_REGEX = "^\\d*$"; // zero or more digits (allows empty string)
 
     public final String value;
 

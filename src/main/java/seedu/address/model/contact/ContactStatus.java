@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class ContactStatus {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Status should be one of the following: 'Active' or 'Inactive' or ''.";
+            "Invalid status value \"%s\". Allowed (case-insensitive): Active, Inactive.";
 
     /*
      * Only allows specific values, Active, Inactive, and empty string
@@ -26,7 +26,7 @@ public class ContactStatus {
      */
     public ContactStatus(String status) {
         requireNonNull(status);
-        checkArgument(isValidStatus(status), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidStatus(status), String.format(MESSAGE_CONSTRAINTS, status));
         value = status;
     }
 

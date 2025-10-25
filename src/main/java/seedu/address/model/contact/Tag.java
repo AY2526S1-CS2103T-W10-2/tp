@@ -9,8 +9,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Tag {
 
-    public static final String MESSAGE_CONSTRAINTS = "Tags can only be: buyer, seller, tenant, landlord";
-    public static final String VALIDATION_REGEX = "^(?i)(buyer|seller|tenant|landlord)$";
+    public static final String MESSAGE_CONSTRAINTS =
+            "Invalid tag value \"%s\". Allowed (case-insensitive): buyer, seller, tenant, landlord.";
+    public static final String VALIDATION_REGEX = "^(?i)(buyer|seller|tenant|landlord)?$";
 
     public final String tagName;
 
@@ -21,7 +22,7 @@ public class Tag {
      */
     public Tag(String tagName) {
         requireNonNull(tagName);
-        checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidTagName(tagName), String.format(MESSAGE_CONSTRAINTS, tagName));
         this.tagName = tagName.toLowerCase(); // stored as lower case
     }
 
@@ -56,7 +57,7 @@ public class Tag {
      * Format state as text for viewing.
      */
     public String toString() {
-        return '[' + tagName + ']';
+        return tagName;
     }
 
 }
