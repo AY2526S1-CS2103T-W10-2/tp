@@ -955,20 +955,23 @@ testers are expected to do more *exploratory* testing.
 
 ### Launch and shutdown
 
-1. Initial launch
+##### Initial launch
+To simulate:<br>
+- Download the jar file and copy into an empty folder and double-click the jar file
 
-   1. Download the jar file and copy into an empty folder
+Expected:<br>
+- Shows the GUI with a set of sample contacts.
+- The window size may not be optimum.
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+##### Saving window preferences
+To simulate:<br>
+- Resize the window to an optimum size.
+- Move the window to a different location.
+- Close the window.
+- Re-launch the app by double-clicking the jar file.
 
-1. Saving window preferences
-
-   1. Resize the window to an optimum size. Move the window to a different location. Close the window.
-
-   1. Re-launch the app by double-clicking the jar file.<br>
-       Expected: The most recent window size and location is retained.
-
-1. _{ more test cases …​ }_
+Expected:<br>
+The most recent window size and location is retained.
 
 ### Filtering and Switching Contact List (`filtercontact`)
 
@@ -1757,24 +1760,27 @@ Expected:<br>
 
 ##### Missing data file
 To simulate:<br>
-Delete the `\data` folder and all `.json` files inside.
+- Delete the `\data` folder and all `.json` files inside.
 
 Expected:<br>
-Opening the application will generate sample data based on `SampleDataUtil.java`. Adding or editing any contacts/properties will save the data inside the `\data` folder.
+- Opening the application will generate sample data based on `SampleDataUtil.java`.
+- Adding or editing any contacts/properties will save the data inside the `\data` folder.
 
 ##### Corrupted data file
 To simulate:<br>
-Open `\data\addressbook.json` and add a `@` to `Contact` Name.
+- Open `\data\addressbook.json` and add a `@` to `Contact` Name.
 
 Expected:<br>
-Opening the application will delete all contacts stored inside `addressbook.json`. No contacts will be shown on the GUI. Same steps can be carried out for `propertybook.json` by adding `abc` to `Property` Listing.
+- Opening the application will delete all contacts stored inside `addressbook.json`.
+- No contacts will be shown on the GUI.
+- Same steps can be carried out for `propertybook.json` by adding `abc` to `Property` Listing.
 
 ##### Editing data file while application is open
 To simulate:<br>
-Open application and delete the `\data` folder and all `.json` files inside.
+- Open application and delete the `\data` folder and all `.json` files inside.
 
 Expected:<br>
-No change in the GUI and performing any command that adds or edits any contacts/properties will recreate the `\data` folder and the previously deleted `.json` files.
+- No change in the GUI and performing any command that adds or edits any contacts/properties will recreate the `\data` folder and the previously deleted `.json` files.
 
 ---------------------------------------------------------------------------------------------------------------------
 
