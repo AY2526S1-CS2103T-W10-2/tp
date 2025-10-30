@@ -1214,7 +1214,7 @@ Expected:<br>
 - Status shows number listed.
 
 Variations:<br>
-- Include more prefixes (e.g., `type`/`condo`) to confirm multi-criteria filtering.
+- Include more prefixes (e.g., `type/condo`) to confirm multi-criteria filtering.
 - Use case variations to test matching.
 
 ##### Invalid filterproperty command
@@ -1229,7 +1229,8 @@ Expected:<br>
 - Property list unchanged.
 
 Variations:<br>
-- Run `filterproperty` abc or empty command to verify same behavior.
+- Run `filterproperty abc` to verify same behavior.
+- Provide duplicate prefixes (e.g. two `type/` values) to observe the corresponding error message.
 
 ### Adding a property
 
