@@ -166,4 +166,61 @@ public class ContactCard extends UiPart<Region> {
         }
     }
 
+    // Public getters for test access
+    public Label getUuid() {
+        return uuid;
+    }
+
+    public Label getName() {
+        return name;
+    }
+
+    public Label getId() {
+        return id;
+    }
+
+    public Label getPhone() {
+        return phone;
+    }
+
+    public Label getAddress() {
+        return address;
+    }
+
+    public Label getEmail() {
+        return email;
+    }
+
+    public FlowPane getTags() {
+        return tags;
+    }
+
+    public Label getBudgetMin() {
+        return budgetMin;
+    }
+
+    public Label getBudgetMax() {
+        return budgetMax;
+    }
+
+    public Label getNotes() {
+        return notes;
+    }
+
+    public Label getStatus() {
+        return status;
+    }
+
+    public Label getBuyingIds() {
+        return buyingIds;
+    }
+
+    public Label getSellingIds() {
+        return sellingIds;
+    }
+
+    public HBox getCardPane() {
+        return cardPane;
+    }
+
 }

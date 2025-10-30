@@ -18,7 +18,7 @@ public class UiPartTest {
     private static final String MISSING_FILE_PATH = "UiPartTest/missingFile.fxml";
     private static final String INVALID_FILE_PATH = "UiPartTest/invalidFile.fxml";
     private static final String VALID_FILE_PATH = "UiPartTest/validFile.fxml";
-    private static final String VALID_FILE_WITH_FX_ROOT_PATH = "UiPartTest/validFileWithFxRoot.fxml";
+    private static final String VALID_FILE_WITH_FX_ROOT_PATH = "UiPartTest/validFileWithFxRoot.fxml";;
     private static final TestFxmlObject VALID_FILE_ROOT = new TestFxmlObject("Hello World!");
 
     @TempDir
@@ -75,6 +75,29 @@ public class UiPartTest {
         assertThrows(AssertionError.class, () -> new TestUiPart<Object>(INVALID_FILE_PATH, new Object()));
     }
 
+    @Test
+    public void constructor_validFileName_loadsFile() {
+        assertEquals(VALID_FILE_ROOT, new TestUiPart<TestFxmlObject>(VALID_FILE_PATH).getRoot());
+    }
+
+    @Test
+    public void constructor_nullFileName_throwsNullPointerExceptionString() {
+        assertThrows(NullPointerException.class, () -> new TestUiPart<Object>((String) null));
+        assertThrows(NullPointerException.class, () -> new TestUiPart<Object>((String) null, new Object()));
+    }
+
+    @Test
+    public void constructor_missingFileName_throwsNullPointerExceptionString() {
+        assertThrows(NullPointerException.class, () -> new TestUiPart<Object>(MISSING_FILE_PATH));
+        assertThrows(NullPointerException.class, () -> new TestUiPart<Object>(MISSING_FILE_PATH, new Object()));
+    }
+
+    @Test
+    public void constructor_invalidFileName_throwsAssertionErrorString() {
+        assertThrows(AssertionError.class, () -> new TestUiPart<Object>(INVALID_FILE_PATH));
+        assertThrows(AssertionError.class, () -> new TestUiPart<Object>(INVALID_FILE_PATH, new Object()));
+    }
+
     private URL getTestFileUrl(String testFilePath) {
         String testFilePathInView = "/view/" + testFilePath;
         URL testFileUrl = MainApp.class.getResource(testFilePathInView);
@@ -84,7 +107,7 @@ public class UiPartTest {
 
     /**
      * UiPart used for testing.
-     * It should only be used with invalid FXML files or the valid file located at {@link VALID_FILE_PATH}.
+     * It should only be used with invalid FXML files.
      */
     private static class TestUiPart<T> extends UiPart<T> {
 
