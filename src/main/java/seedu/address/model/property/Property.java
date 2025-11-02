@@ -183,7 +183,7 @@ public class Property {
         }
 
         return otherProperty != null
-                && otherProperty.getPropertyAddress().equals(getPropertyAddress())
+                && otherProperty.getPropertyAddress().value.replaceAll("\\s+","").equals(getPropertyAddress().value.replaceAll("\\s+",""))
                 && otherProperty.getPostal().equals(getPostal());
     }
 
@@ -209,7 +209,7 @@ public class Property {
         }
 
         Property otherProperty = (Property) other;
-        return address.equals(otherProperty.address)
+        return address.value.trim().equals(otherProperty.address.value.trim())
                 && bathroom.equals(otherProperty.bathroom)
                 && bedroom.equals(otherProperty.bedroom)
                 && floorArea.equals(otherProperty.floorArea)

@@ -23,10 +23,10 @@ public class Price {
      * @param price A valid price value.
      */
     public Price(String price) {
-        // Trim whitespace before validating
-        price = price.trim();
-
         requireNonNull(price);
+
+        // Remove commas and spaces
+        price = price.replaceAll(",+", "").trim();
         checkArgument(isValidPrice(price), MESSAGE_CONSTRAINTS);
         value = price;
     }
