@@ -153,7 +153,7 @@ Adds a new contact into the system.
 
 Format: `addcontact n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [min/AMOUNT] [max/AMOUNT] [t/TAG]... [notes/TEXT] [status/STATUS]`
 
-* Duplicate contacts (same name and phone number) will not be allowed to be added.
+* Duplicate contacts (same phone number) will not be allowed to be added.
 * Each new contact is assigned a (Universally Uniquely Identifier) UUID automatically.
 
 Examples:
@@ -178,7 +178,7 @@ Format: `editcontact CONTACT_ID [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [min/AM
 * At least one of the optional fields must be provided.
 * When editing tags, the existing tags of the contact will be removed i.e adding of tags is not cumulative.
 * You can remove all the contact’s tags by typing `t/` without specifying any tags after it.
-* If the newly edited contact matches an existing contact (same name and phone number), it will be rejected.
+* If the newly edited contact matches an existing contact (same phone number), it will be rejected.
 
 Examples:
 *  `editcontact 1 p/91234567 e/johndoe@example.com`

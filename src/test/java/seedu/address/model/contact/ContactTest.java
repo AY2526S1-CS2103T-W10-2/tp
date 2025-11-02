@@ -61,10 +61,11 @@ public class ContactTest {
         editedAlice = new ContactBuilderUtil(ALICE).withPhone(VALID_PHONE_BOB).build();
         assertNotEquals(ALICE, editedAlice);
 
-        // equivalence partition: invalid input
-        // different name, same phone -> returns false
+        // equivalence partition: valid
+        // different name , same phone -> returns true
+        // could happen for PERSON A = JOHN, PERSON B = JOHN TAN but both same phone number
         editedAlice = new ContactBuilderUtil(ALICE).withName(VALID_NAME_BOB).build();
-        assertNotEquals(ALICE, editedAlice);
+        assertEquals(ALICE, editedAlice);
     }
 
     @Test
