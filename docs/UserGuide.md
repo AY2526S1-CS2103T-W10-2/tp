@@ -215,10 +215,14 @@ To reset all filters, you can type <code>list</code>
 
 <div markdown="span" class="alert alert-primary">
 :bulb: **Tip:**<br>
-To filter for the different parameters (Name contains `Tan` and `Alex`)<br>
-Type: `filtercontact n/Tan` followed by `filtercontact n/Alex`<br><br>
-To filter for different parameters at the same time (Name contains `Tan` or `Alex`)<br>
-Type: `filtercontact n/Tan Alex`
+To filter for: Name contains `Tan` and Address contains `Punggol`<br>
+Type: `filtercontact n/Tan` followed by `filtercontact a/Punggol`<br>
+
+To filter for: Name contains `Tan` or Address contains `Punggol`<br>
+Type: `filtercontact n/Tan a/Punggol`<br>
+
+To filter for: Address contains both `Serangoon` or `Tampines`<br>
+Type: `filtercontact a/Serangoon Tampines`
 </div>
 
 For more information on the parameters, click [here](#command-parameters).
