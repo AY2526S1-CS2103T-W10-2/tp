@@ -183,7 +183,8 @@ public class Property {
         }
 
         return otherProperty != null
-                && otherProperty.getPropertyAddress().value.replaceAll("\\s+","").equals(getPropertyAddress().value.replaceAll("\\s+",""))
+                && otherProperty.getPropertyAddress().value.replaceAll("\\s+", "")
+                    .equals(getPropertyAddress().value.replaceAll("\\s+", ""))
                 && otherProperty.getPostal().equals(getPostal());
     }
 
