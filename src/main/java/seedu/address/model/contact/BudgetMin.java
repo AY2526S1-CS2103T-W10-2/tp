@@ -9,8 +9,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class BudgetMin {
 
-    public static final String MESSAGE_CONSTRAINTS = "Minimum Budget should be a non-negative integer.";
-    public static final String VALIDATION_REGEX = "^\\d*$"; // zero or more digits (allows empty string)
+    public static final String MESSAGE_CONSTRAINTS =
+            "Minimum Budget should be a non-negative integer below than or equals to 200 million";
+    public static final String VALIDATION_REGEX = "^\\d+$"; // allows empty string and leading zeros
 
     public final String value;
 
@@ -22,14 +23,22 @@ public class BudgetMin {
     public BudgetMin(String budgetMin) {
         requireNonNull(budgetMin);
         checkArgument(isValidBudgetMin(budgetMin), MESSAGE_CONSTRAINTS);
-        value = budgetMin;
+        value = String.valueOf(Long.parseLong(budgetMin)); // remove leading zeros
     }
 
     /**
      * Returns true if a given integer is a valid minimum budget.
      */
     public static boolean isValidBudgetMin(String test) {
-        return test != null && test.matches(VALIDATION_REGEX);
+        if (test == null || !test.matches(VALIDATION_REGEX)) {
+            return false;
+        }
+        try {
+            long value = Long.parseLong(test);
+            return value >= 0 && value <= 200_000_000_000L; // range check
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
     @Override

@@ -14,7 +14,7 @@ public class CliSyntax {
     public static final String PREFIX_BUDGET_MIN_RAW = "min/";
     public static final String PREFIX_BUDGET_MAX_RAW = "max/";
     public static final String PREFIX_NOTES_RAW = "notes/";
-    public static final String PREFIX_STATUS_RAW = "s/";
+    public static final String PREFIX_STATUS_RAW = "status/";
     public static final String PREFIX_LIMIT_RAW = "limit/";
     public static final String PREFIX_OFFSET_RAW = "offset/";
 

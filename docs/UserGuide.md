@@ -518,17 +518,17 @@ e.g. <code>n/NAME t/</code> is the same as <code>n/NAME</code>
 These are prefixes for purely contact related commands.
 Related commands: [`addcontact`](#adding-a-contact--addcontact), [`filtercontact`](#filtering-contacts--filtercontact), [`editcontact`](#editing-a-contact--editcontact)
 
-| Parameter      | Prefix  | Constraints                                                                                                                |
-|----------------|---------|----------------------------------------------------------------------------------------------------------------------------|
-| Name           | n/      | Should only contain alphabetical characters (a-z, A-Z, 0-9) or spaces                                                      |
-| Phone Number   | p/      | Should only contain numbers (0-9), and it should be at least 3 digits long                                                 |
-| Email          | e/      | Should follow the format: name@example.com                                                                                 |
-| Address        | a/      | Can take any value. Maximum of 200 characters                                                                              |
-| Tag            | t/      | Should only be these (case-insensitive): buyer, seller, tenant, landlord                                                   |
-| Minimum Budget | min/    | Should be a non-negative integer. If not provided, will have a default of $0                                               |
+| Parameter      | Prefix  | Constraints                                                                                                           |
+|----------------|---------|-----------------------------------------------------------------------------------------------------------------------|
+| Name           | n/      | Should only contain alphabetical characters (a-z, A-Z) or spaces                                                      |
+| Phone Number   | p/      | Should only contain numbers (0-9), and it should be at least 3 digits long                                            |
+| Email          | e/      | Should follow the format: name@example.com                                                                            |
+| Address        | a/      | Can take any value. Maximum of 200 characters                                                                         |
+| Tag            | t/      | Should only be these (case-insensitive): buyer, seller, tenant, landlord                                              |
+| Minimum Budget | min/    | Should be a non-negative integer. If not provided, will have a default of $0                                          |
 | Maximum Budget | max/    | Should be a non-negative integer and more than the minimum budget. If not provided, will have a default of $200,000,000,000|
-| Notes          | notes/  | Can take any value. Maximum of 500 characters                                                                              |
-| Status         | status/ | Should only be these (case-insensitive): active, inactive                                                                  |
+| Notes          | notes/  | Can take any value. Maximum of 500 characters                                                                         |
+| Status         | status/ | Should only be these (case-insensitive): active, inactive                                                             |
 
 ### Property Management
 These are prefixes for purely property related commands.
