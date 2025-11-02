@@ -75,16 +75,14 @@ public class ContactCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(contact.getName().fullName);
         phone.setText("Phone: " + contact.getPhone().value);
+        budgetMin.setText("Budget Minimum: $" + contact.getBudgetMin().toString());
+        budgetMax.setText("Budget Maximum: $" + contact.getBudgetMax().toString());
 
         // Conditionally displayed fields
         setLabelIfNotEmpty(email, "Email: ", contact.getEmail().value);
         setLabelIfNotEmpty(address, "Address: ", contact.getAddress().value);
         setLabelIfNotEmpty(notes, "Notes: ", contact.getNotes().toString());
         setLabelIfNotEmpty(status, "Status: ", contact.getStatus().toString());
-
-        // Budget fields with default value checks
-        setLabelIfNotDefault(budgetMin, "Budget Minimum: $", contact.getBudgetMin().toString(), DEFAULT_BUDGET_MIN);
-        setLabelIfNotDefault(budgetMax, "Budget Maximum: $", contact.getBudgetMax().toString(), DEFAULT_BUDGET_MAX);
 
         // Tags
         setTagsIfNotEmpty(contact);
@@ -113,22 +111,6 @@ public class ContactCard extends UiPart<Region> {
      */
     private void setLabelIfNotEmpty(Label label, String prefix, String value) {
         if (value.isEmpty()) {
-            hideLabel(label);
-        } else {
-            label.setText(prefix + value);
-        }
-    }
-
-    /**
-     * Sets the label text if the value is not the default value, otherwise hides the label.
-     *
-     * @param label The label to set.
-     * @param prefix The prefix text
-     * @param value The value to display.
-     * @param defaultValue The default value to check against.
-     */
-    private void setLabelIfNotDefault(Label label, String prefix, String value, String defaultValue) {
-        if (value.equals(defaultValue)) {
             hideLabel(label);
         } else {
             label.setText(prefix + value);
