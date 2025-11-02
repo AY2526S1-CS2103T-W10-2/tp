@@ -126,9 +126,9 @@ You can also press the <code>F1</code> key to open the help window
 
 Refer to [Command Summary](#command-summary) for the list of commands and their formats.
 
-### Listing all contacts and properties: `list`
+### Listing all contacts or properties: `list`
 
-Resets any active filters and shows the complete list of contacts or properties.
+Resets any active filters of both contact list and property list.
 
 Both contact and property cards display an ID field which represents the Universally Unique Identifier (`UUID`) of that contact or property.
 This `UUID` will be used for other commands.

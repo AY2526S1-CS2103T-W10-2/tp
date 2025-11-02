@@ -212,7 +212,7 @@ Users can also press the <code>F1</code> key to open the help window
 </div>
 
 #### <u>List Command</u> (`list`)
-The `ListCommand` resets all current filters and displays all the contacts/properties stored in the application.
+The `ListCommand` resets all filters for the contact list and property list.
 
 ##### Execution
 The `ListCommand` calls the `Model` component to update the `FilteredList<Contact>` and `FilteredList<Property>` to show all of the `Contact` and `Property` in the list.
