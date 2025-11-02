@@ -246,7 +246,7 @@ As TheRealDeal is a CLI-based application, the `ExitCommand` can be used to exit
 
 ### 3.2. Contact management
 
-All contacts are stored as `Contact` objects inside the `UniqueContactList` object under the `AdressBook` component. <br><br>
+All contacts are stored as `Contact` objects inside the `UniqueContactList` object under the `AddressBook` component. <br><br>
 There is also an additional `FilteredList<Contact>` inside the `ModelManager` that stores the `Contact` that are displayed on the UI which is updated whenever the user issues a command that changes the UI.
 
 #### <u>Add Command</u> (`addcontact`)
@@ -288,7 +288,14 @@ Compulsory fields:
 
 ##### Parsing and Validating User Input
 The `DeleteContactCommandParser` class is responsible for parsing the command input.
-Documentation pending.
+The parser validates the UUID and constructs a `DeleteContactCommnad` object with the validated UUID.
+
+Validation done:
+- Ensures a UUID is provided
+- Ensures contact given exists
+
+##### Execution
+The `DeleteContactCommand` class retrieves the contact based on the UUID given and also ensures that the contact exists. If the contact exists, it is deleted from the address book.
 
 #### <u>Edit Command</u> (`editcontact`)
 The `editcontact` command is designed to edit a contact in the address book, identified by their UUID.
