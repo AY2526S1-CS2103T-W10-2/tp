@@ -242,7 +242,7 @@ Examples:
 
 <div markdown="block" class="alert alert-info">
 **:information_source: Important:**<br>
-You are able to edit delete contacts even if they are not currently shown on the GUI (but are stored in the address book). <br><br>
+You are able to delete valid contacts even if they are not currently shown on the GUI (but are stored in the address book). <br><br>
 i.e. If you use <code>filtercontact</code> to remove a person from the GUI, you can still delete that person using <code>deletecontact</code>.<br><br>
 Use the <code>list</code> command to see the changes.
 </div>

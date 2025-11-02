@@ -1,8 +1,5 @@
 package seedu.address.ui;
 
-import static seedu.address.logic.parser.ParserUtil.DEFAULT_BUDGET_MAX;
-import static seedu.address.logic.parser.ParserUtil.DEFAULT_BUDGET_MIN;
-
 import java.util.Comparator;
 
 import javafx.fxml.FXML;
