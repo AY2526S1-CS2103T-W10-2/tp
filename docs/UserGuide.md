@@ -293,7 +293,7 @@ Format: `deleteproperty PROPERTY_ID`
 
 * Deletes the property with the specified `PROPERTY_ID`.
 * The UUID refers to the ID number shown in the displayed property list.
-* The command only works on properties currently visible in the property list panel. Use the [list](#listing-all-contacts-and-properties-list) command first if needed.
+* The command only works on properties currently visible in the property list panel. Use the [list](#listing-all-contacts-or-properties-list) command first if needed.
 
 Examples:
 * `deleteproperty 12`
