@@ -1006,14 +1006,14 @@ Variations:<br>
 
 ##### Filtering by name and email
 
-Command: `filtercontact n/Alice e/example.com`
+Command: `filtercontact n/Alice e/alice@example.com`
 
 To simulate:<br>
 - Ensure multiple contacts exist.
 - Run the command above.
 
 Expected:<br>
-- Lists only contacts whose names include “Alice” and emails include “example.com.”
+- Lists only contacts whose names include “Alice” and emails include “alice@example.com.”
 - Status message shows number of contacts displayed.
 
 Variations:<br>

@@ -230,8 +230,7 @@ Deletes the specified contact from the address book.
 Format: `deletecontact CONTACT_ID`
 
 * Deletes the contact with the specified `CONTACT_ID`.
-* The UUID refers to the ID number shown in the displayed contact list.
-* The command only works on contacts currently visible in the property list panel. <br>Use the [list](#listing-all-contacts-and-properties-list) command first if needed.
+* The UUID refers to the ID number of the contact shown in the displayed contact list.
 
 Examples:
 * `deletecontact 1`
