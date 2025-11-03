@@ -295,7 +295,7 @@ Deletes a property identified by its unique ID.
 Format: `deleteproperty PROPERTY_ID`
 
 * Deletes the property with the specified `PROPERTY_ID`.
-* The UUID refers to the ID number shown in the displayed property list.
+* The PROPERTY_ID refers to the ID number shown in the displayed property list.
 * The command only works on properties currently visible in the property list panel. Use the [list](#list-all-contacts-or-properties-list) command first if needed.
 
 Examples:
@@ -538,27 +538,27 @@ Related commands: [`addcontact`](#adding-a-contact--addcontact), [`filtercontact
 These are prefixes for purely property related commands.
 Related commands: [`addproperty`](#adding-a-property-addproperty), [`filterproperty`](#filtering-properties--filterproperty)
 
-| Parameter      | Prefix  | Constraints                                                                                                       |
-|----------------|---------|-------------------------------------------------------------------------------------------------------------------|
+| Parameter      | Prefix  | Constraints                                                                                                     |
+|----------------|---------|-----------------------------------------------------------------------------------------------------------------|
 | Address        | a/      | Should only contain alphanumerical 5 to 200 characters (a-z, A-Z, 0-9) or spaces, with at least 1 letter and 1 digit|
-| Postal code    | p/      | Should only contain numbers (0-9), and it should be exactly least 6 digits long. (Singaporean Postal Code)        |
-| Price          | price/  | Should be an integer from 1 to 1 trillion                                                                         |
-| Type           | t/      | Should only be these (case-insensitive): hdb, condo, landed, apartment, office, others                            |
-| Status         | s/      | Should only be these (case-insensitive): available, unavailable                                                   |
-| Bedroom count  | bed/    | Should be an integer from 0 to 20                                                                                 |
-| Bathroom count | bath/   | Should be an integer from 0 to 20                                                                                 |
-| Floor area     | f/      | Should be an integer from 50 to 100000                                                                            |
-| Owner ID       | o/      | Should be a valid Contact UUID                                                                                    |
+| Postal code    | p/      | Should only contain numbers (0-9), and it should be exactly least 6 digits long. (Singaporean Postal Code)      |
+| Price          | price/  | Should be an integer from 1 to 1 trillion                                                                       |
+| Type           | t/      | Should only be these (case-insensitive): hdb, condo, landed, apartment, office, others                          |
+| Status         | s/      | Should only be these (case-insensitive): available, unavailable                                                 |
+| Bedroom count  | bed/    | Should be an integer from 0 to 20                                                                               |
+| Bathroom count | bath/   | Should be an integer from 0 to 20                                                                               |
+| Floor area     | f/      | Should be an integer from 50 to 100000                                                                          |
+| Owner ID       | o/      | Should be a valid Contact ID                                                                                    |
 
 ### Others
 These are prefixes that are used over multiple commands.
 Related commands: [`filtercontact`](#filtering-contacts--filtercontact), [`filterproperty`](#filtering-properties--filterproperty), [`sold`](#mark-property-as-sold--sold), [`unsold`](#mark-property-as-unsold--unsold), [`link`](#linking-people-and-properties--link), [`unlink`](#unlinking-people-and-properties--unlink), [`showproperties`](#showing-properties-associated-with-a-contact--showproperties), [`showcontacts`](#showing-contacts-associated-with-a-property--showcontacts)
 
-| Parameter      | Prefix  | Constraints                                            |
-|----------------|---------|--------------------------------------------------------|
-| Contact UUID   | c/      | Should be a valid Contact UUID                         |
-| Property UUID  | p/      | Should be a valid Property UUID                        |
-| Relationship   | r/      | Should only be these (case-insensitive): buyer, seller |
+| Parameter     | Prefix  | Constraints                                            |
+|---------------|---------|--------------------------------------------------------|
+| Contact ID    | c/      | Should be a valid Contact ID                           |
+| Property ID   | p/      | Should be a valid Property ID                          |
+| Relationship  | r/      | Should only be these (case-insensitive): buyer, seller |
 
 ## Basic Command Terminal Navigation
 1. Determine the address of the folder where TheRealDeal is installed.
