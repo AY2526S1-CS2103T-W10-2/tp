@@ -13,6 +13,7 @@ import java.util.HashSet;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.uuid.Uuid;
+import seedu.address.testutil.PropertyBuilderUtil;
 
 class PropertyTest {
 
@@ -27,7 +28,7 @@ class PropertyTest {
         assertEquals(new Listing("sale"), property.getListing());
         assertEquals(new Postal("123456"), property.getPostal());
         assertEquals(new Price("500000"), property.getPrice());
-        assertEquals(new Status("unavailable"), property.getStatus());
+        assertEquals(new Status("available"), property.getStatus());
         assertEquals(new Type("HDB"), property.getType());
         assertEquals(new Owner("owner123"), property.getOwner());
         assertEquals(new Uuid(1, PROPERTY), property.getUuid());
@@ -53,6 +54,15 @@ class PropertyTest {
                 new FloorArea("150"), new Listing("rent"), new Postal("123456"), new Price("600000"),
                 new Status("unavailable"), new Type("hdb"), new Owner("owner789"), new HashSet<>(), new HashSet<>());
         assertTrue(property.isSameProperty(duplicateIdentity));
+    }
+
+    @Test
+    void isSameProperty_samePostalWithExtraWhitespace_returnsTrue() {
+        Property property = PROPERTY_ALPHA;
+        Property spacedAddressVariant = new PropertyBuilderUtil(PROPERTY_ALPHA)
+                .withPropertyAddress("123   Main   St   5")
+                .build();
+        assertTrue(property.isSameProperty(spacedAddressVariant));
     }
 
     @Test

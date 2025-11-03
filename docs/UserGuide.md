@@ -29,6 +29,7 @@ Warns you of potential issues to should watch out for.
 
 --------------------------------------------------------------------------------------------------------------------
 <div style="page-break-after: always;"></div>
+<div style="page-break-after: always;"></div>
 
 ## GUI Overview
 
@@ -51,12 +52,12 @@ TheRealDeal Graphical User Interface (GUI) is organised into **five** key compon
    **Linux users:** Tutorial to download [here](https://se-education.org/guides/tutorials/javaInstallationLinux.html)<br>
    **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
 
-2. Download the latest `TheRealDeal.jar` file from [here](https://github.com/AY2526S1-CS2103T-W10-2/tp/releases).
+2. Download the latest `TheRealDeal.jar` file from [here](https://github.com/AY2526S1-CS2103T-W10-2/tp/releases). <br>Note that the name of the file might differ based on the exact version installed.
 
 3. Copy the file to the folder you want to use as the _home folder_ for TheRealDeal.
 
 4. Open a command terminal, `cd` into the folder you put the jar file in, and use the <br>
-   `java -jar TheRealDeal.jar` command to run the application.<br><br>
+   `java -jar (NAME_OF_FILE).jar` command to run the application.<br><br>
    A window similar to the picture below should appear in a few seconds. Note how the app contains some sample data.<br>
 
 ![Sample GUI Contacts](images/sampleGUIContacts.png)
@@ -298,7 +299,7 @@ Format: `deleteproperty PROPERTY_ID`
 
 * Deletes the property with the specified `PROPERTY_ID`.
 * The UUID refers to the ID number shown in the displayed property list.
-* The command only works on properties currently visible in the property list panel. Use the [list](#listing-all-contacts-or-properties-list) command first if needed.
+* The command only works on properties currently visible in the property list panel. Use the [list](#list-all-contacts-or-properties-list) command first if needed.
 
 Examples:
 * `deleteproperty 12`
@@ -355,14 +356,16 @@ Links people to properties as buyers or sellers by their UUIDs.
 
 Format: `link c/CONTACT_ID... r/RELATIONSHIP p/PROPERTY_ID...`
 
+* This command links all input contacts to all input properties by the relationship specified.  
 * `RELATIONSHIP` **must be either `buyer` or `seller`**
 * `CONTACT_ID` and `PROPERTY_ID` refer to the UUIDs of the people and properties being linked respectively.
 * `link` can link any number of properties and people at once (excluding none).
 
 <div markdown="block" class="alert alert-info">
 **:information_source: Important:**<br>
-A contact cannot be linked to a property as both a buyer and seller.<br>
-An error will be thrown if this is attempted!
+An error will be thrown if any of the following is attempted!<br>
+Attempting to link a contact to a property as both a buyer and seller.<br>
+Attempting to link a contact to a property marked as unavailable.
 </div>
 
 For more information on the parameters, click [here](#command-parameters).
@@ -371,7 +374,7 @@ For more information on the parameters, click [here](#command-parameters).
 
 Unlinks people from properties as buyers and sellers, at the same time, by their UUIDs.
 
-Format: `link c/CONTACT_ID... p/PROPERTY_ID...`
+Format: `unlink c/CONTACT_ID... p/PROPERTY_ID...`
 
 * `CONTACT_ID` and `PROPERTY_ID` refer to the UUIDs of the people and properties being linked respectively.
 * `unlink` can unlink any number of properties and people at once (excluding none).
@@ -523,17 +526,17 @@ All parameters that expect integers must be entered as **plain digits** — with
 These are prefixes for purely contact related commands.
 Related commands: [`addcontact`](#adding-a-contact--addcontact), [`filtercontact`](#filtering-contacts--filtercontact), [`editcontact`](#editing-a-contact--editcontact)
 
-| Parameter      | Prefix  | Constraints                                                                                                           |
-|----------------|---------|-----------------------------------------------------------------------------------------------------------------------|
-| Name           | n/      | Should only contain alphabetical characters (a-z, A-Z) or spaces                                                      |
-| Phone Number   | p/      | Should only contain numbers (0-9), and it should be at least 3 digits long                                            |
-| Email          | e/      | Should follow the format: name@example.com                                                                            |
-| Address        | a/      | Can take any value. Maximum of 200 characters                                                                         |
-| Tag            | t/      | Should only be these (case-insensitive): buyer, seller, tenant, landlord                                              |
-| Minimum Budget | min/    | Should be a non-negative integer. If not provided, will have a default of $0                                          |
-| Maximum Budget | max/    | Should be a non-negative integer and more than the minimum budget. If not provided, will have a default of $200,000,000,000|
-| Notes          | notes/  | Can take any value. Maximum of 500 characters                                                                         |
-| Status         | status/ | Should only be these (case-insensitive): active, inactive                                                             |
+| Parameter      | Prefix  | Constraints                                                                                                                 |
+|----------------|---------|-----------------------------------------------------------------------------------------------------------------------------|
+| Name           | n/      | Should only contain alphabetical characters (a-z, A-Z) or spaces                                                            |
+| Phone Number   | p/      | Should only contain numbers (0-9), and it should be at least 3 digits long                                                  |
+| Email          | e/      | Should follow the format: name@example.com                                                                                  |
+| Address        | a/      | Can take any value. Maximum of 200 characters                                                                               |
+| Tag            | t/      | Should only be these (case-insensitive): buyer, seller, tenant, landlord                                                    |
+| Minimum Budget | min/    | Should be a non-negative integer. If not provided, will have a default of $0                                                |
+| Maximum Budget | max/    | Should be a non-negative integer and more than the minimum budget. If not provided, will have a default of $200,000,000,000 |
+| Notes          | notes/  | Can take any value. Maximum of 500 characters                                                                               |
+| Status         | status/ | Should only be these (case-insensitive): active, inactive                                                                   |
 
 ### Property Management
 These are prefixes for purely property related commands.

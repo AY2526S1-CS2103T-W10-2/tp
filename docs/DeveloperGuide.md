@@ -100,7 +100,7 @@ The *Sequence Diagram* below shows how the components interact when a user runs 
 Each of the four main components (also shown in the diagram above),
 
 * defines its *API* in an `interface` with the same name as the Component.
-* implements its functionality using a concrete `{Component Name}Manager` class (which follows the corresponding API `interface` mentioned in the previous point.
+* implements its functionality using a concrete `{Component Name}Manager` class which follows the corresponding API `interface` mentioned in the previous point.
 
 For example, the `Logic` component defines its API in the `Logic.java` interface and implements its functionality using the `LogicManager.java` class which follows the `Logic` interface. Other components interact with a given component through its interface rather than the concrete class (reason: to prevent outside component's being coupled to the implementation of a component), as illustrated in the (partial) class diagram below.
 
@@ -550,7 +550,8 @@ This table shows every parameter and prefix used in TheRealDeal.
 **:information_source: Important:**<br>
 If the command states that the prefix is optional e.g. <code>n/NAME [t/TAG]</code><br>
 an empty parameter will be the same as not having the prefix<br>
-e.g. <code>n/NAME t/</code> is the same as <code>n/NAME</code>
+e.g. <code>n/NAME t/</code> is the same as <code>n/NAME</code><br><br>
+All parameters that expect integers must be entered as **plain digits** — without commas, dots, spaces, or any other separators.
 </div>
 
 ### Contact Management
@@ -575,14 +576,14 @@ Related commands: [`addproperty`](#addpropertycommand-addproperty), [`filterprop
 
 | Parameter      | Prefix  | Constraints                                                                                                       |
 |----------------|---------|-------------------------------------------------------------------------------------------------------------------|
-| Address        | a/      | Should only contain alphabetical 5 to 200 characters (a-z, A-Z, 0-9) or spaces, with at least 1 letter and 1 digit|
+| Address        | a/      | Should only contain alphanumerical 5 to 200 characters (a-z, A-Z, 0-9) or spaces, with at least 1 letter and 1 digit|
 | Postal code    | p/      | Should only contain numbers (0-9), and it should be exactly least 6 digits long. (Singaporean Postal Code)        |
-| Price          | price/  | Should be an integer from 1 to 1,000,000,000,000                                                                  |
+| Price          | price/  | Should be an integer from 1 to 1 trillion                                                                  |
 | Type           | t/      | Should only be these (case-insensitive): hdb, condo, landed, apartment, office, others                            |
 | Status         | status/ | Should only be these (case-insensitive): available, unavailable                                                   |
 | Bedroom count  | bed/    | Should be an integer from 0 to 20                                                                                 |
 | Bathroom count | bath/   | Should be an integer from 0 to 20                                                                                 |
-| Floor area     | f/      | Should be an integer from 50 to 100,000                                                                           |
+| Floor area     | f/      | Should be an integer from 50 to 100000                                                                           |
 | Listing        | l/      | Should only be these (case-insensitive): sale, rent                                                               |
 | Owner ID       | o/      | Should be a valid Contact UUID                                                                                    |
 
@@ -1031,7 +1032,7 @@ Variations:<br>
 - Test with mixed casing (e.g., `n/aLiCe`) to confirm case-insensitive matching.
 
 ##### Filtering by tag with limits
-Command: `filtercontact t/buyer limit/10 offset/1`
+Command: `filtercontact t/buyer`
 
 To simulate:<br>
 - Ensure contact list contains multiple tagged `buyer`.

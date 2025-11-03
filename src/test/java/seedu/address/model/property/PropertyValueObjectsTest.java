@@ -131,9 +131,11 @@ class PropertyValueObjectsTest {
         assertThrows(IllegalArgumentException.class, () -> new Price("0"));
         assertThrows(IllegalArgumentException.class, () -> new Price("-1"));
         assertThrows(IllegalArgumentException.class, () -> new Price("1000000000001"));
+        assertThrows(IllegalArgumentException.class, () -> new Price("1,000"));
         assertThrows(NullPointerException.class, () -> Price.isValidPrice(null));
         assertTrue(Price.isValidPrice("1"));
         assertTrue(Price.isValidPrice("1000000000000"));
+        assertFalse(Price.isValidPrice("1,000"));
     }
 
     @Test
