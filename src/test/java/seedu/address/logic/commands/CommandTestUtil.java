@@ -169,7 +169,7 @@ public class CommandTestUtil {
                 Optional.of(Arrays.asList(splitName[0])), // name keywords
                 Optional.empty(), Optional.empty(), Optional.empty(),
                 Optional.empty(), Optional.empty(), Optional.empty(),
-                Optional.empty(), Optional.empty(), Optional.empty()
+                Optional.empty()
         );
         model.updateFilteredContactList(predicate);
         assertEquals(1, model.getFilteredContactList().size());

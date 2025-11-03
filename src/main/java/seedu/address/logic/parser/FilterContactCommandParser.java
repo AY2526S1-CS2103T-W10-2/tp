@@ -7,10 +7,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_BUDGET_MAX_RAW;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BUDGET_MIN;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BUDGET_MIN_RAW;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_LIMIT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTES;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_OFFSET;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 
@@ -35,18 +33,13 @@ import seedu.address.model.contact.FilterContactPredicate;
 public class FilterContactCommandParser implements Parser<FilterContactCommand> {
 
     private static final String INTEGER_PARSE_ERROR = "Invalid prefix for integer parsing: ";
-    private static final String INVALID_LIMIT_ERROR = "Limit must be greater than 0.";
-    private static final String LIMIT_PARSE_ERROR = "Invalid number for limit: ";
-    private static final String INVALID_OFFSET_ERROR = "Offset cannot be negative.";
-    private static final String OFFSET_PARSE_ERROR = "Invalid number for offset: ";
 
     // Define the set of allowed prefixes
     private static final Set<Prefix> VALID_PREFIXES = new HashSet<>(Arrays.asList(
             PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
             PREFIX_ADDRESS,
             PREFIX_BUDGET_MIN, PREFIX_BUDGET_MAX,
-            PREFIX_NOTES, PREFIX_STATUS,
-            PREFIX_LIMIT, PREFIX_OFFSET
+            PREFIX_NOTES, PREFIX_STATUS
     ));
 
     /**
@@ -72,9 +65,6 @@ public class FilterContactCommandParser implements Parser<FilterContactCommand> 
                     MESSAGE_INVALID_COMMAND_FORMAT, FilterContactCommand.MESSAGE_USAGE));
         }
 
-        Optional<Integer> limit = parseLimit(argMultimap.getValue(PREFIX_LIMIT));
-        Optional<Integer> offset = parseOffset(argMultimap.getValue(PREFIX_OFFSET));
-
         Optional<Long> budgetMin = Optional.empty();
         if (argMultimap.getValue(PREFIX_BUDGET_MIN).isPresent()) {
             budgetMin = Optional.of(parseMinOrMax(argMultimap.getValue(PREFIX_BUDGET_MIN).get(), PREFIX_BUDGET_MIN));
@@ -94,9 +84,7 @@ public class FilterContactCommandParser implements Parser<FilterContactCommand> 
                 budgetMin,
                 budgetMax,
                 getKeywords(argMultimap.getValue(PREFIX_NOTES), PREFIX_NOTES),
-                getKeywords(argMultimap.getValue(PREFIX_STATUS), PREFIX_STATUS),
-                limit,
-                offset
+                getKeywords(argMultimap.getValue(PREFIX_STATUS), PREFIX_STATUS)
         );
 
         return new FilterContactCommand(predicate);
@@ -178,46 +166,6 @@ public class FilterContactCommandParser implements Parser<FilterContactCommand> 
 
         default:
             throw new ParseException(INTEGER_PARSE_ERROR + prefix);
-        }
-    }
-
-    /**
-     * Parses a positive integer value (limit must be > 0).
-     *
-     * @throws ParseException If the string is not a valid positive integer.
-     */
-    Optional<Integer> parseLimit(Optional<String> value) throws ParseException {
-        if (value.isEmpty() || value.get().isEmpty()) {
-            return Optional.empty();
-        }
-        try {
-            int num = Integer.parseInt(value.get().trim());
-            if (num <= 0) {
-                throw new ParseException(INVALID_LIMIT_ERROR);
-            }
-            return Optional.of(num);
-        } catch (NumberFormatException e) {
-            throw new ParseException(LIMIT_PARSE_ERROR + value);
-        }
-    }
-
-    /**
-     * Parses a non-negative integer value (offset must be ≥ 0).
-     *
-     * @throws ParseException If the string is not a valid non-negative integer.
-     */
-    Optional<Integer> parseOffset(Optional<String> value) throws ParseException {
-        if (value.isEmpty() || value.get().isEmpty()) {
-            return Optional.empty();
-        }
-        try {
-            int num = Integer.parseInt(value.get().trim());
-            if (num < 0) {
-                throw new ParseException(INVALID_OFFSET_ERROR);
-            }
-            return Optional.of(num);
-        } catch (NumberFormatException e) {
-            throw new ParseException(OFFSET_PARSE_ERROR + value);
         }
     }
 }

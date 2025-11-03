@@ -29,13 +29,13 @@ public class FilterContactCommandTest {
                 new FilterContactPredicate(Optional.of(Arrays.asList("first")),
                         Optional.empty(), Optional.empty(), Optional.empty(),
                         Optional.empty(), Optional.empty(), Optional.empty(),
-                        Optional.empty(), Optional.empty(), Optional.empty());
+                        Optional.empty());
 
         FilterContactPredicate secondPredicate =
                 new FilterContactPredicate(Optional.of(Arrays.asList("second")),
                         Optional.empty(), Optional.empty(), Optional.empty(),
                         Optional.empty(), Optional.empty(), Optional.empty(),
-                        Optional.empty(), Optional.empty(), Optional.empty());
+                        Optional.empty());
 
         FilterContactCommand firstCommand = new FilterContactCommand(firstPredicate);
         FilterContactCommand secondCommand = new FilterContactCommand(secondPredicate);
@@ -64,8 +64,7 @@ public class FilterContactCommandTest {
         FilterContactPredicate predicate = new FilterContactPredicate(
                 Optional.empty(), Optional.empty(), Optional.empty(),
                 Optional.empty(), Optional.empty(),
-                Optional.empty(), Optional.empty(), Optional.empty(),
-                Optional.empty(), Optional.empty());
+                Optional.empty(), Optional.empty(), Optional.empty());
         FilterContactCommand command = new FilterContactCommand(predicate);
         expectedModel.updateFilteredContactList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -77,8 +76,7 @@ public class FilterContactCommandTest {
                 Optional.of(Arrays.asList("Kurz", "Elle", "Kunz")),
                 Optional.empty(), Optional.empty(),
                 Optional.empty(), Optional.empty(), Optional.empty(),
-                Optional.empty(), Optional.empty(), Optional.empty(),
-                    Optional.empty());
+                Optional.empty(), Optional.empty());
 
         FilterContactCommand command = new FilterContactCommand(predicate);
 
@@ -98,8 +96,7 @@ public class FilterContactCommandTest {
         FilterContactPredicate predicate = new FilterContactPredicate(
                 Optional.of(Arrays.asList("keyword")), Optional.empty(),
                 Optional.empty(), Optional.empty(), Optional.empty(),
-                Optional.empty(), Optional.empty(), Optional.empty(),
-                Optional.empty(), Optional.empty());
+                Optional.empty(), Optional.empty(), Optional.empty());
 
         FilterContactCommand command = new FilterContactCommand(predicate);
         String expected = FilterContactCommand.class.getCanonicalName() + "{predicate=" + predicate + "}";

@@ -6,10 +6,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BUDGET_MAX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BUDGET_MIN;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_LIMIT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTES;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_OFFSET;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 
@@ -39,9 +37,7 @@ public class FilterContactCommand extends Command {
             + "[" + PREFIX_BUDGET_MIN + "MIN_BUDGET] "
             + "[" + PREFIX_BUDGET_MAX + "MAX_BUDGET] "
             + "[" + PREFIX_NOTES + "NOTES] "
-            + "[" + PREFIX_STATUS + "STATUS] "
-            + "[" + PREFIX_LIMIT + "LIMIT] "
-            + "[" + PREFIX_OFFSET + "OFFSET]\n"
+            + "[" + PREFIX_STATUS + "STATUS]\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
@@ -72,19 +68,11 @@ public class FilterContactCommand extends Command {
         List<Contact> allMatches = model.getFilteredContactList().stream()
                 .filter(predicate)
                 .toList();
-        // Set offset and limit
-        int total = allMatches.size();
-        int offset = predicate.getOffset().orElse(0);
-        int limit = predicate.getLimit().orElse(total);
-        int start = Math.min(offset, total);
-        int endExclusive = Math.min(offset + limit, total);
 
-        // Update filtered list to display only this page
-        List<Contact> page = allMatches.subList(start, endExclusive);
-        model.updateFilteredContactList(page::contains);
+        model.updateFilteredContactList(allMatches::contains);
 
         // Build output message (e.g., “12 properties matched”)
-        String msg = String.format(MESSAGE_CONTACTS_LISTED_OVERVIEW, page.size());
+        String msg = String.format(MESSAGE_CONTACTS_LISTED_OVERVIEW, allMatches.size());
 
         showContactsView();
 

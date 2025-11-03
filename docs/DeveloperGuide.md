@@ -332,8 +332,6 @@ Optional Fields:
 - Maximum Budget
 - Notes
 - Status
-- Limit
-- Offset
 
 ##### Parsing and Validating User Input
 The `FilterContactCommandParser` is responsible for parsing the command input. It utilises `ArgumentTokenizer` to split the input string based on defined prefixes (`PREFIX_NAME`, `PREFIX_PHONE`, etc) <br><br>
@@ -341,10 +339,10 @@ A `FilterContactPredicate` is created that encapsulates all the filter condition
 
 Validation done:
 - Same validation done as `addcontact`
-- Proper data types and formats for numeric fields (e.g. budget, limit, offset)
+- Proper data types and formats for numeric fields (e.g. budget)
 
 ##### Execution
-`FilterContactCommand` applies the `FilterContactPredicate` over the existing filtered contact list and produces a list of matching contacts. It is also changed based on the `limit` and `offset` given.
+`FilterContactCommand` applies the `FilterContactPredicate` over the existing filtered contact list and produces a list of matching contacts.
 The UI is then updated based on which contacts that match the predicate.
 
 ### 3.3. Property management
@@ -415,8 +413,6 @@ Optional Fields:
 - Floor Area
 - Listing
 - Owner
-- Limit
-- Offset
 
 ##### Parsing and Validating User Input
 The `FilterPropertyCommandParser` is responsible for parsing the command input. It utilises `ArgumentTokenizer` to split the input string based on defined prefixes (`PREFIX_PROPERTY_ADDRESS`, `PREFIX_PROPERTY_POSTAL`, etc) <br><br>
@@ -424,10 +420,10 @@ A `PropertyMatchesFilterPredicate` is created that encapsulates all the filter c
 
 Validation done:
 - Same validation done as `addproperty`
-- Proper data types and formats for numeric fields (e.g. price, limit, offset)
+- Proper data types and formats for numeric fields (e.g. price)
 
 ##### Execution
-`FilterPropertyCommand` applies the `PropertyMatchesFilterPredicate` over the existing filtered contact list and produces a list of matching contacts. It is also changed based on the `limit` and `offset` given.
+`FilterPropertyCommand` applies the `PropertyMatchesFilterPredicate` over the existing filtered contact list and produces a list of matching contacts.
 The UI is then updated based on which properties that match the predicate.
 
 #### <u>Mark Property as Sold Command</u> (`sold`)
@@ -581,8 +577,6 @@ Related commands: [`filtercontact`](#filter-contact-command-filtercontact), [`fi
 
 | Parameter      | Prefix  | Constraints                                            |
 |----------------|---------|--------------------------------------------------------|
-| Limit          | limit/  | An integer more than 0                                 |
-| Offset         | offset/ | An integer more than or equals to 0                    |
 | Contact UUID   | c/      | Should be a valid Contact UUID                         |
 | Property UUID  | p/      | Should be a valid Property UUID                        |
 | Relationship   | r/      | Should only be these (case-insensitive): buyer, seller |
