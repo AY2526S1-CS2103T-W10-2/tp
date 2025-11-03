@@ -381,7 +381,7 @@ Validation done:
 - Trims surrounding whitespace so that inputs like `a/ 21 Sunset Way` are accepted.
 
 ##### Execution
-`AddPropertyCommand#execute` requests a fresh ID from `PropertyBook#generateNextID()`. It verifies the specified owner exists in the address book; if not, a `CommandException` with `MESSAGE_OWNER_NOT_FOUND` is thrown.
+`AddPropertyCommand#execute` requests a fresh ID from `PropertyBook#generateNextUUID()`. It verifies the specified owner exists in the address book; if not, a `CommandException` with `MESSAGE_OWNER_NOT_FOUND` is thrown.
 
 A duplicate check is then performed, which compares address and postal pairs.
 When all checks pass, the property is added, the UI shifts to the property view, and a success message (including the assigned ID) is returned.
