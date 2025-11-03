@@ -7,7 +7,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_BATHROOM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_BEDROOM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_FLOOR_AREA;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_LISTING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_OWNER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_POSTAL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_PRICE;
@@ -23,7 +22,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.property.Bathroom;
 import seedu.address.model.property.Bedroom;
 import seedu.address.model.property.FloorArea;
-import seedu.address.model.property.Listing;
 import seedu.address.model.property.Owner;
 import seedu.address.model.property.Postal;
 import seedu.address.model.property.Price;
@@ -62,7 +60,7 @@ public class FilterPropertyCommandParser implements Parser<FilterPropertyCommand
         List<Prefix> validPrefixes = List.of(
                 PREFIX_PROPERTY_ADDRESS, PREFIX_PROPERTY_POSTAL, PREFIX_PROPERTY_TYPE, PREFIX_PROPERTY_BEDROOM,
                 PREFIX_PROPERTY_BATHROOM, PREFIX_PROPERTY_FLOOR_AREA, PREFIX_PROPERTY_PRICE, PREFIX_PROPERTY_STATUS,
-                PREFIX_PROPERTY_OWNER, PREFIX_PROPERTY_LISTING, PREFIX_LIMIT, PREFIX_OFFSET
+                PREFIX_PROPERTY_OWNER, PREFIX_LIMIT, PREFIX_OFFSET
         );
 
         List<String> invalidPrefixes = detectedPrefixes.stream()
@@ -164,15 +162,6 @@ public class FilterPropertyCommandParser implements Parser<FilterPropertyCommand
                 throw new ParseException(Owner.MESSAGE_CONSTRAINTS);
             }
             builder.withOwner(t);
-        }
-
-        Optional<String> maybeListing = argMultimap.getValue(PREFIX_PROPERTY_LISTING);
-        if (maybeListing.isPresent()) {
-            String t = maybeListing.get().trim().toLowerCase();
-            if (!Listing.isValidListing(t)) {
-                throw new ParseException(Listing.MESSAGE_CONSTRAINTS);
-            }
-            builder.withListing(t);
         }
 
         int limit = Integer.MAX_VALUE;

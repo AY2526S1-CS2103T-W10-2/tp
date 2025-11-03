@@ -87,26 +87,6 @@ class PropertyValueObjectsTest {
     }
 
     @Test
-    void listing_validation() {
-        assertThrows(NullPointerException.class, () -> new Listing(null));
-        assertThrows(IllegalArgumentException.class, () -> new Listing("lease"));
-        assertThrows(NullPointerException.class, () -> Listing.isValidListing(null));
-        assertTrue(Listing.isValidListing("sale"));
-        assertTrue(Listing.isValidListing("rent"));
-        assertEquals("sale", new Listing("SALE").toString());
-    }
-
-    @Test
-    void listing_equals() {
-        Listing listing = new Listing("sale");
-        assertTrue(listing.equals(new Listing("sale")));
-        assertTrue(listing.equals(new Listing("SALE")));
-        assertTrue(listing.equals(listing));
-        assertFalse(listing.equals(null));
-        assertFalse(listing.equals(new Listing("rent")));
-    }
-
-    @Test
     void postal_validation() {
         assertThrows(NullPointerException.class, () -> new Postal(null));
         assertThrows(IllegalArgumentException.class, () -> new Postal("12345"));

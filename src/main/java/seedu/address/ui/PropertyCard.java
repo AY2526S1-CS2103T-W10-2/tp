@@ -39,8 +39,6 @@ public class PropertyCard extends UiPart<Region> {
     @FXML
     private Label status;
     @FXML
-    private Label listing;
-    @FXML
     private Label owner;
     @FXML
     private Label buyerIds;
@@ -63,7 +61,6 @@ public class PropertyCard extends UiPart<Region> {
         floorArea.setText("Floor Area: " + property.getFloorArea().value + " sqft");
         price.setText("Price: $" + String.format("%,d", Integer.parseInt(property.getPrice().value)));
         status.setText("Status: " + property.getStatus().value);
-        listing.setText("Listing: " + property.getListing().value);
         owner.setText("Owner ID: " + property.getOwner().value);
 
         setIdsIfNotEmpty(buyerIds, "Buyer IDs: ", property.getBuyingContactIds());

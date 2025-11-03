@@ -21,7 +21,6 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.property.Bathroom;
 import seedu.address.model.property.Bedroom;
 import seedu.address.model.property.FloorArea;
-import seedu.address.model.property.Listing;
 import seedu.address.model.property.Owner;
 import seedu.address.model.property.Postal;
 import seedu.address.model.property.Price;
@@ -94,7 +93,7 @@ class DeletePropertyCommandTest {
 
     private static Property buildProperty(String address) {
         return new Property(new Uuid(1, PROPERTY), new PropertyAddress(address), new Bathroom("2"), new Bedroom("3"),
-                new FloorArea("120"), new Listing("sale"), new Postal("123456"), new Price("500000"),
+                new FloorArea("120"), new Postal("123456"), new Price("500000"),
                 new Status("unavailable"), new Type("HDB"), new Owner("owner123"), new HashSet<>(), new HashSet<>());
     }
 

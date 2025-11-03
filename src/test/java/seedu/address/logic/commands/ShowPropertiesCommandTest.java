@@ -104,7 +104,6 @@ public class ShowPropertiesCommandTest {
                 .withBathroom("2")
                 .withBedroom("3")
                 .withFloorArea("100")
-                .withListing("sale")
                 .withPostal("111111")
                 .withPrice("400000")
                 .withStatus("unsold")

@@ -5,7 +5,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_BATHROOM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_BEDROOM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_FLOOR_AREA;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_LISTING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_OWNER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_POSTAL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_PRICE;
@@ -27,7 +26,6 @@ class AddPropertyCommandParserTest {
     private static final String BEDROOM_DESC = " " + PREFIX_PROPERTY_BEDROOM + "3";
     private static final String BATHROOM_DESC = " " + PREFIX_PROPERTY_BATHROOM + "2";
     private static final String FLOOR_DESC = " " + PREFIX_PROPERTY_FLOOR_AREA + "120";
-    private static final String LISTING_DESC = " " + PREFIX_PROPERTY_LISTING + "sale";
     private static final String OWNER_DESC = " " + PREFIX_PROPERTY_OWNER + "owner123";
 
     private final AddPropertyCommandParser parser = new AddPropertyCommandParser();
@@ -35,7 +33,7 @@ class AddPropertyCommandParserTest {
     @Test
     void parse_missingPostalPrefix_failure() {
         String args = ADDRESS_DESC + PRICE_DESC + TYPE_DESC + STATUS_DESC
-                + BEDROOM_DESC + BATHROOM_DESC + FLOOR_DESC + LISTING_DESC + OWNER_DESC;
+                + BEDROOM_DESC + BATHROOM_DESC + FLOOR_DESC + OWNER_DESC;
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 AddPropertyCommandParser.POSTAL_MISSING + AddPropertyCommand.MESSAGE_USAGE);
 
@@ -45,7 +43,7 @@ class AddPropertyCommandParserTest {
     @Test
     void parse_missingPricePrefix_failure() {
         String args = ADDRESS_DESC + POSTAL_DESC + TYPE_DESC + STATUS_DESC
-                + BEDROOM_DESC + BATHROOM_DESC + FLOOR_DESC + LISTING_DESC + OWNER_DESC;
+                + BEDROOM_DESC + BATHROOM_DESC + FLOOR_DESC + OWNER_DESC;
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 AddPropertyCommandParser.PRICE_MISSING + AddPropertyCommand.MESSAGE_USAGE);
 
@@ -55,7 +53,7 @@ class AddPropertyCommandParserTest {
     @Test
     void parse_missingTypePrefix_failure() {
         String args = ADDRESS_DESC + POSTAL_DESC + PRICE_DESC + STATUS_DESC
-                + BEDROOM_DESC + BATHROOM_DESC + FLOOR_DESC + LISTING_DESC + OWNER_DESC;
+                + BEDROOM_DESC + BATHROOM_DESC + FLOOR_DESC + OWNER_DESC;
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 AddPropertyCommandParser.TYPE_MISSING + AddPropertyCommand.MESSAGE_USAGE);
 
@@ -65,7 +63,7 @@ class AddPropertyCommandParserTest {
     @Test
     void parse_missingStatusPrefix_failure() {
         String args = ADDRESS_DESC + POSTAL_DESC + PRICE_DESC + TYPE_DESC
-                + BEDROOM_DESC + BATHROOM_DESC + FLOOR_DESC + LISTING_DESC + OWNER_DESC;
+                + BEDROOM_DESC + BATHROOM_DESC + FLOOR_DESC + OWNER_DESC;
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 AddPropertyCommandParser.STATUS_MISSING + AddPropertyCommand.MESSAGE_USAGE);
 
@@ -75,7 +73,7 @@ class AddPropertyCommandParserTest {
     @Test
     void parse_missingBedroomPrefix_failure() {
         String args = ADDRESS_DESC + POSTAL_DESC + PRICE_DESC + TYPE_DESC + STATUS_DESC
-                + BATHROOM_DESC + FLOOR_DESC + LISTING_DESC + OWNER_DESC;
+                + BATHROOM_DESC + FLOOR_DESC + OWNER_DESC;
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 AddPropertyCommandParser.BEDROOM_MISSING + AddPropertyCommand.MESSAGE_USAGE);
 
@@ -85,7 +83,7 @@ class AddPropertyCommandParserTest {
     @Test
     void parse_missingBathroomPrefix_failure() {
         String args = ADDRESS_DESC + POSTAL_DESC + PRICE_DESC + TYPE_DESC + STATUS_DESC
-                + BEDROOM_DESC + FLOOR_DESC + LISTING_DESC + OWNER_DESC;
+                + BEDROOM_DESC + FLOOR_DESC + OWNER_DESC;
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 AddPropertyCommandParser.BATHROOM_MISSING + AddPropertyCommand.MESSAGE_USAGE);
 
@@ -95,7 +93,7 @@ class AddPropertyCommandParserTest {
     @Test
     void parse_missingFloorAreaPrefix_failure() {
         String args = ADDRESS_DESC + POSTAL_DESC + PRICE_DESC + TYPE_DESC + STATUS_DESC
-                + BEDROOM_DESC + BATHROOM_DESC + LISTING_DESC + OWNER_DESC;
+                + BEDROOM_DESC + BATHROOM_DESC + OWNER_DESC;
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 AddPropertyCommandParser.FLOOR_AREA_MISSING + AddPropertyCommand.MESSAGE_USAGE);
 
@@ -103,19 +101,9 @@ class AddPropertyCommandParserTest {
     }
 
     @Test
-    void parse_missingListingPrefix_failure() {
-        String args = ADDRESS_DESC + POSTAL_DESC + PRICE_DESC + TYPE_DESC + STATUS_DESC
-                + BEDROOM_DESC + BATHROOM_DESC + FLOOR_DESC + OWNER_DESC;
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                AddPropertyCommandParser.LISTING_MISSING + AddPropertyCommand.MESSAGE_USAGE);
-
-        assertParseFailure(parser, args, expectedMessage);
-    }
-
-    @Test
     void parse_missingOwnerPrefix_failure() {
         String args = ADDRESS_DESC + POSTAL_DESC + PRICE_DESC + TYPE_DESC + STATUS_DESC
-                + BEDROOM_DESC + BATHROOM_DESC + FLOOR_DESC + LISTING_DESC;
+                + BEDROOM_DESC + BATHROOM_DESC + FLOOR_DESC;
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 AddPropertyCommandParser.OWNER_MISSING + AddPropertyCommand.MESSAGE_USAGE);
 

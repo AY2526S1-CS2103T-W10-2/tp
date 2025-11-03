@@ -7,7 +7,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_BATHROOM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_BEDROOM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_FLOOR_AREA;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_LISTING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_OWNER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_POSTAL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_PRICE;
@@ -38,7 +37,6 @@ class UnifiedCommandParserTest {
             " " + PREFIX_PROPERTY_BEDROOM + "4",
             " " + PREFIX_PROPERTY_BATHROOM + "3",
             " " + PREFIX_PROPERTY_FLOOR_AREA + "150",
-            " " + PREFIX_PROPERTY_LISTING + "rent",
             " " + PREFIX_PROPERTY_OWNER + "owner321");
 
     private final UnifiedCommandParser parser = new UnifiedCommandParser(List.of(

@@ -24,7 +24,6 @@ public class Property {
     private final Bathroom bathroom;
     private final Bedroom bedroom;
     private final FloorArea floorArea;
-    private final Listing listing;
     private final Postal postal;
     private final Price price;
     private final Status status;
@@ -38,15 +37,14 @@ public class Property {
      * Every field must be present and not null.
      */
     public Property(Uuid uuid, PropertyAddress address, Bathroom bathroom, Bedroom bedroom, FloorArea floorArea,
-                    Listing listing, Postal postal, Price price, Status status, Type type, Owner owner,
+                    Postal postal, Price price, Status status, Type type, Owner owner,
                     Set<Uuid> buyingContactIds, Set<Uuid> sellingContactIds) {
-        requireAllNonNull(address, bathroom, bedroom, floorArea, listing, postal, price, status, type, owner);
+        requireAllNonNull(address, bathroom, bedroom, floorArea, postal, price, status, type, owner);
         this.uuid = uuid;
         this.address = address;
         this.bathroom = bathroom;
         this.bedroom = bedroom;
         this.floorArea = floorArea;
-        this.listing = listing;
         this.postal = postal;
         this.price = price;
         this.status = status;
@@ -61,7 +59,7 @@ public class Property {
      * Used for updating Property when adding to propertybook.
      */
     public Property duplicateWithNewUuid(Uuid uuid) {
-        return new Property(uuid, address, bathroom, bedroom, floorArea, listing, postal,
+        return new Property(uuid, address, bathroom, bedroom, floorArea, postal,
                 price, status, type, owner, buyingContactIds, sellingContactIds);
     }
 
@@ -80,10 +78,6 @@ public class Property {
 
     public FloorArea getFloorArea() {
         return floorArea;
-    }
-
-    public Listing getListing() {
-        return listing;
     }
 
     public Postal getPostal() {
@@ -160,7 +154,7 @@ public class Property {
      * Used for updating Property when linking or unlinking.
      */
     public Property duplicateWithNewBuyingContactIds(Set<Uuid> buyingContactIds) {
-        return new Property(uuid, address, bathroom, bedroom, floorArea, listing, postal,
+        return new Property(uuid, address, bathroom, bedroom, floorArea, postal,
                 price, status, type, owner, buyingContactIds, sellingContactIds);
     }
 
@@ -169,7 +163,7 @@ public class Property {
      * Used for updating Property when linking or unlinking.
      */
     public Property duplicateWithNewSellingContactIds(Set<Uuid> sellingContactIds) {
-        return new Property(uuid, address, bathroom, bedroom, floorArea, listing, postal,
+        return new Property(uuid, address, bathroom, bedroom, floorArea, postal,
                 price, status, type, owner, buyingContactIds, sellingContactIds);
     }
 
@@ -191,7 +185,7 @@ public class Property {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return java.util.Objects.hash(address, bathroom, bedroom, floorArea, listing, postal, price, status, type,
+        return java.util.Objects.hash(address, bathroom, bedroom, floorArea, postal, price, status, type,
                 owner, buyingContactIds, sellingContactIds);
     }
 
@@ -214,7 +208,6 @@ public class Property {
                 && bathroom.equals(otherProperty.bathroom)
                 && bedroom.equals(otherProperty.bedroom)
                 && floorArea.equals(otherProperty.floorArea)
-                && listing.equals(otherProperty.listing)
                 && postal.equals(otherProperty.postal)
                 && price.equals(otherProperty.price)
                 && status.equals(otherProperty.status)
@@ -230,7 +223,6 @@ public class Property {
                 .add("Bathroom", bathroom)
                 .add("Bedroom", bedroom)
                 .add("Floor Area", floorArea)
-                .add("Listing", listing)
                 .add("Postal", postal)
                 .add("Price", price)
                 .add("Status", status)
