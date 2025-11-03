@@ -28,7 +28,7 @@ title: Developer Guide
 13. [Appendix: Efforts](#appendix-effort)
 14. [Appendix: Continuous Integration](#appendix-continuous-integration--continuous-deployment)
 
----------------------------------------------------------------------------------------------------------------------
+<div markdown="block" class="alert alert-info">
 
 ## Acknowledgements
 
@@ -52,13 +52,9 @@ Provides you with helpful advice like keyboard shortcuts to use the application 
 Warns you of potential issues to should watch out for.
 </div>
 
----------------------------------------------------------------------------------------------------------------------
-
 ## 1. Setting up
 
 Refer to the guide [_Setting up and getting started_](SettingUp.md).
-
----------------------------------------------------------------------------------------------------------------------
 
 ## 2. Design
 
@@ -67,6 +63,7 @@ Refer to the guide [_Setting up and getting started_](SettingUp.md).
 :bulb: **Tip:** The `.puml` files used to create diagrams are in the `docs/diagrams` folder. <br>
 Click [here](https://se-education.org/guides/tutorials/plantUml.html) to learn how to create and edit the diagrams.
 </div>
+<div markdown="block" class="alert alert-info">
 
 ### 2.1. Architecture
 

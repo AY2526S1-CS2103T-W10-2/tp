@@ -429,7 +429,7 @@ Format: `clear`
 </div>
 
 **Expected Output**
-![clear result](images/clearResult.png)
+![clear result](images/clearCommandResult.png)
 
 ### Exiting the program : `exit`
 
