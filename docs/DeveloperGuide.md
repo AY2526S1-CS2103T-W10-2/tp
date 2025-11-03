@@ -28,8 +28,6 @@ title: Developer Guide
 13. [Appendix: Efforts](#appendix-effort)
 14. [Appendix: Continuous Integration](#appendix-continuous-integration--continuous-deployment)
 
-<div markdown="block" class="alert alert-info">
-
 ## Acknowledgements
 
 TheRealDeal is a brownfield group project that is based on [addressbook-level3](https://github.com/se-edu/addressbook-level3) (AB3) created by [SE-EDU](https://se-education.org/).
