@@ -405,6 +405,8 @@ Examples:
 
 For more information on the parameters, click [here](#command-parameters).
 
+<div style="page-break-after: always;"></div>
+
 ### Showing properties associated with a contact : `showproperties`
 
 Displays all properties associated with a specific contact by their ID. Properties who either have the contact as a buyer, seller or owner, will be shown.
@@ -433,6 +435,8 @@ Examples:
 
 For more information on the parameters, click [here](#command-parameters).
 
+<div style="page-break-after: always;"></div>
+
 ### Clearing all entries : `clear`
 
 Clears ***ALL*** contacts and properties from the application.
@@ -451,6 +455,7 @@ Format: `clear`
 
 TheRealDeal data is saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
+<div style="page-break-after: always;"></div>
 
 ## Editing the data file
 
@@ -465,8 +470,6 @@ Advanced users are welcome to update data directly by editing that data file.
 If your changes to the data file makes its format invalid, TheRealDeal will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br><br>
 Furthermore, certain edits can cause the TheRealDeal to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </div>
-
---------------------------------------------------------------------------------------------------------------------
 
 ## FAQ
 
@@ -485,7 +488,7 @@ Furthermore, certain edits can cause the TheRealDeal to behave in unexpected way
 **Q**: Why isn't my command working for a contact/property that I have already input?<br>
 **A**: Ensure that the contact/property you are affecting with the command is visible on the GUI.
 
---------------------------------------------------------------------------------------------------------------------
+<div style="page-break-after: always;"></div>
 
 ## Known issues
 
