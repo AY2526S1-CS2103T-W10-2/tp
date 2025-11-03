@@ -107,7 +107,7 @@ public class PropertyMatchesFilterPredicate implements Predicate<Property> {
         }
 
         // owner substring (case-insensitive; owner is an id-like string)
-        if (owner != null && !p.getOwner().toString().toLowerCase(Locale.ROOT).contains(owner)) {
+        if (owner != null && !p.getOwner().toString().toLowerCase(Locale.ROOT).equals(owner)) {
             return false;
         }
 
