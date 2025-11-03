@@ -1058,7 +1058,7 @@ Variations:<br>
 
 ##### Adding a contact with unique details
 
-Command: `addcontact n/Zara Lim p/91234567 e/zara.lim@example.com a/11 Green Lane t/buyer status/active notes/Prefers email`
+Command: `addcontact n/Zara Lim p/91234567 e/zara.lim@example.com a/11 Green Lane t/buyer s/active notes/Prefers email`
 
 To simulate:<br>
 - Run `list` to show all contacts and confirm the sample data does not already contain the details above.
@@ -1074,7 +1074,7 @@ Variations:<br>
 
 ##### Duplicate contact rejected
 
-Command: `addcontact n/Zara Lim p/91234567 e/zara.lim@example.com a/11 Green Lane t/buyer status/active notes/Prefers email`
+Command: `addcontact n/Zara Lim p/91234567 e/zara.lim@example.com a/11 Green Lane t/buyer s/active notes/Prefers email`
 
 To simulate:<br>
 - Ensure the contact from the previous scenario still exists.
