@@ -1824,9 +1824,11 @@ Expected:<br>
 
 Team size: 5
 
-1. **Allow special characters to be used in contact names.** The current validation for contact names requires it to only consist of alphanumeric characters and spaces. The does not support names with special characters like `/` or `-` (e.g. `s/o`, `John-Mary`). Future improvements aim to support this functionality.
-2. **Deleting a contact does not update the owner data of properties.** Future improvements aim to automatically update the owner when the contact is deleted.
-3. **Marking a property as sold or unsold after doing the filter command removes property from UI.** One way to circumvent this is to use the `list` command so that the property reappears.  Future improvements aim to allow the property to remain on the UI after marking as sold or unsold.
+1. **Allow special characters to be used in contact names.** The current validation for contact names requires it to only consist of alphanumeric characters and spaces. The does not support names with special characters like `/` or `-` (e.g. `s/o`, `John-Mary`). Future improvements aim to support this functionality.<br><br>
+2. **Perform verification of inputs for phone number and postal code to meet Singapore format.** Currently, postal codes like `000000` or phone numbers like `000000` are accepted by the application. Further improvements aim to verify that the inputs meet Singapore's standard for phone numbers and postal codes.<br><br>
+3. **Deleting a contact does not update the owner data of properties.** Future improvements aim to automatically update the owner when the contact is deleted.<br><br>
+4. **Filtering logic for filter contacts and filter property are different.** Future improvements aim to make them work similarly for clarity.
+
 
 ---------------------------------------------------------------------------------------------------------------------
 

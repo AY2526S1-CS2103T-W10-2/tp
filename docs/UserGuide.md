@@ -428,7 +428,7 @@ Format: `clear`
 <code>clear</code> is irreversible! Please use it carefully as you will not be able to retrieve the data back.
 </div>
 
-**Expected Output**
+**Expected Output**<br>
 ![clear result](images/clearCommandResult.png)
 
 ### Exiting the program : `exit`
@@ -570,10 +570,10 @@ Related commands: [`filtercontact`](#filtering-contacts--filtercontact), [`filte
 | Relationship  | r/      | Should only be these (case-insensitive): buyer, seller |
 
 ## Basic Command Terminal Navigation
-1. Determine the address of the folder where TheRealDeal is installed.
-2. Open "Powershell" on Windows or "Terminal" on MacOS and Linux.
-3. Type `cd ADDRESS`, where `ADDRESS` is the address where TheRealDeal is installed (e.g. `cd C:\Users\home\Desktop\TheRealDeal`), and press the `Enter` key.
-4. Type `java -jar (NAME_OF_FILE).jar`, and press the `Enter` key to run the application. Replace `(NAME_OF_FILE)` with the name of the file downloaded. Note that the name of the file might differ based on the exact version installed.
+1. Determine the address of the folder where TheRealDeal is installed.<br><br>
+2. Open "Powershell" on Windows or "Terminal" on MacOS and Linux.<br><br>
+3. Type `cd ADDRESS`, where `ADDRESS` is the address where TheRealDeal is installed (e.g. `cd C:\Users\home\Desktop\TheRealDeal`), and press the `Enter` key.<br><br>
+4. Type `java -jar (NAME_OF_FILE).jar`, and press the `Enter` key to run the application. Replace `(NAME_OF_FILE)` with the name of the file downloaded. Note that the name of the file might differ based on the exact version installed.<br><br>
 
 ## Glossary of Terms
 
