@@ -3,12 +3,11 @@ layout: page
 title: User Guide
 ---
 
-TheRealDeal is a **desktop app for real estate agents in Singapore, optimised for use via a Command Line Interface** (CLI) to streamline contact management by providing **quick access to contact preferences and available properties** within the local market. Dealing with Singaporean properties and clients, the app enables you to work efficiently - the faster you type, the faster TheRealDeal can help you find exactly what you need.
+TheRealDeal is a **desktop application for real estate agents in Singapore, optimised for use via a Command Line Interface** (CLI) to streamline contact management by providing **quick access to contact preferences and available properties** within the local market. Dealing with Singaporean properties and clients, the app enables you to work efficiently - the faster you type, the faster TheRealDeal can help you find exactly what you need.
 
 * Table of Contents
 {:toc}
 
---------------------------------------------------------------------------------------------------------------------
 ## Legend
 These boxes in the User Guide has additional information that you should take note of.
 
@@ -27,7 +26,6 @@ Provides you with helpful advice like keyboard shortcuts to use the application 
 Warns you of potential issues to should watch out for.
 </div>
 
---------------------------------------------------------------------------------------------------------------------
 <div style="page-break-after: always;"></div>
 
 ## GUI Overview
@@ -41,8 +39,7 @@ TheRealDeal Graphical User Interface (GUI) is organised into **five** key compon
 * `Console Display`: Provides immediate feedback, displaying success or failure messages based on the user’s command.
 * `List Card`: Displays key information about contacts or properties, depending on the user's command.
 * `Status Bar`: Displays whether contacts or properties are currently being shown.
-
---------------------------------------------------------------------------------------------------------------------
+<div style="page-break-after: always;"></div>
 
 ## Quick start
 
@@ -85,8 +82,7 @@ Some example commands you can try:
 
 To see the detailed explanation of every feature, click [here](#features)<br>
 To see the summary of every feature, click [here](#command-summary)
-
---------------------------------------------------------------------------------------------------------------------
+<div style="page-break-after: always;"></div>
 
 ## Features
 
@@ -102,6 +98,7 @@ To see the summary of every feature, click [here](#command-summary)
 
 * Items with `…`​ after them can be used multiple times. Items can be used zero times if they are also wrapped in square brackets.<br>
   e.g. `[c/ID]...` can be used as ` ` (i.e. 0 times), `c/1`, `c/1 c/2` etc.
+  e.g. `[n/NAME...]` can be used as ` ` (i.e. 0 times), `n/John`, `n/John Alex` etc.
 
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
@@ -161,7 +158,7 @@ Examples:
 <div markdown="block" class="alert alert-info">
 **:information_source: Important:**<br>
 If not provided, minimum budget will be $0 and maximum budget will be $200,000,000,000.<br><br>
-If not provided, the optional parameters will be empty.
+If not provided, the other optional parameters (email, address, notes, status) will be empty. In other words, they will be ` `.
 </div>
 
 For more information on the parameters, click [here](#command-parameters).
