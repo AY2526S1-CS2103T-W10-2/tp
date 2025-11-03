@@ -105,7 +105,7 @@ To see the summary of every feature, click [here](#command-summary)
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </div>
-
+<div style="page-break-after: always;"></div>
 ### Viewing help : `help`
 
 Opens a separate window containing the link to this User Guide.
@@ -137,8 +137,8 @@ To switch to the list of properties type: <code>filterproperty</code>
 </div>
 
 **List Command done while on Property List**
-![list result property](images/listResultProperties.png)
-
+![list result property](images/listResultProperty.png)
+<div style="page-break-after: always;"></div>
 ### Adding a contact : `addcontact`
 
 Adds a new contact into the system.
