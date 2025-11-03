@@ -220,7 +220,7 @@ The `ListCommand` calls the `Model` component to update the `FilteredList<Contac
 <div markdown="block" class="alert alert-info">
 **:information_source: Important:**<br>
 Users can switch to the list of contacts with: <code>filtercontact</code><br>
-Users can switch to the list of properties with: <code>filterproperty</code>
+Users can switch to the list of properties with: <code>filterproperties</code>
 </div>
 
 ##### Design Considerations
@@ -399,13 +399,13 @@ Validation done:
 - Ensures the UUID is a positive integer within bounds expected by the application.
 
 ##### Execution
-`DeletePropertyCommand#execute` consults `Model#getFilteredPropertyList()`, which always reflects the latest property filtering applied in the UI (e.g. `list`, `filterproperty`).
+`DeletePropertyCommand#execute` consults `Model#getFilteredPropertyList()`, which always reflects the latest property filtering applied in the UI (e.g. `list`, `filterproperties`).
 
-For example, after running `filterproperty type/condo`, only the condo subset is searched—even if you subsequently switch to the contacts tab—until another property-filtering command updates the list.
+For example, after running `filterproperties type/condo`, only the condo subset is searched—even if you subsequently switch to the contacts tab—until another property-filtering command updates the list.
 If the supplied UUID is absent from that subset the command throws `MESSAGE_INVALID_PROPERTY_DISPLAYED_ID`; otherwise it deletes the property`, and update the UI accordingly.
 
-#### <u>Filter Property Command</u> (`filterproperty`)
-The `filterproperty` command filters the properties in the property book based on the criteria given.
+#### <u>Filter Property Command</u> (`filterproperties`)
+The `filterproperties` command filters the properties in the property book based on the criteria given.
 
 Optional Fields:
 - Address
@@ -422,7 +422,7 @@ Optional Fields:
 - Offset
 
 ##### Parsing and Validating User Input
-The `FilterPropertyCommandParser` is responsible for parsing the command input. It utilises `ArgumentTokenizer` to split the input string based on defined prefixes (`PREFIX_PROPERTY_ADDRESS`, `PREFIX_PROPERTY_POSTAL`, etc) <br><br>
+The `FilterPropertiesCommandParser` is responsible for parsing the command input. It utilises `ArgumentTokenizer` to split the input string based on defined prefixes (`PREFIX_PROPERTY_ADDRESS`, `PREFIX_PROPERTY_POSTAL`, etc) <br><br>
 A `PropertyMatchesFilterPredicate` is created that encapsulates all the filter conditions and is used to test whether a property matches the given filters.
 
 Validation done:
@@ -430,7 +430,7 @@ Validation done:
 - Proper data types and formats for numeric fields (e.g. price, limit, offset)
 
 ##### Execution
-`FilterPropertyCommand` applies the `PropertyMatchesFilterPredicate` over the existing filtered contact list and produces a list of matching contacts. It is also changed based on the `limit` and `offset` given.
+`FilterPropertiesCommand` applies the `PropertyMatchesFilterPredicate` over the existing filtered contact list and produces a list of matching contacts. It is also changed based on the `limit` and `offset` given.
 The UI is then updated based on which properties that match the predicate.
 
 #### <u>Mark Property as Sold Command</u> (`sold`)
@@ -564,7 +564,7 @@ Related commands: [`addcontact`](#add-command-addcontact), [`filtercontact`](#fi
 
 ### Property Management
 These are prefixes for purely property related commands.
-Related commands: [`addproperty`](#addpropertycommand-addproperty), [`filterproperty`](#filter-property-command-filterproperty)
+Related commands: [`addproperty`](#addpropertycommand-addproperty), [`filterproperties`](#ufilter-property-commandu-filterproperties)
 
 | Parameter      | Prefix  | Constraints                                                                                                       |
 |----------------|---------|-------------------------------------------------------------------------------------------------------------------|
@@ -581,7 +581,7 @@ Related commands: [`addproperty`](#addpropertycommand-addproperty), [`filterprop
 
 ### Others
 These are prefixes that are used over multiple commands.
-Related commands: [`filtercontact`](#filter-contact-command-filtercontact), [`filterproperty`](#filter-property-command-filterproperty), [`sold`](#mark-property-as-sold-command-sold), [`unsold`](#mark-property-as-unsold-command-unsold), [`link`](#linkcommand-link), [`unlink`](#unlinkcommand-unlink), [`showproperties`](#showpropertiescommand-showproperties), [`showcontacts`](#showcontactscommand-showcontacts)
+Related commands: [`filtercontact`](#filter-contact-command-filtercontact), [`filterproperties`](#ufilter-property-commandu-filterproperties), [`sold`](#mark-property-as-sold-command-sold), [`unsold`](#mark-property-as-unsold-command-unsold), [`link`](#linkcommand-link), [`unlink`](#unlinkcommand-unlink), [`showproperties`](#showpropertiescommand-showproperties), [`showcontacts`](#showcontactscommand-showcontacts)
 
 | Parameter      | Prefix  | Constraints                                            |
 |----------------|---------|--------------------------------------------------------|
@@ -1170,11 +1170,11 @@ Variations:<br>
 - Run `deletecontact` without arguments to observe the invalid command format error.
 - Run `deletecontact abc` to see the invalid UUID message.
 
-### Filtering and Switching Property List (`filterproperty`)
+### Filtering and Switching Property List (`filterproperties`)
 
 ##### Switching to property list view
 
-Command: `filterproperty`
+Command: `filterproperties`
 
 To simulate:<br>
 - Run from any list, e.g., contact list.
@@ -1185,7 +1185,7 @@ Expected:<br>
 
 Variations:<br>
 - Run repeatedly — should not duplicate effect.
-- Switch back and forth between `filtercontact` and `filterproperty`.
+- Switch back and forth between `filtercontact` and `filterproperties`.
 
 ##### Listing the full property list
 
@@ -1193,7 +1193,7 @@ Command: `list`
 
 To simulate:<br>
 - Ensure you are on the property list page.
-- If not, run `filterproperty`.
+- If not, run `filterproperties`.
 - Execute `list`.
 
 Expected:<br>
@@ -1206,7 +1206,7 @@ Variations:<br>
 
 ##### Filtering by address and bedrooms
 
-Command: `filterproperty a/Geylang bed/3`
+Command: `filterproperties a/Geylang bed/3`
 
 To simulate:<br>
 - Display multiple properties.
@@ -1220,9 +1220,9 @@ Variations:<br>
 - Include more prefixes (e.g., `type/condo`) to confirm multi-criteria filtering.
 - Use case variations to test matching.
 
-##### Invalid filterproperty command
+##### Invalid filterproperties command
 
-Command: `filterproperty abc/Apple`
+Command: `filterproperties abc/Apple`
 
 To simulate:<br>
 - Run the command with an unrecognized prefix.
@@ -1232,7 +1232,7 @@ Expected:<br>
 - Property list unchanged.
 
 Variations:<br>
-- Run `filterproperty abc` to verify same behavior.
+- Run `filterproperties abc` to verify same behavior.
 - Provide duplicate prefixes (e.g. two `type/` values) to observe the corresponding error message.
 
 ### Adding a property
@@ -1738,7 +1738,7 @@ To simulate:<br>
 - Run the above command with CONTACT_ID replaced with the UUID of a contact not in the property list.
 
 Expected:<br>
-- Displays the following error message:<br>`No properties found associated to contact ID: [CONTACT_ID]`<br>`Possible reasons:`<br>`  • The contact exists but is not linked to any properties yet`<br>`  • The contact ID doesn't exist (use 'list' & 'filterproperty' to verify)`<br>`Tip: Use 'addproperty ... o/[CONTACT_ID]' to add a property for this contact.`
+- Displays the following error message:<br>`No properties found associated to contact ID: [CONTACT_ID]`<br>`Possible reasons:`<br>`  • The contact exists but is not linked to any properties yet`<br>`  • The contact ID doesn't exist (use 'list' & 'filterproperties' to verify)`<br>`Tip: Use 'addproperty ... o/[CONTACT_ID]' to add a property for this contact.`
 - No change to the GUI.
 
 Variations:<br>

@@ -23,7 +23,7 @@ public class ResultDisplay extends UiPart<Region> {
         super(FXML);
         resultDisplay.setText("Welcome to TheRealDeal!\n"
                 + "For more info, type \"help\"\n"
-                + "To switch to properties, type \"filterproperty\"");
+                + "To switch to properties, type \"filterproperties\"");
     }
 
     public void setFeedbackToUser(String feedbackToUser) {
