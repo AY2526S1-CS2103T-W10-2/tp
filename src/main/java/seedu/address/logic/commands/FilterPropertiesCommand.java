@@ -21,12 +21,9 @@ import seedu.address.model.Model;
 import seedu.address.model.property.Property;
 import seedu.address.model.property.predicates.PropertyMatchesFilterPredicate;
 
-/**
- * Filters properties using various optional attributes with pagination.
- */
-public class FilterPropertyCommand extends Command {
+public class FilterPropertiesCommand extends Command {
 
-    public static final String COMMAND_WORD = "filterproperty";
+    public static final String COMMAND_WORD = "filterproperties";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Filters all properties in the property book "
             + "based on the given fields. All prefixes are optional.\n"
@@ -54,10 +51,7 @@ public class FilterPropertyCommand extends Command {
     private final int limit;
     private final int offset;
 
-    /**
-     * Creates an FilterPropertyCommand to filter {@code Property} with given predicate.
-     */
-    public FilterPropertyCommand(PropertyMatchesFilterPredicate predicate, int limit, int offset) {
+    public FilterPropertiesCommand(PropertyMatchesFilterPredicate predicate, int limit, int offset) {
         this.predicate = predicate;
         this.limit = limit;
         this.offset = offset;
@@ -96,9 +90,9 @@ public class FilterPropertyCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this
-                || (other instanceof FilterPropertyCommand
-                && predicate.equals(((FilterPropertyCommand) other).predicate)
-                && limit == ((FilterPropertyCommand) other).limit
-                && offset == ((FilterPropertyCommand) other).offset);
+                || (other instanceof FilterPropertiesCommand
+                && predicate.equals(((FilterPropertiesCommand) other).predicate)
+                && limit == ((FilterPropertiesCommand) other).limit
+                && offset == ((FilterPropertiesCommand) other).offset);
     }
 }

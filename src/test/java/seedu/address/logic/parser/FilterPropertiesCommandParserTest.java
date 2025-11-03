@@ -17,13 +17,13 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_TYPE;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.FilterPropertyCommand;
+import seedu.address.logic.commands.FilterPropertiesCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.property.predicates.PropertyMatchesFilterPredicate;
 
 
-public class FilterPropertyCommandParserTest {
-    private final FilterPropertyCommandParser parser = new FilterPropertyCommandParser();
+public class FilterPropertiesCommandParserTest {
+    private final FilterPropertiesCommandParser parser = new FilterPropertiesCommandParser();
 
     @Test
     public void parseValidArgsSuccessFirst() throws Exception {
@@ -34,8 +34,8 @@ public class FilterPropertyCommandParserTest {
                 + PREFIX_PROPERTY_STATUS + "available "
                 + PREFIX_LIMIT + "5 "
                 + PREFIX_OFFSET + "10";
-        FilterPropertyCommand expected =
-                new FilterPropertyCommand(
+        FilterPropertiesCommand expected =
+                new FilterPropertiesCommand(
                         new PropertyMatchesFilterPredicate.Builder()
                                 .withType("condo").withBedroom("3")
                                 .withFloorArea("100").withStatus("available").build(),
@@ -47,8 +47,8 @@ public class FilterPropertyCommandParserTest {
     @Test
     public void parseValidArgsSuccessSecond() throws Exception {
         String input = " " + PREFIX_PROPERTY_OWNER + "alice";
-        FilterPropertyCommand expected =
-                new FilterPropertyCommand(
+        FilterPropertiesCommand expected =
+                new FilterPropertiesCommand(
                         new PropertyMatchesFilterPredicate.Builder()
                                 .withOwner("alice").build(),
                         Integer.MAX_VALUE, 0);
@@ -63,8 +63,8 @@ public class FilterPropertyCommandParserTest {
                 + PREFIX_PROPERTY_BATHROOM + "3 "
                 + PREFIX_PROPERTY_PRICE + "5000 "
                 + PREFIX_PROPERTY_LISTING + "rent";
-        FilterPropertyCommand expected =
-                new FilterPropertyCommand(
+        FilterPropertiesCommand expected =
+                new FilterPropertiesCommand(
                         new PropertyMatchesFilterPredicate.Builder()
                                 .withAddress("Geylang 18").withPostal("123000").withBathroom("3")
                                 .withPrice("5000").withListing("rent").build(),
@@ -75,7 +75,7 @@ public class FilterPropertyCommandParserTest {
     @Test
     public void parseEmptyArgSuccessForth() throws Exception {
         String input = "";
-        FilterPropertyCommand expected = new FilterPropertyCommand(
+        FilterPropertiesCommand expected = new FilterPropertiesCommand(
                 new PropertyMatchesFilterPredicate.Builder().build(),
                 Integer.MAX_VALUE,
                 0);

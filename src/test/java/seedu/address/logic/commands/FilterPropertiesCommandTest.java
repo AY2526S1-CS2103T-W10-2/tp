@@ -30,7 +30,7 @@ import seedu.address.model.property.predicates.PropertyMatchesFilterPredicate;
 /**
  * Tests for FilterPropertyCommand
  */
-public class FilterPropertyCommandTest {
+public class FilterPropertiesCommandTest {
 
     private Model model;
 
@@ -82,7 +82,7 @@ public class FilterPropertyCommandTest {
         PropertyMatchesFilterPredicate predicate =
                 new PropertyMatchesFilterPredicate.Builder().withPostal("123000").build();
 
-        FilterPropertyCommand command = new FilterPropertyCommand(predicate, Integer.MAX_VALUE, 0);
+        FilterPropertiesCommand command = new FilterPropertiesCommand(predicate, Integer.MAX_VALUE, 0);
         CommandResult result = command.execute(model);
 
         List<Property> shown = model.getFilteredPropertyList();
@@ -96,7 +96,7 @@ public class FilterPropertyCommandTest {
         PropertyMatchesFilterPredicate predicate =
                 new PropertyMatchesFilterPredicate.Builder().withType("Condo").build();
 
-        FilterPropertyCommand command = new FilterPropertyCommand(predicate, Integer.MAX_VALUE, 0);
+        FilterPropertiesCommand command = new FilterPropertiesCommand(predicate, Integer.MAX_VALUE, 0);
         CommandResult result = command.execute(model);
 
         List<Property> shown = model.getFilteredPropertyList();
@@ -110,7 +110,7 @@ public class FilterPropertyCommandTest {
         PropertyMatchesFilterPredicate predicate =
                 new PropertyMatchesFilterPredicate.Builder().withStatus("available").build();
 
-        FilterPropertyCommand command = new FilterPropertyCommand(predicate, Integer.MAX_VALUE, 0);
+        FilterPropertiesCommand command = new FilterPropertiesCommand(predicate, Integer.MAX_VALUE, 0);
         CommandResult result = command.execute(model);
 
         List<Property> shown = model.getFilteredPropertyList();
@@ -125,7 +125,7 @@ public class FilterPropertyCommandTest {
         PropertyMatchesFilterPredicate predicate =
                 new PropertyMatchesFilterPredicate.Builder().withBedroom("4").build();
 
-        FilterPropertyCommand command = new FilterPropertyCommand(predicate, Integer.MAX_VALUE, 0);
+        FilterPropertiesCommand command = new FilterPropertiesCommand(predicate, Integer.MAX_VALUE, 0);
         CommandResult result = command.execute(model);
 
         List<Property> shown = model.getFilteredPropertyList();
@@ -139,7 +139,7 @@ public class FilterPropertyCommandTest {
         PropertyMatchesFilterPredicate predicate =
                 new PropertyMatchesFilterPredicate.Builder().withFloorArea("100").build();
 
-        FilterPropertyCommand command = new FilterPropertyCommand(predicate, Integer.MAX_VALUE, 0);
+        FilterPropertiesCommand command = new FilterPropertiesCommand(predicate, Integer.MAX_VALUE, 0);
         CommandResult result = command.execute(model);
 
         List<Property> shown = model.getFilteredPropertyList();
@@ -153,7 +153,7 @@ public class FilterPropertyCommandTest {
         PropertyMatchesFilterPredicate predicate =
                 new PropertyMatchesFilterPredicate.Builder().withPrice("1000000").build();
 
-        FilterPropertyCommand command = new FilterPropertyCommand(predicate, Integer.MAX_VALUE, 0);
+        FilterPropertiesCommand command = new FilterPropertiesCommand(predicate, Integer.MAX_VALUE, 0);
         CommandResult result = command.execute(model);
 
         List<Property> shown = model.getFilteredPropertyList();
@@ -167,7 +167,7 @@ public class FilterPropertyCommandTest {
         PropertyMatchesFilterPredicate predicate =
                 new PropertyMatchesFilterPredicate.Builder().withOwner("carol").build();
 
-        FilterPropertyCommand command = new FilterPropertyCommand(predicate, Integer.MAX_VALUE, 0);
+        FilterPropertiesCommand command = new FilterPropertiesCommand(predicate, Integer.MAX_VALUE, 0);
         CommandResult result = command.execute(model);
 
         List<Property> shown = model.getFilteredPropertyList();
@@ -181,7 +181,7 @@ public class FilterPropertyCommandTest {
         PropertyMatchesFilterPredicate predicate =
                 new PropertyMatchesFilterPredicate.Builder().withListing("sale").build();
 
-        FilterPropertyCommand command = new FilterPropertyCommand(predicate, Integer.MAX_VALUE, 0);
+        FilterPropertiesCommand command = new FilterPropertiesCommand(predicate, Integer.MAX_VALUE, 0);
         CommandResult result = command.execute(model);
 
         List<Property> shown = model.getFilteredPropertyList();
@@ -195,7 +195,7 @@ public class FilterPropertyCommandTest {
         PropertyMatchesFilterPredicate predicate =
                 new PropertyMatchesFilterPredicate.Builder().withStatus("available").build();
 
-        FilterPropertyCommand command = new FilterPropertyCommand(predicate, 1, 1);
+        FilterPropertiesCommand command = new FilterPropertiesCommand(predicate, 1, 1);
         CommandResult result = command.execute(model);
 
         List<Property> shown = model.getFilteredPropertyList();
@@ -210,10 +210,10 @@ public class FilterPropertyCommandTest {
         PropertyMatchesFilterPredicate secondPredicate =
                 new PropertyMatchesFilterPredicate.Builder().withType("hdb").build();
 
-        FilterPropertyCommand firstCommand = new FilterPropertyCommand(firstPredicate, 20, 0);
-        FilterPropertyCommand secondCommand = new FilterPropertyCommand(secondPredicate, 20, 0);
+        FilterPropertiesCommand firstCommand = new FilterPropertiesCommand(firstPredicate, 20, 0);
+        FilterPropertiesCommand secondCommand = new FilterPropertiesCommand(secondPredicate, 20, 0);
 
-        assertEquals(firstCommand, new FilterPropertyCommand(firstPredicate, 20, 0));
+        assertEquals(firstCommand, new FilterPropertiesCommand(firstPredicate, 20, 0));
         assertNotEquals(firstCommand, secondCommand);
         assertNotEquals(firstCommand, null);
         assertNotEquals(firstCommand, "some string");

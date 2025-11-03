@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddPropertyCommand;
 import seedu.address.logic.commands.DeletePropertyCommand;
-import seedu.address.logic.commands.FilterPropertyCommand;
+import seedu.address.logic.commands.FilterPropertiesCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.property.Property;
@@ -84,7 +84,7 @@ class PropertyBookParserTest {
 
     @Test
     public void parseCommand_filterProperty() throws Exception {
-        assertTrue(parser.parseCommand("filterproperty " + PREFIX_PROPERTY_TYPE + "hdb")
-                instanceof FilterPropertyCommand);
+        assertTrue(parser.parseCommand("filterproperties " + PREFIX_PROPERTY_TYPE + "hdb")
+                instanceof FilterPropertiesCommand);
     }
 }

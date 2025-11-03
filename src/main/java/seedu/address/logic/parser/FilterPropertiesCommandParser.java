@@ -18,7 +18,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import seedu.address.logic.commands.FilterPropertyCommand;
+import seedu.address.logic.commands.FilterPropertiesCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.property.Bathroom;
 import seedu.address.model.property.Bedroom;
@@ -31,22 +31,19 @@ import seedu.address.model.property.Status;
 import seedu.address.model.property.Type;
 import seedu.address.model.property.predicates.PropertyMatchesFilterPredicate;
 
-/**
- * Parses input arguments and creates a new FilterPropertyCommand object.
- */
-public class FilterPropertyCommandParser implements Parser<FilterPropertyCommand> {
+public class FilterPropertiesCommandParser implements Parser<FilterPropertiesCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the FilterPropertyCommand
-     * and returns an FilterPropertyCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the FilterPropertiesCommand
+     * and returns an FilterPropertiesCommand object for execution.
      *
      * @throws ParseException if the user input does not conform the expected format
      */
     @Override
-    public FilterPropertyCommand parse(String args) throws ParseException {
+    public FilterPropertiesCommand parse(String args) throws ParseException {
 
         if (args.trim().isEmpty()) {
-            return new FilterPropertyCommand(
+            return new FilterPropertiesCommand(
                     new PropertyMatchesFilterPredicate.Builder().build(),
                     Integer.MAX_VALUE,
                     0
@@ -71,14 +68,14 @@ public class FilterPropertyCommandParser implements Parser<FilterPropertyCommand
 
         if (!invalidPrefixes.isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    FilterPropertyCommand.MESSAGE_USAGE));
+                    FilterPropertiesCommand.MESSAGE_USAGE));
         }
 
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, validPrefixes.toArray(new Prefix[0]));
 
         if (!argMultimap.getPreamble().trim().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    FilterPropertyCommand.MESSAGE_USAGE));
+                    FilterPropertiesCommand.MESSAGE_USAGE));
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(validPrefixes.toArray(new Prefix[0]));
@@ -195,6 +192,6 @@ public class FilterPropertyCommandParser implements Parser<FilterPropertyCommand
             offset = Integer.parseInt(t);
         }
 
-        return new FilterPropertyCommand(builder.build(), limit, offset);
+        return new FilterPropertiesCommand(builder.build(), limit, offset);
     }
 }
