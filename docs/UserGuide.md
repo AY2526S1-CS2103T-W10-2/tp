@@ -218,6 +218,7 @@ Examples:
 To reset all filters, you can type <code>list</code>
 </div>
 <div style="page-break-after: always;"></div>
+
 <div markdown="span" class="alert alert-primary">
 :bulb: **Tip:**<br>
 To filter for: Name contains `Tan` and Address contains `Punggol`<br>

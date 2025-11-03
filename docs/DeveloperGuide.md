@@ -57,11 +57,9 @@ Refer to the guide [_Setting up and getting started_](SettingUp.md).
 ## 2. Design
 
 <div markdown="span" class="alert alert-primary">
-
 :bulb: **Tip:** The `.puml` files used to create diagrams are in the `docs/diagrams` folder. <br>
 Click [here](https://se-education.org/guides/tutorials/plantUml.html) to learn how to create and edit the diagrams.
 </div>
-<div markdown="block" class="alert alert-info">
 
 ### 2.1. Architecture
 
