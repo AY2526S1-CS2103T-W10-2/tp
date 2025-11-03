@@ -72,7 +72,7 @@ public class FilterContactPredicate implements Predicate<Contact> {
     public boolean test(Contact contact) {
         // If no filters are specified, don't match anything
         if (names.isEmpty() && phones.isEmpty() && emails.isEmpty() && addresses.isEmpty()
-                && tags.isEmpty() && budgetMin.isEmpty() && budgetMax.isEmpty()
+                && budgetMin.isEmpty() && budgetMax.isEmpty()
                 && notes.isEmpty() && status.isEmpty()) {
             return true; // return all
         }
@@ -98,12 +98,6 @@ public class FilterContactPredicate implements Predicate<Contact> {
                                 StringUtil.containsSubstringIgnoreCase(contact.getAddress().value, k)))
                 .orElse(false);
 
-        boolean tagMatches = tags.map(list ->
-                        contact.getTags().stream().anyMatch(tag ->
-                                list.stream().anyMatch(k ->
-                                        StringUtil.containsSubstringIgnoreCase(tag.tagName, k))))
-                .orElse(false);
-
         // person minimum is more than or equals to input filter minimum
         boolean budgetMinMatches = budgetMin.map(min ->
                 Float.parseFloat(contact.getBudgetMin().value) >= min).orElse(false);
@@ -127,7 +121,7 @@ public class FilterContactPredicate implements Predicate<Contact> {
 
         // Return true if ANY field matches
         return nameMatches || phoneMatches || emailMatches || addressMatches
-                || tagMatches || budgetMinMatches || budgetMaxMatches
+                || budgetMinMatches || budgetMaxMatches
                 || notesMatches || statusMatches;
     }
 
