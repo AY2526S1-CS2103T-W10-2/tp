@@ -89,8 +89,8 @@ public class FilterPropertyCommandParser implements Parser<FilterPropertyCommand
         if (maybeAddress.isPresent()) {
             String t = maybeAddress.get().trim();
             if (!t.matches("^(?=.*[A-Za-z0-9]).{0,200}$")) {
-                throw new ParseException("Invalid address. " +
-                        "Provide 1-200 chars with at least one alphanumeric character.");
+                throw new ParseException("Invalid address. "
+                        + "Provide 1-200 chars with at least one alphanumeric character.");
             }
             builder.withAddress(t);
         }
