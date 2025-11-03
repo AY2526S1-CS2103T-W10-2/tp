@@ -93,7 +93,7 @@ The bulk of the app's work is done by the following four components:
 
 **How the architecture components interact with each other**
 
-The *Sequence Diagram* below shows how the components interact when a user runs `addproperty address/123 Orchard Rd postal/238888 ...` to add a new listing.
+The *Sequence Diagram* below shows how the components interact when a user runs `addproperty a/123 Orchard Rd p/238888 ...` to add a new listing.
 
 <img src="images/ArchitectureSequenceDiagram.png" width="574" />
 
@@ -357,10 +357,10 @@ The `addproperty` command adds a new property to the property book and links it 
 
 Compulsory fields:
 - Address (`a/`)
-- Postal code (`postal/`)
+- Postal code (`p/`)
 - Price (`price/`)
-- Type (`type/`)
-- Status (`status/`)
+- Type (`t/`)
+- Status (`s/`)
 - Bedroom count (`bed/`)
 - Bathroom count (`bath/`)
 - Floor area (`f/`)
@@ -401,7 +401,7 @@ Validation done:
 ##### Execution
 `DeletePropertyCommand#execute` consults `Model#getFilteredPropertyList()`, which always reflects the latest property filtering applied in the UI (e.g. `list`, `filterproperty`).
 
-For example, after running `filterproperty type/condo`, only the condo subset is searched—even if you subsequently switch to the contacts tab—until another property-filtering command updates the list.
+For example, after running `filterproperty t/condo`, only the condo subset is searched—even if you subsequently switch to the contacts tab—until another property-filtering command updates the list.
 If the supplied UUID is absent from that subset the command throws `MESSAGE_INVALID_PROPERTY_DISPLAYED_ID`; otherwise it deletes the property`, and update the UI accordingly.
 
 #### <u>Filter Property Command</u> (`filterproperty`)
@@ -573,7 +573,7 @@ Related commands: [`addproperty`](#addpropertycommand-addproperty), [`filterprop
 | Postal code    | p/      | Should only contain numbers (0-9), and it should be exactly least 6 digits long. (Singaporean Postal Code)        |
 | Price          | price/  | Should be an integer from 1 to 1 trillion                                                                  |
 | Type           | t/      | Should only be these (case-insensitive): hdb, condo, landed, apartment, office, others                            |
-| Status         | status/ | Should only be these (case-insensitive): available, unavailable                                                   |
+| Status         | s/      | Should only be these (case-insensitive): available, unavailable                                                   |
 | Bedroom count  | bed/    | Should be an integer from 0 to 20                                                                                 |
 | Bathroom count | bath/   | Should be an integer from 0 to 20                                                                                 |
 | Floor area     | f/      | Should be an integer from 50 to 100000                                                                           |
@@ -1218,7 +1218,7 @@ Expected:<br>
 - Status shows number listed.
 
 Variations:<br>
-- Include more prefixes (e.g., `type/condo`) to confirm multi-criteria filtering.
+- Include more prefixes (e.g., `t/condo`) to confirm multi-criteria filtering.
 - Use case variations to test matching.
 
 ##### Invalid filterproperty command
@@ -1234,13 +1234,13 @@ Expected:<br>
 
 Variations:<br>
 - Run `filterproperty abc` to verify same behavior.
-- Provide duplicate prefixes (e.g. two `type/` values) to observe the corresponding error message.
+- Provide duplicate prefixes (e.g. two `t/` values) to observe the corresponding error message.
 
 ### Adding a property
 
 ##### Adding a property linked to an existing owner
 
-Command: `addproperty a/21 Sunset Way postal/597145 price/1850000 type/condo status/available bed/3 bath/2 f/1180 l/sale o/1`
+Command: `addproperty a/21 Sunset Way p/597145 price/1850000 t/condo s/available bed/3 bath/2 f/1180 l/sale o/1`
 
 To simulate:<br>
 - Run `list` to show both contacts and properties.
@@ -1257,7 +1257,7 @@ Variations:<br>
 
 ##### Owner contact does not exist
 
-Command: `addproperty a/21 Sunset Way postal/597145 price/1850000 type/condo status/available bed/3 bath/2 f/1180 l/sale o/9999`
+Command: `addproperty a/21 Sunset Way p/597145 price/1850000 t/condo s/available bed/3 bath/2 f/1180 l/sale o/9999`
 
 To simulate:<br>
 - Ensure no contact currently has the UUID `9999`.
@@ -1277,7 +1277,7 @@ Command: `addproperty`
 
 To simulate:<br>
 - Run the command above with no parameters.
-- Repeat with `addproperty a/21 Sunset Way postal/597145 price/1850000 type/condo status/available bed/3 bath/2 f/1180 l/sale o/` to omit the owner ID.
+- Repeat with `addproperty a/21 Sunset Way p/597145 price/1850000 t/condo s/available bed/3 bath/2 f/1180 l/sale o/` to omit the owner ID.
 
 Expected:<br>
 - Command fails with invalid format or constraint messages explaining the missing or malformed prefixes.
