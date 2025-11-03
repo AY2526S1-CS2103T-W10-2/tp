@@ -100,6 +100,16 @@ public class ShowContactsCommandTest {
     }
 
     @Test
+    public void execute_propertyExistsButNoLinkedContacts_showsNoContactsMessage() throws Exception {
+        Uuid existingPropertyUuid = new Uuid(1, PROPERTY);
+        ShowContactsCommand command = new ShowContactsCommand(existingPropertyUuid);
+
+        CommandResult result = command.execute(model);
+
+        assertTrue(result.getFeedbackToUser().contains("No contacts found associated with property"));
+    }
+
+    @Test
     public void execute_nonPropertyUuid_showsNoContactsFound() throws Exception {
         Uuid contactUuid = new Uuid(1, CONTACT); // wrong type
         ShowContactsCommand command = new ShowContactsCommand(contactUuid);
