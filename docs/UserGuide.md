@@ -43,7 +43,7 @@ TheRealDeal Graphical User Interface (GUI) is organised into **five** key compon
 
 ## Quick start
 
-1. Ensure you have Java `17` or above installed in your Computer.<br>
+1. Ensure you have `Java 17` or above installed in your Computer.<br>
    **Windows users:** Tutorial to download [here](https://se-education.org/guides/tutorials/javaInstallationWindows.html)<br>
    **Linux users:** Tutorial to download [here](https://se-education.org/guides/tutorials/javaInstallationLinux.html)<br>
    **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
@@ -97,7 +97,7 @@ To see the summary of every feature, click [here](#command-summary)
   e.g `n/NAME [notes/TEXT]` can be used as `n/John Doe notes/VIP` or as `n/John Doe`.
 
 * Items with `…`​ after them can be used multiple times. Items can be used zero times if they are also wrapped in square brackets.<br>
-  e.g. `[c/ID]...` can be used as ` ` (i.e. 0 times), `c/1`, `c/1 c/2` etc.
+  e.g. `[c/ID]...` can be used as ` ` (i.e. 0 times), `c/1`, `c/1 c/2` etc.<br>
   e.g. `[n/NAME...]` can be used as ` ` (i.e. 0 times), `n/John`, `n/John Alex` etc.
 
 * Parameters can be in any order.<br>
@@ -148,7 +148,7 @@ Adds a new contact into the system.
 
 Format: `addcontact n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [min/AMOUNT] [max/AMOUNT] [notes/TEXT] [status/STATUS]`
 
-* Duplicate contacts (same name and phone number) will not be allowed to be added.
+* Duplicate contacts (same phone number) will not be allowed to be added.
 * Each new contact is assigned a unique ID automatically.
 
 Examples:
@@ -158,7 +158,7 @@ Examples:
 <div markdown="block" class="alert alert-info">
 **:information_source: Important:**<br>
 If not provided, minimum budget will be $0 and maximum budget will be $200,000,000,000.<br><br>
-If not provided, the other optional parameters (email, address, notes, status) will be empty. In other words, they will be ` `.
+If not provided, the other optional parameters (email, address, notes, status) will be empty.<br>In other words, they will be ` `.
 </div>
 
 For more information on the parameters, click [here](#command-parameters).
@@ -171,7 +171,7 @@ Format: `editcontact CONTACT_ID [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [min/AM
 
 * Edits the contact that has the `CONTACT_ID` as specified which refers to the ID number shown in the displayed contact list.
 * At least one of the optional fields must be provided.
-* If the newly edited contact matches an existing contact (same name and phone number), it will be rejected.
+* If the newly edited contact matches an existing contact (same phone number), an error message will be shown.
 
 Examples:
 *  `editcontact 1 p/91234567 e/johndoe@example.com`
@@ -196,8 +196,8 @@ Format: `filtercontact [n/NAME...] [p/PHONE...] [e/EMAIL...] [a/ADDRESS...] [min
 * Substring words will be matched e.g. `Bob` will match `Bobby`.
 * Contacts matching any one of the keyword will be shown (meeting only one of the criteria is enough).
 * Filtering is cumulative. Once you filter by name, you can filter by address subsequently.
-* Minimum budget will filter and show contacts with minimum budget more than or equals to the amount
-* Maximum budget will filter and show contacts with maximum budget less than or equals to the amount
+* Filtering by minimum budget will show contacts with minimum budget more than or equals to the amount given
+* Filtering by maximum budget will show contacts with maximum budget less than or equals to the amount given
 
 Examples:
 * `filtercontact a/yishun`
@@ -211,12 +211,12 @@ To reset all filters, you can type <code>list</code>
 <div markdown="span" class="alert alert-primary">
 :bulb: **Tip:**<br>
 To filter for: Name contains `Tan` and Address contains `Punggol`<br>
-Type: `filtercontact n/Tan` followed by `filtercontact a/Punggol`<br>
+Type: `filtercontact n/Tan` followed by `filtercontact a/Punggol`<br><br>
 
 To filter for: Name contains `Tan` or Address contains `Punggol`<br>
-Type: `filtercontact n/Tan a/Punggol`<br>
+Type: `filtercontact n/Tan a/Punggol`<br><br>
 
-To filter for: Address contains both `Serangoon` or `Tampines`<br>
+To filter for: Address contains `Serangoon` or Address contains `Tampines`<br>
 Type: `filtercontact a/Serangoon Tampines`
 </div>
 
@@ -265,13 +265,13 @@ For more information on the parameters, click [here](#command-parameters).
 
 Filters the properties based on the fields given.
 
-Format: `filterproperty [a/ADDRESS] [p/POSTAL] [t/TYPE] [bed/BEDROOM] [bath/BATHROOM] [f/FLOORAREA] [s/STATUS] [price/PRICE] [o/CONTACT_ID]`
+Format: `filterproperty [a/ADDRESS] [p/POSTAL] [price/PRICE] [t/TYPE] [s/STATUS] [bed/BEDROOM] [bath/BATHROOM] [f/FLOORAREA] [o/CONTACT_ID]`
 
 * The search is case-insensitive. e.g `clementi` will match `Clementi`.
 * Substring property addresses will be matched e.g. `Clementi` will match `CLementi Avenue 8`.
 * Properties matching all the filters will be returned.
-* Filtering is cumulative. Once you filter by `BATHROOM`, you can filter by `TYPE` subsequently.
-* Price filter here is price ceiling filter. e.g. `price/PRICE 3000` will match all properties with price equal or less than 3000
+* Filtering is cumulative. Once you filter by type, you can filter by number of bathrooms subsequently.
+* Filtering by price will show properties with price lesser than or equals to the price given. e.g. `filterproperty price/310000` will match all properties with price equal to or less than 3000
 * Only one filter per field is accepted. e.g. `t/condo hdb` is not accepted.
 
 Examples:
@@ -281,6 +281,12 @@ Examples:
 <div markdown="block" class="alert alert-info">
 **:information_source: Important:**<br>
 To reset all filters, you can type <code>list</code>
+</div>
+
+<div markdown="span" class="alert alert-primary">
+:bulb: **Tip:**<br>
+To filter for: Type is `HDB` and Address contains `Punggol`<br>
+Type: `filterproperty t/hdb a/sengkang`<br><br>
 </div>
 
 For more information on the parameters, click [here](#command-parameters).
@@ -484,24 +490,24 @@ Furthermore, certain edits can cause the TheRealDeal to behave in unexpected way
 ## Command summary
 To see the detailed explanation of every feature, click [here](#features)<br>
 
-| Action                      | Format, Examples                                                                                                                                                                                                                                         |
-|-----------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Add Contact**             | `addcontact n/NAME p/PHONE [e/EMAIL] [a/ADDRESS] [min/AMOUNT] [max/AMOUNT] [notes/TEXT] [status/STATUS]` <br> <br> e.g., `addcontact n/Alex p/91423123 a/982 Yishun Road s/active notes/wants near school min/100000 max/300000`                         |
-| **Edit Contact**            | `editcontact ID [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [min/AMOUNT] [max/AMOUNT] [notes/TEXT] [status/STATUS]`<br> <br> e.g.,`editcontact 2 n/Bobby a/Block 321 Punggol`                                                                             |
-| **Filter Contact**          | `filtercontact [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [min/AMOUNT] [max/AMOUNT] [notes/TEXT] [status/STATUS]`<br> <br> e.g.,`filtercontact n/Tan s/active`                                                                                             |
-| **Delete Contact**          | `deletecontact ID`<br> <br> e.g., `deletecontact 3`                                                                                                                                                                                                    |
-| **Add Property**            | `addproperty a/ADDRESS p/POSTAL price/PRICE t/TYPE s/STATUS bed/BEDROOM bath/BATHROOM f/FLOOR_AREA o/CONTACT_ID`<br> <br> e.g., `addproperty a/123 Orchard Rd p/238888 price/1950000 t/condo s/unavailable bed/3 bath/2 f/1023 o/1` |
-| **Filter Property**         | `filterproperty [a/ADDRESS] [p/POSTAL] [t/TYPE] [bed/BEDROOM] [bath/BATHROOM] [f/FLOORAREA] [s/STATUS] [price/PRICE] [o/CONTACT_ID]`<br> <br> e.g., `filterproperty bed/2 price/2000`                                                   |
-| **Delete Property**         | `deleteproperty ID`<br> <br>  e.g., `deleteproperty 12`                                                                                                                                                                                                |
-| **Mark Property as Sold**   | `sold p/ID...` <br><br> e.g. `sold p/1 p/2`                                                                                                                                                                                                            |
-| **Mark Property as Unsold** | `unsold p/ID...` <br><br> e.g. `unsold p/2 p/3`                                                                                                                                                                                                        |
-| **Link**                    | `link c/CONTACT_ID... r/RELATIONSHIP p/PROPERTY_ID...`<br> <br>  e.g., `link c/12 r/buyer p/12 p/4`                                                                                                                                                      |
-| **Unlink**                  | `unlink c/CONTACT_ID... p/PROPERTY_ID...`<br> <br> e.g., `unlink c/1 p/14 c/2`                                                                                                                                                                           |
-| **Show linked properties**  | `showproperties CONTACT_ID`<br> <br>  e.g., `showproperties 2`                                                                                                                                                                                           |
-| **Show linked contacts**    | `showcontacts PROPERTY_ID`<br> <br> e.g., `showcontacts 3`                                                                                                                                                                                               |
-| **List**                    | `list`                                                                                                                                                                                                                                                   |
-| **Clear**                   | `clear`                                                                                                                                                                                                                                                  |
-| **Help**                    | `help`                                                                                                                                                                                                                                                   |
+| Action                      | Format, Examples                                                                                                                                                                                                                             |
+|-----------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Add Contact**             | `addcontact n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [min/AMOUNT] [max/AMOUNT] [notes/TEXT] [status/STATUS]` <br> <br> e.g., `addcontact n/Alex p/91423123 a/982 Yishun Road status/active notes/wants near school min/100000 max/300000` |
+| **Edit Contact**            | `editcontact ID [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [min/AMOUNT] [max/AMOUNT] [notes/TEXT] [status/STATUS]`<br> <br> e.g.,`editcontact 2 n/Bobby a/Block 321 Punggol`                                                                   |
+| **Filter Contact**          | `filtercontact [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [min/AMOUNT] [max/AMOUNT] [notes/TEXT] [status/STATUS]`<br> <br> e.g.,`filtercontact n/Tan status/active`                                                                            |
+| **Delete Contact**          | `deletecontact ID`<br> <br> e.g., `deletecontact 3`                                                                                                                                                                                          |
+| **Add Property**            | `addproperty a/ADDRESS p/POSTAL price/PRICE t/TYPE s/STATUS bed/BEDROOM bath/BATHROOM f/FLOOR_AREA o/CONTACT_ID`<br> <br> e.g., `addproperty a/123 Orchard Rd p/238888 price/1950000 t/condo s/unavailable bed/3 bath/2 f/1023 o/1`          |
+| **Filter Property**         | `filterproperty [a/ADDRESS] [p/POSTAL] [t/TYPE] [bed/BEDROOM] [bath/BATHROOM] [f/FLOORAREA] [s/STATUS] [price/PRICE] [o/CONTACT_ID]`<br> <br> e.g., `filterproperty bed/2 price/2000`                                                        |
+| **Delete Property**         | `deleteproperty ID`<br> <br>  e.g., `deleteproperty 12`                                                                                                                                                                                      |
+| **Mark Property as Sold**   | `sold p/ID...` <br><br> e.g. `sold p/1 p/2`                                                                                                                                                                                                  |
+| **Mark Property as Unsold** | `unsold p/ID...` <br><br> e.g. `unsold p/2 p/3`                                                                                                                                                                                              |
+| **Link**                    | `link c/CONTACT_ID... r/RELATIONSHIP p/PROPERTY_ID...`<br> <br>  e.g., `link c/12 r/buyer p/12 p/4`                                                                                                                                          |
+| **Unlink**                  | `unlink c/CONTACT_ID... p/PROPERTY_ID...`<br> <br> e.g., `unlink c/1 p/14 c/2`                                                                                                                                                               |
+| **Show linked properties**  | `showproperties CONTACT_ID`<br> <br>  e.g., `showproperties 2`                                                                                                                                                                               |
+| **Show linked contacts**    | `showcontacts PROPERTY_ID`<br> <br> e.g., `showcontacts 3`                                                                                                                                                                                   |
+| **List**                    | `list`                                                                                                                                                                                                                                       |
+| **Clear**                   | `clear`                                                                                                                                                                                                                                      |
+| **Help**                    | `help`                                                                                                                                                                                                                                       |
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -560,8 +566,8 @@ Related commands: [`filtercontact`](#filtering-contacts--filtercontact), [`filte
 ## Basic Command Terminal Navigation
 1. Determine the address of the folder where TheRealDeal is installed.
 2. Open "Powershell" on Windows or "Terminal" on MacOS and Linux.
-3. Type `cd ADDRESS`, where `ADDRESS` is the address where TheRealDeal is installed, and hit enter.
-4. Type `java -jar (NAME_OF_FILE).jar`, and hit enter, to run the application. <br>Replace `(NAME_OF_FILE)` with the name of the file downloaded. Note that the name of the file might differ based on the exact version installed.
+3. Type `cd ADDRESS`, where `ADDRESS` is the address where TheRealDeal is installed (e.g. `cd C:\Users\home\Desktop\TheRealDeal`), and press the `Enter` key.
+4. Type `java -jar (NAME_OF_FILE).jar`, and press the `Enter` key to run the application. Replace `(NAME_OF_FILE)` with the name of the file downloaded. Note that the name of the file might differ based on the exact version installed.
 
 ## Glossary of Terms
 

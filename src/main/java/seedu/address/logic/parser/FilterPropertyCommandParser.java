@@ -102,7 +102,7 @@ public class FilterPropertyCommandParser implements Parser<FilterPropertyCommand
         if (maybeType.isPresent()) {
             String t = maybeType.get().trim();
             if (!Type.isValidType(t)) {
-                throw new ParseException(Type.MESSAGE_CONSTRAINTS);
+                throw new ParseException(String.format(Type.MESSAGE_CONSTRAINTS, t));
             }
             builder.withType(t);
         }
@@ -147,7 +147,7 @@ public class FilterPropertyCommandParser implements Parser<FilterPropertyCommand
         if (maybeStatus.isPresent()) {
             String t = maybeStatus.get().trim().toLowerCase();
             if (!Status.isValidStatus(t)) {
-                throw new ParseException(Status.MESSAGE_CONSTRAINTS);
+                throw new ParseException(String.format(Status.MESSAGE_CONSTRAINTS, t));
             }
             builder.withStatus(t);
         }
