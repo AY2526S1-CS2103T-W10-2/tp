@@ -67,6 +67,8 @@ public class LinkCommand extends Command {
 
         linkDescriptor.throwExceptionIfLinked(lastShownContactList, lastShownPropertyList);
 
+        linkDescriptor.throwExceptionIfBuyerIsOwner(lastShownPropertyList);
+
         List<Contact> targetContacts = linkDescriptor.getContactsInList(lastShownContactList);
         List<Property> targetProperties = linkDescriptor.getPropertiesInList(lastShownPropertyList);
 
@@ -273,6 +275,16 @@ public class LinkCommand extends Command {
             }
             if (hasAnyContactLinkedAsSeller || hasAnyPropertyLinkedBySeller) {
                 throw new CommandException(Messages.MESSAGE_LINKING_ALREADY_LINKED_SELLER);
+            }
+        }
+
+        private void throwExceptionIfBuyerIsOwner(List<Property> propertyList) throws CommandException {
+            Set<Integer> ownerIntIds = propertyList.stream()
+                    .map(property -> Integer.valueOf(property.getOwner().value)).collect(Collectors.toSet());
+            Set<Integer> contactIntIds = contactIds.stream().map(id -> id.getValue()).collect(Collectors.toSet());
+
+            if (relationship.equals("buyer") && !Collections.disjoint(ownerIntIds, contactIntIds)) {
+                throw new CommandException(Messages.MESSAGE_LINKING_OWNER_AS_BUYER);
             }
         }
 

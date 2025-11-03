@@ -39,7 +39,7 @@ class UnifiedCommandParserTest {
             " " + PREFIX_PROPERTY_BATHROOM + "3",
             " " + PREFIX_PROPERTY_FLOOR_AREA + "150",
             " " + PREFIX_PROPERTY_LISTING + "rent",
-            " " + PREFIX_PROPERTY_OWNER + "owner321");
+            " " + PREFIX_PROPERTY_OWNER + "8");
 
     private final UnifiedCommandParser parser = new UnifiedCommandParser(List.of(
             new AddressBookParser(),

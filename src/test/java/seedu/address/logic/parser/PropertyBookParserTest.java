@@ -40,7 +40,7 @@ class PropertyBookParserTest {
             " " + PREFIX_PROPERTY_BATHROOM + "2",
             " " + PREFIX_PROPERTY_FLOOR_AREA + "120",
             " " + PREFIX_PROPERTY_LISTING + "sale",
-            " " + PREFIX_PROPERTY_OWNER + "owner123");
+            " " + PREFIX_PROPERTY_OWNER + "6");
 
     private static final String VALID_DELETE_PROPERTY_COMMAND = String.join(" ",
             DeletePropertyCommand.COMMAND_WORD,

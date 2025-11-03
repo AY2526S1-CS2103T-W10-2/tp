@@ -29,7 +29,7 @@ class PropertyTest {
         assertEquals(new Price("500000"), property.getPrice());
         assertEquals(new Status("unavailable"), property.getStatus());
         assertEquals(new Type("HDB"), property.getType());
-        assertEquals(new Owner("owner123"), property.getOwner());
+        assertEquals(new Owner("6"), property.getOwner());
         assertEquals(new Uuid(1, PROPERTY), property.getUuid());
     }
 
