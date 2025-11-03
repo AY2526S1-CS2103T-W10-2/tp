@@ -133,7 +133,7 @@ Here's a (partial) class diagram of the `Logic` component:
 
 <img src="images/LogicClassDiagram.png" width="550"/>
 
-The sequence diagram below illustrates the interactions within the `Logic` component, taking `execute("delete 1")` API call as an example.
+The sequence diagram below illustrates the interactions within the `Logic` component, taking `execute("deletecontact 1")` API call as an example.
 
 ![Interactions Inside the Logic Component for the `deletecontact 1` Command](images/DeleteSequenceDiagram.png)
 
@@ -294,7 +294,7 @@ Validation done:
 - Ensures contact given exists
 
 ##### Execution
-The `DeleteContactCommand` class retrieves the contact based on the UUID given and also ensures that the contact exists. If the contact exists, it is deleted from the address book.
+The `DeleteContactCommand` class retrieves the contact based on the UUID given and also ensures that the contact exists. If the contact exists, it is deleted from the address book. It also unlinks any properties linked to the deleted contact.
 
 #### <u>Edit Command</u> (`editcontact`)
 The `editcontact` command is designed to edit a contact in the address book, identified by their UUID.
@@ -358,15 +358,15 @@ The UI is then updated based on which contacts that match the predicate.
 The `addproperty` command adds a new property to the property book and links it to an existing owner contact.
 
 Compulsory fields:
-- Address (`a/`)
-- Postal code (`p/`)
-- Price (`price/`)
-- Type (`t/`)
-- Status (`s/`)
-- Bedroom count (`bed/`)
-- Bathroom count (`bath/`)
-- Floor area (`f/`)
-- Owner UUID (`o/`)
+- Address
+- Postal code
+- Price
+- Type
+- Status
+- Bedroom count
+- Bathroom count
+- Floor area
+- Owner UUID
 
 Optional Fields:
 - None
@@ -400,7 +400,7 @@ Validation done:
 - Ensures the UUID is a positive integer within bounds expected by the application.
 
 ##### Execution
-`DeletePropertyCommand#execute` consults `Model#getFilteredPropertyList()`, which always reflects the latest property filtering applied in the UI (e.g. `list`, `filterproperty`).
+`DeletePropertyCommand#execute` consults `Model#getFilteredPropertyList()`, which always reflects the latest property filtering applied in the UI (e.g. `list`, `filterproperty`). It also unlinks any contacts linked to the deleted property.
 
 For example, after running `filterproperty t/condo`, only the condo subset is searched—even if you subsequently switch to the contacts tab—until another property-filtering command updates the list.
 If the supplied UUID is absent from that subset the command throws `MESSAGE_INVALID_PROPERTY_DISPLAYED_ID`; otherwise it deletes the property`, and update the UI accordingly.
@@ -491,8 +491,9 @@ Validation done:
 The `LinkCommand` executes by:
 1. Finding the target contacts and properties based on their UUIDs
 2. Ensuring none of the targets are already linked
-3. Creating new edited `Contact` and `Property` objects with the updated relationship
-4. Updating the contacts and properties in the address and property book with the new details.
+3. Ensuring that if the relationship is `buyer`, none of the contacts are owners of the properties
+4. Creating new edited `Contact` and `Property` objects with the updated relationship
+5. Updating the contacts and properties in the address and property book with the new details.
 
 #### <u>Unlink Command</u> (`unlink`)
 The `unlink` command is designed to unlink contacts in the address book from properties in the property book, each identified by their UUID.
@@ -564,17 +565,17 @@ Related commands: [`addcontact`](#add-command-addcontact), [`filtercontact`](#fi
 These are prefixes for purely property related commands.
 Related commands: [`addproperty`](#addpropertycommand-addproperty), [`filterproperty`](#filter-property-command-filterproperty)
 
-| Parameter      | Prefix  | Constraints                                                                                                       |
-|----------------|---------|-------------------------------------------------------------------------------------------------------------------|
-| Address        | a/      | Should only contain alphanumerical 5 to 200 characters (a-z, A-Z, 0-9) or spaces, with at least 1 letter and 1 digit|
-| Postal code    | p/      | Should only contain numbers (0-9), and it should be exactly least 6 digits long. (Singaporean Postal Code)        |
-| Price          | price/  | Should be an integer from 1 to 1 trillion                                                                  |
-| Type           | t/      | Should only be these (case-insensitive): hdb, condo, landed, apartment, office, others                            |
-| Status         | s/      | Should only be these (case-insensitive): available, unavailable                                                   |
-| Bedroom count  | bed/    | Should be an integer from 0 to 20                                                                                 |
-| Bathroom count | bath/   | Should be an integer from 0 to 20                                                                                 |
-| Floor area     | f/      | Should be an integer from 50 to 100000                                                                           |
-| Owner ID       | o/      | Should be a valid Contact UUID                                                                                    |
+| Parameter      | Prefix | Constraints                                                                                                          |
+|----------------|--------|----------------------------------------------------------------------------------------------------------------------|
+| Address        | a/     | Should only contain alphanumerical 5 to 200 characters (a-z, A-Z, 0-9) or spaces, with at least 1 letter and 1 digit |
+| Postal code    | p/     | Should only contain numbers (0-9), and it should be exactly least 6 digits long. (Singaporean Postal Code)           |
+| Price          | price/ | Should be an integer from 1 to 1 trillion                                                                            |
+| Type           | t/     | Should only be these (case-insensitive): hdb, condo, landed, apartment, office, others                               |
+| Status         | s/     | Should only be these (case-insensitive): available, unavailable                                                      |
+| Bedroom count  | bed/   | Should be an integer from 0 to 20                                                                                    |
+| Bathroom count | bath/  | Should be an integer from 0 to 20                                                                                    |
+| Floor area     | f/     | Should be an integer from 50 to 100000                                                                               |
+| Owner ID       | o/     | Should be a valid Contact UUID                                                                                       |
 
 ### Others
 These are prefixes that are used over multiple commands.
@@ -590,10 +591,10 @@ Related commands: [`filtercontact`](#filter-contact-command-filtercontact), [`fi
 
 **Target user profile**:
 
-* real estate agents
-* has to manage a lot of contacts with different informations
-* has to manage large property list
-* prefer desktop apps over other types
+* Singaporean real estate agents
+* has to manage a lot of contacts with different information
+* has to manage large list of Singapore properties
+* prefer desktop applications over phone applications
 * can type fast
 * prefers typing to mouse interactions
 * is reasonably comfortable using CLI apps
@@ -1782,6 +1783,8 @@ Expected:<br>
 Team size: 5
 
 1. **Allow special characters to be used in contact names.** The current validation for contact names requires it to only consist of alphanumeric characters and spaces. The does not support names with special characters like `/` or `-` (e.g. `s/o`, `John-Mary`). Future improvements aim to support this functionality.
+2. **Deleting a contact does not update the owner data of properties.** Future improvements aim to automatically update the owner when the contact is deleted.
+3. 
 
 ---------------------------------------------------------------------------------------------------------------------
 
@@ -1800,7 +1803,8 @@ A high proportion of effort was saved through reuse of AB3. Such examples includ
 - Implementing complex parsers due to the presence of compulsory parameters, optional parameters or multi-word parameters
 
 #### Achievements of the Project
-- Extensive refactoring of AB3 with over 15,000 more lines of code with a high test coverage
+- Extensive refactoring of AB3 with over 15,000
+- more lines of code with a high test coverage
 - Comprehensive features that extend AB3 into a real estate management application
 - Team collaboration and Software Engineering Principles (Git workflow, Issue tracking, Single Level of Abstraction, Logging)
 - Extensive User Guide and Developer Guide with the aid of (Unified Modelling Language) UML diagrams

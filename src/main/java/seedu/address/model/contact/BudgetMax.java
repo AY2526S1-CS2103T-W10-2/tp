@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class BudgetMax {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Maximum Budget should be a non-negative integer below than or equals to 200 million";
+            "Maximum Budget should be a non-negative integer below than or equals to 200 billion";
     public static final String VALIDATION_REGEX = "^\\d+$"; // allows empty string and leading zeros
 
     public final String value;
