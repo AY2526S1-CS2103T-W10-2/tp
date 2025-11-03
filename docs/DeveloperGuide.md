@@ -1244,7 +1244,7 @@ Variations:<br>
 
 ##### Adding a property linked to an existing owner
 
-Command: `addproperty a/21 Sunset Way p/597145 price/1850000 t/condo s/available bed/3 bath/2 f/1180 l/sale o/1`
+Command: `addproperty a/21 Sunset Way p/597145 price/1850000 t/condo s/available bed/3 bath/2 f/1180 o/1`
 
 To simulate:<br>
 - Run `list` to show both contacts and properties.
@@ -1261,7 +1261,7 @@ Variations:<br>
 
 ##### Owner contact does not exist
 
-Command: `addproperty a/21 Sunset Way p/597145 price/1850000 t/condo s/available bed/3 bath/2 f/1180 l/sale o/9999`
+Command: `addproperty a/21 Sunset Way p/597145 price/1850000 t/condo s/available bed/3 bath/2 f/1180 o/9999`
 
 To simulate:<br>
 - Ensure no contact currently has the UUID `9999`.
@@ -1281,7 +1281,7 @@ Command: `addproperty`
 
 To simulate:<br>
 - Run the command above with no parameters.
-- Repeat with `addproperty a/21 Sunset Way p/597145 price/1850000 t/condo s/available bed/3 bath/2 f/1180 l/sale o/` to omit the owner ID.
+- Repeat with `addproperty a/21 Sunset Way p/597145 price/1850000 t/condo s/available bed/3 bath/2 f/1180 o/` to omit the owner ID.
 
 Expected:<br>
 - Command fails with invalid format or constraint messages explaining the missing or malformed prefixes.

@@ -257,14 +257,14 @@ Use the <code>list</code> command to see the changes.
 
 Adds a property to the property list.
 
-Format: `addproperty a/ADDRESS p/POSTAL price/PRICE t/TYPE s/STATUS bed/BEDROOM bath/BATHROOM f/FLOOR_AREA l/LISTING o/CONTACT_ID`
+Format: `addproperty a/ADDRESS p/POSTAL price/PRICE t/TYPE s/STATUS bed/BEDROOM bath/BATHROOM f/FLOOR_AREA o/CONTACT_ID`
 
 * Duplicate properties (same address and postal code) will not be allowed to be added.
 * Each new property is assigned a (Universally Uniquely Identifier) UUID automatically.
 
 Examples:
-* `addproperty a/123 Orchard Rd p/238888 price/1950000 t/condo s/unavailable bed/3 bath/2 f/1023 l/sale o/1`
-* `addproperty a/55 Pasir Ris Dr 1 p/519884 price/450000 t/hdb s/available bed/4 bath/2 f/1050 l/rent o/5`
+* `addproperty a/123 Orchard Rd p/238888 price/1950000 t/condo s/unavailable bed/3 bath/2 f/1023 o/1`
+* `addproperty a/55 Pasir Ris Dr 1 p/519884 price/450000 t/hdb s/available bed/4 bath/2 f/1050 o/5`
 
 For more information on the parameters, click [here](#command-parameters).
 
