@@ -5,7 +5,10 @@ import static seedu.address.logic.commands.MarkUnsoldCommand.getInvalidPropertyI
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_ID;
 
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.property.Property;
@@ -39,6 +42,8 @@ public class MarkSoldCommand extends Command {
                     + "%s\n"
                     + "Command has been aborted.";
 
+    private static final Logger logger = LogsCenter.getLogger(MarkSoldCommand.class);
+
     private final Set<Uuid> propertyIds;
 
     /**
@@ -61,6 +66,11 @@ public class MarkSoldCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        assert propertyIds != null : "Property IDs to mark sold should not be null";
+        assert model != null : "Model should not be null";
+
+        logger.log(Level.INFO, "Executing MarkSoldCommand for properties: {0}", propertyIds);
 
         String invalidIdsMessage = getInvalidPropertyIdsMessage(model, propertyIds,
                     MESSAGE_PROPERTY_ERROR_SOLD_COMMAND, "unavailable");
@@ -89,6 +99,8 @@ public class MarkSoldCommand extends Command {
             );
             model.setProperty(property, updated);
 
+            logger.log(Level.INFO, "Marked property ID {0} as sold", id.getValue());
+
             if (!affectedIdsBuilder.isEmpty()) {
                 affectedIdsBuilder.append(", ");
             }
@@ -97,6 +109,7 @@ public class MarkSoldCommand extends Command {
 
         showPropertiesView();
 
+        logger.log(Level.INFO, "MarkSoldCommand successfully completed");
         return new CommandResult(String.format(MESSAGE_MARK_SOLD_SUCCESS, affectedIdsBuilder.toString()));
     }
 
