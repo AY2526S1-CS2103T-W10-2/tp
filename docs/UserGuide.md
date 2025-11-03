@@ -217,7 +217,7 @@ Examples:
 **:information_source: Important:**<br>
 To reset all filters, you can type <code>list</code>
 </div>
-
+<div style="page-break-after: always;"></div>
 <div markdown="span" class="alert alert-primary">
 :bulb: **Tip:**<br>
 To filter for: Name contains `Tan` and Address contains `Punggol`<br>
@@ -255,6 +255,7 @@ You are able to delete valid contacts even if they are not currently shown on th
 i.e. If you use <code>filtercontact</code> to remove a person from the GUI, you can still delete that person using <code>deletecontact</code>.<br><br>
 Use the <code>list</code> command to see the changes.
 </div>
+<div style="page-break-after: always;"></div>
 
 ### Adding a property: `addproperty`
 
