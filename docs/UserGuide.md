@@ -29,7 +29,6 @@ Warns you of potential issues to should watch out for.
 
 --------------------------------------------------------------------------------------------------------------------
 <div style="page-break-after: always;"></div>
-<div style="page-break-after: always;"></div>
 
 ## GUI Overview
 
@@ -78,7 +77,7 @@ Some example commands you can try:
 
 * `addcontact n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
 
-* `deletecontact 3` : Deletes the 3rd contact shown in the current list.
+* `deletecontact 3` : Deletes the contact with ID: 3 shown in the current list.
 
 * `clear` : Deletes all contacts and properties.
 
@@ -565,7 +564,7 @@ Related commands: [`filtercontact`](#filtering-contacts--filtercontact), [`filte
 1. Determine the address of the folder where TheRealDeal is installed.
 2. Open "Powershell" on Windows or "Terminal" on MacOS and Linux.
 3. Type `cd ADDRESS`, where `ADDRESS` is the address where TheRealDeal is installed, and hit enter.
-4. Type `java -jar TheRealDeal.jar`, and hit enter, to run the application.
+4. Type `java -jar (NAME_OF_FILE).jar`, and hit enter, to run the application. <br>Replace `(NAME_OF_FILE)` with the name of the file downloaded. Note that the name of the file might differ based on the exact version installed.
 
 ## Glossary of Terms
 
