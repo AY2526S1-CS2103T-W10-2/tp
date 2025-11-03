@@ -277,30 +277,30 @@ Validation done:
 - Unknown parameters provided will throw a `ParseException`
 
 ##### Execution
-The `AddContactCommand` class generates the UUID for the `Contact` object and checks for duplicates in the address book before adding the new contact.
+The `AddContactCommand` class generates the ID for the `Contact` object and checks for duplicates in the address book before adding the new contact.
 
 #### <u>Delete Command</u> (`deletecontact`)
-The `deletecontact` command is designed to delete an existing contact from the address book, identified by their UUID.
+The `deletecontact` command is designed to delete an existing contact from the address book, identified by their ID.
 
 Compulsory fields:
-- UUID
+- ID
 
 ##### Parsing and Validating User Input
 The `DeleteContactCommandParser` class is responsible for parsing the command input.
-The parser validates the UUID and constructs a `DeleteContactCommnad` object with the validated UUID.
+The parser validates the ID and constructs a `DeleteContactCommnad` object with the validated ID.
 
 Validation done:
-- Ensures a UUID is provided
+- Ensures a ID is provided
 - Ensures contact given exists
 
 ##### Execution
-The `DeleteContactCommand` class retrieves the contact based on the UUID given and also ensures that the contact exists. If the contact exists, it is deleted from the address book. It also unlinks any properties linked to the deleted contact.
+The `DeleteContactCommand` class retrieves the contact based on the ID given and also ensures that the contact exists. If the contact exists, it is deleted from the address book. It also unlinks any properties linked to the deleted contact.
 
 #### <u>Edit Command</u> (`editcontact`)
-The `editcontact` command is designed to edit a contact in the address book, identified by their UUID.
+The `editcontact` command is designed to edit a contact in the address book, identified by their ID.
 
 Compulsory fields:
-- UUID
+- ID
 
 Optional Fields:
 - Name
@@ -315,7 +315,7 @@ Optional Fields:
 ##### Parsing and Validating User Input
 The `EditContactCommandParser` class is responsible for parsing the command input.
 It utilises `ArgumentTokenizer` to split the input string based on defined prefixes (`PREFIX_NAME`, `PREFIX_PHONE`, etc)
-The UUID is also validated and parsed.
+The ID is also validated and parsed.
 
 The parser creates an `EditContactDescriptor` object that stores the newly edited fields.
 
@@ -325,7 +325,7 @@ Validation done:
 - New contact must not already be in the address book
 
 ##### Execution
-The `EditContactCommand` executes by finding the target contact based on their UUID, creating an edited `Contact` object and updating the contact in the address book with the new details.
+The `EditContactCommand` executes by finding the target contact based on their ID, creating an edited `Contact` object and updating the contact in the address book with the new details.
 
 #### <u>Filter Contact Command</u> (`filtercontact`)
 The `filtercontact` command filters the contacts in the address book based on the criteria given.
@@ -366,7 +366,7 @@ Compulsory fields:
 - Bedroom count
 - Bathroom count
 - Floor area
-- Owner UUID
+- Owner ID
 
 Optional Fields:
 - None
@@ -381,29 +381,29 @@ Validation done:
 - Trims surrounding whitespace so that inputs like `a/ 21 Sunset Way` are accepted.
 
 ##### Execution
-`AddPropertyCommand#execute` requests a fresh UUID from `PropertyBook#generateNextUuid()`. It verifies the specified owner exists in the address book; if not, a `CommandException` with `MESSAGE_OWNER_NOT_FOUND` is thrown.
+`AddPropertyCommand#execute` requests a fresh ID from `PropertyBook#generateNextUuid()`. It verifies the specified owner exists in the address book; if not, a `CommandException` with `MESSAGE_OWNER_NOT_FOUND` is thrown.
 
 A duplicate check is then performed, which compares address and postal pairs.
-When all checks pass, the property is added, the UI shifts to the property view, and a success message (including the assigned UUID) is returned.
+When all checks pass, the property is added, the UI shifts to the property view, and a success message (including the assigned ID) is returned.
 
 #### <u>Delete Property Command</u> (`deleteproperty`)
-The `deleteproperty` command removes an existing property identified by its UUID from the property book.
+The `deleteproperty` command removes an existing property identified by its ID from the property book.
 
 Compulsory fields:
-- Property UUID
+- Property ID
 
 ##### Parsing and Validating User Input
-`DeletePropertyCommandParser` converts the supplied argument into a `Uuid` using `ParserUtil.parsePropertyId`.
+`DeletePropertyCommandParser` converts the supplied argument into a `ID` using `ParserUtil.parsePropertyId`.
 
 Validation done:
 - Rejects blank input or extraneous tokens, wrapping the error with `MESSAGE_USAGE`.
-- Ensures the UUID is a positive integer within bounds expected by the application.
+- Ensures the ID is a positive integer within bounds expected by the application.
 
 ##### Execution
 `DeletePropertyCommand#execute` consults `Model#getFilteredPropertyList()`, which always reflects the latest property filtering applied in the UI (e.g. `list`, `filterproperty`). It also unlinks any contacts linked to the deleted property.
 
 For example, after running `filterproperty t/condo`, only the condo subset is searched—even if you subsequently switch to the contacts tab—until another property-filtering command updates the list.
-If the supplied UUID is absent from that subset the command throws `MESSAGE_INVALID_PROPERTY_DISPLAYED_ID`; otherwise it deletes the property`, and update the UI accordingly.
+If the supplied ID is absent from that subset the command throws `MESSAGE_INVALID_PROPERTY_DISPLAYED_ID`; otherwise it deletes the property`, and update the UI accordingly.
 
 #### <u>Filter Property Command</u> (`filterproperty`)
 The `filterproperty` command filters the properties in the property book based on the criteria given.
@@ -432,27 +432,27 @@ Validation done:
 The UI is then updated based on which properties that match the predicate.
 
 #### <u>Mark Property as Sold Command</u> (`sold`)
-The `sold` command finds properties by they UUID and changes the status of the property to unavailable.
+The `sold` command finds properties by they ID and changes the status of the property to unavailable.
 
 Compulsory fields:
-- UUID (using `p/` prefix)
+- ID (using `p/` prefix)
 
 ##### Parsing and Validating User Input
 The `MarkSoldCommandParser` is responsible for parsing the command input.
 
 Validation done:
-- No duplicate UUID is given
-- No empty UUID is given
-- Property with the given UUID exists
+- No duplicate ID is given
+- No empty ID is given
+- Property with the given ID exists
 
 ##### Execution
-The `MarkSoldCommand` executes by retrieving the `Property` object for each UUID and creating a new `Property` object with the same attributes but with its `Status` as unavailable to replace the old `Property`.
+The `MarkSoldCommand` executes by retrieving the `Property` object for each ID and creating a new `Property` object with the same attributes but with its `Status` as unavailable to replace the old `Property`.
 
 #### <u>Mark Property as Unsold Command</u> (`unsold`)
-The `unsold` command finds properties by they UUID and changes the status of the property to unavailable.
+The `unsold` command finds properties by they ID and changes the status of the property to unavailable.
 
 Compulsory fields:
-- UUID (using `p/` prefix)
+- ID (using `p/` prefix)
 
 ##### Parsing and Validating User Input
 The `MarkUnsoldCommandParser` is responsible for parsing the command input.
@@ -461,61 +461,61 @@ Validation done:
 - Same validation done as `sold`
 
 ##### Execution
-The `MarkUnsoldCommand` executes by retrieving the `Property` object for each UUID and creating a new `Property` object with the same attributes but with its `Status` as unavailable to replace the old `Property`.
+The `MarkUnsoldCommand` executes by retrieving the `Property` object for each ID and creating a new `Property` object with the same attributes but with its `Status` as unavailable to replace the old `Property`.
 
 ### 3.4. Contact–property linking
 
 #### <u>Link Command</u> (`link`)
-The `link` command is designed to link contacts in the address book to properties in the property book, as either buyers or sellers, each identified by their UUID.
+The `link` command is designed to link contacts in the address book to properties in the property book, as either buyers or sellers, each identified by their ID.
 
 Compulsory fields:
-- Contact UUID
-- Property UUID
+- Contact ID
+- Property ID
 - Relationship (buyer/seller)
 
 Optional fields:
-- Additional contact UUIDs
-- Additional property UUIDs
+- Additional contact IDs
+- Additional property IDs
 
 ##### Parsing and Validating User Input
 The `LinkCommandParser` class is responsible for parsing the command input.
 It utilises `ArgumentTokenizer` to split the input string based on defined prefixes (`PREFIX_CONTACT_ID`, `PREFIX_PROPERTY_ID`, `PREFIX_LINK_RELATIONSHIP`)
-Each UUID is also validated and parsed.
+Each ID is also validated and parsed.
 
-The parser creates an `LinkDescriptor` object that stores the parsed UUIDs and relationship.
+The parser creates an `LinkDescriptor` object that stores the parsed IDs and relationship.
 
 Validation done:
 - No duplicate relationship parameter
 
 ##### Execution
 The `LinkCommand` executes by:
-1. Finding the target contacts and properties based on their UUIDs
+1. Finding the target contacts and properties based on their IDs
 2. Ensuring none of the targets are already linked
 3. Ensuring that if the relationship is `buyer`, none of the contacts are owners of the properties
 4. Creating new edited `Contact` and `Property` objects with the updated relationship
 5. Updating the contacts and properties in the address and property book with the new details.
 
 #### <u>Unlink Command</u> (`unlink`)
-The `unlink` command is designed to unlink contacts in the address book from properties in the property book, each identified by their UUID.
+The `unlink` command is designed to unlink contacts in the address book from properties in the property book, each identified by their ID.
 
 Compulsory fields:
-- Contact UUID
-- Property UUID
+- Contact ID
+- Property ID
 
 Optional fields:
-- Additional contact UUIDs
-- Additional property UUIDs
+- Additional contact IDs
+- Additional property IDs
 
 ##### Parsing and Validating User Input
 The `UnlinkCommandParser` class is responsible for parsing the command input.
 It utilises `ArgumentTokenizer` to split the input string based on defined prefixes (`PREFIX_CONTACT_ID`, `PREFIX_PROPERTY_ID`)
-Each UUID is also validated and parsed.
+Each ID is also validated and parsed.
 
-The parser creates an `UnlinkDescriptor` object that stores the parsed UUIDs and relationship.
+The parser creates an `UnlinkDescriptor` object that stores the parsed IDs and relationship.
 
 ##### Execution
 The `LinkCommand` executes by:
-1. Finding the target contacts and properties based on their UUIDs
+1. Finding the target contacts and properties based on their IDs
 2. Ensuring all of the targets were previously linked
 3. Creating new edited `Contact` and `Property` objects with buyer and seller relationships removed
 4. Updating the contacts and properties in the address and property book with the new details.
@@ -571,7 +571,7 @@ The `ShowPropertiesCommand` executes by:
 3. Switching the UI view to display the property list via `MainWindow.getInstance().showPropertiesView()`
 4. Returning a success message with the count of properties found, or an error message with suggestions if no properties are found
 
-The predicate checks if a property is associated with the contact by using the `Property.isAssociatedWith(contactUuid)` method, which verifies:
+The predicate checks if a property is associated with the contact by using the `Property.isAssociatedWith(contactID)` method, which verifies:
 - If the contact owns the property (via the property's owner field)
 - If the contact is a buyer of the property (via buyingContactIds)
 - If the contact is a seller of the property (via sellingContactIds)
@@ -625,7 +625,7 @@ Related commands: [`addproperty`](#add-property-command-addproperty), [`filterpr
 | Bedroom count  | bed/   | Should be an integer from 0 to 20                                                                                    |
 | Bathroom count | bath/  | Should be an integer from 0 to 20                                                                                    |
 | Floor area     | f/     | Should be an integer from 50 to 100000                                                                               |
-| Owner ID       | o/     | Should be a valid Contact UUID                                                                                       |
+| Owner ID       | o/     | Should be a valid Contact ID                                                                                       |
 
 ### Others
 These are prefixes that are used over multiple commands.
@@ -633,8 +633,8 @@ Related commands: [`filtercontact`](#filter-contact-command-filtercontact), [`fi
 
 | Parameter      | Prefix  | Constraints                                            |
 |----------------|---------|--------------------------------------------------------|
-| Contact UUID   | c/      | Should be a valid Contact UUID                         |
-| Property UUID  | p/      | Should be a valid Property UUID                        |
+| Contact ID   | c/      | Should be a valid Contact ID                         |
+| Property ID  | p/      | Should be a valid Property ID                        |
 | Relationship   | r/      | Should only be these (case-insensitive): buyer, seller |
 
 ## Appendix: Product Scope
@@ -1104,7 +1104,7 @@ To simulate:<br>
 
 Expected:<br>
 - Success message `New contact added:` appears.
-- The contacts panel shows a new `Zara Lim` card appended with a newly generated UUID (note it for later tests).
+- The contacts panel shows a new `Zara Lim` card appended with a newly generated ID (note it for later tests).
 
 Variations:<br>
 - Reorder optional prefixes to ensure the command still succeeds.
@@ -1177,13 +1177,13 @@ Variations:<br>
 
 ### Deleting a contact
 
-##### Deleting a contact by UUID
+##### Deleting a contact by ID
 
-Command: `deletecontact <CONTACT_UUID>`
+Command: `deletecontact <CONTACT_ID>`
 
 To simulate:<br>
-- Run `list` and identify the UUID printed on the `Zara Lim` card (or another contact to delete).
-- Replace `<CONTACT_UUID>` with the exact UUID and run the command.
+- Run `list` and identify the ID printed on the `Zara Lim` card (or another contact to delete).
+- Replace `<CONTACT_ID>` with the exact ID and run the command.
 
 Expected:<br>
 - Result box shows `Deleted Contact:` followed by the contact details.
@@ -1191,14 +1191,14 @@ Expected:<br>
 
 Variations:<br>
 - Delete a different contact to confirm behaviour is consistent.
-- Perform the command after filtering the contact list to ensure deletion uses the displayed UUID.
+- Perform the command after filtering the contact list to ensure deletion uses the displayed ID.
 
-##### Invalid contact UUID
+##### Invalid contact ID
 
 Command: `deletecontact 9999`
 
 To simulate:<br>
-- Ensure no contact currently has the UUID `9999`.
+- Ensure no contact currently has the ID `9999`.
 - Run the command above.
 
 Expected:<br>
@@ -1207,7 +1207,7 @@ Expected:<br>
 
 Variations:<br>
 - Run `deletecontact` without arguments to observe the invalid command format error.
-- Run `deletecontact abc` to see the invalid UUID message.
+- Run `deletecontact abc` to see the invalid ID message.
 
 ### Filtering and Switching Property List (`filterproperty`)
 
@@ -1282,12 +1282,12 @@ Command: `addproperty a/21 Sunset Way p/597145 price/1850000 t/condo s/available
 
 To simulate:<br>
 - Run `list` to show both contacts and properties.
-- Note the UUID of an existing owner contact (e.g. `1` for Alex Yeoh in sample data) and replace `o/1` with that value.
+- Note the ID of an existing owner contact (e.g. `1` for Alex Yeoh in sample data) and replace `o/1` with that value.
 - Execute the command.
 
 Expected:<br>
 - Success message `New property added:` appears.
-- Properties panel shows a new entry with the supplied details and a freshly generated UUID.
+- Properties panel shows a new entry with the supplied details and a freshly generated ID.
 
 Variations:<br>
 - Adjust optional fields (e.g. number of bedrooms) to verify they are captured correctly.
@@ -1298,7 +1298,7 @@ Variations:<br>
 Command: `addproperty a/21 Sunset Way p/597145 price/1850000 t/condo s/available bed/3 bath/2 f/1180 o/9999`
 
 To simulate:<br>
-- Ensure no contact currently has the UUID `9999`.
+- Ensure no contact currently has the ID `9999`.
 - Run the command above.
 
 Expected:<br>
@@ -1306,8 +1306,8 @@ Expected:<br>
 - Property list remains unchanged.
 
 Variations:<br>
-- Replace `9999` with other non-existent UUIDs to see the same error.
-- Try negative UUID values to observe the invalid format message.
+- Replace `9999` with other non-existent IDs to see the same error.
+- Try negative ID values to observe the invalid format message.
 
 ##### Invalid addproperty commands
 
@@ -1327,13 +1327,13 @@ Variations:<br>
 
 ### Deleting a property
 
-##### Deleting a property by UUID
+##### Deleting a property by ID
 
-Command: `deleteproperty <PROPERTY_UUID>`
+Command: `deleteproperty <PROPERTY_ID>`
 
 To simulate:<br>
-- Run `list` and identify the UUID of the property added earlier (or any property to delete).
-- Replace `<PROPERTY_UUID>` with the actual UUID and execute the command.
+- Run `list` and identify the ID of the property added earlier (or any property to delete).
+- Replace `<PROPERTY_ID>` with the actual ID and execute the command.
 
 Expected:<br>
 - Result box shows `Deleted property:` followed by the property details.
@@ -1341,14 +1341,14 @@ Expected:<br>
 
 Variations:<br>
 - Delete a property from a filtered list to confirm behaviour is consistent.
-- Attempt deletion immediately after adding a property to verify the UUID remains valid.
+- Attempt deletion immediately after adding a property to verify the ID remains valid.
 
-##### Invalid property UUID
+##### Invalid property ID
 
 Command: `deleteproperty 9999`
 
 To simulate:<br>
-- Ensure no property currently has the UUID `9999`.
+- Ensure no property currently has the ID `9999`.
 - Run the command above.
 
 Expected:<br>
@@ -1357,7 +1357,7 @@ Expected:<br>
 
 Variations:<br>
 - Run `deleteproperty` with no arguments to observe the invalid command format error.
-- Run `deleteproperty abc` to see the invalid UUID message.
+- Run `deleteproperty abc` to see the invalid ID message.
 
 ### Viewing help
 
@@ -1451,15 +1451,15 @@ Command: `sold p/ID`
 
 To simulate:<br>
 - Have at least 1 *available* property in the current filtered property list.
-- Run the above command with UUID replaced with the UUID of an *available* property in the current filtered property list.
+- Run the above command with ID replaced with the ID of an *available* property in the current filtered property list.
 
 Expected:<br>
 - Displays the following success message:<br>`Marked the properties with these IDs as sold: ID`
 - GUI should display property book.
-- The property with UUID input to the command should have its *status* set to *unavailable*.
+- The property with ID input to the command should have its *status* set to *unavailable*.
 
 Variations:<br>
-- Add more parameters with prefix p/ with UUIDs of *available* properties.
+- Add more parameters with prefix p/ with IDs of *available* properties.
 - Add arbitrary whitespace.
 
 ##### Marking an unavailable property as sold
@@ -1468,14 +1468,14 @@ Command: `sold p/ID`
 
 To simulate: <br>
 - Have at least 1 *unavailable* property in the current filtered property list.
-- Run the above command with UUID replaced with the UUID of an *unavailable* property in the current filtered property list.
+- Run the above command with ID replaced with the ID of an *unavailable* property in the current filtered property list.
 
 Expected:<br>
 - Displays the following error message:<br>`The properties with the following IDs do not exist or were already marked as sold: ID`<br>`Command has been aborted.`
 - No change to the GUI.
 
 Variations:<br>
-- Add more parameters with prefix p/ with valid property UUIDs.<br>A similar output should display as long as one property input is *unavailable*.
+- Add more parameters with prefix p/ with valid property IDs.<br>A similar output should display as long as one property input is *unavailable*.
 - Add arbitrary whitespace.
 
 ##### Marking invalid properties as sold
@@ -1490,8 +1490,8 @@ Expected:<br>
 - No change to the GUI.
 
 Variations:<br>
-- Add more parameters with prefix p/ with valid or invalid property UUIDs.<br>A similar output should display as long as one property UUID cannot be found.
-- Using a UUID that is less than or equal to 0.<br>Alternate error message:<br>`UUID is not a valid format.`
+- Add more parameters with prefix p/ with valid or invalid property IDs.<br>A similar output should display as long as one property ID cannot be found.
+- Using a ID that is less than or equal to 0.<br>Alternate error message:<br>`ID is not a valid format.`
 - Add arbitrary whitespace.
 
 ##### Marking as sold with unknown parameters
@@ -1502,7 +1502,7 @@ To simulate: <br>
 - Run `sold` with any other parameters.
 
 Expected:<br>
-- Displays the following error message:<br>`Invalid command format!`<br>`sold: Marks one or more properties as sold.`<br>`Parameters: p/UUID...`<br>`Example: sold p/14 p/27`
+- Displays the following error message:<br>`Invalid command format!`<br>`sold: Marks one or more properties as sold.`<br>`Parameters: p/ID...`<br>`Example: sold p/14 p/27`
 - No change to the GUI.
 
 ### Marking properties as unsold
@@ -1518,10 +1518,10 @@ To simulate:<br>
 Expected:<br>
 - Displays the following success message:<br>`Marked the properties with these IDs as unsold: ID`
 - GUI should display property book.
-- The property with UUID input to the command should have its *status* set to *available*.
+- The property with ID input to the command should have its *status* set to *available*.
 
 Variations:<br>
-- Add more parameters with prefix p/ with UUIDs of *unavailable* properties.
+- Add more parameters with prefix p/ with IDs of *unavailable* properties.
 - Add arbitrary whitespace.
 
 ##### Marking an available property as unsold
@@ -1552,8 +1552,8 @@ Expected:<br>
 - No change to the GUI.
 
 Variations:<br>
-- Add more parameters with prefix p/ with valid or invalid property UUIDs.<br>A similar output should display as long as one property UUID cannot be found.
-- Using a UUID that is less than or equal to 0.<br>Alternate error message:<br>`UUID is not a valid format.`
+- Add more parameters with prefix p/ with valid or invalid property IDs.<br>A similar output should display as long as one property ID cannot be found.
+- Using a ID that is less than or equal to 0.<br>Alternate error message:<br>`ID is not a valid format.`
 - Add arbitrary whitespace.
 
 ##### Marking as unsold with unknown parameters
@@ -1564,7 +1564,7 @@ To simulate: <br>
 - Run `unsold` with any other parameters.
 
 Expected:<br>
-- Displays the following error message:<br>`Invalid command format!`<br>`unsold: Marks one or more properties as unsold`<br>`Parameters: p/UUID...`<br>`Example: unsold p/7 p/33`
+- Displays the following error message:<br>`Invalid command format!`<br>`unsold: Marks one or more properties as unsold`<br>`Parameters: p/ID...`<br>`Example: unsold p/7 p/33`
 - No change to the GUI.
 
 ### Linking contacts to properties
@@ -1574,18 +1574,18 @@ Expected:<br>
 Command: `link p/CONTACT_ID r/seller p/PROPERTY_ID`
 
 To simulate:<br>
-- Have at least 1 contact and 1 property in the current filtered contact and property list that do not have each others' UUIDs in their `Buying Property IDs`/`Buyer IDs` or `Selling Property IDs`/`Seller IDs` data.
-- Run the above command with CONTACT_ID replaced with the UUID of said contact, PROPERTY_ID replaced with the UUID of said property.
+- Have at least 1 contact and 1 property in the current filtered contact and property list that do not have each others' IDs in their `Buying Property IDs`/`Buyer IDs` or `Selling Property IDs`/`Seller IDs` data.
+- Run the above command with CONTACT_ID replaced with the ID of said contact, PROPERTY_ID replaced with the ID of said property.
 
 Expected:<br>
 - Displays the following success message:<br>`Linked Property IDs: [[PROPERTY_ID]] with Contact IDs: [[CONTACT_ID]] as seller`
-- The property with UUID input to the command should have its `Seller IDs` include the UUID of the contact input.
-- The contact with UUID input to the command should have its `Selling Property IDs` include the UUID of the property input.
+- The property with ID input to the command should have its `Seller IDs` include the ID of the contact input.
+- The contact with ID input to the command should have its `Selling Property IDs` include the ID of the property input.
 
 Variations:<br>
 - Change relationship from buyer to seller.
-- Add more parameters with prefix p/ with UUIDs of properties that are not linked to input contacts as buyers or sellers.
-- Add more parameters with prefix c/ with UUIDs of contacts that are not linked to input properties as buyers or sellers.
+- Add more parameters with prefix p/ with IDs of properties that are not linked to input contacts as buyers or sellers.
+- Add more parameters with prefix c/ with IDs of contacts that are not linked to input properties as buyers or sellers.
 - Add arbitrary whitespace.
 
 ##### Linking linked contacts and properties
@@ -1593,8 +1593,8 @@ Variations:<br>
 Command: `link p/CONTACT_ID r/seller p/PROPERTY_ID`
 
 To simulate:<br>
-- Have at least 1 contact and 1 property in the current filtered contact and property list that has any of each others' UUIDs in their `Buying Property IDs`/`Buyer IDs` or `Selling Property IDs`/`Seller IDs` data.
-- Run the above command with CONTACT_ID replaced with the UUID of said contact, PROPERTY_ID replaced with the UUID of said property.
+- Have at least 1 contact and 1 property in the current filtered contact and property list that has any of each others' IDs in their `Buying Property IDs`/`Buyer IDs` or `Selling Property IDs`/`Seller IDs` data.
+- Run the above command with CONTACT_ID replaced with the ID of said contact, PROPERTY_ID replaced with the ID of said property.
 
 Expected:<br>
 - Displays the following error message:<br>`A contact is already linked to one of the properties as RELATIONSHIP`
@@ -1602,8 +1602,8 @@ Expected:<br>
 
 Variations:<br>
 - Change relationship from buyer to seller.
-- Add more parameters with prefix p/ with valid property UUIDs.<br>A similar output should display as long as any contact and property input are already linked with specified relationship.
-- Add more parameters with prefix c/ with valid contact UUIDs.<br>A similar output should display as long as any contact and property input are already linked with specified relationship.
+- Add more parameters with prefix p/ with valid property IDs.<br>A similar output should display as long as any contact and property input are already linked with specified relationship.
+- Add more parameters with prefix c/ with valid contact IDs.<br>A similar output should display as long as any contact and property input are already linked with specified relationship.
 - Add arbitrary whitespace.
 
 ##### Linking invalid parameters
@@ -1613,7 +1613,7 @@ Command: `link p/CONTACT_ID r/seller p/PROPERTY_ID`
 To simulate:<br>
 - Have at least 1 contact in the current filtered contact list.
 - Have at least 1 property not in the current filtered property list.
-- Run the above command with CONTACT_ID replaced with the UUID of said contact, PROPERTY_ID replaced with the UUID of said property.
+- Run the above command with CONTACT_ID replaced with the ID of said contact, PROPERTY_ID replaced with the ID of said property.
 
 Expected:<br>
 - Displays the following error message:<br>`A property id provided is invalid`
@@ -1621,10 +1621,10 @@ Expected:<br>
 
 Variations:<br>
 - Change relationship from buyer to seller.
-- Add more parameters with prefix p/ with valid property UUIDs.<br>A similar output should display as long as at least 1 property UUID input is invalid.
-- Add more parameters with prefix c/ with valid contact UUIDs.<br>A similar output should display as long as at least 1 property UUID input is invalid.
+- Add more parameters with prefix p/ with valid property IDs.<br>A similar output should display as long as at least 1 property ID input is invalid.
+- Add more parameters with prefix c/ with valid contact IDs.<br>A similar output should display as long as at least 1 property ID input is invalid.
 - Repeat with valid PROPERTY_ID but not present CONTACT_ID.<br>Alternate error message:<br>`A contact id provided is invalid`
-- Using a UUID that is less than or equal to 0.<br>Alternate error message:<br>`UUID is not a valid format.`
+- Using a ID that is less than or equal to 0.<br>Alternate error message:<br>`ID is not a valid format.`
 - Using a RELATIONSHIP other than `buyer` or `seller`.<br>Alternate error message:<br>`The relationship provided is invalid`
 - Add arbitrary whitespace.
 
@@ -1646,19 +1646,19 @@ Expected:<br>
 Command: `unlink p/CONTACT_ID p/PROPERTY_ID`
 
 To simulate:<br>
-- Have at least 1 contact and 1 property in the current filtered contact and property list all have each others' UUIDs in either their `Buying Property IDs`/`Buyer IDs` or `Selling Property IDs`/`Seller IDs` data.
-- Run the above command with CONTACT_ID replaced with the UUID of said contact, PROPERTY_ID replaced with the UUID of said property.
+- Have at least 1 contact and 1 property in the current filtered contact and property list all have each others' IDs in either their `Buying Property IDs`/`Buyer IDs` or `Selling Property IDs`/`Seller IDs` data.
+- Run the above command with CONTACT_ID replaced with the ID of said contact, PROPERTY_ID replaced with the ID of said property.
 
 Expected:<br>
 - Displays the following success message:<br>`Unlinked Property IDs: [[PROPERTY_ID]] with Contact IDs: [[CONTACT_ID]]`
-- The property with UUID input to the command should have its `Seller IDs` exclude the UUID of the contact input.
-- The property with UUID input to the command should have its `Buyer IDs` exclude the UUID of the contact input.
-- The contact with UUID input to the command should have its `Buying Property IDs` exclude the UUID of the property input.
-- The contact with UUID input to the command should have its `Selling Property IDs` exclude the UUID of the property input.
+- The property with ID input to the command should have its `Seller IDs` exclude the ID of the contact input.
+- The property with ID input to the command should have its `Buyer IDs` exclude the ID of the contact input.
+- The contact with ID input to the command should have its `Buying Property IDs` exclude the ID of the property input.
+- The contact with ID input to the command should have its `Selling Property IDs` exclude the ID of the property input.
 
 Variations:<br>
-- Add more parameters with prefix p/ with UUIDs of properties that are linked to input contacts as buyers or sellers.
-- Add more parameters with prefix c/ with UUIDs of contacts that are linked to input properties as buyers or sellers.
+- Add more parameters with prefix p/ with IDs of properties that are linked to input contacts as buyers or sellers.
+- Add more parameters with prefix c/ with IDs of contacts that are linked to input properties as buyers or sellers.
 - Add arbitrary whitespace.
 
 ##### Unlinking unlinked contacts and properties
@@ -1666,16 +1666,16 @@ Variations:<br>
 Command: `unlink p/CONTACT_ID p/PROPERTY_ID`
 
 To simulate:<br>
-- Have at least 1 contact and 1 property in the current filtered contact and property list that do not have each others' UUIDs in both their `Buying Property IDs`/`Buyer IDs` and `Selling Property IDs`/`Seller IDs` data.
-- Run the above command with CONTACT_ID replaced with the UUID of said contact, PROPERTY_ID replaced with the UUID of said property.
+- Have at least 1 contact and 1 property in the current filtered contact and property list that do not have each others' IDs in both their `Buying Property IDs`/`Buyer IDs` and `Selling Property IDs`/`Seller IDs` data.
+- Run the above command with CONTACT_ID replaced with the ID of said contact, PROPERTY_ID replaced with the ID of said property.
 
 Expected:<br>
 - Displays the following error message:<br>`A contact is not linked to any of the properties`
 - No change to the GUI.
 
 Variations:<br>
-- Add more parameters with prefix p/ with valid property UUIDs.<br>A similar output should display as long as any contact and property input are not linked.
-- Add more parameters with prefix c/ with valid contact UUIDs.<br>A similar output should display as long as any contact and property input are not linked.
+- Add more parameters with prefix p/ with valid property IDs.<br>A similar output should display as long as any contact and property input are not linked.
+- Add more parameters with prefix c/ with valid contact IDs.<br>A similar output should display as long as any contact and property input are not linked.
 - Add arbitrary whitespace.
 
 ##### Unlinking invalid parameters
@@ -1685,17 +1685,17 @@ Command: `unlink p/CONTACT_ID p/PROPERTY_ID`
 To simulate:<br>
 - Have at least 1 contact in the current filtered contact list.
 - Have at least 1 property not in the current filtered property list.
-- Run the above command with CONTACT_ID replaced with the UUID of said contact, PROPERTY_ID replaced with the UUID of said property.
+- Run the above command with CONTACT_ID replaced with the ID of said contact, PROPERTY_ID replaced with the ID of said property.
 
 Expected:<br>
 - Displays the following error message:<br>`A property id provided is invalid`
 - No change to the GUI.
 
 Variations:<br>
-- Add more parameters with prefix p/ with valid property UUIDs.<br>A similar output should display as long as at least 1 property UUID input is invalid.
-- Add more parameters with prefix c/ with valid contact UUIDs.<br>A similar output should display as long as at least 1 property UUID input is invalid.
+- Add more parameters with prefix p/ with valid property IDs.<br>A similar output should display as long as at least 1 property ID input is invalid.
+- Add more parameters with prefix c/ with valid contact IDs.<br>A similar output should display as long as at least 1 property ID input is invalid.
 - Repeat with valid PROPERTY_ID but not present CONTACT_ID.<br>Alternate error message:<br>`A contact id provided is invalid`
-- Using a UUID that is less than or equal to 0.<br>Alternate error message:<br>`UUID is not a valid format.`
+- Using a ID that is less than or equal to 0.<br>Alternate error message:<br>`ID is not a valid format.`
 - Add arbitrary whitespace.
 
 ##### Unlinking with unknown parameters
@@ -1717,7 +1717,7 @@ Command: `showcontacts PROPERTY_ID`
 
 To simulate:<br>
 - Have at least 1 contact and 1 property in the current filtered contact and property list where the contact is linked as buyer or seller, or is the owner of said property.
-- Run the above command with PROPERTY_ID replaced with the UUID of said property.
+- Run the above command with PROPERTY_ID replaced with the ID of said property.
 
 Expected:<br>
 - Displays the following success message:<br>`Listed 1 contact associated with property ID: [PROPERTY_ID]`
@@ -1731,14 +1731,14 @@ Variations:<br>
 Command: `showcontacts PROPERTY_ID`
 
 To simulate:<br>
-- Run the above command with PROPERTY_ID replaced with the UUID of a property not in the property list.
+- Run the above command with PROPERTY_ID replaced with the ID of a property not in the property list.
 
 Expected:<br>
 - Displays the following error message:<br>`No contacts found associated with property ID: [PROPERTY_ID]`<br>`Possible reasons:`<br>`  • The property exists but has no linked contacts yet`<br>`  • The property ID doesn't exist (use 'list' & 'filtercontact' to verify)`<br>`Tip: Use 'link p/[PROPERTY_ID] c/CONTACT_ID r/RELATIONSHIP' to associate contacts with this property.`
 - No change to the GUI.
 
 Variations:<br>
-- Using a UUID that is less than or equal to 0.<br>Alternate error message:<br>`UUID is not a valid format.`
+- Using a ID that is less than or equal to 0.<br>Alternate error message:<br>`ID is not a valid format.`
 - Add arbitrary whitespace.
 
 ##### Show contacts with unknown parameters
@@ -1749,7 +1749,7 @@ To simulate: <br>
 - Run `showcontacts` with any other parameters.
 
 Expected:<br>
-- Displays the following error message:<br>`Invalid command format!`<br>`showcontacts: Shows all contacts associated with the specified property.`<br>`Parameters: PROPERTY_UUID (must be a positive integer)`<br>`Example: showcontacts 123`
+- Displays the following error message:<br>`Invalid command format!`<br>`showcontacts: Shows all contacts associated with the specified property.`<br>`Parameters: PROPERTY_ID (must be a positive integer)`<br>`Example: showcontacts 123`
 - No change to the GUI.
 
 ### Show properties linked to or owned by contacts
@@ -1760,7 +1760,7 @@ Command: `showproperties CONTACT_ID`
 
 To simulate:<br>
 - Have at least 1 contact and 1 property in the current filtered contact and property list where the property is linked as buying or selling, or is the owned by said contact.
-- Run the above command with CONTACT_ID replaced with the UUID of said contact.
+- Run the above command with CONTACT_ID replaced with the ID of said contact.
 
 Expected:<br>
 - Displays the following success message:<br>`Listed 1 property associated with contact ID: [CONTACT_ID]`
@@ -1774,14 +1774,14 @@ Variations:<br>
 Command: `showproperties CONTACT_ID`
 
 To simulate:<br>
-- Run the above command with CONTACT_ID replaced with the UUID of a contact not in the property list.
+- Run the above command with CONTACT_ID replaced with the ID of a contact not in the property list.
 
 Expected:<br>
 - Displays the following error message:<br>`No properties found associated to contact ID: [CONTACT_ID]`<br>`Possible reasons:`<br>`  • The contact exists but is not linked to any properties yet`<br>`  • The contact ID doesn't exist (use 'list' & 'filterproperty' to verify)`<br>`Tip: Use 'addproperty ... o/[CONTACT_ID]' to add a property for this contact.`
 - No change to the GUI.
 
 Variations:<br>
-- Using a UUID that is less than or equal to 0.<br>Alternate error message:<br>`UUID is not a valid format.`
+- Using a ID that is less than or equal to 0.<br>Alternate error message:<br>`ID is not a valid format.`
 - Add arbitrary whitespace.
 
 ##### Show properties with unknown parameters
@@ -1792,7 +1792,7 @@ To simulate: <br>
 - Run `showproperties` with any other parameters.
 
 Expected:<br>
-- Displays the following error message:<br>`Invalid command format!`<br>`showproperties: Shows all properties associated with the specified contact.`<br>`Parameters: CONTACT_UUID (must be a positive integer)`<br>`Example: showproperties 123`
+- Displays the following error message:<br>`Invalid command format!`<br>`showproperties: Shows all properties associated with the specified contact.`<br>`Parameters: CONTACT_ID (must be a positive integer)`<br>`Example: showproperties 123`
 - No change to the GUI.
 
 ### Saving data

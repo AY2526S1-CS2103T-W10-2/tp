@@ -85,7 +85,6 @@ public class PropertyCard extends UiPart<Region> {
         // Hide unused labels
         hideLabel(bathroom);
         hideLabel(floorArea);
-        hideLabel(status);
         hideLabel(sellerIds);
     }
 
