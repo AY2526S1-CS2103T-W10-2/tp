@@ -299,7 +299,7 @@ Format: `deleteproperty PROPERTY_ID`
 
 * Deletes the property with the specified `PROPERTY_ID`.
 * The PROPERTY_ID refers to the ID number shown in the displayed property list.
-* The command only works on properties currently visible in the property list panel. Use the [list](#list-all-contacts-or-properties-list) command first if needed.
+* The command only works on properties currently visible in the property list panel. Use the [`list`](#list-all-contacts-or-properties-list) command first if needed.
 
 Examples:
 * `deleteproperty 12`
@@ -312,7 +312,7 @@ Examples:
 
 ### Mark property as sold : `sold`
 
-Marks the statuses of the properties given as unavailable.
+Marks the status of the properties given as unavailable.
 
 Format: `sold p/PROPERTY_ID...`
 
@@ -325,14 +325,14 @@ Examples:
 <div markdown="span" class="alert alert-warning">
 :exclamation: **Caution:**<br>
 If one of the <code>PROPERTY_ID</code> given is invalid or the property is already marked as sold, the whole command is aborted.
-The statuses of properties with valid <code>PROPERTY_ID</code> will not be changed.
+The status of properties with valid <code>PROPERTY_ID</code> will not be changed.
 </div>
 
 For more information on the parameters, click [here](#command-parameters).
 
 ### Mark property as unsold : `unsold`
 
-Marks the statuses of the properties given as available.
+Marks the status of the properties given as available.
 
 Format: `unsold p/PROPERTY_ID...`
 
@@ -345,7 +345,7 @@ Examples:
 <div markdown="span" class="alert alert-warning">
 :exclamation: **Caution:**<br>
 If one of the <code>PROPERTY_ID</code> given is invalid or the property is already marked as unsold, the whole command is aborted.
-The statuses of properties with valid <code>PROPERTY_ID</code> will not be changed.
+The status of properties with valid <code>PROPERTY_ID</code> will not be changed.
 </div>
 
 For more information on the parameters, click [here](#command-parameters).
