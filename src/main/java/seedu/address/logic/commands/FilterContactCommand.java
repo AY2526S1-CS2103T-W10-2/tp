@@ -12,11 +12,14 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.FilterContactPredicate;
+import seedu.address.model.uuid.Uuid;
 
 /**
  * Filters and lists all contacts in the address book that match the given {@link FilterContactPredicate}.
@@ -65,11 +68,14 @@ public class FilterContactCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         // filter all matches normally
-        List<Contact> allMatches = model.getFilteredContactList().stream()
+        Set<Uuid> allMatches = model.getFilteredContactList().stream()
                 .filter(predicate)
-                .toList();
+                .toList()
+                .stream()
+                .map(Contact::getUuid)
+                .collect(Collectors.toSet());
 
-        model.updateFilteredContactList(allMatches::contains);
+        model.updateFilteredContactList(c -> allMatches.contains(c.getUuid()));
 
         // Build output message (e.g., “12 properties matched”)
         String msg = String.format(MESSAGE_CONTACTS_LISTED_OVERVIEW, allMatches.size());

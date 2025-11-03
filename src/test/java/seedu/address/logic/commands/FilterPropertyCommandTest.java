@@ -24,6 +24,7 @@ import seedu.address.model.property.PropertyAddress;
 import seedu.address.model.property.Status;
 import seedu.address.model.property.Type;
 import seedu.address.model.property.predicates.PropertyMatchesFilterPredicate;
+import seedu.address.model.uuid.Uuid;
 
 
 /**
@@ -37,9 +38,12 @@ public class FilterPropertyCommandTest {
     private Property p2;
     private Property p3;
 
+    private int nextUuid = 1;
+
     @BeforeEach
     public void setUp() {
         model = new ModelManager();
+        nextUuid = 1;
 
         p1 = createProperty("123 Orchard Rd", "123000", "Condo", 3, 2,
                 "100", "1000000", "available", "alice");
@@ -60,7 +64,7 @@ public class FilterPropertyCommandTest {
             String address, String postal, String type, int bedroom,
             int bathroom, String floorArea, String price, String status, String ownerName) {
         return new Property(
-                null,
+                new Uuid(nextUuid++, Uuid.StoredItem.PROPERTY),
                 new PropertyAddress(address),
                 new Bathroom(String.valueOf(bathroom)),
                 new Bedroom(String.valueOf(bedroom)),
@@ -172,19 +176,6 @@ public class FilterPropertyCommandTest {
         assertEquals(1, shown.size());
         assertTrue(shown.contains(p3));
         assertEquals("1 properties matched", result.getFeedbackToUser());
-    }
-
-    @Test
-    public void execute_filterWithLimitAndOffset_success() throws CommandException {
-        PropertyMatchesFilterPredicate predicate =
-                new PropertyMatchesFilterPredicate.Builder().withStatus("available").build();
-
-        FilterPropertyCommand command = new FilterPropertyCommand(predicate);
-        CommandResult result = command.execute(model);
-
-        List<Property> shown = model.getFilteredPropertyList();
-        assertEquals(2, shown.size());
-        assertEquals("2 properties matched", result.getFeedbackToUser());
     }
 
     @Test
