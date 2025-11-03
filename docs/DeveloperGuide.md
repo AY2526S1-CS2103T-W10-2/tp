@@ -552,7 +552,7 @@ Related commands: [`addcontact`](#add-command-addcontact), [`filtercontact`](#fi
 
 | Parameter      | Prefix  | Constraints                                                                                                                |
 |----------------|---------|----------------------------------------------------------------------------------------------------------------------------|
-| Name           | n/      | Should only contain alphanumerical characters (a-z, A-Z, 0-9) or spaces                                                      |
+| Name           | n/      | Should only contain alphabetical characters (a-z, A-Z) or spaces                                                      |
 | Phone Number   | p/      | Should only contain numbers (0-9), and it should be at least 3 digits long                                                 |
 | Email          | e/      | Should follow the format: name@example.com                                                                                 |
 | Address        | a/      | Can take any value. Maximum of 200 characters                                                                              |
