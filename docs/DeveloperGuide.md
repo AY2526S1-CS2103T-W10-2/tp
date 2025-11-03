@@ -612,7 +612,7 @@ Related commands: [`addcontact`](#add-command-addcontact), [`filtercontact`](#fi
 
 ### Property Management
 These are prefixes for purely property related commands.
-Related commands: [`addproperty`](#uadd-property-commandu-addproperty), [`filterproperty`](#ufilter-property-commandu-filterproperty)
+Related commands: [`addproperty`](#add-property-command-addproperty), [`filterproperty`](#filter-property-command-filterproperty)
 
 | Parameter      | Prefix  | Constraints                                                                                                          |
 |----------------|---------|----------------------------------------------------------------------------------------------------------------------|
@@ -628,7 +628,7 @@ Related commands: [`addproperty`](#uadd-property-commandu-addproperty), [`filter
 
 ### Others
 These are prefixes that are used over multiple commands.
-Related commands: [`filtercontact`](#filter-contact-command-filtercontact), [`filterproperty`](#filter-property-command-filterproperty), [`sold`](#mark-property-as-sold-command-sold), [`unsold`](#mark-property-as-unsold-command-unsold), [`link`](#ulink-commandu-link), [`unlink`](#uunlink-commandu-unlink), [`showproperties`](#ushow-properties-commandu-showproperties), [`showcontacts`](#ushow-contacts-commandu-showcontacts)
+Related commands: [`filtercontact`](#filter-contact-command-filtercontact), [`filterproperty`](#filter-property-command-filterproperty), [`sold`](#mark-property-as-sold-command-sold), [`unsold`](#mark-property-as-unsold-command-unsold), [`link`](#link-command-link), [`unlink`](#unlink-command-unlink), [`showproperties`](#show-properties-command-showproperties), [`showcontacts`](#show-contacts-command-showcontacts)
 
 | Parameter      | Prefix  | Constraints                                            |
 |----------------|---------|--------------------------------------------------------|
