@@ -19,7 +19,6 @@ import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Name;
 import seedu.address.model.contact.Notes;
 import seedu.address.model.contact.Phone;
-import seedu.address.model.contact.Tag;
 import seedu.address.model.property.Bathroom;
 import seedu.address.model.property.Bedroom;
 import seedu.address.model.property.FloorArea;
@@ -76,7 +75,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Uuid>},
+     * Parses {@code Collection<String>} into a {@code Set<Uuid>},
      * both representing a collection of contact ids, and returns it.
      */
     public static Set<Uuid> parseContactIds(Collection<String> contactIds) throws ParseException {
@@ -160,34 +159,6 @@ public class ParserUtil {
         return new Email(trimmedEmail);
     }
 
-    /**
-     * Parses a {@code String tag} into a {@code Tag}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code tag} is invalid.
-     */
-    public static Tag parseTag(String tag) throws ParseException {
-        requireNonNull(tag);
-        String trimmedTag = tag.trim();
-        if (!Tag.isValidTagName(trimmedTag)) {
-            throw new ParseException(String.format(Tag.MESSAGE_CONSTRAINTS, trimmedTag));
-        }
-        return new Tag(trimmedTag);
-    }
-
-    /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
-     */
-    public static Set<Tag> parseTags(Collection<String> tags) throws ParseException {
-        requireNonNull(tags);
-        final Set<Tag> tagSet = new HashSet<>();
-        for (String tagName : tags) {
-            if (!tagName.isEmpty()) {
-                tagSet.add(parseTag(tagName));
-            }
-        }
-        return tagSet;
-    }
     /**
      * Parses a {@code String budgetMin} into a {@code BudgetMin}.
      * Leading and trailing whitespaces will be trimmed.
@@ -274,7 +245,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Uuid>},
+     * Parses {@code Collection<String>} into a {@code Set<Uuid>},
      * both representing a collection of property ids, and returns it.
      */
     public static Set<Uuid> parsePropertyIds(Collection<String> propertyIds) throws ParseException {

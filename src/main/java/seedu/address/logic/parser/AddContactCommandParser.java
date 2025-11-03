@@ -9,7 +9,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTES;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -25,7 +24,6 @@ import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Name;
 import seedu.address.model.contact.Notes;
 import seedu.address.model.contact.Phone;
-import seedu.address.model.contact.Tag;
 import seedu.address.model.uuid.Uuid;
 
 /**
@@ -46,7 +44,7 @@ public class AddContactCommandParser implements Parser<AddContactCommand> {
     public AddContactCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE,
                                                                   PREFIX_EMAIL, PREFIX_ADDRESS,
-                                                                  PREFIX_TAG, PREFIX_BUDGET_MIN,
+                                                                  PREFIX_BUDGET_MIN,
                                                                   PREFIX_BUDGET_MAX, PREFIX_NOTES,
                                                                   PREFIX_STATUS);
 
@@ -61,7 +59,6 @@ public class AddContactCommandParser implements Parser<AddContactCommand> {
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).orElse(null));
         ContactAddress address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).orElse(null));
-        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
         BudgetMin budgetMin = ParserUtil.parseBudgetMin(argMultimap.getValue(PREFIX_BUDGET_MIN).orElse(null));
         BudgetMax budgetMax = ParserUtil.parseBudgetMax(argMultimap.getValue(PREFIX_BUDGET_MAX).orElse(null));
         Notes notes = ParserUtil.parseNotes(argMultimap.getValue(PREFIX_NOTES).orElse(null));
@@ -75,8 +72,8 @@ public class AddContactCommandParser implements Parser<AddContactCommand> {
         }
 
         // Correct UUID will be made in AddContactCommand
-        Contact contact = new Contact(name, phone, email, address, tagList,
-                                   budgetMin, budgetMax, notes, status,
+        Contact contact = new Contact(name, phone, email, address,
+                budgetMin, budgetMax, notes, status,
                                    emptyBuyingPropertyIds, emptySellingPropertyIds);
 
         return new AddContactCommand(contact);

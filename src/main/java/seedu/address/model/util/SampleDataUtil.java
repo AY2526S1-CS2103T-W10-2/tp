@@ -20,7 +20,6 @@ import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Name;
 import seedu.address.model.contact.Notes;
 import seedu.address.model.contact.Phone;
-import seedu.address.model.contact.Tag;
 import seedu.address.model.property.Bathroom;
 import seedu.address.model.property.Bedroom;
 import seedu.address.model.property.FloorArea;
@@ -39,7 +38,6 @@ import seedu.address.model.uuid.Uuid.StoredItem;
  */
 public class SampleDataUtil {
 
-    private static final Set<Tag> EMPTY_TAG_SET = Set.of();
     private static final Set<Uuid> EMPTY_BUYING_CONTACT_ID_SET = Set.of();
     private static final Set<Uuid> EMPTY_SELLING_CONTACT_ID_SET = Set.of();
     private static final Set<Uuid> EMPTY_BUYING_PROPERTY_ID_SET = Set.of();
@@ -50,62 +48,62 @@ public class SampleDataUtil {
         return new Contact[] {
             new Contact(new Uuid(1, CONTACT), new Name("Alex Yeoh"), new Phone("87438807"),
                         new Email("alexyeoh@example.com"),
-                        new ContactAddress("Blk 30 Geylang Street 29, #06-40"), getTagSet("landlord"),
+                        new ContactAddress("Blk 30 Geylang Street 29, #06-40"),
                         new BudgetMin("50000"), new BudgetMax("1000000"), new Notes("Prefers email contact"),
                         new ContactStatus("Active"), EMPTY_BUYING_PROPERTY_ID_SET, Set.of(new Uuid(1, PROPERTY))),
 
             new Contact(new Uuid(2, CONTACT), new Name("Bernice Yu"), new Phone("99272758"),
                         new Email("berniceyu@example.com"),
-                        new ContactAddress("Blk 30 Lorong 3 Serangoon Gardens, #07-18"), EMPTY_TAG_SET,
+                        new ContactAddress("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
                         new BudgetMin("50000"), new BudgetMax("1000000"), new Notes("VIP client"),
                         new ContactStatus("Active"), EMPTY_BUYING_PROPERTY_ID_SET, EMPTY_SELLING_PROPERTY_ID_SET),
 
             new Contact(new Uuid(3, CONTACT), new Name("Charlotte Oliveiro"), new Phone("93210283"),
                         new Email("charlotte@example.com"),
-                        new ContactAddress("Blk 11 Ang Mo Kio Street 74, #11-04"), EMPTY_TAG_SET,
+                        new ContactAddress("Blk 11 Ang Mo Kio Street 74, #11-04"),
                         new BudgetMin("70000"), new BudgetMax("1000000"), new Notes("Follow up in July"),
                         new ContactStatus("Inactive"), EMPTY_BUYING_PROPERTY_ID_SET, EMPTY_SELLING_PROPERTY_ID_SET),
 
             new Contact(new Uuid(4, CONTACT), new Name("David Li"), new Phone("91031282"),
                         new Email("lidavid@example.com"),
-                        new ContactAddress("Blk 436 Serangoon Gardens Street 26, #16-43"), EMPTY_TAG_SET,
+                        new ContactAddress("Blk 436 Serangoon Gardens Street 26, #16-43"),
                         new BudgetMin("80000"), new BudgetMax("90000"), new Notes("Prefers phone calls"),
                         new ContactStatus("Active"), Set.of(new Uuid(3, PROPERTY), new Uuid(5, PROPERTY)),
                         EMPTY_SELLING_PROPERTY_ID_SET),
 
             new Contact(new Uuid(5, CONTACT), new Name("Irfan Ibrahim"), new Phone("92492021"),
                         new Email("irfan@example.com"),
-                        new ContactAddress("Blk 47 Tampines Street 20, #17-35"), EMPTY_TAG_SET,
+                        new ContactAddress("Blk 47 Tampines Street 20, #17-35"),
                         new BudgetMin("80000"), new BudgetMax("90000"), new Notes("Interested in workshops"),
                         new ContactStatus("Inactive"), EMPTY_BUYING_PROPERTY_ID_SET, EMPTY_SELLING_PROPERTY_ID_SET),
 
             new Contact(new Uuid(6, CONTACT), new Name("Roy Balakrishnan"), new Phone("92624417"),
                         new Email("royb@example.com"),
-                        new ContactAddress("Blk 45 Aljunied Street 85, #11-31"), EMPTY_TAG_SET,
+                        new ContactAddress("Blk 45 Aljunied Street 85, #11-31"),
                         new BudgetMin("50000"), new BudgetMax("500000"), new Notes("VIP"),
                         new ContactStatus("Active"), EMPTY_BUYING_PROPERTY_ID_SET, EMPTY_SELLING_PROPERTY_ID_SET),
 
             new Contact(new Uuid(7, CONTACT), new Name("Gyuri Kim"), new Phone("91119911"),
                         new Email("gyuri.kim@test.com.sg"), new ContactAddress("Blk 10 Punggol Field, #02-11"),
-                        getTagSet("tenant"), new BudgetMin("800000"), new BudgetMax("900000"),
+                        new BudgetMin("800000"), new BudgetMax("900000"),
                         new Notes("New arrival"), new ContactStatus("Active"),
                         Set.of(new Uuid(2, PROPERTY)), EMPTY_SELLING_PROPERTY_ID_SET),
 
             new Contact(new Uuid(8, CONTACT), new Name("Tan Wei Ming"), new Phone("98765544"),
                         new Email("weiming.tan@example.sg"), new ContactAddress("Blk 53 Bishan St 13, #09-22"),
-                        getTagSet("buyer"), new BudgetMin("200000"), new BudgetMax("300000"),
+                        new BudgetMin("200000"), new BudgetMax("300000"),
                         new Notes("Prefers city area"), new ContactStatus("Inactive"),
                         Set.of(new Uuid(6, PROPERTY)), EMPTY_SELLING_PROPERTY_ID_SET),
 
             new Contact(new Uuid(9, CONTACT), new Name("Priya Raj"), new Phone("93334444"),
                         new Email("priya.raj@example.com"), new ContactAddress("Blk 88 Toa Payoh Central, #20-02"),
-                        getTagSet("seller"), new BudgetMin("200000"), new BudgetMax("900000"),
+                        new BudgetMin("200000"), new BudgetMax("900000"),
                         new Notes("Wants fast deal"), new ContactStatus("Active"),
                         EMPTY_BUYING_PROPERTY_ID_SET, EMPTY_SELLING_PROPERTY_ID_SET),
 
             new Contact(new Uuid(10, CONTACT), new Name("Jonathan Lim"), new Phone("91237654"),
                         new Email("jon.lim@example.com"), new ContactAddress("21 Orchard Boulevard, #23-01"),
-                        getTagSet("landlord", "buyer"), new BudgetMin("3500"), new BudgetMax("4500"),
+                        new BudgetMin("3500"), new BudgetMax("4500"),
                         new Notes("Looking for luxury"), new ContactStatus("Active"),
                         EMPTY_BUYING_PROPERTY_ID_SET, EMPTY_SELLING_PROPERTY_ID_SET)
         };
@@ -181,15 +179,6 @@ public class SampleDataUtil {
         }
         samplePb.setNextUuid(getSampleProperties().length + 1);
         return samplePb;
-    }
-
-    /**
-     * Returns a tag set containing the list of strings given.
-     */
-    public static Set<Tag> getTagSet(String... strings) {
-        return Arrays.stream(strings)
-                .map(Tag::new)
-                .collect(Collectors.toSet());
     }
 
     /**

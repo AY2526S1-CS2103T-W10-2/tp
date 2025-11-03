@@ -63,12 +63,7 @@ public class Messages {
                 .append(contact.getBudgetMin())
                 .append(", Max Budget: ")
                 .append(contact.getBudgetMax())
-                .append(", Tags: [");
-        contact.getTags().forEach(tag -> builder.append(tag.toString() + ", "));
-        if (!contact.getTags().isEmpty()) {
-            builder.delete(builder.length() - 2, builder.length()); //remove extra comma and space
-        }
-        builder.append("], Notes: ")
+                .append(", Notes: ")
                 .append(contact.getNotes())
                 .append(", Status: ")
                 .append(contact.getStatus());

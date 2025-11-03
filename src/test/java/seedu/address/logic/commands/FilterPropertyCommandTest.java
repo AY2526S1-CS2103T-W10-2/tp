@@ -80,7 +80,7 @@ public class FilterPropertyCommandTest {
         PropertyMatchesFilterPredicate predicate =
                 new PropertyMatchesFilterPredicate.Builder().withPostal("123000").build();
 
-        FilterPropertyCommand command = new FilterPropertyCommand(predicate, Integer.MAX_VALUE, 0);
+        FilterPropertyCommand command = new FilterPropertyCommand(predicate);
         CommandResult result = command.execute(model);
 
         List<Property> shown = model.getFilteredPropertyList();
@@ -94,7 +94,7 @@ public class FilterPropertyCommandTest {
         PropertyMatchesFilterPredicate predicate =
                 new PropertyMatchesFilterPredicate.Builder().withType("Condo").build();
 
-        FilterPropertyCommand command = new FilterPropertyCommand(predicate, Integer.MAX_VALUE, 0);
+        FilterPropertyCommand command = new FilterPropertyCommand(predicate);
         CommandResult result = command.execute(model);
 
         List<Property> shown = model.getFilteredPropertyList();
@@ -108,7 +108,7 @@ public class FilterPropertyCommandTest {
         PropertyMatchesFilterPredicate predicate =
                 new PropertyMatchesFilterPredicate.Builder().withStatus("available").build();
 
-        FilterPropertyCommand command = new FilterPropertyCommand(predicate, Integer.MAX_VALUE, 0);
+        FilterPropertyCommand command = new FilterPropertyCommand(predicate);
         CommandResult result = command.execute(model);
 
         List<Property> shown = model.getFilteredPropertyList();
@@ -123,7 +123,7 @@ public class FilterPropertyCommandTest {
         PropertyMatchesFilterPredicate predicate =
                 new PropertyMatchesFilterPredicate.Builder().withBedroom("4").build();
 
-        FilterPropertyCommand command = new FilterPropertyCommand(predicate, Integer.MAX_VALUE, 0);
+        FilterPropertyCommand command = new FilterPropertyCommand(predicate);
         CommandResult result = command.execute(model);
 
         List<Property> shown = model.getFilteredPropertyList();
@@ -137,7 +137,7 @@ public class FilterPropertyCommandTest {
         PropertyMatchesFilterPredicate predicate =
                 new PropertyMatchesFilterPredicate.Builder().withFloorArea("100").build();
 
-        FilterPropertyCommand command = new FilterPropertyCommand(predicate, Integer.MAX_VALUE, 0);
+        FilterPropertyCommand command = new FilterPropertyCommand(predicate);
         CommandResult result = command.execute(model);
 
         List<Property> shown = model.getFilteredPropertyList();
@@ -151,7 +151,7 @@ public class FilterPropertyCommandTest {
         PropertyMatchesFilterPredicate predicate =
                 new PropertyMatchesFilterPredicate.Builder().withPrice("1000000").build();
 
-        FilterPropertyCommand command = new FilterPropertyCommand(predicate, Integer.MAX_VALUE, 0);
+        FilterPropertyCommand command = new FilterPropertyCommand(predicate);
         CommandResult result = command.execute(model);
 
         List<Property> shown = model.getFilteredPropertyList();
@@ -165,7 +165,7 @@ public class FilterPropertyCommandTest {
         PropertyMatchesFilterPredicate predicate =
                 new PropertyMatchesFilterPredicate.Builder().withOwner("carol").build();
 
-        FilterPropertyCommand command = new FilterPropertyCommand(predicate, Integer.MAX_VALUE, 0);
+        FilterPropertyCommand command = new FilterPropertyCommand(predicate);
         CommandResult result = command.execute(model);
 
         List<Property> shown = model.getFilteredPropertyList();
@@ -179,12 +179,12 @@ public class FilterPropertyCommandTest {
         PropertyMatchesFilterPredicate predicate =
                 new PropertyMatchesFilterPredicate.Builder().withStatus("available").build();
 
-        FilterPropertyCommand command = new FilterPropertyCommand(predicate, 1, 1);
+        FilterPropertyCommand command = new FilterPropertyCommand(predicate);
         CommandResult result = command.execute(model);
 
         List<Property> shown = model.getFilteredPropertyList();
-        assertEquals(1, shown.size());
-        assertEquals("1 properties matched", result.getFeedbackToUser());
+        assertEquals(2, shown.size());
+        assertEquals("2 properties matched", result.getFeedbackToUser());
     }
 
     @Test
@@ -194,10 +194,10 @@ public class FilterPropertyCommandTest {
         PropertyMatchesFilterPredicate secondPredicate =
                 new PropertyMatchesFilterPredicate.Builder().withType("hdb").build();
 
-        FilterPropertyCommand firstCommand = new FilterPropertyCommand(firstPredicate, 20, 0);
-        FilterPropertyCommand secondCommand = new FilterPropertyCommand(secondPredicate, 20, 0);
+        FilterPropertyCommand firstCommand = new FilterPropertyCommand(firstPredicate);
+        FilterPropertyCommand secondCommand = new FilterPropertyCommand(secondPredicate);
 
-        assertEquals(firstCommand, new FilterPropertyCommand(firstPredicate, 20, 0));
+        assertEquals(firstCommand, new FilterPropertyCommand(firstPredicate));
         assertNotEquals(firstCommand, secondCommand);
         assertNotEquals(firstCommand, null);
         assertNotEquals(firstCommand, "some string");

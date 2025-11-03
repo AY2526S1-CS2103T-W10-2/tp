@@ -21,13 +21,10 @@ public class FilterContactPredicate implements Predicate<Contact> {
     private final Optional<List<String>> phones;
     private final Optional<List<String>> emails;
     private final Optional<List<String>> addresses;
-    private final Optional<List<String>> tags;
     private final Optional<Long> budgetMin;
     private final Optional<Long> budgetMax;
     private final Optional<List<String>> notes;
     private final Optional<List<String>> status;
-    private final Optional<Integer> limit;
-    private final Optional<Integer> offset;
 
     /**
      * Creates a {@code FilterContactPredicate} with optional filtering fields.
@@ -36,36 +33,27 @@ public class FilterContactPredicate implements Predicate<Contact> {
      * @param phones Optional list of phone keywords.
      * @param emails Optional list of email keywords.
      * @param addresses Optional list of address keywords.
-     * @param tags Optional list of tag keywords.
      * @param budgetMin Optional minimum budget.
      * @param budgetMax Optional maximum budget.
      * @param notes Optional list of note keywords.
      * @param status Optional list of status keywords.
-     * @param limit Optional maximum number of results to return.
-     * @param offset Optional number of results to skip before showing.
      */
     public FilterContactPredicate(Optional<List<String>> names,
                                   Optional<List<String>> phones,
                                   Optional<List<String>> emails,
                                   Optional<List<String>> addresses,
-                                  Optional<List<String>> tags,
                                   Optional<Long> budgetMin,
                                   Optional<Long> budgetMax,
                                   Optional<List<String>> notes,
-                                  Optional<List<String>> status,
-                                  Optional<Integer> limit,
-                                  Optional<Integer> offset) {
+                                  Optional<List<String>> status) {
         this.names = names;
         this.phones = phones;
         this.emails = emails;
         this.addresses = addresses;
-        this.tags = tags;
         this.budgetMin = budgetMin;
         this.budgetMax = budgetMax;
         this.notes = notes;
         this.status = status;
-        this.limit = limit;
-        this.offset = offset;
     }
 
     @Override
@@ -133,19 +121,10 @@ public class FilterContactPredicate implements Predicate<Contact> {
                 && phones.equals(((FilterContactPredicate) other).phones)
                 && emails.equals(((FilterContactPredicate) other).emails)
                 && addresses.equals(((FilterContactPredicate) other).addresses)
-                && tags.equals(((FilterContactPredicate) other).tags)
                 && budgetMin.equals(((FilterContactPredicate) other).budgetMin)
                 && budgetMax.equals(((FilterContactPredicate) other).budgetMax)
                 && notes.equals(((FilterContactPredicate) other).notes)
                 && status.equals(((FilterContactPredicate) other).status));
-    }
-
-    public Optional<Integer> getLimit() {
-        return limit;
-    }
-
-    public Optional<Integer> getOffset() {
-        return offset;
     }
 
     @Override
@@ -157,7 +136,6 @@ public class FilterContactPredicate implements Predicate<Contact> {
         phones.ifPresent(p -> sb.append("phones=").append(p).append(", "));
         emails.ifPresent(e -> sb.append("emails=").append(e).append(", "));
         addresses.ifPresent(a -> sb.append("addresses=").append(a).append(", "));
-        tags.ifPresent(t -> sb.append("tags=").append(t).append(", "));
         budgetMin.ifPresent(min -> sb.append("budgetMin=").append(min).append(", "));
         budgetMax.ifPresent(max -> sb.append("budgetMax=").append(max).append(", "));
         notes.ifPresent(n -> sb.append("notes=").append(n).append(", "));

@@ -1,8 +1,6 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_LIMIT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_OFFSET;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_BATHROOM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_BEDROOM;
@@ -45,9 +43,7 @@ public class FilterPropertyCommandParser implements Parser<FilterPropertyCommand
 
         if (args.trim().isEmpty()) {
             return new FilterPropertyCommand(
-                    new PropertyMatchesFilterPredicate.Builder().build(),
-                    Integer.MAX_VALUE,
-                    0
+                    new PropertyMatchesFilterPredicate.Builder().build()
             );
         }
 
@@ -60,7 +56,7 @@ public class FilterPropertyCommandParser implements Parser<FilterPropertyCommand
         List<Prefix> validPrefixes = List.of(
                 PREFIX_PROPERTY_ADDRESS, PREFIX_PROPERTY_POSTAL, PREFIX_PROPERTY_TYPE, PREFIX_PROPERTY_BEDROOM,
                 PREFIX_PROPERTY_BATHROOM, PREFIX_PROPERTY_FLOOR_AREA, PREFIX_PROPERTY_PRICE, PREFIX_PROPERTY_STATUS,
-                PREFIX_PROPERTY_OWNER, PREFIX_LIMIT, PREFIX_OFFSET
+                PREFIX_PROPERTY_OWNER
         );
 
         List<String> invalidPrefixes = detectedPrefixes.stream()
@@ -164,26 +160,6 @@ public class FilterPropertyCommandParser implements Parser<FilterPropertyCommand
             builder.withOwner(t);
         }
 
-        int limit = Integer.MAX_VALUE;
-        Optional<String> maybeLimit = argMultimap.getValue(PREFIX_LIMIT);
-        if (maybeLimit.isPresent()) {
-            String t = maybeLimit.get().trim();
-            if (!t.matches("^[1-9]\\d*$")) {
-                throw new ParseException("Error: Invalid limit (Positive integer only)");
-            }
-            limit = Integer.parseInt(t);
-        }
-
-        int offset = 0;
-        Optional<String> maybeOffset = argMultimap.getValue(PREFIX_OFFSET);
-        if (maybeOffset.isPresent()) {
-            String t = maybeOffset.get().trim();
-            if (!t.matches("^0|[1-9]\\d*$")) {
-                throw new ParseException("Error: Invalid offset (Non-negative integer only)");
-            }
-            offset = Integer.parseInt(t);
-        }
-
-        return new FilterPropertyCommand(builder.build(), limit, offset);
+        return new FilterPropertyCommand(builder.build());
     }
 }

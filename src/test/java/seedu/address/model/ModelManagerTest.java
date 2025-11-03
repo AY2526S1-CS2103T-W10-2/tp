@@ -181,8 +181,7 @@ public class ModelManagerTest {
                 Optional.of(Arrays.asList(keywords)),
                 Optional.empty(), Optional.empty(), Optional.empty(),
                 Optional.empty(), Optional.empty(), Optional.empty(),
-                Optional.empty(), Optional.empty(),
-                Optional.empty(), Optional.empty()
+                Optional.empty()
         ));
         assertFalse(modelManager.equals(new ModelManager(addressBook, propertyBook, userPrefs)));
 

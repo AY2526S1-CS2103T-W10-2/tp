@@ -12,7 +12,6 @@ Class Email
 Class ContactAddress
 Class BudgetMin
 Class BudgetMax
-Class Tag
 Class Notes
 Class ContactStatus
 
@@ -25,7 +24,6 @@ Contact *--> Email
 Contact *--> ContactAddress
 Contact *--> BudgetMin
 Contact *--> BudgetMax
-Contact *--> "*" Tag
 Contact *--> Notes
 Contact *--> ContactStatus
 @enduml

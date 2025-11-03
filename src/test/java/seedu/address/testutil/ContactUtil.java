@@ -8,14 +8,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTES;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-
-import java.util.Set;
 
 import seedu.address.logic.commands.AddContactCommand;
 import seedu.address.logic.commands.EditContactCommand.EditContactDescriptor;
 import seedu.address.model.contact.Contact;
-import seedu.address.model.contact.Tag;
 
 /**
  * A utility class for Contact.
@@ -42,9 +38,6 @@ public class ContactUtil {
         sb.append(PREFIX_BUDGET_MAX + contact.getBudgetMax().value + " ");
         sb.append(PREFIX_NOTES + contact.getNotes().value + " ");
         sb.append(PREFIX_STATUS + contact.getStatus().value + " ");
-        contact.getTags().stream().forEach(
-            s -> sb.append(PREFIX_TAG + s.tagName + " ")
-        );
         return sb.toString();
     }
 
@@ -57,14 +50,6 @@ public class ContactUtil {
         descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
         descriptor.getEmail().ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.value).append(" "));
         descriptor.getAddress().ifPresent(address -> sb.append(PREFIX_ADDRESS).append(address.value).append(" "));
-        if (descriptor.getTags().isPresent()) {
-            Set<Tag> tags = descriptor.getTags().get();
-            if (tags.isEmpty()) {
-                sb.append(PREFIX_TAG);
-            } else {
-                tags.forEach(s -> sb.append(PREFIX_TAG).append(s.tagName).append(" "));
-            }
-        }
         return sb.toString();
     }
 }

@@ -10,27 +10,20 @@ public class CliSyntax {
     public static final String PREFIX_PHONE_RAW = "p/";
     public static final String PREFIX_EMAIL_RAW = "e/";
     public static final String PREFIX_ADDRESS_RAW = "a/";
-    public static final String PREFIX_TAG_RAW = "t/";
     public static final String PREFIX_BUDGET_MIN_RAW = "min/";
     public static final String PREFIX_BUDGET_MAX_RAW = "max/";
     public static final String PREFIX_NOTES_RAW = "notes/";
     public static final String PREFIX_STATUS_RAW = "status/";
-    public static final String PREFIX_LIMIT_RAW = "limit/";
-    public static final String PREFIX_OFFSET_RAW = "offset/";
 
     /* Prefix definitions */
     public static final Prefix PREFIX_NAME = new Prefix(PREFIX_NAME_RAW); // name
     public static final Prefix PREFIX_PHONE = new Prefix(PREFIX_PHONE_RAW); // phone
     public static final Prefix PREFIX_EMAIL = new Prefix(PREFIX_EMAIL_RAW); // email
     public static final Prefix PREFIX_ADDRESS = new Prefix(PREFIX_ADDRESS_RAW); // address
-    public static final Prefix PREFIX_TAG = new Prefix(PREFIX_TAG_RAW); // tags
     public static final Prefix PREFIX_BUDGET_MIN = new Prefix(PREFIX_BUDGET_MIN_RAW); // budget min
     public static final Prefix PREFIX_BUDGET_MAX = new Prefix(PREFIX_BUDGET_MAX_RAW); // budget max
     public static final Prefix PREFIX_NOTES = new Prefix(PREFIX_NOTES_RAW); // notes
     public static final Prefix PREFIX_STATUS = new Prefix(PREFIX_STATUS_RAW); // status
-    public static final Prefix PREFIX_LIMIT = new Prefix(PREFIX_LIMIT_RAW); // limit
-    public static final Prefix PREFIX_OFFSET = new Prefix(PREFIX_OFFSET_RAW); // offset for filtering
-
 
     /* Prefix definitions for property */
     public static final Prefix PREFIX_PROPERTY_ADDRESS = new Prefix(PREFIX_ADDRESS_RAW);

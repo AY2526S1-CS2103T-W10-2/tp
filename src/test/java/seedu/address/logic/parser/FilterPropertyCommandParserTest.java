@@ -2,8 +2,6 @@ package seedu.address.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_LIMIT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_OFFSET;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_BATHROOM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_BEDROOM;
@@ -30,15 +28,12 @@ public class FilterPropertyCommandParserTest {
                 + PREFIX_PROPERTY_TYPE + "condo "
                 + PREFIX_PROPERTY_BEDROOM + "3 "
                 + PREFIX_PROPERTY_FLOOR_AREA + "100 "
-                + PREFIX_PROPERTY_STATUS + "available "
-                + PREFIX_LIMIT + "5 "
-                + PREFIX_OFFSET + "10";
+                + PREFIX_PROPERTY_STATUS + "available";
         FilterPropertyCommand expected =
                 new FilterPropertyCommand(
                         new PropertyMatchesFilterPredicate.Builder()
                                 .withType("condo").withBedroom("3")
-                                .withFloorArea("100").withStatus("available").build(),
-                        5, 10);
+                                .withFloorArea("100").withStatus("available").build());
         assertEquals(expected, parser.parse(input));
 
     }
@@ -49,8 +44,7 @@ public class FilterPropertyCommandParserTest {
         FilterPropertyCommand expected =
                 new FilterPropertyCommand(
                         new PropertyMatchesFilterPredicate.Builder()
-                                .withOwner("alice").build(),
-                        Integer.MAX_VALUE, 0);
+                                .withOwner("alice").build());
         assertEquals(expected, parser.parse(input));
     }
 
@@ -65,8 +59,7 @@ public class FilterPropertyCommandParserTest {
                 new FilterPropertyCommand(
                         new PropertyMatchesFilterPredicate.Builder()
                                 .withAddress("Geylang 18").withPostal("123000").withBathroom("3")
-                                .withPrice("5000").build(),
-                        Integer.MAX_VALUE, 0); // defaults
+                                .withPrice("5000").build());
         assertEquals(expected, parser.parse(input));
     }
 
@@ -74,9 +67,7 @@ public class FilterPropertyCommandParserTest {
     public void parseEmptyArgSuccessForth() throws Exception {
         String input = "";
         FilterPropertyCommand expected = new FilterPropertyCommand(
-                new PropertyMatchesFilterPredicate.Builder().build(),
-                Integer.MAX_VALUE,
-                0);
+                new PropertyMatchesFilterPredicate.Builder().build());
         assertEquals(expected, parser.parse(input));
     }
 
@@ -134,15 +125,5 @@ public class FilterPropertyCommandParserTest {
     @Test
     public void parseInvalidStatusThrowsParseException() {
         assertThrows(ParseException.class, () -> parser.parse(" " + PREFIX_PROPERTY_STATUS + "listed"));
-    }
-
-    @Test
-    public void parseInvalidLimitThrowsParseException() {
-        assertThrows(ParseException.class, () -> parser.parse(" " + PREFIX_LIMIT + "0"));
-    }
-
-    @Test
-    public void parseInvalidOffsetThrowsParseException() {
-        assertThrows(ParseException.class, () -> parser.parse(" " + PREFIX_OFFSET + "-1"));
     }
 }
