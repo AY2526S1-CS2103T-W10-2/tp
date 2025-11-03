@@ -80,8 +80,10 @@ public class ContactCard extends UiPart<Region> {
         setLabelIfNotEmpty(notes, "Notes: ", contact.getNotes().toString());
         setLabelIfNotEmpty(status, "Status: ", contact.getStatus().toString());
 
-        // Budget fields with edge case handling
-        setBudgetDisplay(contact);
+        // Budget fields with default value checks
+        setLabelIfNotDefault(budgetMin, "Budget Minimum: $", contact.getBudgetMin().toString(), DEFAULT_BUDGET_MIN);
+        setLabelIfNotDefault(budgetMax, "Budget Maximum: $", contact.getBudgetMax().toString(), DEFAULT_BUDGET_MAX);
+
 
         // Tags
         setTagsIfNotEmpty(contact);
@@ -129,43 +131,6 @@ public class ContactCard extends UiPart<Region> {
             hideLabel(label);
         } else {
             label.setText(prefix + value);
-        }
-    }
-
-    /**
-     * Sets the budget display based on min/max values.
-     * Handles all edge cases: no min, no max, only min, only max, both, and when max == min.
-     */
-    private void setBudgetDisplay(Contact contact) {
-        String minBudget = contact.getBudgetMin().toString();
-        String maxBudget = contact.getBudgetMax().toString();
-
-        boolean hasMin = !minBudget.equals(DEFAULT_BUDGET_MIN);
-        boolean hasMax = !maxBudget.equals(DEFAULT_BUDGET_MAX);
-
-        if (!hasMin && !hasMax) {
-            // No budget specified - hide both labels
-            hideLabel(budgetMin);
-            hideLabel(budgetMax);
-        } else if (hasMin && hasMax) {
-            // Both min and max
-            if (minBudget.equals(maxBudget)) {
-                // Same value - show single amount
-                budgetMin.setText("Budget: $" + String.format("%,d", Integer.parseInt(minBudget)));
-            } else {
-                // Different values - show range
-                budgetMin.setText("Budget: $" + String.format("%,d", Integer.parseInt(minBudget))
-                        + " - $" + String.format("%,d", Integer.parseInt(maxBudget)));
-            }
-            hideLabel(budgetMax);
-        } else if (hasMin) {
-            // If only have min - show "Min $X"
-            budgetMin.setText("Budget: Min $" + String.format("%,d", Integer.parseInt(minBudget)));
-            hideLabel(budgetMax);
-        } else {
-            // If only have max - show "Up to $X"
-            budgetMin.setText("Budget: Up to $" + String.format("%,d", Integer.parseInt(maxBudget)));
-            hideLabel(budgetMax);
         }
     }
 

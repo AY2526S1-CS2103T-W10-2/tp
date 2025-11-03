@@ -593,41 +593,42 @@ This table shows every parameter and prefix used in TheRealDeal.
 **:information_source: Important:**<br>
 If the command states that the prefix is optional e.g. <code>n/NAME [t/TAG]</code><br>
 an empty parameter will be the same as not having the prefix<br>
-e.g. <code>n/NAME t/</code> is the same as <code>n/NAME</code>
+e.g. <code>n/NAME t/</code> is the same as <code>n/NAME</code><br><br>
+All parameters that expect integers must be entered as **plain digits** — without commas, dots, spaces, or any other separators.
 </div>
 
 ### Contact Management
 These are prefixes for purely contact related commands.
 Related commands: [`addcontact`](#add-command-addcontact), [`filtercontact`](#filter-contact-command-filtercontact), [`editcontact`](#filter-contact-command-filtercontact)
 
-| Parameter      | Prefix  | Constraints                                                                                                                |
-|----------------|---------|----------------------------------------------------------------------------------------------------------------------------|
-| Name           | n/      | Should only contain alphanumerical characters (a-z, A-Z, 0-9) or spaces                                                    |
-| Phone Number   | p/      | Should only contain numbers (0-9), and it should be at least 3 digits long                                                 |
-| Email          | e/      | Should follow the format: name@example.com                                                                                 |
-| Address        | a/      | Can take any value. Maximum of 200 characters                                                                              |
-| Tag            | t/      | Should only be these (case-insensitive): buyer, seller, tenant, landlord                                                   |
-| Minimum Budget | min/    | Should be a non-negative integer. If not provided, will have a default of $0                                               |
-| Maximum Budget | max/    | Should be a non-negative integer and more than the minimum budget. If not provided, will have a default of $200,000,000,000|
-| Notes          | notes/  | Can take any value. Maximum of 500 characters                                                                              |
-| Status         | status/ | Should only be these (case-insensitive): active, inactive                                                                  |
+| Parameter      | Prefix  | Constraints                                                                                                                 |
+|----------------|---------|-----------------------------------------------------------------------------------------------------------------------------|
+| Name           | n/      | Should only contain alphabetical characters (a-z, A-Z, 0-9) or spaces                                                       |
+| Phone Number   | p/      | Should only contain numbers (0-9), and it should be at least 3 digits long                                                  |
+| Email          | e/      | Should follow the format: name@example.com                                                                                  |
+| Address        | a/      | Can take any value. Maximum of 200 characters                                                                               |
+| Tag            | t/      | Should only be these (case-insensitive): buyer, seller, tenant, landlord                                                    |
+| Minimum Budget | min/    | Should be a non-negative integer. If not provided, will have a default of $0                                                |
+| Maximum Budget | max/    | Should be a non-negative integer and more than the minimum budget. If not provided, will have a default of $200,000,000,000 |
+| Notes          | notes/  | Can take any value. Maximum of 500 characters                                                                               |
+| Status         | status/ | Should only be these (case-insensitive): active, inactive                                                                   |
 
 ### Property Management
 These are prefixes for purely property related commands.
 Related commands: [`addproperty`](#addpropertycommand-addproperty), [`filterproperty`](#filter-property-command-filterproperty)
 
-| Parameter      | Prefix  | Constraints                                                                                                       |
-|----------------|---------|-------------------------------------------------------------------------------------------------------------------|
-| Address        | a/      | Should only contain alphabetical 5 to 200 characters (a-z, A-Z, 0-9) or spaces, with at least 1 letter and 1 digit |
-| Postal code    | p/      | Should only contain numbers (0-9), and it should be exactly least 6 digits long. (Singaporean Postal Code)        |
-| Price          | price/  | Should be an integer from 1 to 1 trillion                                                                         |
-| Type           | t/      | Should only be these (case-insensitive): hdb, condo, landed, apartment, office, others                            |
-| Status         | status/ | Should only be these (case-insensitive): available, unavailable                                                   |
-| Bedroom count  | bed/    | Should be an integer from 0 to 20                                                                                 |
-| Bathroom count | bath/   | Should be an integer from 0 to 20                                                                                 |
-| Floor area     | f/      | Should be an integer from 50 to 100000                                                                            |
-| Listing        | l/      | Should only be these (case-insensitive): sale                                                                     |
-| Owner ID       | o/      | Should be a valid Contact UUID                                                                                    |
+| Parameter      | Prefix  | Constraints                                                                                                          |
+|----------------|---------|----------------------------------------------------------------------------------------------------------------------|
+| Address        | a/      | Should only contain alphanumerical 5 to 200 characters (a-z, A-Z, 0-9) or spaces, with at least 1 letter and 1 digit |
+| Postal code    | p/      | Should only contain numbers (0-9), and it should be exactly least 6 digits long. (Singaporean Postal Code)           |
+| Price          | price/  | Should be an integer from 1 to 1 trillion                                                                            |
+| Type           | t/      | Should only be these (case-insensitive): hdb, condo, landed, apartment, office, others                               |
+| Status         | status/ | Should only be these (case-insensitive): available, unavailable                                                      |
+| Bedroom count  | bed/    | Should be an integer from 0 to 20                                                                                    |
+| Bathroom count | bath/   | Should be an integer from 0 to 20                                                                                    |
+| Floor area     | f/      | Should be an integer from 50 to 100000                                                                               |
+| Listing        | l/      | Should only be these (case-insensitive): sale                                                                        |
+| Owner ID       | o/      | Should be a valid Contact UUID                                                                                       |
 
 ### Others
 These are prefixes that are used over multiple commands.
@@ -991,7 +992,7 @@ Deletes all contacts and properties
 * **Prefix**: A unique identifier (e.g., n/, p/, a/) that tells the parser what type of parameter follows.
 * **Property**: A domain entity representing a real estate listing with attributes like address, price, type, and availability.
 * **ID**: A unique identifier automatically generated by the application to identify contacts and properties. Displayed in the GUI and used in commands. Internally implemented as the `Uuid` class in the codebase.
-* **Buyer**: A contact role indicating interest in purchasing properties. 
+* **Buyer**: A contact who is interested in purchasing a property. Multiple buyers can be linked to the same property to track all interested parties during negotiations. Being linked as a buyer indicates interest, not completed purchase. Use the `sold` command to mark a property as unavailable once the sale is finalised. 
 * **Seller**: A contact role indicating intent to sell properties.
 * **Owner**: The contact who legally owns a property, specified via the `o/` parameter when adding properties. Each property must have exactly one owner.
 * **Sold**: A property marked as no longer available, achieved using the `sold` command. Sets the property status to "unavailable".
