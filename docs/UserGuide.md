@@ -274,6 +274,7 @@ Format: `filterproperty [a/ADDRESS] [p/POSTAL] [t/TYPE] [bed/BEDROOM] [bath/BATH
 * Substring property addresses will be matched e.g. `Clementi` will match `CLementi Avenue 8`.
 * Properties matching all the filters will be returned.
 * Filtering is cumulative. Once you filter by `BATHROOM`, you can filter by `TYPE` subsequently.
+* Price filter here is price ceiling filter. e.g. `price/PRICE 3000` will match all properties with price equal or less than 3000
 * Only one filter per field is accepted. e.g. `t/condo hdb` is not accepted.
 
 Examples:
