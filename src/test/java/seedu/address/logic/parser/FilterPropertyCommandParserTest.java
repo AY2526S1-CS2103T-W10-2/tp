@@ -114,6 +114,11 @@ public class FilterPropertyCommandParserTest {
     }
 
     @Test
+    public void parseInvalidAddressThrowsParseException() {
+        assertThrows(ParseException.class, () -> parser.parse(" " + PREFIX_PROPERTY_ADDRESS + ""));
+    }
+
+    @Test
     public void parseInvalidBedroomThrowsParseException() {
         assertThrows(ParseException.class, () -> parser.parse(" " + PREFIX_PROPERTY_BEDROOM + "22"));
     }
