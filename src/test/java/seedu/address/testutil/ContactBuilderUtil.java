@@ -27,7 +27,7 @@ public class ContactBuilderUtil {
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
     public static final String DEFAULT_BUDGET_MIN = "0";
-    public static final String DEFAULT_BUDGET_MAX = "1000";
+    public static final String DEFAULT_BUDGET_MAX = String.valueOf(200_000_000_000L);
     public static final String DEFAULT_NOTES = "No notes";
     public static final String DEFAULT_STATUS = "Active";
 

@@ -93,14 +93,14 @@ The bulk of the app's work is done by the following four components:
 
 **How the architecture components interact with each other**
 
-The *Sequence Diagram* below shows how the components interact when a user runs `addproperty address/123 Orchard Rd postal/238888 ...` to add a new listing.
+The *Sequence Diagram* below shows how the components interact when a user runs `addproperty address/123 Orchard Rd postal/238888 ...` to add a new property.
 
 <img src="images/ArchitectureSequenceDiagram.png" width="574" />
 
 Each of the four main components (also shown in the diagram above),
 
 * defines its *API* in an `interface` with the same name as the Component.
-* implements its functionality using a concrete `{Component Name}Manager` class (which follows the corresponding API `interface` mentioned in the previous point.
+* implements its functionality using a concrete `{Component Name}Manager` class which follows the corresponding API `interface` mentioned in the previous point.
 
 For example, the `Logic` component defines its API in the `Logic.java` interface and implements its functionality using the `LogicManager.java` class which follows the `Logic` interface. Other components interact with a given component through its interface rather than the concrete class (reason: to prevent outside component's being coupled to the implementation of a component), as illustrated in the (partial) class diagram below.
 
@@ -212,7 +212,7 @@ Users can also press the <code>F1</code> key to open the help window
 </div>
 
 #### <u>List Command</u> (`list`)
-The `ListCommand` resets all current filters and displays all the contacts/properties stored in the application.
+The `ListCommand` resets all filters for the contact list and property list.
 
 ##### Execution
 The `ListCommand` calls the `Model` component to update the `FilteredList<Contact>` and `FilteredList<Property>` to show all of the `Contact` and `Property` in the list.
@@ -246,7 +246,7 @@ As TheRealDeal is a CLI-based application, the `ExitCommand` can be used to exit
 
 ### 3.2. Contact management
 
-All contacts are stored as `Contact` objects inside the `UniqueContactList` object under the `AdressBook` component. <br><br>
+All contacts are stored as `Contact` objects inside the `UniqueContactList` object under the `AddressBook` component. <br><br>
 There is also an additional `FilteredList<Contact>` inside the `ModelManager` that stores the `Contact` that are displayed on the UI which is updated whenever the user issues a command that changes the UI.
 
 #### <u>Add Command</u> (`addcontact`)
@@ -287,7 +287,14 @@ Compulsory fields:
 
 ##### Parsing and Validating User Input
 The `DeleteContactCommandParser` class is responsible for parsing the command input.
-Documentation pending.
+The parser validates the UUID and constructs a `DeleteContactCommnad` object with the validated UUID.
+
+Validation done:
+- Ensures a UUID is provided
+- Ensures contact given exists
+
+##### Execution
+The `DeleteContactCommand` class retrieves the contact based on the UUID given and also ensures that the contact exists. If the contact exists, it is deleted from the address book.
 
 #### <u>Edit Command</u> (`editcontact`)
 The `editcontact` command is designed to edit a contact in the address book, identified by their UUID.
@@ -359,7 +366,6 @@ Compulsory fields:
 - Bedroom count (`bed/`)
 - Bathroom count (`bath/`)
 - Floor area (`f/`)
-- Listing type (`l/`)
 - Owner UUID (`o/`)
 
 Optional Fields:
@@ -411,7 +417,6 @@ Optional Fields:
 - Bedroom
 - Bathroom
 - Floor Area
-- Listing
 - Owner
 
 ##### Parsing and Validating User Input
@@ -536,7 +541,8 @@ This table shows every parameter and prefix used in TheRealDeal.
 **:information_source: Important:**<br>
 If the command states that the prefix is optional e.g. <code>n/NAME [notes/TEXT]</code><br>
 an empty parameter will be the same as not having the prefix<br>
-e.g. <code>n/NAME notes/</code> is the same as <code>n/NAME</code>
+e.g. <code>n/NAME notes/</code> is the same as <code>n/NAME</code><br><br>
+All parameters that expect integers must be entered as **plain digits** — without commas, dots, spaces, or any other separators.
 </div>
 
 ### Contact Management
@@ -545,7 +551,7 @@ Related commands: [`addcontact`](#add-command-addcontact), [`filtercontact`](#fi
 
 | Parameter      | Prefix  | Constraints                                                                                                                 |
 |----------------|---------|-----------------------------------------------------------------------------------------------------------------------------|
-| Name           | n/      | Should only contain alphabetical characters (a-z, A-Z, 0-9) or spaces                                                       |
+| Name           | n/      | Should only contain alphabetical characters (a-z, A-Z) or spaces                                                            |
 | Phone Number   | p/      | Should only contain numbers (0-9), and it should be at least 3 digits long                                                  |
 | Email          | e/      | Should follow the format: name@example.com                                                                                  |
 | Address        | a/      | Can take any value. Maximum of 200 characters                                                                               |
@@ -560,15 +566,14 @@ Related commands: [`addproperty`](#addpropertycommand-addproperty), [`filterprop
 
 | Parameter      | Prefix  | Constraints                                                                                                       |
 |----------------|---------|-------------------------------------------------------------------------------------------------------------------|
-| Address        | a/      | Should only contain alphabetical 5 to 200 characters (a-z, A-Z, 0-9) or spaces, with at least 1 letter and 1 digit|
+| Address        | a/      | Should only contain alphanumerical 5 to 200 characters (a-z, A-Z, 0-9) or spaces, with at least 1 letter and 1 digit|
 | Postal code    | p/      | Should only contain numbers (0-9), and it should be exactly least 6 digits long. (Singaporean Postal Code)        |
-| Price          | price/  | Should be an integer from 1 to 1,000,000,000,000                                                                  |
+| Price          | price/  | Should be an integer from 1 to 1 trillion                                                                  |
 | Type           | t/      | Should only be these (case-insensitive): hdb, condo, landed, apartment, office, others                            |
-| Status         | status/ | Should only be these (case-insensitive): available, unavailable                                                   |
+| Status         | s/      | Should only be these (case-insensitive): available, unavailable                                                   |
 | Bedroom count  | bed/    | Should be an integer from 0 to 20                                                                                 |
 | Bathroom count | bath/   | Should be an integer from 0 to 20                                                                                 |
-| Floor area     | f/      | Should be an integer from 50 to 100,000                                                                           |
-| Listing        | l/      | Should only be these (case-insensitive): sale, rent                                                               |
+| Floor area     | f/      | Should be an integer from 50 to 100000                                                                           |
 | Owner ID       | o/      | Should be a valid Contact UUID                                                                                    |
 
 ### Others
@@ -998,18 +1003,33 @@ Variations:<br>
 
 ##### Filtering by name and email
 
-Command: `filtercontact n/Alice e/example.com`
+Command: `filtercontact n/Alice e/alice@example.com`
 
 To simulate:<br>
 - Ensure multiple contacts exist.
 - Run the command above.
 
 Expected:<br>
-- Lists only contacts whose names include “Alice” and emails include “example.com.”
+- Lists only contacts whose names include “Alice” and emails include “alice@example.com.”
 - Status message shows number of contacts displayed.
 
 Variations:<br>
 - Test with mixed casing (e.g., `n/aLiCe`) to confirm case-insensitive matching.
+
+##### Filtering by tag with limits
+Command: `filtercontact t/buyer`
+
+To simulate:<br>
+- Ensure contact list contains multiple tagged `buyer`.
+- Run the command above.
+
+Expected:<br>
+- Shows up to 10 contacts, skipping the first one.
+- Status message indicates count and offset.
+
+Variations:<br>
+- Change limit/offset values to confirm pagination.
+- Use invalid tags to confirm error messages.
 
 ##### Invalid filter command
 
@@ -1212,7 +1232,7 @@ Variations:<br>
 
 ##### Adding a property linked to an existing owner
 
-Command: `addproperty a/21 Sunset Way postal/597145 price/1850000 type/condo status/available bed/3 bath/2 f/1180 l/sale o/1`
+Command: `addproperty a/21 Sunset Way postal/597145 price/1850000 type/condo status/available bed/3 bath/2 f/1180 o/1`
 
 To simulate:<br>
 - Run `list` to show both contacts and properties.
@@ -1229,7 +1249,7 @@ Variations:<br>
 
 ##### Owner contact does not exist
 
-Command: `addproperty a/21 Sunset Way postal/597145 price/1850000 type/condo status/available bed/3 bath/2 f/1180 l/sale o/9999`
+Command: `addproperty a/21 Sunset Way postal/597145 price/1850000 type/condo status/available bed/3 bath/2 f/1180 o/9999`
 
 To simulate:<br>
 - Ensure no contact currently has the UUID `9999`.
@@ -1249,7 +1269,7 @@ Command: `addproperty`
 
 To simulate:<br>
 - Run the command above with no parameters.
-- Repeat with `addproperty a/21 Sunset Way postal/597145 price/1850000 type/condo status/available bed/3 bath/2 f/1180 l/sale o/` to omit the owner ID.
+- Repeat with `addproperty a/21 Sunset Way postal/597145 price/1850000 type/condo status/available bed/3 bath/2 f/1180 o/` to omit the owner ID.
 
 Expected:<br>
 - Command fails with invalid format or constraint messages explaining the missing or malformed prefixes.
@@ -1746,7 +1766,7 @@ To simulate:<br>
 Expected:<br>
 - Opening the application will delete all contacts stored inside `addressbook.json`.
 - No contacts will be shown on the GUI.
-- Same steps can be carried out for `propertybook.json` by adding `abc` to `Property` Listing.
+- Same steps can be carried out for `propertybook.json` by adding `abc` to `Property` Status.
 
 ##### Editing data file while application is open
 To simulate:<br>

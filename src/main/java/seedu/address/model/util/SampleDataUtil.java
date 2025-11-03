@@ -23,7 +23,6 @@ import seedu.address.model.contact.Phone;
 import seedu.address.model.property.Bathroom;
 import seedu.address.model.property.Bedroom;
 import seedu.address.model.property.FloorArea;
-import seedu.address.model.property.Listing;
 import seedu.address.model.property.Owner;
 import seedu.address.model.property.Postal;
 import seedu.address.model.property.Price;
@@ -113,52 +112,52 @@ public class SampleDataUtil {
     public static Property[] getSampleProperties() {
         return new Property[] {
             new Property(new Uuid(1, PROPERTY), new PropertyAddress("123 Yishun Road"), new Bathroom("2"),
-                    new Bedroom("3"), new FloorArea("100"), new Listing("sale"), new Postal("545603"),
+                    new Bedroom("3"), new FloorArea("100"), new Postal("545603"),
                     new Price("310000"), new Status("available"), new Type("HDB"),
                     new Owner("1"), EMPTY_BUYING_CONTACT_ID_SET, Set.of(new Uuid(1, CONTACT))),
 
             new Property(new Uuid(2, PROPERTY), new PropertyAddress("15 Bukit Timah Avenue"), new Bathroom("1"),
-                    new Bedroom("2"), new FloorArea("76"), new Listing("rent"), new Postal("529126"),
+                    new Bedroom("2"), new FloorArea("76"), new Postal("529126"),
                     new Price("2000"), new Status("available"), new Type("Condo"),
                     new Owner("7"), Set.of(new Uuid(7, CONTACT)), EMPTY_SELLING_CONTACT_ID_SET),
 
             new Property(new Uuid(3, PROPERTY), new PropertyAddress("456 Sengkang East Way"), new Bathroom("2"),
-                    new Bedroom("4"), new FloorArea("123"), new Listing("sale"), new Postal("272822"),
+                    new Bedroom("4"), new FloorArea("123"), new Postal("272822"),
                     new Price("450000"), new Status("available"), new Type("HDB"),
                     new Owner("2"), Set.of(new Uuid(4, CONTACT)), EMPTY_SELLING_CONTACT_ID_SET),
 
             new Property(new Uuid(4, PROPERTY), new PropertyAddress("89 Pasir Ris Drive 1"), new Bathroom("2"),
-                    new Bedroom("3"), new FloorArea("95"), new Listing("sale"), new Postal("510089"),
+                    new Bedroom("3"), new FloorArea("95"), new Postal("510089"),
                     new Price("320000"), new Status("unavailable"), new Type("office"),
                     new Owner("4"), EMPTY_BUYING_CONTACT_ID_SET, EMPTY_SELLING_CONTACT_ID_SET),
 
             new Property(new Uuid(5, PROPERTY), new PropertyAddress("77 Holland Road"), new Bathroom("2"),
-                    new Bedroom("2"), new FloorArea("85"), new Listing("rent"), new Postal("229999"),
+                    new Bedroom("2"), new FloorArea("85"), new Postal("229999"),
                     new Price("3300"), new Status("available"), new Type("apartment"),
                     new Owner("8"), Set.of(new Uuid(4, CONTACT)), EMPTY_SELLING_CONTACT_ID_SET),
 
             new Property(new Uuid(6, PROPERTY), new PropertyAddress("56 Jurong West St 61"), new Bathroom("1"),
-                    new Bedroom("3"), new FloorArea("92"), new Listing("sale"), new Postal("640056"),
+                    new Bedroom("3"), new FloorArea("92"), new Postal("640056"),
                     new Price("285000"), new Status("available"), new Type("HDB"),
                     new Owner("6"), Set.of(new Uuid(8, CONTACT)), EMPTY_SELLING_CONTACT_ID_SET),
 
             new Property(new Uuid(7, PROPERTY), new PropertyAddress("35 Ghim Moh Road"), new Bathroom("3"),
-                    new Bedroom("5"), new FloorArea("180"), new Listing("sale"), new Postal("270035"),
+                    new Bedroom("5"), new FloorArea("180"), new Postal("270035"),
                     new Price("900000"), new Status("available"), new Type("Landed"),
                     new Owner("9"), EMPTY_BUYING_CONTACT_ID_SET, EMPTY_SELLING_CONTACT_ID_SET),
 
             new Property(new Uuid(8, PROPERTY), new PropertyAddress("44 Marine Parade"), new Bathroom("2"),
-                    new Bedroom("4"), new FloorArea("120"), new Listing("rent"), new Postal("449000"),
+                    new Bedroom("4"), new FloorArea("120"), new Postal("449000"),
                     new Price("4000"), new Status("unavailable"), new Type("Condo"),
                     new Owner("1"), EMPTY_BUYING_CONTACT_ID_SET, EMPTY_SELLING_CONTACT_ID_SET),
 
             new Property(new Uuid(9, PROPERTY), new PropertyAddress("18 Ardmore Park"), new Bathroom("4"),
-                    new Bedroom("5"), new FloorArea("320"), new Listing("sale"), new Postal("259955"),
+                    new Bedroom("5"), new FloorArea("320"), new Postal("259955"),
                     new Price("5000000"), new Status("available"), new Type("condo"),
                     new Owner("10"), EMPTY_BUYING_CONTACT_ID_SET, EMPTY_SELLING_CONTACT_ID_SET),
 
             new Property(new Uuid(10, PROPERTY), new PropertyAddress("99 Keppel Bay View"), new Bathroom("3"),
-                    new Bedroom("4"), new FloorArea("150"), new Listing("rent"), new Postal("098405"),
+                    new Bedroom("4"), new FloorArea("150"), new Postal("098405"),
                     new Price("9000"), new Status("available"), new Type("hdb"),
                     new Owner("3"), EMPTY_BUYING_CONTACT_ID_SET, EMPTY_SELLING_CONTACT_ID_SET)
         };

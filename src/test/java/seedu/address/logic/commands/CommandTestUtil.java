@@ -186,7 +186,7 @@ public class CommandTestUtil {
         final String[] splitAddress = property.getPropertyAddress().value.split("\\s+");
 
         PropertyMatchesFilterPredicate predicate = new PropertyMatchesFilterPredicate(
-                splitAddress[0], null, null, null, null, null, null, null, null, null);
+                splitAddress[0], null, null, null, null, null, null, null, null);
         model.updateFilteredPropertyList(predicate);
         assertEquals(1, model.getFilteredPropertyList().size());
     }

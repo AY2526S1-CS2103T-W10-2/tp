@@ -5,7 +5,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_BATHROOM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_BEDROOM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_FLOOR_AREA;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_LISTING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_OWNER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_POSTAL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_PRICE;
@@ -21,7 +20,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.property.Bathroom;
 import seedu.address.model.property.Bedroom;
 import seedu.address.model.property.FloorArea;
-import seedu.address.model.property.Listing;
 import seedu.address.model.property.Owner;
 import seedu.address.model.property.Postal;
 import seedu.address.model.property.Price;
@@ -58,7 +56,7 @@ public class FilterPropertyCommandParser implements Parser<FilterPropertyCommand
         List<Prefix> validPrefixes = List.of(
                 PREFIX_PROPERTY_ADDRESS, PREFIX_PROPERTY_POSTAL, PREFIX_PROPERTY_TYPE, PREFIX_PROPERTY_BEDROOM,
                 PREFIX_PROPERTY_BATHROOM, PREFIX_PROPERTY_FLOOR_AREA, PREFIX_PROPERTY_PRICE, PREFIX_PROPERTY_STATUS,
-                PREFIX_PROPERTY_OWNER, PREFIX_PROPERTY_LISTING
+                PREFIX_PROPERTY_OWNER
         );
 
         List<String> invalidPrefixes = detectedPrefixes.stream()
@@ -128,7 +126,7 @@ public class FilterPropertyCommandParser implements Parser<FilterPropertyCommand
 
         Optional<String> maybeFloorArea = argMultimap.getValue(PREFIX_PROPERTY_FLOOR_AREA);
         if (maybeFloorArea.isPresent()) {
-            String t = maybeFloorArea.get().replace(",", "").trim();
+            String t = maybeFloorArea.get().trim();
             if (!FloorArea.isValidFloorArea(t)) {
                 throw new ParseException(FloorArea.MESSAGE_CONSTRAINTS);
             }
@@ -137,7 +135,7 @@ public class FilterPropertyCommandParser implements Parser<FilterPropertyCommand
 
         Optional<String> maybePrice = argMultimap.getValue(PREFIX_PROPERTY_PRICE);
         if (maybePrice.isPresent()) {
-            String t = maybePrice.get().replace(",", "").trim();
+            String t = maybePrice.get().trim();
             if (!Price.isValidPrice(t)) {
                 throw new ParseException(Price.MESSAGE_CONSTRAINTS);
             }
@@ -162,14 +160,6 @@ public class FilterPropertyCommandParser implements Parser<FilterPropertyCommand
             builder.withOwner(t);
         }
 
-        Optional<String> maybeListing = argMultimap.getValue(PREFIX_PROPERTY_LISTING);
-        if (maybeListing.isPresent()) {
-            String t = maybeListing.get().trim().toLowerCase();
-            if (!Listing.isValidListing(t)) {
-                throw new ParseException(Listing.MESSAGE_CONSTRAINTS);
-            }
-            builder.withListing(t);
-        }
         return new FilterPropertyCommand(builder.build());
     }
 }

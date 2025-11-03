@@ -29,6 +29,9 @@ public class Messages {
             "A contact is already linked to one of the properties as seller";
     public static final String MESSAGE_UNLINKING_ALREADY_UNLINKED =
             "A contact is not linked to any of the properties";
+    public static final String MESSAGE_LINKING_TO_UNAVAILABLE_PROPERTY =
+            "A property marked as unavailable cannot add new links\n"
+            + "Please mark property as available (using the unsold command) to add more links";
 
     /**
      * Returns an error message indicating the duplicate prefixes.
@@ -92,11 +95,6 @@ public class Messages {
                 .append(property.getBedroom())
                 .append("; Floor Area: ")
                 .append(property.getFloorArea());
-
-        if (property.getListing() != null) {
-            builder.append("; Listing: ")
-                    .append(property.getListing());
-        }
 
         builder.append("; Postal: ")
                 .append(property.getPostal())

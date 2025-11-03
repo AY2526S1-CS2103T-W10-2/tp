@@ -29,6 +29,7 @@ Warns you of potential issues to should watch out for.
 
 --------------------------------------------------------------------------------------------------------------------
 <div style="page-break-after: always;"></div>
+<div style="page-break-after: always;"></div>
 
 ## GUI Overview
 
@@ -51,12 +52,12 @@ TheRealDeal Graphical User Interface (GUI) is organised into **five** key compon
    **Linux users:** Tutorial to download [here](https://se-education.org/guides/tutorials/javaInstallationLinux.html)<br>
    **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
 
-2. Download the latest `TheRealDeal.jar` file from [here](https://github.com/AY2526S1-CS2103T-W10-2/tp/releases).
+2. Download the latest `TheRealDeal.jar` file from [here](https://github.com/AY2526S1-CS2103T-W10-2/tp/releases). <br>Note that the name of the file might differ based on the exact version installed.
 
 3. Copy the file to the folder you want to use as the _home folder_ for TheRealDeal.
 
 4. Open a command terminal, `cd` into the folder you put the jar file in, and use the <br>
-   `java -jar TheRealDeal.jar` command to run the application.<br><br>
+   `java -jar (NAME_OF_FILE).jar` command to run the application.<br><br>
    A window similar to the picture below should appear in a few seconds. Note how the app contains some sample data.<br>
 
 ![Sample GUI Contacts](images/sampleGUIContacts.png)
@@ -127,9 +128,9 @@ You can also press the <code>F1</code> key to open the help window
 
 Refer to [Command Summary](#command-summary) for the list of commands and their formats.
 
-### Listing all contacts and properties: `list`
+### List all contacts or properties: `list`
 
-Resets any active filters and shows the complete list of contacts or properties.
+Resets any active filters of both contact list and property list.
 
 Both contact and property cards display an ID field which represents the Universally Unique Identifier (`UUID`) of that contact or property.
 This `UUID` will be used for other commands.
@@ -154,7 +155,7 @@ Adds a new contact into the system.
 
 Format: `addcontact n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [min/AMOUNT] [max/AMOUNT] [notes/TEXT] [status/STATUS]`
 
-* Duplicate contacts (same name and phone number) will not be allowed to be added.
+* Duplicate contacts (same phone number) will not be allowed to be added.
 * Each new contact is assigned a (Universally Uniquely Identifier) UUID automatically.
 
 Examples:
@@ -216,10 +217,14 @@ To reset all filters, you can type <code>list</code>
 
 <div markdown="span" class="alert alert-primary">
 :bulb: **Tip:**<br>
-To filter for the different parameters (Name contains `Tan` and `Alex`)<br>
-Type: `filtercontact n/Tan` followed by `filtercontact n/Alex`<br><br>
-To filter for different parameters at the same time (Name contains `Tan` or `Alex`)<br>
-Type: `filtercontact n/Tan Alex`
+To filter for: Name contains `Tan` and Address contains `Punggol`<br>
+Type: `filtercontact n/Tan` followed by `filtercontact a/Punggol`<br>
+
+To filter for: Name contains `Tan` or Address contains `Punggol`<br>
+Type: `filtercontact n/Tan a/Punggol`<br>
+
+To filter for: Address contains both `Serangoon` or `Tampines`<br>
+Type: `filtercontact a/Serangoon Tampines`
 </div>
 
 For more information on the parameters, click [here](#command-parameters).
@@ -231,8 +236,7 @@ Deletes the specified contact from the address book.
 Format: `deletecontact CONTACT_ID`
 
 * Deletes the contact with the specified `CONTACT_ID`.
-* The UUID refers to the ID number shown in the displayed contact list.
-* The command only works on contacts currently visible in the property list panel. <br>Use the [list](#listing-all-contacts-and-properties-list) command first if needed.
+* The UUID refers to the ID number of the contact shown in the displayed contact list.
 
 Examples:
 * `deletecontact 1`
@@ -244,7 +248,7 @@ Examples:
 
 <div markdown="block" class="alert alert-info">
 **:information_source: Important:**<br>
-You are able to edit delete contacts even if they are not currently shown on the GUI (but are stored in the address book). <br><br>
+You are able to delete valid contacts even if they are not currently shown on the GUI (but are stored in the address book). <br><br>
 i.e. If you use <code>filtercontact</code> to remove a person from the GUI, you can still delete that person using <code>deletecontact</code>.<br><br>
 Use the <code>list</code> command to see the changes.
 </div>
@@ -253,14 +257,14 @@ Use the <code>list</code> command to see the changes.
 
 Adds a property to the property list.
 
-Format: `addproperty a/ADDRESS p/POSTAL price/PRICE t/TYPE status/STATUS bed/BEDROOM bath/BATHROOM f/FLOOR_AREA l/LISTING o/CONTACT_ID`
+Format: `addproperty a/ADDRESS p/POSTAL price/PRICE t/TYPE status/STATUS bed/BEDROOM bath/BATHROOM f/FLOOR_AREA o/CONTACT_ID`
 
 * Duplicate properties (same address and postal code) will not be allowed to be added.
 * Each new property is assigned a (Universally Uniquely Identifier) UUID automatically.
 
 Examples:
-* `addproperty a/123 Orchard Rd p/238888 price/1950000 t/condo status/unavailable bed/3 bath/2 f/1023 l/sale o/1`
-* `addproperty a/55 Pasir Ris Dr 1 p/519884 price/450000 t/hdb status/available bed/4 bath/2 f/1050 l/rent o/5`
+* `addproperty a/123 Orchard Rd p/238888 price/1950000 t/condo status/unavailable bed/3 bath/2 f/1023 o/1`
+* `addproperty a/55 Pasir Ris Dr 1 p/519884 price/450000 t/hdb status/available bed/4 bath/2 f/1050 o/5`
 
 For more information on the parameters, click [here](#command-parameters).
 
@@ -268,7 +272,7 @@ For more information on the parameters, click [here](#command-parameters).
 
 Filters the properties based on the fields given.
 
-Format: `filterproperty [a/ADDRESS] [p/POSTAL] [t/TYPE] [bed/BEDROOM] [bath/BATHROOM] [f/FLOORAREA] [s/STATUS] [price/PRICE] [l/LISTING] [o/CONTACT_ID]`
+Format: `filterproperty [a/ADDRESS] [p/POSTAL] [t/TYPE] [bed/BEDROOM] [bath/BATHROOM] [f/FLOORAREA] [s/STATUS] [price/PRICE] [o/CONTACT_ID]`
 
 * The search is case-insensitive. e.g `clementi` will match `Clementi`.
 * Substring property addresses will be matched e.g. `Clementi` will match `CLementi Avenue 8`.
@@ -295,7 +299,7 @@ Format: `deleteproperty PROPERTY_ID`
 
 * Deletes the property with the specified `PROPERTY_ID`.
 * The UUID refers to the ID number shown in the displayed property list.
-* The command only works on properties currently visible in the property list panel. Use the [list](#listing-all-contacts-and-properties-list) command first if needed.
+* The command only works on properties currently visible in the property list panel. Use the [list](#list-all-contacts-or-properties-list) command first if needed.
 
 Examples:
 * `deleteproperty 12`
@@ -352,14 +356,16 @@ Links people to properties as buyers or sellers by their UUIDs.
 
 Format: `link c/CONTACT_ID... r/RELATIONSHIP p/PROPERTY_ID...`
 
+* This command links all input contacts to all input properties by the relationship specified.  
 * `RELATIONSHIP` **must be either `buyer` or `seller`**
 * `CONTACT_ID` and `PROPERTY_ID` refer to the UUIDs of the people and properties being linked respectively.
 * `link` can link any number of properties and people at once (excluding none).
 
 <div markdown="block" class="alert alert-info">
 **:information_source: Important:**<br>
-A contact cannot be linked to a property as both a buyer and seller.<br>
-An error will be thrown if this is attempted!
+An error will be thrown if any of the following is attempted!<br>
+Attempting to link a contact to a property as both a buyer and seller.<br>
+Attempting to link a contact to a property marked as unavailable.
 </div>
 
 For more information on the parameters, click [here](#command-parameters).
@@ -368,7 +374,7 @@ For more information on the parameters, click [here](#command-parameters).
 
 Unlinks people from properties as buyers and sellers, at the same time, by their UUIDs.
 
-Format: `link c/CONTACT_ID... p/PROPERTY_ID...`
+Format: `unlink c/CONTACT_ID... p/PROPERTY_ID...`
 
 * `CONTACT_ID` and `PROPERTY_ID` refer to the UUIDs of the people and properties being linked respectively.
 * `unlink` can unlink any number of properties and people at once (excluding none).
@@ -484,24 +490,24 @@ Furthermore, certain edits can cause the TheRealDeal to behave in unexpected way
 ## Command summary
 To see the detailed explanation of every feature, click [here](#features)<br>
 
-| Action                      | Format, Examples                                                                                                                                                                                                                                          |
-|-----------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Add Contact**             | `addcontact n/NAME p/PHONE [e/EMAIL] [a/ADDRESS] [min/AMOUNT] [max/AMOUNT] [notes/TEXT] [s/STATUS]` <br> <br> e.g., `addcontact n/Alex p/91423123 a/982 Yishun Road s/active notes/wants near school min/100000 max/300000`                               |
-| **Edit Contact**            | `editcontact UUID [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [min/AMOUNT] [max/AMOUNT] [notes/TEXT] [s/STATUS]`<br> <br> e.g.,`editcontact 2 n/Bobby a/Block 321 Punggol`                                                                                   |
-| **Filter Contact**          | `filtercontact [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [min/AMOUNT] [max/AMOUNT] [notes/TEXT] [s/STATUS]`<br> <br> e.g.,`filtercontact n/Tan s/active`                                                                                                   |
-| **Delete Contact**          | `deletecontact UUID`<br> <br> e.g., `deletecontact 3`                                                                                                                                                                                                     |
-| **Add Property**            | `addproperty a/ADDRESS p/POSTAL price/PRICE t/TYPE status/STATUS bed/BEDROOM bath/BATHROOM f/FLOOR_AREA l/LISTING o/CONTACT_ID`<br> <br> e.g., `addproperty a/123 Orchard Rd p/238888 price/1950000 t/condo s/unavailable bed/3 bath/2 f/1023 l/sale o/1` |
-| **Filter Property**         | `filterproperty [a/ADDRESS] [p/POSTAL] [t/TYPE] [bed/BEDROOM] [bath/BATHROOM] [f/FLOORAREA] [status/STATUS] [price/PRICE] [l/LISTING] [o/CONTACT_ID]`<br> <br> e.g., `filterproperty bed/2 price/2000`                                                    |
-| **Delete Property**         | `deleteproperty UUID`<br> <br>  e.g., `deleteproperty 12`                                                                                                                                                                                                 |
-| **Mark Property as Sold**   | `sold p/UUID...` <br><br> e.g. `sold p/1 p/2`                                                                                                                                                                                                             |
-| **Mark Property as Unsold** | `unsold p/UUID...` <br><br> e.g. `unsold p/2 p/3`                                                                                                                                                                                                         |
-| **Link**                    | `link c/CONTACT_ID... r/RELATIONSHIP p/PROPERTY_ID...`<br> <br>  e.g., `link c/12 r/buyer p/12 p/4`                                                                                                                                                       |
-| **Unlink**                  | `unlink c/CONTACT_ID... p/PROPERTY_ID...`<br> <br> e.g., `unlink c/1 p/14 c/2`                                                                                                                                                                            |
-| **Show linked properties**  | `showproperties CONTACT_ID`<br> <br>  e.g., `showproperties 2`                                                                                                                                                                                            |
-| **Show linked contacts**    | `showcontacts PROPERTY_ID`<br> <br> e.g., `showcontacts 3`                                                                                                                                                                                                |
-| **List**                    | `list`                                                                                                                                                                                                                                                    |
-| **Clear**                   | `clear`                                                                                                                                                                                                                                                   |
-| **Help**                    | `help`                                                                                                                                                                                                                                                    |
+| Action                      | Format, Examples                                                                                                                                                                                                                                         |
+|-----------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Add Contact**             | `addcontact n/NAME p/PHONE [e/EMAIL] [a/ADDRESS] [min/AMOUNT] [max/AMOUNT] [notes/TEXT] [status/STATUS]` <br> <br> e.g., `addcontact n/Alex p/91423123 a/982 Yishun Road s/active notes/wants near school min/100000 max/300000`                         |
+| **Edit Contact**            | `editcontact UUID [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [min/AMOUNT] [max/AMOUNT] [notes/TEXT] [status/STATUS]`<br> <br> e.g.,`editcontact 2 n/Bobby a/Block 321 Punggol`                                                                             |
+| **Filter Contact**          | `filtercontact [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [min/AMOUNT] [max/AMOUNT] [notes/TEXT] [status/STATUS]`<br> <br> e.g.,`filtercontact n/Tan s/active`                                                                                             |
+| **Delete Contact**          | `deletecontact UUID`<br> <br> e.g., `deletecontact 3`                                                                                                                                                                                                    |
+| **Add Property**            | `addproperty a/ADDRESS p/POSTAL price/PRICE t/TYPE s/STATUS bed/BEDROOM bath/BATHROOM f/FLOOR_AREA o/CONTACT_ID`<br> <br> e.g., `addproperty a/123 Orchard Rd p/238888 price/1950000 t/condo s/unavailable bed/3 bath/2 f/1023 o/1` |
+| **Filter Property**         | `filterproperty [a/ADDRESS] [p/POSTAL] [t/TYPE] [bed/BEDROOM] [bath/BATHROOM] [f/FLOORAREA] [s/STATUS] [price/PRICE] [o/CONTACT_ID]`<br> <br> e.g., `filterproperty bed/2 price/2000`                                                   |
+| **Delete Property**         | `deleteproperty UUID`<br> <br>  e.g., `deleteproperty 12`                                                                                                                                                                                                |
+| **Mark Property as Sold**   | `sold p/UUID...` <br><br> e.g. `sold p/1 p/2`                                                                                                                                                                                                            |
+| **Mark Property as Unsold** | `unsold p/UUID...` <br><br> e.g. `unsold p/2 p/3`                                                                                                                                                                                                        |
+| **Link**                    | `link c/CONTACT_ID... r/RELATIONSHIP p/PROPERTY_ID...`<br> <br>  e.g., `link c/12 r/buyer p/12 p/4`                                                                                                                                                      |
+| **Unlink**                  | `unlink c/CONTACT_ID... p/PROPERTY_ID...`<br> <br> e.g., `unlink c/1 p/14 c/2`                                                                                                                                                                           |
+| **Show linked properties**  | `showproperties CONTACT_ID`<br> <br>  e.g., `showproperties 2`                                                                                                                                                                                           |
+| **Show linked contacts**    | `showcontacts PROPERTY_ID`<br> <br> e.g., `showcontacts 3`                                                                                                                                                                                               |
+| **List**                    | `list`                                                                                                                                                                                                                                                   |
+| **Clear**                   | `clear`                                                                                                                                                                                                                                                  |
+| **Help**                    | `help`                                                                                                                                                                                                                                                   |
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -522,7 +528,7 @@ Related commands: [`addcontact`](#adding-a-contact--addcontact), [`filtercontact
 
 | Parameter      | Prefix  | Constraints                                                                                                                 |
 |----------------|---------|-----------------------------------------------------------------------------------------------------------------------------|
-| Name           | n/      | Should only contain alphabetical characters (a-z, A-Z, 0-9) or spaces                                                       |
+| Name           | n/      | Should only contain alphabetical characters (a-z, A-Z) or spaces                                                            |
 | Phone Number   | p/      | Should only contain numbers (0-9), and it should be at least 3 digits long                                                  |
 | Email          | e/      | Should follow the format: name@example.com                                                                                  |
 | Address        | a/      | Can take any value. Maximum of 200 characters                                                                               |
@@ -545,7 +551,6 @@ Related commands: [`addproperty`](#adding-a-property-addproperty), [`filterprope
 | Bedroom count  | bed/    | Should be an integer from 0 to 20                                                                                 |
 | Bathroom count | bath/   | Should be an integer from 0 to 20                                                                                 |
 | Floor area     | f/      | Should be an integer from 50 to 100000                                                                           |
-| Listing        | l/      | Should only be these (case-insensitive): sale, rent                                                               |
 | Owner ID       | o/      | Should be a valid Contact UUID                                                                                    |
 
 ### Others
