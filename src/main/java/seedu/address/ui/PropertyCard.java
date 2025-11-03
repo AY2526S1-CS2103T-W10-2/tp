@@ -53,21 +53,43 @@ public class PropertyCard extends UiPart<Region> {
     public PropertyCard(Property property, int displayedIndex) {
         super(FXML);
         this.property = property;
-        propertyIndex.setText(displayedIndex + ".");
-        propertyAddress.setText(property.getPropertyAddress().value);
-        propertyUuid.setText("id: " + property.getUuid().getValue());
+
+        propertyIndex.setText(displayedIndex + ". ");
+        propertyAddress.setText(property.getPropertyAddress().value + " (ID: " + property.getUuid().getValue() + ")");
+
+        hideLabel(propertyUuid);
+
         postal.setText("Postal Code: " + property.getPostal().value);
         type.setText("Type: " + property.getType().value);
-        bedroom.setText("Bedrooms: " + property.getBedroom().value);
-        bathroom.setText("Bathrooms: " + property.getBathroom().value);
-        floorArea.setText("Floor Area: " + property.getFloorArea().value + " sqft");
+        bedroom.setText("Bedrooms: " + property.getBedroom().value
+                + " • Bathrooms: " + property.getBathroom().value
+                + " • Area: " + property.getFloorArea().value + " sqft");
         price.setText("Price: $" + String.format("%,d", Integer.parseInt(property.getPrice().value)));
-        status.setText("Status: " + property.getStatus().value);
-        listing.setText("Listing: " + property.getListing().value);
+        listing.setText("Listing: " + property.getListing().value
+                + " • Status: " + property.getStatus().value);
         owner.setText("Owner ID: " + property.getOwner().value);
 
-        setIdsIfNotEmpty(buyerIds, "Buyer IDs: ", property.getBuyingContactIds());
-        setIdsIfNotEmpty(sellerIds, "Seller IDs: ", property.getSellingContactIds());
+        String idsLine = "";
+        if (!property.getBuyingContactIds().isEmpty()) {
+            idsLine = "Buyer IDs: " + Uuid.getGuiSetDisplayAsString(property.getBuyingContactIds());
+        }
+        if (!property.getSellingContactIds().isEmpty()) {
+            if (!idsLine.isEmpty()) {
+                idsLine += " • ";
+            }
+            idsLine += "Seller IDs: " + Uuid.getGuiSetDisplayAsString(property.getSellingContactIds());
+        }
+        if (!idsLine.isEmpty()) {
+            buyerIds.setText(idsLine);
+        } else {
+            hideLabel(buyerIds);
+        }
+
+        // Hide unused labels
+        hideLabel(bathroom);
+        hideLabel(floorArea);
+        hideLabel(status);
+        hideLabel(sellerIds);
     }
 
 

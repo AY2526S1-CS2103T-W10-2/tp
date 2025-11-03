@@ -17,7 +17,7 @@ public class ShowContactsCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Shows all contacts associated with the specified property.\n"
-            + "Parameters: PROPERTY_UUID (must be a positive integer)\n"
+            + "Parameters: PROPERTY_ID (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 123";
 
     public static final String MESSAGE_SUCCESS = "Listed %2$d contact%3$s associated with property ID: %1$s";
@@ -26,7 +26,7 @@ public class ShowContactsCommand extends Command {
             "No contacts found associated with property ID: %1$s\n"
                     + "Possible reasons:\n"
                     + "  • The property exists but has no linked contacts yet\n"
-                    + "  • The property ID doesn't exist (use 'listproperties' to verify)\n"
+                    + "  • The property ID doesn't exist (use 'filterproperty' to verify)\n"
                     + "Tip: Use 'link p/%1$s c/CONTACT_ID r/RELATIONSHIP' to associate contacts with this property.";
 
     private final Uuid propertyUuid;

@@ -65,16 +65,14 @@ public class ContactCard extends UiPart<Region> {
     public ContactCard(Contact contact, int displayedIndex) {
         super(FXML);
         this.contact = contact;
-        uuid.setText("ID: " + contact.getUuid().getValue());
+
+        // Always displayed fields - ID combined with name
         id.setText(displayedIndex + ". ");
-        name.setText(contact.getName().fullName);
+        name.setText(contact.getName().fullName + " (ID: " + contact.getUuid().getValue() + ")");
         phone.setText("Phone: " + contact.getPhone().value);
 
-        // Always displayed fields
-        uuid.setText("ID: " + contact.getUuid().getValue());
-        id.setText(displayedIndex + ". ");
-        name.setText(contact.getName().fullName);
-        phone.setText("Phone: " + contact.getPhone().value);
+        // Hide the separate UUID label since we combined it with name
+        hideLabel(uuid);
 
         // Conditionally displayed fields
         setLabelIfNotEmpty(email, "Email: ", contact.getEmail().value);
@@ -82,9 +80,8 @@ public class ContactCard extends UiPart<Region> {
         setLabelIfNotEmpty(notes, "Notes: ", contact.getNotes().toString());
         setLabelIfNotEmpty(status, "Status: ", contact.getStatus().toString());
 
-        // Budget fields with default value checks
-        setLabelIfNotDefault(budgetMin, "Budget Minimum: $", contact.getBudgetMin().toString(), DEFAULT_BUDGET_MIN);
-        setLabelIfNotDefault(budgetMax, "Budget Maximum: $", contact.getBudgetMax().toString(), DEFAULT_BUDGET_MAX);
+        // Budget fields with edge case handling
+        setBudgetDisplay(contact);
 
         // Tags
         setTagsIfNotEmpty(contact);
@@ -136,6 +133,43 @@ public class ContactCard extends UiPart<Region> {
     }
 
     /**
+     * Sets the budget display based on min/max values.
+     * Handles all edge cases: no min, no max, only min, only max, both, and when max == min.
+     */
+    private void setBudgetDisplay(Contact contact) {
+        String minBudget = contact.getBudgetMin().toString();
+        String maxBudget = contact.getBudgetMax().toString();
+
+        boolean hasMin = !minBudget.equals(DEFAULT_BUDGET_MIN);
+        boolean hasMax = !maxBudget.equals(DEFAULT_BUDGET_MAX);
+
+        if (!hasMin && !hasMax) {
+            // No budget specified - hide both labels
+            hideLabel(budgetMin);
+            hideLabel(budgetMax);
+        } else if (hasMin && hasMax) {
+            // Both min and max
+            if (minBudget.equals(maxBudget)) {
+                // Same value - show single amount
+                budgetMin.setText("Budget: $" + String.format("%,d", Integer.parseInt(minBudget)));
+            } else {
+                // Different values - show range
+                budgetMin.setText("Budget: $" + String.format("%,d", Integer.parseInt(minBudget))
+                        + " - $" + String.format("%,d", Integer.parseInt(maxBudget)));
+            }
+            hideLabel(budgetMax);
+        } else if (hasMin) {
+            // If only have min - show "Min $X"
+            budgetMin.setText("Budget: Min $" + String.format("%,d", Integer.parseInt(minBudget)));
+            hideLabel(budgetMax);
+        } else {
+            // If only have max - show "Up to $X"
+            budgetMin.setText("Budget: Up to $" + String.format("%,d", Integer.parseInt(maxBudget)));
+            hideLabel(budgetMax);
+        }
+    }
+
+    /**
      * Sets tags if not empty, otherwise hides the tags
      *
      * @param contact The contact whose tags to display.
@@ -165,5 +199,4 @@ public class ContactCard extends UiPart<Region> {
             label.setText(prefix + Uuid.getGuiSetDisplayAsString(ids));
         }
     }
-
 }
