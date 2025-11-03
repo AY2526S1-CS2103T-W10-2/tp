@@ -133,7 +133,7 @@ Here's a (partial) class diagram of the `Logic` component:
 
 <img src="images/LogicClassDiagram.png" width="550"/>
 
-The sequence diagram below illustrates the interactions within the `Logic` component, taking `execute("delete 1")` API call as an example.
+The sequence diagram below illustrates the interactions within the `Logic` component, taking `execute("deletecontact 1")` API call as an example.
 
 ![Interactions Inside the Logic Component for the `deletecontact 1` Command](images/DeleteSequenceDiagram.png)
 
@@ -273,7 +273,7 @@ The parser constructs a new `Contact` object that is wrapped inside a `AddContac
 Validation done:
 - Ensures compulsory fields are present
 - Ensures no duplicate fields are provided
-- Ensures each individual field meets the constraints of that field (refer [here](#appendix-a-command-parameters) for the constraints)
+- Ensures each individual field meets the constraints of that field (refer [here](#appendix-command-parameters) for the constraints)
 - Unknown parameters provided will throw a `ParseException`
 
 ##### Execution
@@ -612,7 +612,7 @@ Related commands: [`addcontact`](#add-command-addcontact), [`filtercontact`](#fi
 
 ### Property Management
 These are prefixes for purely property related commands.
-Related commands: [`addproperty`](#addpropertycommand-addproperty), [`filterproperty`](#filter-property-command-filterproperty)
+Related commands: [`addproperty`](#uadd-property-commandu-addproperty), [`filterproperty`](#ufilter-property-commandu-filterproperty)
 
 | Parameter      | Prefix  | Constraints                                                                                                          |
 |----------------|---------|----------------------------------------------------------------------------------------------------------------------|
@@ -628,7 +628,7 @@ Related commands: [`addproperty`](#addpropertycommand-addproperty), [`filterprop
 
 ### Others
 These are prefixes that are used over multiple commands.
-Related commands: [`filtercontact`](#filter-contact-command-filtercontact), [`filterproperty`](#filter-property-command-filterproperty), [`sold`](#mark-property-as-sold-command-sold), [`unsold`](#mark-property-as-unsold-command-unsold), [`link`](#linkcommand-link), [`unlink`](#unlinkcommand-unlink), [`showproperties`](#showpropertiescommand-showproperties), [`showcontacts`](#showcontactscommand-showcontacts)
+Related commands: [`filtercontact`](#filter-contact-command-filtercontact), [`filterproperty`](#filter-property-command-filterproperty), [`sold`](#mark-property-as-sold-command-sold), [`unsold`](#mark-property-as-unsold-command-unsold), [`link`](#ulink-commandu-link), [`unlink`](#uunlink-commandu-unlink), [`showproperties`](#ushow-properties-commandu-showproperties), [`showcontacts`](#ushow-contacts-commandu-showcontacts)
 
 | Parameter      | Prefix  | Constraints                                            |
 |----------------|---------|--------------------------------------------------------|
