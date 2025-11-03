@@ -14,7 +14,6 @@ import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Name;
 import seedu.address.model.contact.Notes;
 import seedu.address.model.contact.Phone;
-import seedu.address.model.util.SampleDataUtil;
 import seedu.address.model.uuid.Uuid;
 
 /**
