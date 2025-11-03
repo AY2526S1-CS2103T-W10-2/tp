@@ -39,6 +39,14 @@ public class Status {
     public static boolean isValidStatus(String test) {
         return test.matches(VALIDATION_REGEX);
     }
+
+    /**
+     * Returns true if status is unavailable.
+     */
+    public boolean isUnavailable() {
+        return value.equals("unavailable");
+    }
+
     @Override
     public String toString() {
         return value;

@@ -69,7 +69,7 @@ public class Uuid {
 
     @Override
     public String toString() {
-        return String.format("%d (%s)", value, itemType.name());
+        return String.format("%d", value);
     }
 
     @Override

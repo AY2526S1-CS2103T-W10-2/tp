@@ -34,7 +34,7 @@ class PropertyBookParserTest {
             " " + PREFIX_PROPERTY_POSTAL + "123456",
             " " + PREFIX_PROPERTY_PRICE + "500000",
             " " + PREFIX_PROPERTY_TYPE + "HDB",
-            " " + PREFIX_PROPERTY_STATUS + "unavailable",
+            " " + PREFIX_PROPERTY_STATUS + "available",
             " " + PREFIX_PROPERTY_BEDROOM + "3",
             " " + PREFIX_PROPERTY_BATHROOM + "2",
             " " + PREFIX_PROPERTY_FLOOR_AREA + "120",
