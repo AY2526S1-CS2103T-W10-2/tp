@@ -217,6 +217,7 @@ Examples:
 **:information_source: Important:**<br>
 To reset all filters, you can type <code>list</code>
 </div>
+<br>
 <div style="page-break-after: always;"></div>
 
 <div markdown="span" class="alert alert-primary">
@@ -574,6 +575,8 @@ Related commands: [`filtercontact`](#filtering-contacts--filtercontact), [`filte
 2. Open "Powershell" on Windows or "Terminal" on MacOS and Linux.<br><br>
 3. Type `cd ADDRESS`, where `ADDRESS` is the address where TheRealDeal is installed (e.g. `cd C:\Users\home\Desktop\TheRealDeal`), and press the `Enter` key.<br><br>
 4. Type `java -jar (NAME_OF_FILE).jar`, and press the `Enter` key to run the application. Replace `(NAME_OF_FILE)` with the name of the file downloaded. Note that the name of the file might differ based on the exact version installed.<br><br>
+
+<div style="page-break-after: always;"></div>
 
 ## Glossary of Terms
 
