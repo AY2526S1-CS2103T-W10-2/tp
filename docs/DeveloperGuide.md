@@ -32,7 +32,7 @@ title: Developer Guide
 
 ## Acknowledgements
 
-TheRealDeal is a greenfield group project that is based on [addressbook-level3](https://github.com/se-edu/addressbook-level3) (AB3) created by [SE-EDU](https://se-education.org/).
+TheRealDeal is a brownfield group project that is based on [addressbook-level3](https://github.com/se-edu/addressbook-level3) (AB3) created by [SE-EDU](https://se-education.org/).
 
 ## Legend
 These boxes in the Developer Guide has additional information that you should take note of.
@@ -133,7 +133,7 @@ Here's a (partial) class diagram of the `Logic` component:
 
 <img src="images/LogicClassDiagram.png" width="550"/>
 
-The sequence diagram below illustrates the interactions within the `Logic` component, taking `execute("delete 1")` API call as an example.
+The sequence diagram below illustrates the interactions within the `Logic` component, taking `execute("deletecontact 1")` API call as an example.
 
 ![Interactions Inside the Logic Component for the `deletecontact 1` Command](images/DeleteSequenceDiagram.png)
 
@@ -273,7 +273,7 @@ The parser constructs a new `Contact` object that is wrapped inside a `AddContac
 Validation done:
 - Ensures compulsory fields are present
 - Ensures no duplicate fields are provided
-- Ensures each individual field meets the constraints of that field (refer [here](#appendix-a-command-parameters) for the constraints)
+- Ensures each individual field meets the constraints of that field (refer [here](#appendix-command-parameters) for the constraints)
 - Unknown parameters provided will throw a `ParseException`
 
 ##### Execution
@@ -294,7 +294,7 @@ Validation done:
 - Ensures contact given exists
 
 ##### Execution
-The `DeleteContactCommand` class retrieves the contact based on the ID given and also ensures that the contact exists. If the contact exists, it is deleted from the address book.
+The `DeleteContactCommand` class retrieves the contact based on the ID given and also ensures that the contact exists. If the contact exists, it is deleted from the address book. It also unlinks any properties linked to the deleted contact.
 
 #### <u>Edit Command</u> (`editcontact`)
 The `editcontact` command is designed to edit a contact in the address book, identified by their ID.
@@ -358,15 +358,15 @@ The UI is then updated based on which contacts that match the predicate.
 The `addproperty` command adds a new property to the property book and links it to an existing owner contact.
 
 Compulsory fields:
-- Address (`a/`)
-- Postal code (`p/`)
-- Price (`price/`)
-- Type (`t/`)
-- Status (`s/`)
-- Bedroom count (`bed/`)
-- Bathroom count (`bath/`)
-- Floor area (`f/`)
-- Owner ID (`o/`)
+- Address
+- Postal code
+- Price
+- Type
+- Status
+- Bedroom count
+- Bathroom count
+- Floor area
+- Owner ID
 
 Optional Fields:
 - None
@@ -400,7 +400,7 @@ Validation done:
 - Ensures the ID is a positive integer within bounds expected by the application.
 
 ##### Execution
-`DeletePropertyCommand#execute` consults `Model#getFilteredPropertyList()`, which always reflects the latest property filtering applied in the UI (e.g. `list`, `filterproperty`).
+`DeletePropertyCommand#execute` consults `Model#getFilteredPropertyList()`, which always reflects the latest property filtering applied in the UI (e.g. `list`, `filterproperty`). It also unlinks any contacts linked to the deleted property.
 
 For example, after running `filterproperty t/condo`, only the condo subset is searched—even if you subsequently switch to the contacts tab—until another property-filtering command updates the list.
 If the supplied ID is absent from that subset the command throws `MESSAGE_INVALID_PROPERTY_DISPLAYED_ID`; otherwise it deletes the property`, and update the UI accordingly.
@@ -491,8 +491,9 @@ Validation done:
 The `LinkCommand` executes by:
 1. Finding the target contacts and properties based on their IDs
 2. Ensuring none of the targets are already linked
-3. Creating new edited `Contact` and `Property` objects with the updated relationship
-4. Updating the contacts and properties in the address and property book with the new details.
+3. Ensuring that if the relationship is `buyer`, none of the contacts are owners of the properties
+4. Creating new edited `Contact` and `Property` objects with the updated relationship
+5. Updating the contacts and properties in the address and property book with the new details.
 
 #### <u>Unlink Command</u> (`unlink`)
 The `unlink` command is designed to unlink contacts in the address book from properties in the property book, each identified by their ID.
@@ -612,23 +613,23 @@ Related commands: [`addcontact`](#add-command-addcontact), [`filtercontact`](#fi
 
 ### Property Management
 These are prefixes for purely property related commands.
-Related commands: [`addproperty`](#addpropertycommand-addproperty), [`filterproperty`](#filter-property-command-filterproperty)
+Related commands: [`addproperty`](#add-property-command-addproperty), [`filterproperty`](#filter-property-command-filterproperty)
 
-| Parameter      | Prefix  | Constraints                                                                                                          |
-|----------------|---------|----------------------------------------------------------------------------------------------------------------------|
-| Address        | a/      | Should only contain alphanumerical 5 to 200 characters (a-z, A-Z, 0-9) or spaces, with at least 1 letter and 1 digit |
-| Postal code    | p/      | Should only contain numbers (0-9), and it should be exactly least 6 digits long. (Singaporean Postal Code)           |
-| Price          | price/  | Should be an integer from 1 to 1 trillion                                                                            |
-| Type           | t/      | Should only be these (case-insensitive): hdb, condo, landed, apartment, office, others                               |
-| Status         | s/      | Should only be these (case-insensitive): available, unavailable                                                      |
-| Bedroom count  | bed/    | Should be an integer from 0 to 20                                                                                    |
-| Bathroom count | bath/   | Should be an integer from 0 to 20                                                                                    |
-| Floor area     | f/      | Should be an integer from 50 to 100000                                                                               |                                                                        |
-| Owner ID       | o/      | Should be a valid Contact ID                                                                                       |
+| Parameter      | Prefix | Constraints                                                                                                          |
+|----------------|--------|----------------------------------------------------------------------------------------------------------------------|
+| Address        | a/     | Should only contain alphanumerical 5 to 200 characters (a-z, A-Z, 0-9) or spaces, with at least 1 letter and 1 digit |
+| Postal code    | p/     | Should only contain numbers (0-9), and it should be exactly least 6 digits long. (Singaporean Postal Code)           |
+| Price          | price/ | Should be an integer from 1 to 1 trillion                                                                            |
+| Type           | t/     | Should only be these (case-insensitive): hdb, condo, landed, apartment, office, others                               |
+| Status         | s/     | Should only be these (case-insensitive): available, unavailable                                                      |
+| Bedroom count  | bed/   | Should be an integer from 0 to 20                                                                                    |
+| Bathroom count | bath/  | Should be an integer from 0 to 20                                                                                    |
+| Floor area     | f/     | Should be an integer from 50 to 100000                                                                               |
+| Owner ID       | o/     | Should be a valid Contact ID                                                                                       |
 
 ### Others
 These are prefixes that are used over multiple commands.
-Related commands: [`filtercontact`](#filter-contact-command-filtercontact), [`filterproperty`](#filter-property-command-filterproperty), [`sold`](#mark-property-as-sold-command-sold), [`unsold`](#mark-property-as-unsold-command-unsold), [`link`](#linkcommand-link), [`unlink`](#unlinkcommand-unlink), [`showproperties`](#showpropertiescommand-showproperties), [`showcontacts`](#showcontactscommand-showcontacts)
+Related commands: [`filtercontact`](#filter-contact-command-filtercontact), [`filterproperty`](#filter-property-command-filterproperty), [`sold`](#mark-property-as-sold-command-sold), [`unsold`](#mark-property-as-unsold-command-unsold), [`link`](#link-command-link), [`unlink`](#unlink-command-unlink), [`showproperties`](#show-properties-command-showproperties), [`showcontacts`](#show-contacts-command-showcontacts)
 
 | Parameter      | Prefix  | Constraints                                            |
 |----------------|---------|--------------------------------------------------------|
@@ -640,10 +641,10 @@ Related commands: [`filtercontact`](#filter-contact-command-filtercontact), [`fi
 
 **Target user profile**:
 
-* real estate agents
-* has to manage a lot of contacts with different informations
-* has to manage large property list
-* prefer desktop apps over other types
+* Singaporean real estate agents
+* has to manage a lot of contacts with different information
+* has to manage large list of Singapore properties
+* prefer desktop applications over phone applications
 * can type fast
 * prefers typing to mouse interactions
 * is reasonably comfortable using CLI apps
@@ -1076,21 +1077,6 @@ Expected:<br>
 Variations:<br>
 - Test with mixed casing (e.g., `n/aLiCe`) to confirm case-insensitive matching.
 
-##### Filtering by tag with limits
-Command: `filtercontact t/buyer`
-
-To simulate:<br>
-- Ensure contact list contains multiple tagged `buyer`.
-- Run the command above.
-
-Expected:<br>
-- Shows up to 10 contacts, skipping the first one.
-- Status message indicates count and offset.
-
-Variations:<br>
-- Change limit/offset values to confirm pagination.
-- Use invalid tags to confirm error messages.
-
 ##### Invalid filter command
 
 Command: `filtercontact abc/Apple`
@@ -1110,7 +1096,7 @@ Variations:<br>
 
 ##### Adding a contact with unique details
 
-Command: `addcontact n/Zara Lim p/91234567 e/zara.lim@example.com a/11 Green Lane s/active notes/Prefers email`
+Command: `addcontact n/Zara Lim p/91234567 e/zara.lim@example.com a/11 Green Lane status/active notes/Prefers email`
 
 To simulate:<br>
 - Run `list` to show all contacts and confirm the sample data does not already contain the details above.
@@ -1126,7 +1112,7 @@ Variations:<br>
 
 ##### Duplicate contact rejected
 
-Command: `addcontact n/Zara Lim p/91234567 e/zara.lim@example.com a/11 Green Lane s/active notes/Prefers email`
+Command: `addcontact n/Zara Lim p/91234567 e/zara.lim@example.com a/11 Green Lane status/active notes/Prefers email`
 
 To simulate:<br>
 - Ensure the contact from the previous scenario still exists.
@@ -1459,7 +1445,7 @@ Variations:<br>
 
 ### Marking properties as sold
 
-##### Marking unsold as sold
+##### Marking an available property as sold
 
 Command: `sold p/ID`
 
@@ -1468,7 +1454,7 @@ To simulate:<br>
 - Run the above command with ID replaced with the ID of an *available* property in the current filtered property list.
 
 Expected:<br>
-- Displays the following success message:<br>`Marked 1 property(ies) as sold.`
+- Displays the following success message:<br>`Marked the properties with these IDs as sold: ID`
 - GUI should display property book.
 - The property with ID input to the command should have its *status* set to *unavailable*.
 
@@ -1476,7 +1462,7 @@ Variations:<br>
 - Add more parameters with prefix p/ with IDs of *available* properties.
 - Add arbitrary whitespace.
 
-##### Marking sold as sold
+##### Marking an unavailable property as sold
 
 Command: `sold p/ID`
 
@@ -1485,7 +1471,7 @@ To simulate: <br>
 - Run the above command with ID replaced with the ID of an *unavailable* property in the current filtered property list.
 
 Expected:<br>
-- Displays the following error message:<br>`TBA`
+- Displays the following error message:<br>`The properties with the following IDs do not exist or were already marked as sold: ID`<br>`Command has been aborted.`
 - No change to the GUI.
 
 Variations:<br>
@@ -1500,7 +1486,7 @@ To simulate: <br>
 - Run the above command with ID replaced with a value that is not the same as any of the property IDs in the current filtered property list.
 
 Expected:<br>
-- Displays the following error message:<br>`The properties with the following IDs were not found: ID`<br>`Command has been aborted.`
+- Displays the following error message:<br>`The properties with the following IDs do not exist or were already marked as sold: ID`<br>`Command has been aborted.`
 - No change to the GUI.
 
 Variations:<br>
@@ -1521,7 +1507,7 @@ Expected:<br>
 
 ### Marking properties as unsold
 
-##### Marking sold as unsold
+##### Marking an unavailable property as unsold
 
 Command: `unsold p/ID`
 
@@ -1530,7 +1516,7 @@ To simulate:<br>
 - Run the above command with ID replaced with the ID of an *unavailable* property in the current filtered property list.
 
 Expected:<br>
-- Displays the following success message:<br>`Marked 1 property(ies) as unsold.`
+- Displays the following success message:<br>`Marked the properties with these IDs as unsold: ID`
 - GUI should display property book.
 - The property with ID input to the command should have its *status* set to *available*.
 
@@ -1538,7 +1524,7 @@ Variations:<br>
 - Add more parameters with prefix p/ with IDs of *unavailable* properties.
 - Add arbitrary whitespace.
 
-##### Marking unsold as unsold
+##### Marking an available property as unsold
 
 Command: `unsold p/ID`
 
@@ -1547,7 +1533,7 @@ To simulate: <br>
 - Run the above command with ID replaced with the ID of an *available* property in the current filtered property list.
 
 Expected:<br>
-- Displays the following error message:<br>`TBA`
+- Displays the following error message:<br>`The properties with the following IDs do not exist or were already marked as unsold: ID`<br>`Command has been aborted.`
 - No change to the GUI.
 
 Variations:<br>
@@ -1562,7 +1548,7 @@ To simulate: <br>
 - Run the above command with ID replaced with a value that is not the same as any of the property IDs in the current filtered property list.
 
 Expected:<br>
-- Displays the following error message:<br>`The properties with the following IDs were not found: ID`<br>`Command has been aborted.`
+- Displays the following error message:<br>`The properties with the following IDs do not exist or were already marked as unsold: ID`<br>`Command has been aborted.`
 - No change to the GUI.
 
 Variations:<br>
@@ -1842,6 +1828,8 @@ Expected:<br>
 Team size: 5
 
 1. **Allow special characters to be used in contact names.** The current validation for contact names requires it to only consist of alphanumeric characters and spaces. The does not support names with special characters like `/` or `-` (e.g. `s/o`, `John-Mary`). Future improvements aim to support this functionality.
+2. **Deleting a contact does not update the owner data of properties.** Future improvements aim to automatically update the owner when the contact is deleted.
+3. **Marking a property as sold or unsold after doing the filter command removes property from UI.** One way to circumvent this is to use the `list` command so that the property reappears.  Future improvements aim to allow the property to remain on the UI after marking as sold or unsold.
 
 ---------------------------------------------------------------------------------------------------------------------
 
