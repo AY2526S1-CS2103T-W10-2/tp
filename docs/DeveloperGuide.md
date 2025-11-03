@@ -212,7 +212,7 @@ Users can also press the <code>F1</code> key to open the help window
 </div>
 
 #### <u>List Command</u> (`list`)
-The `ListCommand` resets all current filters and displays all the contacts/properties stored in the application.
+The `ListCommand` resets all filters for the contact list and property list.
 
 ##### Execution
 The `ListCommand` calls the `Model` component to update the `FilteredList<Contact>` and `FilteredList<Property>` to show all of the `Contact` and `Property` in the list.
@@ -246,7 +246,7 @@ As TheRealDeal is a CLI-based application, the `ExitCommand` can be used to exit
 
 ### 3.2. Contact management
 
-All contacts are stored as `Contact` objects inside the `UniqueContactList` object under the `AdressBook` component. <br><br>
+All contacts are stored as `Contact` objects inside the `UniqueContactList` object under the `AddressBook` component. <br><br>
 There is also an additional `FilteredList<Contact>` inside the `ModelManager` that stores the `Contact` that are displayed on the UI which is updated whenever the user issues a command that changes the UI.
 
 #### <u>Add Command</u> (`addcontact`)
@@ -288,7 +288,14 @@ Compulsory fields:
 
 ##### Parsing and Validating User Input
 The `DeleteContactCommandParser` class is responsible for parsing the command input.
-Documentation pending.
+The parser validates the UUID and constructs a `DeleteContactCommnad` object with the validated UUID.
+
+Validation done:
+- Ensures a UUID is provided
+- Ensures contact given exists
+
+##### Execution
+The `DeleteContactCommand` class retrieves the contact based on the UUID given and also ensures that the contact exists. If the contact exists, it is deleted from the address book.
 
 #### <u>Edit Command</u> (`editcontact`)
 The `editcontact` command is designed to edit a contact in the address book, identified by their UUID.
@@ -549,17 +556,17 @@ All parameters that expect integers must be entered as **plain digits** — with
 These are prefixes for purely contact related commands.
 Related commands: [`addcontact`](#add-command-addcontact), [`filtercontact`](#filter-contact-command-filtercontact), [`editcontact`](#filter-contact-command-filtercontact)
 
-| Parameter      | Prefix  | Constraints                                                                                                                |
-|----------------|---------|----------------------------------------------------------------------------------------------------------------------------|
-| Name           | n/      | Should only contain alphabetical characters (a-z, A-Z) or spaces                                                      |
-| Phone Number   | p/      | Should only contain numbers (0-9), and it should be at least 3 digits long                                                 |
-| Email          | e/      | Should follow the format: name@example.com                                                                                 |
-| Address        | a/      | Can take any value. Maximum of 200 characters                                                                              |
-| Tag            | t/      | Should only be these (case-insensitive): buyer, seller, tenant, landlord                                                   |
-| Minimum Budget | min/    | Should be a non-negative integer. If not provided, will have a default of $0                                               |
-| Maximum Budget | max/    | Should be a non-negative integer and more than the minimum budget. If not provided, will have a default of $200,000,000,000|
-| Notes          | notes/  | Can take any value. Maximum of 500 characters                                                                              |
-| Status         | status/ | Should only be these (case-insensitive): active, inactive                                                                  |
+| Parameter      | Prefix  | Constraints                                                                                                                 |
+|----------------|---------|-----------------------------------------------------------------------------------------------------------------------------|
+| Name           | n/      | Should only contain alphabetical characters (a-z, A-Z) or spaces                                                            |
+| Phone Number   | p/      | Should only contain numbers (0-9), and it should be at least 3 digits long                                                  |
+| Email          | e/      | Should follow the format: name@example.com                                                                                  |
+| Address        | a/      | Can take any value. Maximum of 200 characters                                                                               |
+| Tag            | t/      | Should only be these (case-insensitive): buyer, seller, tenant, landlord                                                    |
+| Minimum Budget | min/    | Should be a non-negative integer. If not provided, will have a default of $0                                                |
+| Maximum Budget | max/    | Should be a non-negative integer and more than the minimum budget. If not provided, will have a default of $200,000,000,000 |
+| Notes          | notes/  | Can take any value. Maximum of 500 characters                                                                               |
+| Status         | status/ | Should only be these (case-insensitive): active, inactive                                                                   |
 
 ### Property Management
 These are prefixes for purely property related commands.
@@ -1007,14 +1014,14 @@ Variations:<br>
 
 ##### Filtering by name and email
 
-Command: `filtercontact n/Alice e/example.com`
+Command: `filtercontact n/Alice e/alice@example.com`
 
 To simulate:<br>
 - Ensure multiple contacts exist.
 - Run the command above.
 
 Expected:<br>
-- Lists only contacts whose names include “Alice” and emails include “example.com.”
+- Lists only contacts whose names include “Alice” and emails include “alice@example.com.”
 - Status message shows number of contacts displayed.
 
 Variations:<br>

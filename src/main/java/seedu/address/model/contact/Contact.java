@@ -178,8 +178,7 @@ public class Contact {
         }
 
         Contact otherContact = (Contact) other;
-        return Objects.equals(name.toString().toLowerCase(), otherContact.name.toString().toLowerCase())
-                && Objects.equals(phone, otherContact.phone);
+        return Objects.equals(phone, otherContact.phone); // only equal if same phone number
     }
 
     @Override

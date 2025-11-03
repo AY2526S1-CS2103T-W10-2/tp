@@ -59,7 +59,7 @@ public class AddContactCommandTest {
     @Test
     public void equals() {
         Contact alice = new ContactBuilderUtil().withName("Alice").build();
-        Contact bob = new ContactBuilderUtil().withName("Bob").build();
+        Contact bob = new ContactBuilderUtil().withName("Bob").withPhone("12345678").build();
         AddContactCommand addAliceCommand = new AddContactCommand(alice);
         AddContactCommand addBobCommand = new AddContactCommand(bob);
 
