@@ -273,7 +273,7 @@ The parser constructs a new `Contact` object that is wrapped inside a `AddContac
 Validation done:
 - Ensures compulsory fields are present
 - Ensures no duplicate fields are provided
-- Ensures each individual field meets the constraints of that field (refer [here](#appendix-a-command-parameters) for the constraints)
+- Ensures each individual field meets the constraints of that field (refer [here](#appendix-command-parameters) for the constraints)
 - Unknown parameters provided will throw a `ParseException`
 
 ##### Execution
@@ -521,10 +521,60 @@ The `LinkCommand` executes by:
 4. Updating the contacts and properties in the address and property book with the new details.
 
 #### <u>Show Contacts Command</u> (`showcontacts`)
-Currently returns a placeholder message while property–contact association storage is being developed.
+The `showcontacts` command displays all contacts associated with a specific property by their ID.
+
+Compulsory fields:
+- Property ID
+
+##### Parsing and Validating User Input
+The `ShowContactsCommandParser` class is responsible for parsing the command input.
+It extracts the property ID from the raw input and validates it using `ParserUtil.parsePropertyId`.
+
+The parser creates a `ShowContactsCommand` object with the validated property ID.
+
+Validation done:
+- Property ID must be a positive integer
+- Property ID format must be valid (non-empty, numeric)
+
+##### Execution
+The `ShowContactsCommand` executes by:
+1. Creating an `AssociatedWithPropertyPredicate` using the property ID and the full property list from the model
+2. Applying this predicate to filter the contact list to show only contacts associated with the specified property
+3. Switching the UI view to display the contact list
+4. Returning a success message with the count of contacts found, or an error message with suggestions if no contacts are found
+
+The predicate checks if a contact is associated with the property by:
+- Checking if the contact owns the property (via the property's owner field)
+- Checking if the contact is a buyer of the property (via buyingContactIds)
+- Checking if the contact is a seller of the property (via sellingContactIds)
 
 #### <u>Show Properties Command</u> (`showproperties`)
-Documentation pending.
+The `showproperties` command displays all properties associated with a specific contact by their ID.
+
+Compulsory fields:
+- Contact ID
+
+##### Parsing and Validating User Input
+The `ShowPropertiesCommandParser` class is responsible for parsing the command input.
+It extracts the contact ID from the raw input and validates it using `ParserUtil.parseContactId`.
+
+The parser creates a `ShowPropertiesCommand` object with the validated contact ID.
+
+Validation done:
+- Contact ID must be a positive integer
+- Contact ID format must be valid (non-empty, numeric)
+
+##### Execution
+The `ShowPropertiesCommand` executes by:
+1. Creating an `AssociatedWithContactPredicate` using the contact ID
+2. Applying this predicate to filter the property list to show only properties associated with the specified contact
+3. Switching the UI view to display the property list via `MainWindow.getInstance().showPropertiesView()`
+4. Returning a success message with the count of properties found, or an error message with suggestions if no properties are found
+
+The predicate checks if a property is associated with the contact by using the `Property.isAssociatedWith(contactUuid)` method, which verifies:
+- If the contact owns the property (via the property's owner field)
+- If the contact is a buyer of the property (via buyingContactIds)
+- If the contact is a seller of the property (via sellingContactIds)
 
 ### 4. Documentation, Logging, Testing, Configuration, Dev-Ops
 
@@ -563,7 +613,7 @@ Related commands: [`addcontact`](#add-command-addcontact), [`filtercontact`](#fi
 
 ### Property Management
 These are prefixes for purely property related commands.
-Related commands: [`addproperty`](#addpropertycommand-addproperty), [`filterproperty`](#filter-property-command-filterproperty)
+Related commands: [`addproperty`](#add-property-command-addproperty), [`filterproperty`](#filter-property-command-filterproperty)
 
 | Parameter      | Prefix | Constraints                                                                                                          |
 |----------------|--------|----------------------------------------------------------------------------------------------------------------------|
@@ -579,7 +629,7 @@ Related commands: [`addproperty`](#addpropertycommand-addproperty), [`filterprop
 
 ### Others
 These are prefixes that are used over multiple commands.
-Related commands: [`filtercontact`](#filter-contact-command-filtercontact), [`filterproperty`](#filter-property-command-filterproperty), [`sold`](#mark-property-as-sold-command-sold), [`unsold`](#mark-property-as-unsold-command-unsold), [`link`](#linkcommand-link), [`unlink`](#unlinkcommand-unlink), [`showproperties`](#showpropertiescommand-showproperties), [`showcontacts`](#showcontactscommand-showcontacts)
+Related commands: [`filtercontact`](#filter-contact-command-filtercontact), [`filterproperty`](#filter-property-command-filterproperty), [`sold`](#mark-property-as-sold-command-sold), [`unsold`](#mark-property-as-unsold-command-unsold), [`link`](#link-command-link), [`unlink`](#unlink-command-unlink), [`showproperties`](#show-properties-command-showproperties), [`showcontacts`](#show-contacts-command-showcontacts)
 
 | Parameter      | Prefix  | Constraints                                            |
 |----------------|---------|--------------------------------------------------------|
@@ -932,10 +982,20 @@ Deletes all contacts and properties
 * **API**: Application Programming Interface, specifies the interface through which software and other programs interact.
 * **JSON**: JavaScript Object Notation, a text-based data storage format used to store the data of the application.
 * **Command**: A specific instruction given to TheRealDeal to perform a certain action, like adding a new contact to the list.
-* **Contact**: A domain entity representing a client (buyer, seller, tenant, or landlord) in TheRealDeal system.
+* **Contact**: A domain entity representing a client (buyer or seller) in TheRealDeal system.
 * **Prefix**: A unique identifier (e.g., n/, p/, a/) that tells the parser what type of parameter follows.
 * **Property**: A domain entity representing a real estate listing with attributes like address, price, type, and availability.
-* **UUID**: Universally Unique Identifier, generated by the application to uniquely identify contacts and properties.
+* **ID**: A unique identifier automatically generated by the application to identify contacts and properties. Displayed in the GUI and used in commands. Internally implemented as the `Uuid` class in the codebase.
+* **Buyer**: A contact who is interested in purchasing a property. Multiple buyers can be linked to the same property to track all interested parties during negotiations. Being linked as a buyer indicates interest, not completed purchase. Use the `sold` command to mark a property as unavailable once the sale is finalised. 
+* **Seller**: A contact role indicating intent to sell properties.
+* **Owner**: The contact who legally owns a property, specified via the `o/` parameter when adding properties. Each property must have exactly one owner.
+* **Sold**: A property marked as no longer available, achieved using the `sold` command. Sets the property status to "unavailable".
+* **Unsold**: A property marked as available for transactions, achieved using the `unsold` command. Sets the property status to "available".
+* **Available**: A property status indicating the property is currently on the market and can be sold.
+* **Unavailable**: A property status indicating the property has been sold and is no longer on the market.
+* **Active**: A contact status indicating the contact is currently engaged and actively working with the agent.
+* **Inactive**: A contact status indicating the contact is not currently engaged with the agent or has paused their property search.
+* **Relationship**: The type of link between a contact and property, specified using the `link` command as either "buyer" or "seller".
 
 ---------------------------------------------------------------------------------------------------------------------
 
@@ -1788,8 +1848,7 @@ A high proportion of effort was saved through reuse of AB3. Such examples includ
 - Implementing complex parsers due to the presence of compulsory parameters, optional parameters or multi-word parameters
 
 #### Achievements of the Project
-- Extensive refactoring of AB3 with over 15,000
-- more lines of code with a high test coverage
+- Extensive refactoring of AB3 with over 15,000 more lines of code with a high test coverage
 - Comprehensive features that extend AB3 into a real estate management application
 - Team collaboration and Software Engineering Principles (Git workflow, Issue tracking, Single Level of Abstraction, Logging)
 - Extensive User Guide and Developer Guide with the aid of (Unified Modelling Language) UML diagrams
