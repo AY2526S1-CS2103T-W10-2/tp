@@ -323,6 +323,8 @@ Examples:
 <code>deleteproperty</code> is irreversible! Please use it carefully as you will not be able to retrieve the property back.
 </div>
 
+<div style="page-break-after: always;"></div>
+
 ### Mark property as sold : `sold`
 
 Marks the status of the properties given as unavailable.
@@ -362,6 +364,7 @@ The status of properties with valid <code>PROPERTY_ID</code> will not be changed
 </div>
 
 For more information on the parameters, click [here](#command-parameters).
+<div style="page-break-after: always;"></div>
 
 ### Linking people and properties : `link`
 
@@ -491,6 +494,12 @@ Furthermore, certain edits can cause the TheRealDeal to behave in unexpected way
 2. **If you minimise the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimised, and no new Help Window will appear. The remedy is to manually restore the minimised Help Window.
 
 3. **Contact names do not support special characters.** The current validation for contact names requires it to only consist of alphanumeric characters and spaces. The does not support names with special characters like `/` or `-` (e.g. `s/o`, `John-Mary`). This becomes a drawback for property agents who wish to store their contacts full name. The current workaround will be to only use alphanumeric characters (e.g. `son of` instead of `s/o`). Future improvements aim to support this functionality.
+
+4. **There is no verification of inputs for phone number and postal code to meet Singapore format.** Currently, postal codes like `000000` or phone numbers like `000000` are accepted by the application. This becomes a drawback as the user is not informed if they made a typo (e.g. phone number `084123492`). Further improvements aim to support verification of inputs.
+
+5. **Deleting a contact does not update the owner data of properties.** Future improvements aim to automatically update the owner when the contact is deleted.<br><br>
+
+6. **Filtering logic for filter contacts and filter property are different.** Future improvements aim to make them work similarly for clarity.
 
 --------------------------------------------------------------------------------------------------------------------
 
