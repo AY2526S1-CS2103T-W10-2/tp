@@ -9,7 +9,7 @@ TheRealDeal is a **desktop application for real estate agents in Singapore, opti
 {:toc}
 
 ## Legend
-These boxes in the User Guide has additional information that you should take note of.
+These boxes in the User Guide have additional information that you should take note of.
 
 <div markdown="block" class="alert alert-info">
 **:information_source: Important:**<br>
@@ -23,7 +23,7 @@ Provides you with helpful advice like keyboard shortcuts to use the application 
 
 <div markdown="span" class="alert alert-warning">
 :exclamation: **Caution:**<br>
-Warns you of potential issues to should watch out for.
+Warns you of potential issues to watch out for.
 </div>
 
 <div style="page-break-after: always;"></div>
@@ -91,7 +91,7 @@ To see the summary of every feature, click [here](#command-summary)
   e.g. in `addcontact n/NAME`, `NAME` is a parameter which can be used as `addcontact n/John Doe`.
 
 * Items in square brackets are optional.<br>
-  e.g `n/NAME [notes/TEXT]` can be used as `n/John Doe notes/VIP` or as `n/John Doe`.
+  e.g. `n/NAME [notes/TEXT]` can be used as `n/John Doe notes/VIP` or as `n/John Doe`.
 
 * Items with `…`​ after them can be used multiple times. Items can be used zero times if they are also wrapped in square brackets.<br>
   e.g. `[c/ID]...` can be used as ` ` (i.e. 0 times), `c/1`, `c/1 c/2` etc.<br>
@@ -202,7 +202,7 @@ Filters the contacts based on the fields given.
 
 Format: `filtercontact [n/NAME...] [p/PHONE...] [e/EMAIL...] [a/ADDRESS...] [min/AMOUNT] [max/AMOUNT] [notes/TEXT...] [status/STATUS...]`
 
-* The search is case-insensitive. e.g `hans` will match `Hans`.
+* The search is case-insensitive. e.g. `hans` will match `Hans`.
 * Substring words will be matched e.g. `Bob` will match `Bobby`.
 * Contacts matching any one of the keyword will be shown (meeting only one of the criteria is enough).
 * Filtering is cumulative. Once you filter by name, you can filter by address subsequently.
@@ -280,7 +280,7 @@ Filters the properties based on the fields given.
 
 Format: `filterproperty [a/ADDRESS] [p/POSTAL] [price/PRICE] [t/TYPE] [s/STATUS] [bed/BEDROOM] [bath/BATHROOM] [f/FLOORAREA] [o/CONTACT_ID]`
 
-* The search is case-insensitive. e.g `clementi` will match `Clementi`.
+* The search is case-insensitive. e.g. `clementi` will match `Clementi`.
 * Substring property addresses will be matched e.g. `Clementi` will match `CLementi Avenue 8`.
 * Properties matching all the filters will be returned.
 * Filtering is cumulative. Once you filter by type, you can filter by number of bathrooms subsequently.

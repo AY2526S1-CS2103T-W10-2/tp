@@ -33,7 +33,7 @@ title: Developer Guide
 TheRealDeal is a brownfield group project that is based on [addressbook-level3](https://github.com/se-edu/addressbook-level3) (AB3) created by [SE-EDU](https://se-education.org/).
 
 ## Legend
-These boxes in the Developer Guide has additional information that you should take note of.
+These boxes in the Developer Guide have additional information that you should take note of.
 
 <div markdown="block" class="alert alert-info">
 **:information_source: Important:**<br>
@@ -47,7 +47,7 @@ Provides you with helpful advice like keyboard shortcuts to use the application 
 
 <div markdown="span" class="alert alert-warning">
 :exclamation: **Caution:**<br>
-Warns you of potential issues to should watch out for.
+Warns you of potential issues to watch out for.
 </div>
 
 ## 1. Setting up
