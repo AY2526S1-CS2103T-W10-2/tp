@@ -127,7 +127,7 @@ You can also press the <code>F1</code> key to open the help window
 
 Refer to [Command Summary](#command-summary) for the list of commands and their formats.
 
-### Listing all contacts or properties: `list`
+### List all contacts or properties: `list`
 
 Resets any active filters of both contact list and property list.
 
