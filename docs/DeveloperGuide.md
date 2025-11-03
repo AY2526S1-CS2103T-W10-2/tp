@@ -93,7 +93,7 @@ The bulk of the app's work is done by the following four components:
 
 **How the architecture components interact with each other**
 
-The *Sequence Diagram* below shows how the components interact when a user runs `addproperty address/123 Orchard Rd postal/238888 ...` to add a new property.
+The *Sequence Diagram* below shows how the components interact when a user runs `addproperty a/123 Orchard Rd p/238888 ...` to add a new listing.
 
 <img src="images/ArchitectureSequenceDiagram.png" width="574" />
 
@@ -364,10 +364,10 @@ The `addproperty` command adds a new property to the property book and links it 
 
 Compulsory fields:
 - Address (`a/`)
-- Postal code (`postal/`)
+- Postal code (`p/`)
 - Price (`price/`)
-- Type (`type/`)
-- Status (`status/`)
+- Type (`t/`)
+- Status (`s/`)
 - Bedroom count (`bed/`)
 - Bathroom count (`bath/`)
 - Floor area (`f/`)
@@ -407,7 +407,7 @@ Validation done:
 ##### Execution
 `DeletePropertyCommand#execute` consults `Model#getFilteredPropertyList()`, which always reflects the latest property filtering applied in the UI (e.g. `list`, `filterproperty`).
 
-For example, after running `filterproperty type/condo`, only the condo subset is searched—even if you subsequently switch to the contacts tab—until another property-filtering command updates the list.
+For example, after running `filterproperty t/condo`, only the condo subset is searched—even if you subsequently switch to the contacts tab—until another property-filtering command updates the list.
 If the supplied UUID is absent from that subset the command throws `MESSAGE_INVALID_PROPERTY_DISPLAYED_ID`; otherwise it deletes the property`, and update the UI accordingly.
 
 #### <u>Filter Property Command</u> (`filterproperty`)
@@ -1222,7 +1222,7 @@ Expected:<br>
 - Status shows number listed.
 
 Variations:<br>
-- Include more prefixes (e.g., `type/condo`) to confirm multi-criteria filtering.
+- Include more prefixes (e.g., `t/condo`) to confirm multi-criteria filtering.
 - Use case variations to test matching.
 
 ##### Invalid filterproperty command
@@ -1238,13 +1238,13 @@ Expected:<br>
 
 Variations:<br>
 - Run `filterproperty abc` to verify same behavior.
-- Provide duplicate prefixes (e.g. two `type/` values) to observe the corresponding error message.
+- Provide duplicate prefixes (e.g. two `t/` values) to observe the corresponding error message.
 
 ### Adding a property
 
 ##### Adding a property linked to an existing owner
 
-Command: `addproperty a/21 Sunset Way postal/597145 price/1850000 type/condo status/available bed/3 bath/2 f/1180 o/1`
+Command: `addproperty a/21 Sunset Way p/597145 price/1850000 t/condo s/available bed/3 bath/2 f/1180 o/1`
 
 To simulate:<br>
 - Run `list` to show both contacts and properties.
@@ -1261,7 +1261,7 @@ Variations:<br>
 
 ##### Owner contact does not exist
 
-Command: `addproperty a/21 Sunset Way postal/597145 price/1850000 type/condo status/available bed/3 bath/2 f/1180 o/9999`
+Command: `addproperty a/21 Sunset Way p/597145 price/1850000 t/condo s/available bed/3 bath/2 f/1180 o/9999`
 
 To simulate:<br>
 - Ensure no contact currently has the UUID `9999`.
@@ -1281,7 +1281,7 @@ Command: `addproperty`
 
 To simulate:<br>
 - Run the command above with no parameters.
-- Repeat with `addproperty a/21 Sunset Way postal/597145 price/1850000 type/condo status/available bed/3 bath/2 f/1180 o/` to omit the owner ID.
+- Repeat with `addproperty a/21 Sunset Way p/597145 price/1850000 t/condo s/available bed/3 bath/2 f/1180 o/` to omit the owner ID.
 
 Expected:<br>
 - Command fails with invalid format or constraint messages explaining the missing or malformed prefixes.
