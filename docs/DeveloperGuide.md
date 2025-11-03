@@ -520,10 +520,60 @@ The `LinkCommand` executes by:
 4. Updating the contacts and properties in the address and property book with the new details.
 
 #### <u>Show Contacts Command</u> (`showcontacts`)
-Currently returns a placeholder message while property–contact association storage is being developed.
+The `showcontacts` command displays all contacts associated with a specific property by their ID.
+
+Compulsory fields:
+- Property ID
+
+##### Parsing and Validating User Input
+The `ShowContactsCommandParser` class is responsible for parsing the command input.
+It extracts the property ID from the raw input and validates it using `ParserUtil.parsePropertyId`.
+
+The parser creates a `ShowContactsCommand` object with the validated property ID.
+
+Validation done:
+- Property ID must be a positive integer
+- Property ID format must be valid (non-empty, numeric)
+
+##### Execution
+The `ShowContactsCommand` executes by:
+1. Creating an `AssociatedWithPropertyPredicate` using the property ID and the full property list from the model
+2. Applying this predicate to filter the contact list to show only contacts associated with the specified property
+3. Switching the UI view to display the contact list
+4. Returning a success message with the count of contacts found, or an error message with suggestions if no contacts are found
+
+The predicate checks if a contact is associated with the property by:
+- Checking if the contact owns the property (via the property's owner field)
+- Checking if the contact is a buyer of the property (via buyingContactIds)
+- Checking if the contact is a seller of the property (via sellingContactIds)
 
 #### <u>Show Properties Command</u> (`showproperties`)
-Documentation pending.
+The `showproperties` command displays all properties associated with a specific contact by their ID.
+
+Compulsory fields:
+- Contact ID
+
+##### Parsing and Validating User Input
+The `ShowPropertiesCommandParser` class is responsible for parsing the command input.
+It extracts the contact ID from the raw input and validates it using `ParserUtil.parseContactId`.
+
+The parser creates a `ShowPropertiesCommand` object with the validated contact ID.
+
+Validation done:
+- Contact ID must be a positive integer
+- Contact ID format must be valid (non-empty, numeric)
+
+##### Execution
+The `ShowPropertiesCommand` executes by:
+1. Creating an `AssociatedWithContactPredicate` using the contact ID
+2. Applying this predicate to filter the property list to show only properties associated with the specified contact
+3. Switching the UI view to display the property list via `MainWindow.getInstance().showPropertiesView()`
+4. Returning a success message with the count of properties found, or an error message with suggestions if no properties are found
+
+The predicate checks if a property is associated with the contact by using the `Property.isAssociatedWith(contactUuid)` method, which verifies:
+- If the contact owns the property (via the property's owner field)
+- If the contact is a buyer of the property (via buyingContactIds)
+- If the contact is a seller of the property (via sellingContactIds)
 
 ### 4. Documentation, Logging, Testing, Configuration, Dev-Ops
 
@@ -564,17 +614,17 @@ Related commands: [`addcontact`](#add-command-addcontact), [`filtercontact`](#fi
 These are prefixes for purely property related commands.
 Related commands: [`addproperty`](#addpropertycommand-addproperty), [`filterproperty`](#filter-property-command-filterproperty)
 
-| Parameter      | Prefix  | Constraints                                                                                                       |
-|----------------|---------|-------------------------------------------------------------------------------------------------------------------|
-| Address        | a/      | Should only contain alphanumerical 5 to 200 characters (a-z, A-Z, 0-9) or spaces, with at least 1 letter and 1 digit|
-| Postal code    | p/      | Should only contain numbers (0-9), and it should be exactly least 6 digits long. (Singaporean Postal Code)        |
-| Price          | price/  | Should be an integer from 1 to 1 trillion                                                                  |
-| Type           | t/      | Should only be these (case-insensitive): hdb, condo, landed, apartment, office, others                            |
-| Status         | s/      | Should only be these (case-insensitive): available, unavailable                                                   |
-| Bedroom count  | bed/    | Should be an integer from 0 to 20                                                                                 |
-| Bathroom count | bath/   | Should be an integer from 0 to 20                                                                                 |
-| Floor area     | f/      | Should be an integer from 50 to 100000                                                                           |
-| Owner ID       | o/      | Should be a valid Contact UUID                                                                                    |
+| Parameter      | Prefix  | Constraints                                                                                                          |
+|----------------|---------|----------------------------------------------------------------------------------------------------------------------|
+| Address        | a/      | Should only contain alphanumerical 5 to 200 characters (a-z, A-Z, 0-9) or spaces, with at least 1 letter and 1 digit |
+| Postal code    | p/      | Should only contain numbers (0-9), and it should be exactly least 6 digits long. (Singaporean Postal Code)           |
+| Price          | price/  | Should be an integer from 1 to 1 trillion                                                                            |
+| Type           | t/      | Should only be these (case-insensitive): hdb, condo, landed, apartment, office, others                               |
+| Status         | s/      | Should only be these (case-insensitive): available, unavailable                                                      |
+| Bedroom count  | bed/    | Should be an integer from 0 to 20                                                                                    |
+| Bathroom count | bath/   | Should be an integer from 0 to 20                                                                                    |
+| Floor area     | f/      | Should be an integer from 50 to 100000                                                                               |                                                                        |
+| Owner ID       | o/      | Should be a valid Contact UUID                                                                                       |
 
 ### Others
 These are prefixes that are used over multiple commands.
@@ -931,10 +981,20 @@ Deletes all contacts and properties
 * **API**: Application Programming Interface, specifies the interface through which software and other programs interact.
 * **JSON**: JavaScript Object Notation, a text-based data storage format used to store the data of the application.
 * **Command**: A specific instruction given to TheRealDeal to perform a certain action, like adding a new contact to the list.
-* **Contact**: A domain entity representing a client (buyer, seller, tenant, or landlord) in TheRealDeal system.
+* **Contact**: A domain entity representing a client (buyer or seller) in TheRealDeal system.
 * **Prefix**: A unique identifier (e.g., n/, p/, a/) that tells the parser what type of parameter follows.
 * **Property**: A domain entity representing a real estate listing with attributes like address, price, type, and availability.
-* **UUID**: Universally Unique Identifier, generated by the application to uniquely identify contacts and properties.
+* **ID**: A unique identifier automatically generated by the application to identify contacts and properties. Displayed in the GUI and used in commands. Internally implemented as the `Uuid` class in the codebase.
+* **Buyer**: A contact who is interested in purchasing a property. Multiple buyers can be linked to the same property to track all interested parties during negotiations. Being linked as a buyer indicates interest, not completed purchase. Use the `sold` command to mark a property as unavailable once the sale is finalised. 
+* **Seller**: A contact role indicating intent to sell properties.
+* **Owner**: The contact who legally owns a property, specified via the `o/` parameter when adding properties. Each property must have exactly one owner.
+* **Sold**: A property marked as no longer available, achieved using the `sold` command. Sets the property status to "unavailable".
+* **Unsold**: A property marked as available for transactions, achieved using the `unsold` command. Sets the property status to "available".
+* **Available**: A property status indicating the property is currently on the market and can be sold.
+* **Unavailable**: A property status indicating the property has been sold and is no longer on the market.
+* **Active**: A contact status indicating the contact is currently engaged and actively working with the agent.
+* **Inactive**: A contact status indicating the contact is not currently engaged with the agent or has paused their property search.
+* **Relationship**: The type of link between a contact and property, specified using the `link` command as either "buyer" or "seller".
 
 ---------------------------------------------------------------------------------------------------------------------
 

@@ -57,18 +57,16 @@ public class ContactCard extends UiPart<Region> {
     public ContactCard(Contact contact, int displayedIndex) {
         super(FXML);
         this.contact = contact;
-        uuid.setText("ID: " + contact.getUuid().getValue());
-        id.setText(displayedIndex + ". ");
-        name.setText(contact.getName().fullName);
-        phone.setText("Phone: " + contact.getPhone().value);
 
-        // Always displayed fields
-        uuid.setText("ID: " + contact.getUuid().getValue());
+        // Always displayed fields - ID combined with name
         id.setText(displayedIndex + ". ");
-        name.setText(contact.getName().fullName);
+        name.setText(contact.getName().fullName + " (ID: " + contact.getUuid().getValue() + ")");
         phone.setText("Phone: " + contact.getPhone().value);
         budgetMin.setText("Budget Minimum: $" + contact.getBudgetMin().toString());
         budgetMax.setText("Budget Maximum: $" + contact.getBudgetMax().toString());
+
+        // Hide the separate UUID label since we combined it with name
+        hideLabel(uuid);
 
         // Conditionally displayed fields
         setLabelIfNotEmpty(email, "Email: ", contact.getEmail().value);
@@ -120,5 +118,4 @@ public class ContactCard extends UiPart<Region> {
             label.setText(prefix + Uuid.getGuiSetDisplayAsString(ids));
         }
     }
-
 }
