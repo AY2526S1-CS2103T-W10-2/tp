@@ -121,6 +121,18 @@ You can also press the <code>F1</code> key to open the help window
 
 Refer to [Command Summary](#command-summary) for the list of commands and their formats.
 
+### Exiting the program : `exit`
+
+Exits the program.
+
+Format: `exit`
+
+<div markdown="block" class="alert alert-info">
+**:information_source: Important:**<br>
+<code>exit</code> will also close any help windows that are open.
+</div>
+<div style="page-break-after: always;"></div>
+
 ### List all contacts or properties: `list`
 
 Resets any active filters of both contact list and property list.
@@ -139,6 +151,7 @@ To switch to the list of properties type: <code>filterproperty</code>
 **List Command done while on Property List**
 ![list result property](images/listResultProperty.png)
 <div style="page-break-after: always;"></div>
+
 ### Adding a contact : `addcontact`
 
 Adds a new contact into the system.
@@ -427,18 +440,6 @@ Format: `clear`
 
 **Expected Output**<br>
 ![clear result](images/clearCommandResult.png)
-
-### Exiting the program : `exit`
-
-Exits the program.
-
-Format: `exit`
-
-<div markdown="block" class="alert alert-info">
-**:information_source: Important:**<br>
-<code>exit</code> will also close any help windows that are open.
-</div>
-
 
 ## Saving the data
 
