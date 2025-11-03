@@ -24,7 +24,7 @@ public class DeletePropertyCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the property identified by their unique UUID.\n"
-            + "Parameters: UUID\n"
+            + "Parameters: UUID (must be a positive integer)e\n"
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DELETE_PROPERTY_SUCCESS = "Deleted property: %1$s";
