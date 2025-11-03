@@ -101,7 +101,7 @@ To see the summary of every feature, click [here](#command-summary)
   e.g `n/NAME [notes/TEXT]` can be used as `n/John Doe notes/VIP` or as `n/John Doe`.
 
 * Items with `…`​ after them can be used multiple times. Items can be used zero times if they are also wrapped in square brackets.<br>
-  e.g. `[c/ID...]` can be used as ` ` (i.e. 0 times), `c/1`, `c/1 c/2` etc.
+  e.g. `[c/ID]...` can be used as ` ` (i.e. 0 times), `c/1`, `c/1 c/2` etc.
 
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
