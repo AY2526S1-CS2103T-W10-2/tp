@@ -52,6 +52,7 @@ public class FilterPropertyCommandParser implements Parser<FilterPropertyCommand
                     0
             );
         }
+
         //Look for all prefix
         List<String> detectedPrefixes = Arrays.stream(args.split("\\s+"))
                 .filter(s -> s.contains("/") && !s.startsWith("/"))
@@ -74,6 +75,11 @@ public class FilterPropertyCommandParser implements Parser<FilterPropertyCommand
         }
 
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, validPrefixes.toArray(new Prefix[0]));
+
+        if (!argMultimap.getPreamble().trim().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    FilterPropertyCommand.MESSAGE_USAGE));
+        }
 
         argMultimap.verifyNoDuplicatePrefixesFor(validPrefixes.toArray(new Prefix[0]));
 

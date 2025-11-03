@@ -83,6 +83,11 @@ public class FilterPropertyCommandParserTest {
     }
 
     @Test
+    public void parseInvalidArgThrowsParseException() {
+        assertThrows(ParseException.class, () -> parser.parse(" " + "aaa"));
+    }
+
+    @Test
     public void parseInvalidTagThrowsParseException() {
         assertThrows(ParseException.class, () -> parser.parse(" " + PREFIX_PROPERTY_OWNER));
     }
