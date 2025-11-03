@@ -27,7 +27,7 @@ class PropertyTest {
         assertEquals(new Listing("sale"), property.getListing());
         assertEquals(new Postal("123456"), property.getPostal());
         assertEquals(new Price("500000"), property.getPrice());
-        assertEquals(new Status("unavailable"), property.getStatus());
+        assertEquals(new Status("available"), property.getStatus());
         assertEquals(new Type("HDB"), property.getType());
         assertEquals(new Owner("owner123"), property.getOwner());
         assertEquals(new Uuid(1, PROPERTY), property.getUuid());

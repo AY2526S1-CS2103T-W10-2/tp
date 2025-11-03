@@ -34,7 +34,7 @@ class UnifiedCommandParserTest {
             " " + PREFIX_PROPERTY_POSTAL + "654321",
             " " + PREFIX_PROPERTY_PRICE + "750000",
             " " + PREFIX_PROPERTY_TYPE + "Condo",
-            " " + PREFIX_PROPERTY_STATUS + "unavailable",
+            " " + PREFIX_PROPERTY_STATUS + "available",
             " " + PREFIX_PROPERTY_BEDROOM + "4",
             " " + PREFIX_PROPERTY_BATHROOM + "3",
             " " + PREFIX_PROPERTY_FLOOR_AREA + "150",
