@@ -9,10 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTES;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -32,7 +29,6 @@ import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Name;
 import seedu.address.model.contact.Notes;
 import seedu.address.model.contact.Phone;
-import seedu.address.model.contact.Tag;
 import seedu.address.model.uuid.Uuid;
 
 /**
@@ -53,8 +49,7 @@ public class EditContactCommand extends Command {
             + "[" + PREFIX_BUDGET_MIN + "BUDGET_MIN] "
             + "[" + PREFIX_BUDGET_MAX + "BUDGET_MAX] "
             + "[" + PREFIX_NOTES + "NOTES] "
-            + "[" + PREFIX_STATUS + "STATUS] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "[" + PREFIX_STATUS + "STATUS]\n"
             + "Example: " + COMMAND_WORD + " 123 "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
@@ -118,12 +113,11 @@ public class EditContactCommand extends Command {
         BudgetMax updatedBudgetMax = editContactDescriptor.getBudgetMax().orElse(contactToEdit.getBudgetMax());
         Notes updatedNotes = editContactDescriptor.getNotes().orElse(contactToEdit.getNotes());
         ContactStatus updatedStatus = editContactDescriptor.getStatus().orElse(contactToEdit.getStatus());
-        Set<Tag> updatedTags = editContactDescriptor.getTags().orElse(contactToEdit.getTags());
         Set<Uuid> updatedBuyingPropertyIds = contactToEdit.getBuyingPropertyIds();
         Set<Uuid> updatedSellingPropertyIds = contactToEdit.getSellingPropertyIds();
 
         return new Contact(updatedUuid, updatedName, updatedPhone, updatedEmail, updatedAddress,
-                          updatedTags, updatedBudgetMin, updatedBudgetMax, updatedNotes, updatedStatus,
+                          updatedBudgetMin, updatedBudgetMax, updatedNotes, updatedStatus,
                 updatedBuyingPropertyIds, updatedSellingPropertyIds);
     }
 
@@ -164,7 +158,6 @@ public class EditContactCommand extends Command {
         private BudgetMax budgetMax;
         private Notes notes;
         private ContactStatus status;
-        private Set<Tag> tags;
 
         public EditContactDescriptor() {}
 
@@ -181,14 +174,13 @@ public class EditContactCommand extends Command {
             setBudgetMax(toCopy.budgetMax);
             setNotes(toCopy.notes);
             setStatus(toCopy.status);
-            setTags(toCopy.tags);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, email, address, budgetMin, budgetMax, notes, status);
         }
 
         public void setName(Name name) {
@@ -255,23 +247,6 @@ public class EditContactCommand extends Command {
             return Optional.ofNullable(status);
         }
 
-        /**
-         * Sets {@code tags} to this object's {@code tags}.
-         * A defensive copy of {@code tags} is used internally.
-         */
-        public void setTags(Set<Tag> tags) {
-            this.tags = (tags != null) ? new HashSet<>(tags) : null;
-        }
-
-        /**
-         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
-         * if modification is attempted.
-         * Returns {@code Optional#empty()} if {@code tags} is null.
-         */
-        public Optional<Set<Tag>> getTags() {
-            return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
-        }
-
         @Override
         public boolean equals(Object other) {
             if (other == this) {
@@ -291,8 +266,7 @@ public class EditContactCommand extends Command {
                     && Objects.equals(budgetMin, otherEditContactDescriptor.budgetMin)
                     && Objects.equals(budgetMax, otherEditContactDescriptor.budgetMax)
                     && Objects.equals(notes, otherEditContactDescriptor.notes)
-                    && Objects.equals(status, otherEditContactDescriptor.status)
-                    && Objects.equals(tags, otherEditContactDescriptor.tags);
+                    && Objects.equals(status, otherEditContactDescriptor.status);
         }
 
         @Override
@@ -306,7 +280,6 @@ public class EditContactCommand extends Command {
                     .add("budgetMax", budgetMax)
                     .add("notes", notes)
                     .add("status", status)
-                    .add("tags", tags)
                     .toString();
         }
     }

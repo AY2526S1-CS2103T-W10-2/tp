@@ -5,7 +5,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_BATHROOM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_BEDROOM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_FLOOR_AREA;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_LISTING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_OWNER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_POSTAL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_PRICE;
@@ -37,7 +36,6 @@ public class AddPropertyCommand extends Command {
             + PREFIX_PROPERTY_BEDROOM + "BEDROOM "
             + PREFIX_PROPERTY_BATHROOM + "BATHROOM "
             + PREFIX_PROPERTY_FLOOR_AREA + "FLOOR_AREA "
-            + PREFIX_PROPERTY_LISTING + "LISTING "
             + PREFIX_PROPERTY_OWNER + "OWNER\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_PROPERTY_ADDRESS + "123 Orchard Rd "
@@ -48,7 +46,6 @@ public class AddPropertyCommand extends Command {
             + PREFIX_PROPERTY_FLOOR_AREA + "1023 "
             + PREFIX_PROPERTY_PRICE + "1950000 "
             + PREFIX_PROPERTY_STATUS + "unavailable "
-            + PREFIX_PROPERTY_LISTING + "sale "
             + PREFIX_PROPERTY_OWNER + "1";
 
     public static final String MESSAGE_SUCCESS = "New property added: %1$s";

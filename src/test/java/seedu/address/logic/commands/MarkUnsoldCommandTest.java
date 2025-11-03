@@ -105,7 +105,6 @@ public class MarkUnsoldCommandTest {
                     editedProperty.getBathroom(),
                     editedProperty.getBedroom(),
                     editedProperty.getFloorArea(),
-                    editedProperty.getListing(),
                     editedProperty.getPostal(),
                     editedProperty.getPrice(),
                     editedProperty.getStatus(),

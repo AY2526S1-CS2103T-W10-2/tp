@@ -6,8 +6,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_BUYER;
-import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalContacts.ALICE;
 import static seedu.address.testutil.TypicalContacts.BOB;
 
@@ -16,12 +14,6 @@ import org.junit.jupiter.api.Test;
 import seedu.address.testutil.ContactBuilderUtil;
 
 public class ContactTest {
-
-    @Test
-    public void asObservableList_modifyList_throwsUnsupportedOperationException() {
-        Contact contact = new ContactBuilderUtil().build();
-        assertThrows(UnsupportedOperationException.class, () -> contact.getTags().remove(0));
-    }
 
     @Test
     public void equals() {
@@ -36,7 +28,6 @@ public class ContactTest {
         Contact editedAlice = new ContactBuilderUtil(ALICE)
                 .withEmail(VALID_EMAIL_BOB)
                 .withAddress(VALID_ADDRESS_BOB)
-                .withTags(VALID_TAG_BUYER)
                 .build();
         assertEquals(ALICE, editedAlice);
 
@@ -61,10 +52,11 @@ public class ContactTest {
         editedAlice = new ContactBuilderUtil(ALICE).withPhone(VALID_PHONE_BOB).build();
         assertNotEquals(ALICE, editedAlice);
 
-        // equivalence partition: invalid input
-        // different name, same phone -> returns false
+        // equivalence partition: valid
+        // different name , same phone -> returns true
+        // could happen for PERSON A = JOHN, PERSON B = JOHN TAN but both same phone number
         editedAlice = new ContactBuilderUtil(ALICE).withName(VALID_NAME_BOB).build();
-        assertNotEquals(ALICE, editedAlice);
+        assertEquals(ALICE, editedAlice);
     }
 
     @Test
@@ -75,7 +67,6 @@ public class ContactTest {
                 + ", phone=" + ALICE.getPhone()
                 + ", email=" + ALICE.getEmail()
                 + ", address=" + ALICE.getAddress()
-                + ", tags=" + ALICE.getTags()
                 + ", budgetMin=" + ALICE.getBudgetMin()
                 + ", budgetMax=" + ALICE.getBudgetMax()
                 + ", notes=" + ALICE.getNotes()

@@ -93,14 +93,14 @@ The bulk of the app's work is done by the following four components:
 
 **How the architecture components interact with each other**
 
-The *Sequence Diagram* below shows how the components interact when a user runs `addproperty address/123 Orchard Rd postal/238888 ...` to add a new listing.
+The *Sequence Diagram* below shows how the components interact when a user runs `addproperty a/123 Orchard Rd p/238888 ...` to add a new listing.
 
 <img src="images/ArchitectureSequenceDiagram.png" width="574" />
 
 Each of the four main components (also shown in the diagram above),
 
 * defines its *API* in an `interface` with the same name as the Component.
-* implements its functionality using a concrete `{Component Name}Manager` class (which follows the corresponding API `interface` mentioned in the previous point.
+* implements its functionality using a concrete `{Component Name}Manager` class which follows the corresponding API `interface` mentioned in the previous point.
 
 For example, the `Logic` component defines its API in the `Logic.java` interface and implements its functionality using the `LogicManager.java` class which follows the `Logic` interface. Other components interact with a given component through its interface rather than the concrete class (reason: to prevent outside component's being coupled to the implementation of a component), as illustrated in the (partial) class diagram below.
 
@@ -154,7 +154,7 @@ Here are the other classes in `Logic` (omitted from the class diagram above) tha
 
 How the parsing works:
 * When called upon to parse a user command, assuming the command is valid, the `UnifiedCommandParser` class will pass the command to the responsible parser from the two parser, `AddressBookParser` class and `PropertyBookParser` class.
-* The selected parser class will create an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `AddressBookParser` returns back as a `Command` object.
+* The selected parser class will create an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddContactCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddContactCommand`) which the `AddressBookParser` returns back as a `Command` object.
 * All `XYZCommandParser` classes (e.g., `AddContactCommandParser`, `DeleteContactCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
 
 ### 2.4. Model component
@@ -212,7 +212,7 @@ Users can also press the <code>F1</code> key to open the help window
 </div>
 
 #### <u>List Command</u> (`list`)
-The `ListCommand` resets all current filters and displays all the contacts/properties stored in the application.
+The `ListCommand` resets all filters for the contact list and property list.
 
 ##### Execution
 The `ListCommand` calls the `Model` component to update the `FilteredList<Contact>` and `FilteredList<Property>` to show all of the `Contact` and `Property` in the list.
@@ -246,7 +246,7 @@ As TheRealDeal is a CLI-based application, the `ExitCommand` can be used to exit
 
 ### 3.2. Contact management
 
-All contacts are stored as `Contact` objects inside the `UniqueContactList` object under the `AdressBook` component. <br><br>
+All contacts are stored as `Contact` objects inside the `UniqueContactList` object under the `AddressBook` component. <br><br>
 There is also an additional `FilteredList<Contact>` inside the `ModelManager` that stores the `Contact` that are displayed on the UI which is updated whenever the user issues a command that changes the UI.
 
 #### <u>Add Command</u> (`addcontact`)
@@ -261,7 +261,6 @@ Optional Fields:
 - Email
 - Minimum Budget
 - Maximum Budget
-- Tag
 - Notes
 - Status
 
@@ -288,7 +287,14 @@ Compulsory fields:
 
 ##### Parsing and Validating User Input
 The `DeleteContactCommandParser` class is responsible for parsing the command input.
-Documentation pending.
+The parser validates the UUID and constructs a `DeleteContactCommnad` object with the validated UUID.
+
+Validation done:
+- Ensures a UUID is provided
+- Ensures contact given exists
+
+##### Execution
+The `DeleteContactCommand` class retrieves the contact based on the UUID given and also ensures that the contact exists. If the contact exists, it is deleted from the address book.
 
 #### <u>Edit Command</u> (`editcontact`)
 The `editcontact` command is designed to edit a contact in the address book, identified by their UUID.
@@ -303,7 +309,6 @@ Optional Fields:
 - Email
 - Minimum Budget
 - Maximum Budget
-- Tag
 - Notes
 - Status
 
@@ -332,11 +337,8 @@ Optional Fields:
 - Email
 - Minimum Budget
 - Maximum Budget
-- Tag
 - Notes
 - Status
-- Limit
-- Offset
 
 ##### Parsing and Validating User Input
 The `FilterContactCommandParser` is responsible for parsing the command input. It utilises `ArgumentTokenizer` to split the input string based on defined prefixes (`PREFIX_NAME`, `PREFIX_PHONE`, etc) <br><br>
@@ -344,10 +346,10 @@ A `FilterContactPredicate` is created that encapsulates all the filter condition
 
 Validation done:
 - Same validation done as `addcontact`
-- Proper data types and formats for numeric fields (e.g. budget, limit, offset)
+- Proper data types and formats for numeric fields (e.g. budget)
 
 ##### Execution
-`FilterContactCommand` applies the `FilterContactPredicate` over the existing filtered contact list and produces a list of matching contacts. It is also changed based on the `limit` and `offset` given.
+`FilterContactCommand` applies the `FilterContactPredicate` over the existing filtered contact list and produces a list of matching contacts.
 The UI is then updated based on which contacts that match the predicate.
 
 ### 3.3. Property management
@@ -357,14 +359,13 @@ The `addproperty` command adds a new property to the property book and links it 
 
 Compulsory fields:
 - Address (`a/`)
-- Postal code (`postal/`)
+- Postal code (`p/`)
 - Price (`price/`)
-- Type (`type/`)
-- Status (`status/`)
+- Type (`t/`)
+- Status (`s/`)
 - Bedroom count (`bed/`)
 - Bathroom count (`bath/`)
 - Floor area (`f/`)
-- Listing type (`l/`)
 - Owner UUID (`o/`)
 
 Optional Fields:
@@ -401,7 +402,7 @@ Validation done:
 ##### Execution
 `DeletePropertyCommand#execute` consults `Model#getFilteredPropertyList()`, which always reflects the latest property filtering applied in the UI (e.g. `list`, `filterproperty`).
 
-For example, after running `filterproperty type/condo`, only the condo subset is searched—even if you subsequently switch to the contacts tab—until another property-filtering command updates the list.
+For example, after running `filterproperty t/condo`, only the condo subset is searched—even if you subsequently switch to the contacts tab—until another property-filtering command updates the list.
 If the supplied UUID is absent from that subset the command throws `MESSAGE_INVALID_PROPERTY_DISPLAYED_ID`; otherwise it deletes the property`, and update the UI accordingly.
 
 #### <u>Filter Property Command</u> (`filterproperty`)
@@ -416,10 +417,7 @@ Optional Fields:
 - Bedroom
 - Bathroom
 - Floor Area
-- Listing
 - Owner
-- Limit
-- Offset
 
 ##### Parsing and Validating User Input
 The `FilterPropertyCommandParser` is responsible for parsing the command input. It utilises `ArgumentTokenizer` to split the input string based on defined prefixes (`PREFIX_PROPERTY_ADDRESS`, `PREFIX_PROPERTY_POSTAL`, etc) <br><br>
@@ -427,10 +425,10 @@ A `PropertyMatchesFilterPredicate` is created that encapsulates all the filter c
 
 Validation done:
 - Same validation done as `addproperty`
-- Proper data types and formats for numeric fields (e.g. price, limit, offset)
+- Proper data types and formats for numeric fields (e.g. price)
 
 ##### Execution
-`FilterPropertyCommand` applies the `PropertyMatchesFilterPredicate` over the existing filtered contact list and produces a list of matching contacts. It is also changed based on the `limit` and `offset` given.
+`FilterPropertyCommand` applies the `PropertyMatchesFilterPredicate` over the existing filtered contact list and produces a list of matching contacts.
 The UI is then updated based on which properties that match the predicate.
 
 #### <u>Mark Property as Sold Command</u> (`sold`)
@@ -591,9 +589,9 @@ This table shows every parameter and prefix used in TheRealDeal.
 
 <div markdown="block" class="alert alert-info">
 **:information_source: Important:**<br>
-If the command states that the prefix is optional e.g. <code>n/NAME [t/TAG]</code><br>
+If the command states that the prefix is optional e.g. <code>n/NAME [notes/TEXT]</code><br>
 an empty parameter will be the same as not having the prefix<br>
-e.g. <code>n/NAME t/</code> is the same as <code>n/NAME</code><br><br>
+e.g. <code>n/NAME notes/</code> is the same as <code>n/NAME</code><br><br>
 All parameters that expect integers must be entered as **plain digits** — without commas, dots, spaces, or any other separators.
 </div>
 
@@ -603,11 +601,10 @@ Related commands: [`addcontact`](#add-command-addcontact), [`filtercontact`](#fi
 
 | Parameter      | Prefix  | Constraints                                                                                                                 |
 |----------------|---------|-----------------------------------------------------------------------------------------------------------------------------|
-| Name           | n/      | Should only contain alphabetical characters (a-z, A-Z, 0-9) or spaces                                                       |
+| Name           | n/      | Should only contain alphabetical characters (a-z, A-Z) or spaces                                                            |
 | Phone Number   | p/      | Should only contain numbers (0-9), and it should be at least 3 digits long                                                  |
 | Email          | e/      | Should follow the format: name@example.com                                                                                  |
 | Address        | a/      | Can take any value. Maximum of 200 characters                                                                               |
-| Tag            | t/      | Should only be these (case-insensitive): buyer, seller, tenant, landlord                                                    |
 | Minimum Budget | min/    | Should be a non-negative integer. If not provided, will have a default of $0                                                |
 | Maximum Budget | max/    | Should be a non-negative integer and more than the minimum budget. If not provided, will have a default of $200,000,000,000 |
 | Notes          | notes/  | Can take any value. Maximum of 500 characters                                                                               |
@@ -623,11 +620,10 @@ Related commands: [`addproperty`](#addpropertycommand-addproperty), [`filterprop
 | Postal code    | p/      | Should only contain numbers (0-9), and it should be exactly least 6 digits long. (Singaporean Postal Code)           |
 | Price          | price/  | Should be an integer from 1 to 1 trillion                                                                            |
 | Type           | t/      | Should only be these (case-insensitive): hdb, condo, landed, apartment, office, others                               |
-| Status         | status/ | Should only be these (case-insensitive): available, unavailable                                                      |
+| Status         | s/      | Should only be these (case-insensitive): available, unavailable                                                      |
 | Bedroom count  | bed/    | Should be an integer from 0 to 20                                                                                    |
 | Bathroom count | bath/   | Should be an integer from 0 to 20                                                                                    |
-| Floor area     | f/      | Should be an integer from 50 to 100000                                                                               |
-| Listing        | l/      | Should only be these (case-insensitive): sale                                                                        |
+| Floor area     | f/      | Should be an integer from 50 to 100000                                                                               |                                                                        |
 | Owner ID       | o/      | Should be a valid Contact UUID                                                                                       |
 
 ### Others
@@ -636,8 +632,6 @@ Related commands: [`filtercontact`](#filter-contact-command-filtercontact), [`fi
 
 | Parameter      | Prefix  | Constraints                                            |
 |----------------|---------|--------------------------------------------------------|
-| Limit          | limit/  | An integer more than 0                                 |
-| Offset         | offset/ | An integer more than or equals to 0                    |
 | Contact UUID   | c/      | Should be a valid Contact UUID                         |
 | Property UUID  | p/      | Should be a valid Property UUID                        |
 | Relationship   | r/      | Should only be these (case-insensitive): buyer, seller |
@@ -660,33 +654,32 @@ Related commands: [`filtercontact`](#filter-contact-command-filtercontact), [`fi
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a…                        | I want to…                                       | So that I can…                                                           |
-| -------- | ---------------------------- | ------------------------------------------------ | ------------------------------------------------------------------------ |
-| `* * *`  | user                         | add contacts                                     | keep track of my contacts                                                 |
-| `* * *`  | user                         | store properties                                 | keep track of my advertising properties                                  |
-| `* * *`  | user                         | delete contacts                                  | remove contacts that I no longer need                                    |
-| `* * *`  | user                         | delete properties                                | remove properties that I no longer need                                  |
-| `* * *`  | user                         | filter my contacts by their details              | find and prioritise contacts easily                                       |
+| Priority | As a…                        | I want to…                                       | So that I can…                                                             |
+|----------|------------------------------|--------------------------------------------------|----------------------------------------------------------------------------|
+| `* * *`  | user                         | add contacts                                     | keep track of my contacts                                                  |
+| `* * *`  | user                         | store properties                                 | keep track of my advertising properties                                    |
+| `* * *`  | user                         | delete contacts                                  | remove contacts that I no longer need                                      |
+| `* * *`  | user                         | delete properties                                | remove properties that I no longer need                                    |
+| `* * *`  | user                         | filter my contacts by their details              | find and prioritise contacts easily                                        |
 | `* * *`  | user                         | filter my properties by criteria                 | find my properties for my contacts easily and better match contact's needs |
-| `* * *`  | user                         | track contact associations to properties          | easily cross-reference contacts                                           |
-| `* * *`  | user                         | track when properties are sold                   | filter them from searches                                                |
-| `* * *`  | detail-oriented user         | view a contact’s full profile details             | prepare before meeting or calling them                                   |
-| `* *`    | user                         | edit stored information                          | avoid manually deleting and adding data back when something changes      |
-| `* *`    | collaborating user           | import Excel contact lists into the system       | avoid adding contacts one by one                                         |
-| `* *`    | user                         | record the dates of contact property visits       | maintain a clear history of interactions                                 |
-| `* *`    | collaborating user           | export data of contacts                          | pass the information to associated contacts                              |
-| `* *`    | user                         | draft messages based on contact profiles          | provide updates quickly and professionally                               |
-| `* *`    | user                         | mark contacts as “active” or “inactive”           |                                                                          |
-| `* *`    | user                         | store signed contracts                           | quickly retrieve them if disputes or clarifications arise                |
-| `* *`    | user                         | generate reports                                 | analyze performance and opportunities                                    |
-| `* *`    | user                         | tag contacts with labels                          | organise them better                                                     |
-| `* *`    | user                         | track commission earned from each deal           | measure my performance                                                   |
-| `* *`    | user                         | have a recent contact list                       |                                                                          |
-| `*`      | user dealing with complaints | see the whole interaction history                | understand the context fully and manage the situation well               |
-| `*`      | forgetful user               | set automatic reminders for contract expirations | avoid missing key dates                                                  |
-| `*`      | user                         | mark and track the negotiation stage of a deal   | see deal progress                                                        |
-| `*`      | user                         | generate detailed draft contracts automatically  | speed up the transaction process                                         |
-| `*`      | forgetful user               | set reminders for follow-ups with contacts        | avoid forgetting to contact them at the right time                       |
+| `* * *`  | user                         | track contact associations to properties         | easily cross-reference contacts                                            |
+| `* * *`  | user                         | track when properties are sold                   | filter them from searches                                                  |
+| `* * *`  | detail-oriented user         | view a contact’s full profile details            | prepare before meeting or calling them                                     |
+| `* *`    | user                         | edit stored information                          | avoid manually deleting and adding data back when something changes        |
+| `* *`    | collaborating user           | import Excel contact lists into the system       | avoid adding contacts one by one                                           |
+| `* *`    | user                         | record the dates of contact property visits      | maintain a clear history of interactions                                   |
+| `* *`    | collaborating user           | export data of contacts                          | pass the information to associated contacts                                |
+| `* *`    | user                         | draft messages based on contact profiles         | provide updates quickly and professionally                                 |
+| `* *`    | user                         | mark contacts as “active” or “inactive”          |                                                                            |
+| `* *`    | user                         | store signed contracts                           | quickly retrieve them if disputes or clarifications arise                  |
+| `* *`    | user                         | generate reports                                 | analyze performance and opportunities                                      |
+| `* *`    | user                         | track commission earned from each deal           | measure my performance                                                     |
+| `* *`    | user                         | have a recent contact list                       |                                                                            |
+| `*`      | user dealing with complaints | see the whole interaction history                | understand the context fully and manage the situation well                 |
+| `*`      | forgetful user               | set automatic reminders for contract expirations | avoid missing key dates                                                    |
+| `*`      | user                         | mark and track the negotiation stage of a deal   | see deal progress                                                          |
+| `*`      | user                         | generate detailed draft contracts automatically  | speed up the transaction process                                           |
+| `*`      | forgetful user               | set reminders for follow-ups with contacts       | avoid forgetting to contact them at the right time                         |
 
 ## Appendix: Use Cases
 
@@ -1070,22 +1063,21 @@ Variations:<br>
 
 ##### Filtering by name and email
 
-Command: `filtercontact n/Alice e/example.com`
+Command: `filtercontact n/Alice e/alice@example.com`
 
 To simulate:<br>
 - Ensure multiple contacts exist.
 - Run the command above.
 
 Expected:<br>
-- Lists only contacts whose names include “Alice” and emails include “example.com.”
+- Lists only contacts whose names include “Alice” and emails include “alice@example.com.”
 - Status message shows number of contacts displayed.
 
 Variations:<br>
-- Add more conditions (e.g., `t/buyer`) to confirm multi-prefix filtering.
 - Test with mixed casing (e.g., `n/aLiCe`) to confirm case-insensitive matching.
 
 ##### Filtering by tag with limits
-Command: `filtercontact t/buyer limit/10 offset/1`
+Command: `filtercontact t/buyer`
 
 To simulate:<br>
 - Ensure contact list contains multiple tagged `buyer`.
@@ -1118,7 +1110,7 @@ Variations:<br>
 
 ##### Adding a contact with unique details
 
-Command: `addcontact n/Zara Lim p/91234567 e/zara.lim@example.com a/11 Green Lane t/buyer s/active notes/Prefers email`
+Command: `addcontact n/Zara Lim p/91234567 e/zara.lim@example.com a/11 Green Lane s/active notes/Prefers email`
 
 To simulate:<br>
 - Run `list` to show all contacts and confirm the sample data does not already contain the details above.
@@ -1129,12 +1121,12 @@ Expected:<br>
 - The contacts panel shows a new `Zara Lim` card appended with a newly generated UUID (note it for later tests).
 
 Variations:<br>
-- Reorder optional prefixes or include additional tags to ensure the command still succeeds.
+- Reorder optional prefixes to ensure the command still succeeds.
 - Repeat the command with extra whitespace around prefixes to confirm parsing tolerance.
 
 ##### Duplicate contact rejected
 
-Command: `addcontact n/Zara Lim p/91234567 e/zara.lim@example.com a/11 Green Lane t/buyer s/active notes/Prefers email`
+Command: `addcontact n/Zara Lim p/91234567 e/zara.lim@example.com a/11 Green Lane s/active notes/Prefers email`
 
 To simulate:<br>
 - Ensure the contact from the previous scenario still exists.
@@ -1278,7 +1270,7 @@ Expected:<br>
 - Status shows number listed.
 
 Variations:<br>
-- Include more prefixes (e.g., `type/condo`) to confirm multi-criteria filtering.
+- Include more prefixes (e.g., `t/condo`) to confirm multi-criteria filtering.
 - Use case variations to test matching.
 
 ##### Invalid filterproperty command
@@ -1294,13 +1286,13 @@ Expected:<br>
 
 Variations:<br>
 - Run `filterproperty abc` to verify same behavior.
-- Provide duplicate prefixes (e.g. two `type/` values) to observe the corresponding error message.
+- Provide duplicate prefixes (e.g. two `t/` values) to observe the corresponding error message.
 
 ### Adding a property
 
 ##### Adding a property linked to an existing owner
 
-Command: `addproperty a/21 Sunset Way postal/597145 price/1850000 type/condo status/available bed/3 bath/2 f/1180 l/sale o/1`
+Command: `addproperty a/21 Sunset Way p/597145 price/1850000 t/condo s/available bed/3 bath/2 f/1180 o/1`
 
 To simulate:<br>
 - Run `list` to show both contacts and properties.
@@ -1317,7 +1309,7 @@ Variations:<br>
 
 ##### Owner contact does not exist
 
-Command: `addproperty a/21 Sunset Way postal/597145 price/1850000 type/condo status/available bed/3 bath/2 f/1180 l/sale o/9999`
+Command: `addproperty a/21 Sunset Way p/597145 price/1850000 t/condo s/available bed/3 bath/2 f/1180 o/9999`
 
 To simulate:<br>
 - Ensure no contact currently has the UUID `9999`.
@@ -1337,7 +1329,7 @@ Command: `addproperty`
 
 To simulate:<br>
 - Run the command above with no parameters.
-- Repeat with `addproperty a/21 Sunset Way postal/597145 price/1850000 type/condo status/available bed/3 bath/2 f/1180 l/sale o/` to omit the owner ID.
+- Repeat with `addproperty a/21 Sunset Way p/597145 price/1850000 t/condo s/available bed/3 bath/2 f/1180 o/` to omit the owner ID.
 
 Expected:<br>
 - Command fails with invalid format or constraint messages explaining the missing or malformed prefixes.
@@ -1834,7 +1826,7 @@ To simulate:<br>
 Expected:<br>
 - Opening the application will delete all contacts stored inside `addressbook.json`.
 - No contacts will be shown on the GUI.
-- Same steps can be carried out for `propertybook.json` by adding `abc` to `Property` Listing.
+- Same steps can be carried out for `propertybook.json` by adding `abc` to `Property` Status.
 
 ##### Editing data file while application is open
 To simulate:<br>

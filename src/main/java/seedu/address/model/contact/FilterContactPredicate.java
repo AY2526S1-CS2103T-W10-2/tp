@@ -21,13 +21,10 @@ public class FilterContactPredicate implements Predicate<Contact> {
     private final Optional<List<String>> phones;
     private final Optional<List<String>> emails;
     private final Optional<List<String>> addresses;
-    private final Optional<List<String>> tags;
     private final Optional<Long> budgetMin;
     private final Optional<Long> budgetMax;
     private final Optional<List<String>> notes;
     private final Optional<List<String>> status;
-    private final Optional<Integer> limit;
-    private final Optional<Integer> offset;
 
     /**
      * Creates a {@code FilterContactPredicate} with optional filtering fields.
@@ -36,82 +33,84 @@ public class FilterContactPredicate implements Predicate<Contact> {
      * @param phones Optional list of phone keywords.
      * @param emails Optional list of email keywords.
      * @param addresses Optional list of address keywords.
-     * @param tags Optional list of tag keywords.
      * @param budgetMin Optional minimum budget.
      * @param budgetMax Optional maximum budget.
      * @param notes Optional list of note keywords.
      * @param status Optional list of status keywords.
-     * @param limit Optional maximum number of results to return.
-     * @param offset Optional number of results to skip before showing.
      */
     public FilterContactPredicate(Optional<List<String>> names,
                                   Optional<List<String>> phones,
                                   Optional<List<String>> emails,
                                   Optional<List<String>> addresses,
-                                  Optional<List<String>> tags,
                                   Optional<Long> budgetMin,
                                   Optional<Long> budgetMax,
                                   Optional<List<String>> notes,
-                                  Optional<List<String>> status,
-                                  Optional<Integer> limit,
-                                  Optional<Integer> offset) {
+                                  Optional<List<String>> status) {
         this.names = names;
         this.phones = phones;
         this.emails = emails;
         this.addresses = addresses;
-        this.tags = tags;
         this.budgetMin = budgetMin;
         this.budgetMax = budgetMax;
         this.notes = notes;
         this.status = status;
-        this.limit = limit;
-        this.offset = offset;
     }
 
     @Override
     public boolean test(Contact contact) {
-        return names.map(list ->
+        // If no filters are specified, don't match anything
+        if (names.isEmpty() && phones.isEmpty() && emails.isEmpty() && addresses.isEmpty()
+                && budgetMin.isEmpty() && budgetMax.isEmpty()
+                && notes.isEmpty() && status.isEmpty()) {
+            return true; // return all
+        }
+
+        // OR logic: return true if ANY field matches
+        boolean nameMatches = names.map(list ->
                         list.stream().anyMatch(k ->
                                 StringUtil.containsSubstringIgnoreCase(contact.getName().fullName, k)))
-                .orElse(true)
+                .orElse(false);
 
-                && phones.map(list ->
+        boolean phoneMatches = phones.map(list ->
                         list.stream().anyMatch(k ->
                                 StringUtil.containsSubstringIgnoreCase(contact.getPhone().value, k)))
-                .orElse(true)
+                .orElse(false);
 
-                && emails.map(list ->
+        boolean emailMatches = emails.map(list ->
                         list.stream().anyMatch(k ->
                                 StringUtil.containsSubstringIgnoreCase(contact.getEmail().value, k)))
-                .orElse(true)
+                .orElse(false);
 
-                && addresses.map(list ->
+        boolean addressMatches = addresses.map(list ->
                         list.stream().anyMatch(k ->
                                 StringUtil.containsSubstringIgnoreCase(contact.getAddress().value, k)))
-                .orElse(true)
+                .orElse(false);
 
-                && tags.map(list ->
-                        contact.getTags().stream().anyMatch(tag ->
-                                list.stream().anyMatch(k ->
-                                        StringUtil.containsSubstringIgnoreCase(tag.tagName, k))))
-                .orElse(true)
-                // person minimum is more than or equals to input filter minimum
-                && budgetMin.map(min -> Float.parseFloat(contact.getBudgetMin().value) >= min).orElse(true)
-                // person maximum is less than or equals to input filter maximum
-                && budgetMax.map(max -> Float.parseFloat(contact.getBudgetMax().value) <= max).orElse(true)
+        // person minimum is more than or equals to input filter minimum
+        boolean budgetMinMatches = budgetMin.map(min ->
+                Float.parseFloat(contact.getBudgetMin().value) >= min).orElse(false);
 
-                && notes.map(list ->
+        // person maximum is less than or equals to input filter maximum
+        boolean budgetMaxMatches = budgetMax.map(max ->
+                Float.parseFloat(contact.getBudgetMax().value) <= max).orElse(false);
+
+        boolean notesMatches = notes.map(list ->
                         list.stream().anyMatch(k ->
                                 StringUtil.containsSubstringIgnoreCase(contact.getNotes().value, k)))
-                .orElse(true)
+                .orElse(false);
 
-                && status.map(list ->
-                    list.stream().anyMatch(k -> {
-                        String targetStatus = contact.getStatus().value.trim().toLowerCase();
-                        String keyword = k.trim().toLowerCase();
-                        // exact match only (not substring) so that searching active, inactive is not returned
-                        return targetStatus.equals(keyword);
-                    })).orElse(true);
+        boolean statusMatches = status.map(list ->
+                list.stream().anyMatch(k -> {
+                    String targetStatus = contact.getStatus().value.trim().toLowerCase();
+                    String keyword = k.trim().toLowerCase();
+                    // exact match only (not substring) so that searching active, inactive is not returned
+                    return targetStatus.equals(keyword);
+                })).orElse(false);
+
+        // Return true if ANY field matches
+        return nameMatches || phoneMatches || emailMatches || addressMatches
+                || budgetMinMatches || budgetMaxMatches
+                || notesMatches || statusMatches;
     }
 
     @Override
@@ -122,19 +121,10 @@ public class FilterContactPredicate implements Predicate<Contact> {
                 && phones.equals(((FilterContactPredicate) other).phones)
                 && emails.equals(((FilterContactPredicate) other).emails)
                 && addresses.equals(((FilterContactPredicate) other).addresses)
-                && tags.equals(((FilterContactPredicate) other).tags)
                 && budgetMin.equals(((FilterContactPredicate) other).budgetMin)
                 && budgetMax.equals(((FilterContactPredicate) other).budgetMax)
                 && notes.equals(((FilterContactPredicate) other).notes)
                 && status.equals(((FilterContactPredicate) other).status));
-    }
-
-    public Optional<Integer> getLimit() {
-        return limit;
-    }
-
-    public Optional<Integer> getOffset() {
-        return offset;
     }
 
     @Override
@@ -146,7 +136,6 @@ public class FilterContactPredicate implements Predicate<Contact> {
         phones.ifPresent(p -> sb.append("phones=").append(p).append(", "));
         emails.ifPresent(e -> sb.append("emails=").append(e).append(", "));
         addresses.ifPresent(a -> sb.append("addresses=").append(a).append(", "));
-        tags.ifPresent(t -> sb.append("tags=").append(t).append(", "));
         budgetMin.ifPresent(min -> sb.append("budgetMin=").append(min).append(", "));
         budgetMax.ifPresent(max -> sb.append("budgetMax=").append(max).append(", "));
         notes.ifPresent(n -> sb.append("notes=").append(n).append(", "));

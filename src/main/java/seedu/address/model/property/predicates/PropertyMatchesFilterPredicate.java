@@ -24,14 +24,13 @@ public class PropertyMatchesFilterPredicate implements Predicate<Property> {
     private final String price; // integer string (no commas)
     private final String status; // equalsIgnoreCase to Status.toString()
     private final String owner; // substring of Owner.toString()
-    private final String listing; // sale or rent
 
     /**
      * Create a filter predicate which checks if a Property matches all filter conditions.
      */
     public PropertyMatchesFilterPredicate(
             String address, String postal, String type, String bedroom, String bathroom,
-            String floorarea, String price, String status, String owner, String listing) {
+            String floorarea, String price, String status, String owner) {
         this.address = norm(address);
         this.postal = norm(postal);
         this.type = norm(type);
@@ -41,7 +40,6 @@ public class PropertyMatchesFilterPredicate implements Predicate<Property> {
         this.price = norm(price == null ? null : price.trim());
         this.status = norm(status);
         this.owner = norm(owner);
-        this.listing = norm(listing);
     }
 
     /**
@@ -107,12 +105,7 @@ public class PropertyMatchesFilterPredicate implements Predicate<Property> {
         }
 
         // owner substring (case-insensitive; owner is an id-like string)
-        if (owner != null && !p.getOwner().toString().toLowerCase(Locale.ROOT).contains(owner)) {
-            return false;
-        }
-
-        // listing equal
-        if (listing != null && !p.getListing().toString().equalsIgnoreCase(listing)) {
+        if (owner != null && !p.getOwner().toString().toLowerCase(Locale.ROOT).equals(owner)) {
             return false;
         }
 
@@ -136,8 +129,7 @@ public class PropertyMatchesFilterPredicate implements Predicate<Property> {
                 && java.util.Objects.equals(floorarea, o.floorarea)
                 && java.util.Objects.equals(price, o.price)
                 && java.util.Objects.equals(status, o.status)
-                && java.util.Objects.equals(owner, o.owner)
-                && java.util.Objects.equals(listing, o.listing);
+                && java.util.Objects.equals(owner, o.owner);
     }
 
     /**
@@ -154,7 +146,6 @@ public class PropertyMatchesFilterPredicate implements Predicate<Property> {
         private String price;
         private String status;
         private String owner;
-        private String listing;
 
         /**
          * Sets the address substring filter (case-insensitive).
@@ -231,20 +222,11 @@ public class PropertyMatchesFilterPredicate implements Predicate<Property> {
         }
 
         /**
-         * Sets the listing filter.(sale/rent)
-         * Compared case-insensitively.
-         */
-        public Builder withListing(String s) {
-            this.listing = s;
-            return this;
-        }
-
-        /**
          * Builds a predicate with the current filters.
          */
         public PropertyMatchesFilterPredicate build() {
             return new PropertyMatchesFilterPredicate(
-                    address, postal, type, bedroom, bathroom, floorarea, price, status, owner, listing
+                    address, postal, type, bedroom, bathroom, floorarea, price, status, owner
             );
         }
     }

@@ -50,12 +50,12 @@ TheRealDeal Graphical User Interface (GUI) is organised into **five** key compon
    **Linux users:** Tutorial to download [here](https://se-education.org/guides/tutorials/javaInstallationLinux.html)<br>
    **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
 
-2. Download the latest `TheRealDeal.jar` file from [here](https://github.com/AY2526S1-CS2103T-W10-2/tp/releases).
+2. Download the latest `TheRealDeal.jar` file from [here](https://github.com/AY2526S1-CS2103T-W10-2/tp/releases). <br>Note that the name of the file might differ based on the exact version installed.
 
 3. Copy the file to the folder you want to use as the _home folder_ for TheRealDeal.
 
 4. Open a command terminal, `cd` into the folder you put the jar file in, and use the <br>
-   `java -jar TheRealDeal.jar` command to run the application.<br><br>
+   `java -jar (NAME_OF_FILE).jar` command to run the application.<br><br>
    A window similar to the picture below should appear in a few seconds. Note how the app contains some sample data.<br>
 
 ![Sample GUI Contacts](images/sampleGUIContacts.png)
@@ -97,10 +97,10 @@ To see the summary of every feature, click [here](#command-summary)
   e.g. in `addcontact n/NAME`, `NAME` is a parameter which can be used as `addcontact n/John Doe`.
 
 * Items in square brackets are optional.<br>
-  e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/buyer` or as `n/John Doe`.
+  e.g `n/NAME [notes/TEXT]` can be used as `n/John Doe notes/VIP` or as `n/John Doe`.
 
 * Items with `…`​ after them can be used multiple times. Items can be used zero times if they are also wrapped in square brackets.<br>
-  e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+  e.g. `[c/ID]...` can be used as ` ` (i.e. 0 times), `c/1`, `c/1 c/2` etc.
 
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
@@ -126,9 +126,9 @@ You can also press the <code>F1</code> key to open the help window
 
 Refer to [Command Summary](#command-summary) for the list of commands and their formats.
 
-### Listing all contacts and properties: `list`
+### List all contacts or properties: `list`
 
-Resets any active filters and shows the complete list of contacts or properties.
+Resets any active filters of both contact list and property list.
 
 Both contact and property cards display an ID field which represents the unique identifier of that contact or property.
 This ID will be used for other commands.
@@ -151,13 +151,13 @@ To switch to the list of properties type: <code>filterproperty</code>
 
 Adds a new contact into the system.
 
-Format: `addcontact n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [min/AMOUNT] [max/AMOUNT] [t/TAG]... [notes/TEXT] [status/STATUS]`
+Format: `addcontact n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [min/AMOUNT] [max/AMOUNT] [notes/TEXT] [status/STATUS]`
 
 * Duplicate contacts (same name and phone number) will not be allowed to be added.
 * Each new contact is assigned a unique ID automatically.
 
 Examples:
-* `addcontact n/Charlie p/91236789 a/982 Tampines Road t/buyer status/active`
+* `addcontact n/Charlie p/91236789 a/982 Tampines Road status/active`
 * `addcontact n/Xi Mi p/65738475 e/ximi@example.com min/800000 max/1000000`
 
 <div markdown="block" class="alert alert-info">
@@ -172,17 +172,15 @@ For more information on the parameters, click [here](#command-parameters).
 
 Edits an existing contact in the address book.
 
-Format: `editcontact CONTACT_ID [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [min/AMOUNT] [max/AMOUNT] [t/TAG]... [notes/TEXT] [status/STATUS]`
+Format: `editcontact CONTACT_ID [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [min/AMOUNT] [max/AMOUNT] [notes/TEXT] [status/STATUS]`
 
 * Edits the contact that has the `CONTACT_ID` as specified which refers to the ID number shown in the displayed contact list.
 * At least one of the optional fields must be provided.
-* When editing tags, the existing tags of the contact will be removed i.e adding of tags is not cumulative.
-* You can remove all the contact’s tags by typing `t/` without specifying any tags after it.
 * If the newly edited contact matches an existing contact (same name and phone number), it will be rejected.
 
 Examples:
 *  `editcontact 1 p/91234567 e/johndoe@example.com`
-*  `editcontact 2 n/Betsy Crower t/`
+*  `editcontact 2 n/Betsy Crower`
 
 <div markdown="block" class="alert alert-info">
 **:information_source: Important:**<br>
@@ -197,12 +195,14 @@ For more information on the parameters, click [here](#command-parameters).
 
 Filters the contacts based on the fields given.
 
-Format: `filtercontact [n/NAME...] [p/PHONE...] [e/EMAIL...] [a/ADDRESS...] [min/AMOUNT] [max/AMOUNT] [t/TAG...] [notes/TEXT...] [status/STATUS...] [limit/LIMIT] [offset/OFFSET]`
+Format: `filtercontact [n/NAME...] [p/PHONE...] [e/EMAIL...] [a/ADDRESS...] [min/AMOUNT] [max/AMOUNT] [notes/TEXT...] [status/STATUS...]`
 
 * The search is case-insensitive. e.g `hans` will match `Hans`.
 * Substring words will be matched e.g. `Bob` will match `Bobby`.
 * Contacts matching any one of the keyword will be shown (meeting only one of the criteria is enough).
 * Filtering is cumulative. Once you filter by name, you can filter by address subsequently.
+* Minimum budget will filter and show contacts with minimum budget more than or equals to the amount
+* Maximum budget will filter and show contacts with maximum budget less than or equals to the amount
 
 Examples:
 * `filtercontact a/yishun`
@@ -215,10 +215,14 @@ To reset all filters, you can type <code>list</code>
 
 <div markdown="span" class="alert alert-primary">
 :bulb: **Tip:**<br>
-To filter for the different parameters (Name contains `Tan` and `Alex`)<br>
-Type: `filtercontact n/Tan` followed by `filtercontact n/Alex`<br><br>
-To filter for different parameters at the same time (Name contains `Tan` or `Alex`)<br>
-Type: `filtercontact n/Tan Alex`
+To filter for: Name contains `Tan` and Address contains `Punggol`<br>
+Type: `filtercontact n/Tan` followed by `filtercontact a/Punggol`<br>
+
+To filter for: Name contains `Tan` or Address contains `Punggol`<br>
+Type: `filtercontact n/Tan a/Punggol`<br>
+
+To filter for: Address contains both `Serangoon` or `Tampines`<br>
+Type: `filtercontact a/Serangoon Tampines`
 </div>
 
 For more information on the parameters, click [here](#command-parameters).
@@ -242,7 +246,7 @@ Examples:
 
 <div markdown="block" class="alert alert-info">
 **:information_source: Important:**<br>
-You are able to edit delete contacts even if they are not currently shown on the GUI (but are stored in the address book). <br><br>
+You are able to delete valid contacts even if they are not currently shown on the GUI (but are stored in the address book). <br><br>
 i.e. If you use <code>filtercontact</code> to remove a person from the GUI, you can still delete that person using <code>deletecontact</code>.<br><br>
 Use the <code>list</code> command to see the changes.
 </div>
@@ -251,14 +255,14 @@ Use the <code>list</code> command to see the changes.
 
 Adds a property to the property list.
 
-Format: `addproperty a/ADDRESS p/POSTAL price/PRICE t/TYPE status/STATUS bed/BEDROOM bath/BATHROOM f/FLOOR_AREA l/LISTING o/CONTACT_ID`
+Format: `addproperty a/ADDRESS p/POSTAL price/PRICE t/TYPE s/STATUS bed/BEDROOM bath/BATHROOM f/FLOOR_AREA o/CONTACT_ID`
 
 * Duplicate properties (same address and postal code) will not be allowed to be added.
 * Each new property is assigned a unique ID automatically.
 
 Examples:
-* `addproperty a/123 Orchard Rd p/238888 price/1950000 t/condo status/unavailable bed/3 bath/2 f/1023 l/sale o/1`
-* `addproperty a/55 Pasir Ris Dr 1 p/519884 price/450000 t/hdb status/available bed/4 bath/2 f/1050 l/sale o/5`
+* `addproperty a/123 Orchard Rd p/238888 price/1950000 t/condo s/unavailable bed/3 bath/2 f/1023 o/1`
+* `addproperty a/55 Pasir Ris Dr 1 p/519884 price/450000 t/hdb s/available bed/4 bath/2 f/1050 o/5`
 
 For more information on the parameters, click [here](#command-parameters).
 
@@ -266,12 +270,13 @@ For more information on the parameters, click [here](#command-parameters).
 
 Filters the properties based on the fields given.
 
-Format: `filterproperty [a/ADDRESS] [p/POSTAL] [t/TYPE] [bed/BEDROOM] [bath/BATHROOM] [f/FLOORAREA] [status/STATUS] [price/PRICE] [l/LISTING] [o/CONTACT_ID] [limit/LIMIT] [offset/OFFSET]`
+Format: `filterproperty [a/ADDRESS] [p/POSTAL] [t/TYPE] [bed/BEDROOM] [bath/BATHROOM] [f/FLOORAREA] [s/STATUS] [price/PRICE] [o/CONTACT_ID]`
 
 * The search is case-insensitive. e.g `clementi` will match `Clementi`.
 * Substring property addresses will be matched e.g. `Clementi` will match `CLementi Avenue 8`.
 * Properties matching all the filters will be returned.
 * Filtering is cumulative. Once you filter by `BATHROOM`, you can filter by `TYPE` subsequently.
+* Price filter here is price ceiling filter. e.g. `price/PRICE 3000` will match all properties with price equal or less than 3000
 * Only one filter per field is accepted. e.g. `t/condo hdb` is not accepted.
 
 Examples:
@@ -292,7 +297,8 @@ Deletes a property identified by its unique ID.
 Format: `deleteproperty PROPERTY_ID`
 
 * Deletes the property with the specified `PROPERTY_ID`.
-* The command only works on properties currently visible in the property list panel. Use the [list](#listing-all-contacts-and-properties-list) command first if needed.
+* The UUID refers to the ID number shown in the displayed property list.
+* The command only works on properties currently visible in the property list panel. Use the [list](#list-all-contacts-or-properties-list) command first if needed.
 
 Examples:
 * `deleteproperty 12`
@@ -349,14 +355,16 @@ Links people to properties as buyers or sellers by their IDs.
 
 Format: `link c/CONTACT_ID... r/RELATIONSHIP p/PROPERTY_ID...`
 
+* This command links all input contacts to all input properties by the relationship specified.  
 * `RELATIONSHIP` **must be either `buyer` or `seller`**
 * `CONTACT_ID` and `PROPERTY_ID` refer to the IDs of the people and properties being linked respectively.
 * `link` can link any number of properties and people at once (excluding none).
 
 <div markdown="block" class="alert alert-info">
 **:information_source: Important:**<br>
-A contact cannot be linked to a property as both a buyer and seller.<br>
-An error will be thrown if this is attempted!
+An error will be thrown if any of the following is attempted!<br>
+Attempting to link a contact to a property as both a buyer and seller.<br>
+Attempting to link a contact to a property marked as unavailable.
 </div>
 
 For more information on the parameters, click [here](#command-parameters).
@@ -365,7 +373,7 @@ For more information on the parameters, click [here](#command-parameters).
 
 Unlinks people from properties as buyers and sellers, at the same time, by their IDs.
 
-Format: `link c/CONTACT_ID... p/PROPERTY_ID...`
+Format: `unlink c/CONTACT_ID... p/PROPERTY_ID...`
 
 * `CONTACT_ID` and `PROPERTY_ID` refer to the IDs of the people and properties being linked respectively.
 * `unlink` can unlink any number of properties and people at once (excluding none).
@@ -481,24 +489,24 @@ Furthermore, certain edits can cause the TheRealDeal to behave in unexpected way
 ## Command summary
 To see the detailed explanation of every feature, click [here](#features)<br>
 
-| Action                      | Format, Examples                                                                                                                                                                                                                                          |
-|-----------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Add Contact**             | `addcontact n/NAME p/PHONE [e/EMAIL] [a/ADDRESS] [min/AMOUNT] [max/AMOUNT] [t/TAG]... [notes/TEXT] [s/STATUS]` <br> <br> e.g., `addcontact n/Alex p/91423123 a/982 Yishun Road t/buyer s/active notes/wants near school min/100000 max/300000`            |
-| **Edit Contact**            | `editcontact ID [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [min/AMOUNT] [max/AMOUNT] [t/TAG]... [notes/TEXT] [s/STATUS]`<br> <br> e.g.,`editcontact 2 n/Bobby a/Block 321 Punggol`                                                                          |
-| **Filter Contact**          | `filtercontact [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [min/AMOUNT] [max/AMOUNT] [t/TAG]... [notes/TEXT] [s/STATUS] [limit/LIMIT] [offset/OFFSET]`<br> <br> e.g.,`filtercontact n/Tan s/active`                                                          |
-| **Delete Contact**          | `deletecontact ID`<br> <br> e.g., `deletecontact 3`                                                                                                                                                                                                       |
-| **Add Property**            | `addproperty a/ADDRESS p/POSTAL price/PRICE t/TYPE status/STATUS bed/BEDROOM bath/BATHROOM f/FLOOR_AREA l/LISTING o/CONTACT_ID`<br> <br> e.g., `addproperty a/123 Orchard Rd p/238888 price/1950000 t/condo s/unavailable bed/3 bath/2 f/1023 l/sale o/1` |
-| **Filter Property**         | `filterproperty [a/ADDRESS] [p/POSTAL] [t/TYPE] [bed/BEDROOM] [bath/BATHROOM] [f/FLOORAREA] [status/STATUS] [price/PRICE] [l/LISTING] [o/CONTACT_ID] [limit/LIMIT] [offset/OFFSET]`<br> <br> e.g., `filterproperty bed/2 price/2000`                      |
-| **Delete Property**         | `deleteproperty ID`<br> <br>  e.g., `deleteproperty 12`                                                                                                                                                                                                   |
-| **Mark Property as Sold**   | `sold p/ID...` <br><br> e.g. `sold p/1 p/2`                                                                                                                                                                                                               |
-| **Mark Property as Unsold** | `unsold p/ID...` <br><br> e.g. `unsold p/2 p/3`                                                                                                                                                                                                           |
-| **Link**                    | `link c/CONTACT_ID... r/RELATIONSHIP p/PROPERTY_ID...`<br> <br>  e.g., `link c/12 r/buyer p/12 p/4`                                                                                                                                                       |
-| **Unlink**                  | `unlink c/CONTACT_ID... p/PROPERTY_ID...`<br> <br> e.g., `unlink c/1 p/14 c/2`                                                                                                                                                                            |
-| **Show linked properties**  | `showproperties CONTACT_ID`<br> <br>  e.g., `showproperties 2`                                                                                                                                                                                            |
-| **Show linked contacts**    | `showcontacts PROPERTY_ID`<br> <br> e.g., `showcontacts 3`                                                                                                                                                                                                |
-| **List**                    | `list`                                                                                                                                                                                                                                                    |
-| **Clear**                   | `clear`                                                                                                                                                                                                                                                   |
-| **Help**                    | `help`                                                                                                                                                                                                                                                    |
+| Action                      | Format, Examples                                                                                                                                                                                                                                         |
+|-----------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Add Contact**             | `addcontact n/NAME p/PHONE [e/EMAIL] [a/ADDRESS] [min/AMOUNT] [max/AMOUNT] [notes/TEXT] [status/STATUS]` <br> <br> e.g., `addcontact n/Alex p/91423123 a/982 Yishun Road s/active notes/wants near school min/100000 max/300000`                         |
+| **Edit Contact**            | `editcontact ID [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [min/AMOUNT] [max/AMOUNT] [notes/TEXT] [status/STATUS]`<br> <br> e.g.,`editcontact 2 n/Bobby a/Block 321 Punggol`                                                                             |
+| **Filter Contact**          | `filtercontact [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [min/AMOUNT] [max/AMOUNT] [notes/TEXT] [status/STATUS]`<br> <br> e.g.,`filtercontact n/Tan s/active`                                                                                             |
+| **Delete Contact**          | `deletecontact ID`<br> <br> e.g., `deletecontact 3`                                                                                                                                                                                                    |
+| **Add Property**            | `addproperty a/ADDRESS p/POSTAL price/PRICE t/TYPE s/STATUS bed/BEDROOM bath/BATHROOM f/FLOOR_AREA o/CONTACT_ID`<br> <br> e.g., `addproperty a/123 Orchard Rd p/238888 price/1950000 t/condo s/unavailable bed/3 bath/2 f/1023 o/1` |
+| **Filter Property**         | `filterproperty [a/ADDRESS] [p/POSTAL] [t/TYPE] [bed/BEDROOM] [bath/BATHROOM] [f/FLOORAREA] [s/STATUS] [price/PRICE] [o/CONTACT_ID]`<br> <br> e.g., `filterproperty bed/2 price/2000`                                                   |
+| **Delete Property**         | `deleteproperty ID`<br> <br>  e.g., `deleteproperty 12`                                                                                                                                                                                                |
+| **Mark Property as Sold**   | `sold p/ID...` <br><br> e.g. `sold p/1 p/2`                                                                                                                                                                                                            |
+| **Mark Property as Unsold** | `unsold p/ID...` <br><br> e.g. `unsold p/2 p/3`                                                                                                                                                                                                        |
+| **Link**                    | `link c/CONTACT_ID... r/RELATIONSHIP p/PROPERTY_ID...`<br> <br>  e.g., `link c/12 r/buyer p/12 p/4`                                                                                                                                                      |
+| **Unlink**                  | `unlink c/CONTACT_ID... p/PROPERTY_ID...`<br> <br> e.g., `unlink c/1 p/14 c/2`                                                                                                                                                                           |
+| **Show linked properties**  | `showproperties CONTACT_ID`<br> <br>  e.g., `showproperties 2`                                                                                                                                                                                           |
+| **Show linked contacts**    | `showcontacts PROPERTY_ID`<br> <br> e.g., `showcontacts 3`                                                                                                                                                                                               |
+| **List**                    | `list`                                                                                                                                                                                                                                                   |
+| **Clear**                   | `clear`                                                                                                                                                                                                                                                  |
+| **Help**                    | `help`                                                                                                                                                                                                                                                   |
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -507,9 +515,9 @@ This table shows every parameter and prefix used in TheRealDeal.
 
 <div markdown="block" class="alert alert-info">
 **:information_source: Important:**<br>
-If the command states that the prefix is optional e.g. <code>n/NAME [t/TAG]</code><br>
+If the command states that the prefix is optional e.g. <code>n/NAME [notes/TEXT]</code><br>
 an empty parameter will be the same as not having the prefix<br>
-e.g. <code>n/NAME t/</code> is the same as <code>n/NAME</code><br><br>
+e.g. <code>n/NAME notes/</code> is the same as <code>n/NAME</code><br><br>
 All parameters that expect integers must be entered as **plain digits** — without commas, dots, spaces, or any other separators.
 </div>
 
@@ -523,7 +531,6 @@ Related commands: [`addcontact`](#adding-a-contact--addcontact), [`filtercontact
 | Phone Number   | p/      | Should only contain numbers (0-9), and it should be at least 3 digits long                                                  |
 | Email          | e/      | Should follow the format: name@example.com                                                                                  |
 | Address        | a/      | Can take any value. Maximum of 200 characters                                                                               |
-| Tag            | t/      | Should only be these (case-insensitive): buyer, seller                                                                      |
 | Minimum Budget | min/    | Should be a non-negative integer. If not provided, will have a default of $0                                                |
 | Maximum Budget | max/    | Should be a non-negative integer and more than the minimum budget. If not provided, will have a default of $200,000,000,000 |
 | Notes          | notes/  | Can take any value. Maximum of 500 characters                                                                               |
@@ -533,30 +540,27 @@ Related commands: [`addcontact`](#adding-a-contact--addcontact), [`filtercontact
 These are prefixes for purely property related commands.
 Related commands: [`addproperty`](#adding-a-property-addproperty), [`filterproperty`](#filtering-properties--filterproperty)
 
-| Parameter      | Prefix  | Constraints                                                                                                          |
-|----------------|---------|----------------------------------------------------------------------------------------------------------------------|
-| Address        | a/      | Should only contain alphanumerical 5 to 200 characters (a-z, A-Z, 0-9) or spaces, with at least 1 letter and 1 digit |
-| Postal code    | p/      | Should only contain numbers (0-9), and it should be exactly least 6 digits long. (Singaporean Postal Code)           |
-| Price          | price/  | Should be an integer from 1 to 1 trillion                                                                            |
-| Type           | t/      | Should only be these (case-insensitive): hdb, condo, landed, apartment, office, others                               |
-| Status         | status/ | Should only be these (case-insensitive): available, unavailable                                                      |
-| Bedroom count  | bed/    | Should be an integer from 0 to 20                                                                                    |
-| Bathroom count | bath/   | Should be an integer from 0 to 20                                                                                    |
-| Floor area     | f/      | Should be an integer from 50 to 100000                                                                               |
-| Listing        | l/      | Should only be these (case-insensitive): sale                                                                        |
-| Owner ID       | o/      | Should be a valid Contact ID                                                                                         |
+| Parameter      | Prefix  | Constraints                                                                                                       |
+|----------------|---------|-------------------------------------------------------------------------------------------------------------------|
+| Address        | a/      | Should only contain alphanumerical 5 to 200 characters (a-z, A-Z, 0-9) or spaces, with at least 1 letter and 1 digit|
+| Postal code    | p/      | Should only contain numbers (0-9), and it should be exactly least 6 digits long. (Singaporean Postal Code)        |
+| Price          | price/  | Should be an integer from 1 to 1 trillion                                                                         |
+| Type           | t/      | Should only be these (case-insensitive): hdb, condo, landed, apartment, office, others                            |
+| Status         | s/      | Should only be these (case-insensitive): available, unavailable                                                   |
+| Bedroom count  | bed/    | Should be an integer from 0 to 20                                                                                 |
+| Bathroom count | bath/   | Should be an integer from 0 to 20                                                                                 |
+| Floor area     | f/      | Should be an integer from 50 to 100000                                                                            |
+| Owner ID       | o/      | Should be a valid Contact UUID                                                                                    |
 
 ### Others
 These are prefixes that are used over multiple commands.
 Related commands: [`filtercontact`](#filtering-contacts--filtercontact), [`filterproperty`](#filtering-properties--filterproperty), [`sold`](#mark-property-as-sold--sold), [`unsold`](#mark-property-as-unsold--unsold), [`link`](#linking-people-and-properties--link), [`unlink`](#unlinking-people-and-properties--unlink), [`showproperties`](#showing-properties-associated-with-a-contact--showproperties), [`showcontacts`](#showing-contacts-associated-with-a-property--showcontacts)
 
-| Parameter     | Prefix  | Constraints                                            |
-|---------------|---------|--------------------------------------------------------|
-| Limit         | limit/  | An integer more than 0                                 |
-| Offset        | offset/ | An integer more than or equals to 0                    |
-| Contact ID    | c/      | Should be a valid Contact ID                           |
-| Property ID   | p/      | Should be a valid Property ID                          |
-| Relationship  | r/      | Should only be these (case-insensitive): buyer, seller |
+| Parameter      | Prefix  | Constraints                                            |
+|----------------|---------|--------------------------------------------------------|
+| Contact UUID   | c/      | Should be a valid Contact UUID                         |
+| Property UUID  | p/      | Should be a valid Property UUID                        |
+| Relationship   | r/      | Should only be these (case-insensitive): buyer, seller |
 
 ## Basic Command Terminal Navigation
 1. Determine the address of the folder where TheRealDeal is installed.

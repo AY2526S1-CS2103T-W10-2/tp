@@ -8,11 +8,6 @@ import static seedu.address.model.uuid.Uuid.StoredItem.PROPERTY;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CONTACT;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
-
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -20,11 +15,9 @@ import seedu.address.model.contact.ContactAddress;
 import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Name;
 import seedu.address.model.contact.Phone;
-import seedu.address.model.contact.Tag;
 import seedu.address.model.property.Bathroom;
 import seedu.address.model.property.Bedroom;
 import seedu.address.model.property.FloorArea;
-import seedu.address.model.property.Listing;
 import seedu.address.model.property.Owner;
 import seedu.address.model.property.Postal;
 import seedu.address.model.property.Price;
@@ -46,7 +39,6 @@ public class ParserUtilTest {
     private static final String INVALID_BEDROOM = "-1";
     private static final String INVALID_BATHROOM = "-1";
     private static final String INVALID_FLOOR_AREA = "49";
-    private static final String INVALID_LISTING = "lease";
     private static final String INVALID_OWNER = "owner 1";
 
     private static final String VALID_NAME = "Rachel Walker";
@@ -64,7 +56,6 @@ public class ParserUtilTest {
     private static final String VALID_BEDROOM = "3";
     private static final String VALID_BATHROOM = "2";
     private static final String VALID_FLOOR_AREA = "120";
-    private static final String VALID_LISTING = "sale";
     private static final String VALID_OWNER = "owner123";
     private static final Uuid VALID_PROPERTY_ID = new Uuid(1, PROPERTY);
 
@@ -186,29 +177,6 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseTag_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseTag(null));
-    }
-
-    @Test
-    public void parseTag_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseTag(INVALID_TAG));
-    }
-
-    @Test
-    public void parseTag_validValueWithoutWhitespace_returnsTag() throws Exception {
-        Tag expectedTag = new Tag(VALID_TAG_1);
-        assertEquals(expectedTag, ParserUtil.parseTag(VALID_TAG_1));
-    }
-
-    @Test
-    public void parseTag_validValueWithWhitespace_returnsTrimmedTag() throws Exception {
-        String tagWithWhitespace = WHITESPACE + VALID_TAG_1 + WHITESPACE;
-        Tag expectedTag = new Tag(VALID_TAG_1);
-        assertEquals(expectedTag, ParserUtil.parseTag(tagWithWhitespace));
-    }
-
-    @Test
     public void parsePropertyId_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> ParserUtil.parsePropertyId(null));
     }
@@ -222,29 +190,6 @@ public class ParserUtilTest {
     public void parsePropertyId_validValueWithWhitespace_returnsTrimmedId() throws Exception {
         String propertyIdWithWhitespace = WHITESPACE + "1" + WHITESPACE;
         assertEquals(VALID_PROPERTY_ID, ParserUtil.parsePropertyId(propertyIdWithWhitespace));
-    }
-
-    @Test
-    public void parseTags_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseTags(null));
-    }
-
-    @Test
-    public void parseTags_collectionWithInvalidTags_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseTags(Arrays.asList(VALID_TAG_1, INVALID_TAG)));
-    }
-
-    @Test
-    public void parseTags_emptyCollection_returnsEmptySet() throws Exception {
-        assertTrue(ParserUtil.parseTags(Collections.emptyList()).isEmpty());
-    }
-
-    @Test
-    public void parseTags_collectionWithValidTags_returnsTagSet() throws Exception {
-        Set<Tag> actualTagSet = ParserUtil.parseTags(Arrays.asList(VALID_TAG_1, VALID_TAG_2));
-        Set<Tag> expectedTagSet = new HashSet<>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
-
-        assertEquals(expectedTagSet, actualTagSet);
     }
 
     @Test
@@ -434,29 +379,6 @@ public class ParserUtilTest {
         String withWhitespace = WHITESPACE + VALID_FLOOR_AREA + WHITESPACE;
         FloorArea expectedFloorArea = new FloorArea(VALID_FLOOR_AREA);
         assertEquals(expectedFloorArea, ParserUtil.parseFloorArea(withWhitespace));
-    }
-
-    @Test
-    public void parseListing_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseListing(null));
-    }
-
-    @Test
-    public void parseListing_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseListing(INVALID_LISTING));
-    }
-
-    @Test
-    public void parseListing_validValue_returnsListing() throws Exception {
-        Listing expectedListing = new Listing(VALID_LISTING);
-        assertEquals(expectedListing, ParserUtil.parseListing(VALID_LISTING));
-    }
-
-    @Test
-    public void parseListing_validValueWithWhitespace_returnsTrimmedListing() throws Exception {
-        String withWhitespace = WHITESPACE + VALID_LISTING + WHITESPACE;
-        Listing expectedListing = new Listing(VALID_LISTING);
-        assertEquals(expectedListing, ParserUtil.parseListing(withWhitespace));
     }
 
     @Test

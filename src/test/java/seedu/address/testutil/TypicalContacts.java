@@ -8,8 +8,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_BUYER;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_TENANT;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,7 +30,6 @@ public class TypicalContacts {
             .withBudgetMax("1000")
             .withNotes("No notes")
             .withStatus("Active")
-            .withTags("buyer")
             .build();
 
     public static final Contact BENSON = new ContactBuilderUtil().withName("Benson Meier")
@@ -44,7 +41,6 @@ public class TypicalContacts {
             .withBudgetMax("2000")
             .withNotes("Owes money")
             .withStatus("Active")
-            .withTags("buyer", "seller")
             .build();
 
     public static final Contact CARL = new ContactBuilderUtil().withName("Carl Kurz")
@@ -67,7 +63,6 @@ public class TypicalContacts {
             .withBudgetMax("3000")
             .withNotes("Friend from work")
             .withStatus("Active")
-            .withTags("buyer")
             .build();
 
     public static final Contact ELLE = new ContactBuilderUtil().withName("Elle Meyer")
@@ -136,7 +131,6 @@ public class TypicalContacts {
             .withBudgetMax("1000")
             .withNotes("Friend from school")
             .withStatus("Active")
-            .withTags(VALID_TAG_BUYER)
             .build();
 
     public static final Contact BOB = new ContactBuilderUtil().withName(VALID_NAME_BOB)
@@ -148,7 +142,6 @@ public class TypicalContacts {
             .withBudgetMax("2000")
             .withNotes("Brother")
             .withStatus("Inactive")
-            .withTags(VALID_TAG_BUYER, VALID_TAG_TENANT)
             .build();
 
     private TypicalContacts() {} // prevents instantiation

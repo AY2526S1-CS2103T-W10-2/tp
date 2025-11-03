@@ -1,13 +1,7 @@
 package seedu.address.ui;
 
-import static seedu.address.logic.parser.ParserUtil.DEFAULT_BUDGET_MAX;
-import static seedu.address.logic.parser.ParserUtil.DEFAULT_BUDGET_MIN;
-
-import java.util.Comparator;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.contact.Contact;
@@ -45,8 +39,6 @@ public class ContactCard extends UiPart<Region> {
     @FXML
     private Label email;
     @FXML
-    private FlowPane tags;
-    @FXML
     private Label budgetMin;
     @FXML
     private Label budgetMax;
@@ -70,6 +62,8 @@ public class ContactCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(contact.getName().fullName + " (ID: " + contact.getUuid().getValue() + ")");
         phone.setText("Phone: " + contact.getPhone().value);
+        budgetMin.setText("Budget Minimum: $" + contact.getBudgetMin().toString());
+        budgetMax.setText("Budget Maximum: $" + contact.getBudgetMax().toString());
 
         // Hide the separate UUID label since we combined it with name
         hideLabel(uuid);
@@ -79,14 +73,6 @@ public class ContactCard extends UiPart<Region> {
         setLabelIfNotEmpty(address, "Address: ", contact.getAddress().value);
         setLabelIfNotEmpty(notes, "Notes: ", contact.getNotes().toString());
         setLabelIfNotEmpty(status, "Status: ", contact.getStatus().toString());
-
-        // Budget fields with default value checks
-        setLabelIfNotDefault(budgetMin, "Budget Minimum: $", contact.getBudgetMin().toString(), DEFAULT_BUDGET_MIN);
-        setLabelIfNotDefault(budgetMax, "Budget Maximum: $", contact.getBudgetMax().toString(), DEFAULT_BUDGET_MAX);
-
-
-        // Tags
-        setTagsIfNotEmpty(contact);
 
         // Property IDs
         setIdsIfNotEmpty(buyingIds, "Buying Property IDs: ", contact.getBuyingPropertyIds());
@@ -115,38 +101,6 @@ public class ContactCard extends UiPart<Region> {
             hideLabel(label);
         } else {
             label.setText(prefix + value);
-        }
-    }
-
-    /**
-     * Sets the label text if the value is not the default value, otherwise hides the label.
-     *
-     * @param label The label to set.
-     * @param prefix The prefix text
-     * @param value The value to display.
-     * @param defaultValue The default value to check against.
-     */
-    private void setLabelIfNotDefault(Label label, String prefix, String value, String defaultValue) {
-        if (value.equals(defaultValue)) {
-            hideLabel(label);
-        } else {
-            label.setText(prefix + value);
-        }
-    }
-
-    /**
-     * Sets tags if not empty, otherwise hides the tags
-     *
-     * @param contact The contact whose tags to display.
-     */
-    private void setTagsIfNotEmpty(Contact contact) {
-        if (contact.getTags().isEmpty()) {
-            tags.setVisible(false);
-            tags.setManaged(false);
-        } else {
-            contact.getTags().stream()
-                    .sorted(Comparator.comparing(tag -> tag.tagName))
-                    .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
         }
     }
 

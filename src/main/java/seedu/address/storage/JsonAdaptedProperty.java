@@ -15,7 +15,6 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.property.Bathroom;
 import seedu.address.model.property.Bedroom;
 import seedu.address.model.property.FloorArea;
-import seedu.address.model.property.Listing;
 import seedu.address.model.property.Owner;
 import seedu.address.model.property.Postal;
 import seedu.address.model.property.Price;
@@ -37,7 +36,6 @@ class JsonAdaptedProperty {
     private final String bathroom;
     private final String bedroom;
     private final String floorArea;
-    private final String listing;
     private final String postal;
     private final String price;
     private final String status;
@@ -55,7 +53,6 @@ class JsonAdaptedProperty {
                                @JsonProperty("bathroom") String bathroom,
                                @JsonProperty("bedroom") String bedroom,
                                @JsonProperty("floorArea") String floorArea,
-                               @JsonProperty("listing") String listing,
                                @JsonProperty("postal") String postal,
                                @JsonProperty("price") String price,
                                @JsonProperty("status") String status,
@@ -68,7 +65,6 @@ class JsonAdaptedProperty {
         this.bathroom = bathroom;
         this.bedroom = bedroom;
         this.floorArea = floorArea;
-        this.listing = listing;
         this.postal = postal;
         this.price = price;
         this.status = status;
@@ -91,7 +87,6 @@ class JsonAdaptedProperty {
         bathroom = source.getBathroom().value;
         bedroom = source.getBedroom().value;
         floorArea = source.getFloorArea().value;
-        listing = source.getListing().value;
         postal = source.getPostal().value;
         price = source.getPrice().value;
         status = source.getStatus().value;
@@ -157,15 +152,6 @@ class JsonAdaptedProperty {
             throw new IllegalValueException(FloorArea.MESSAGE_CONSTRAINTS);
         }
         final FloorArea modelFloorArea = new FloorArea(floorArea);
-        if (listing == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    Listing.class.getSimpleName()));
-        }
-        String trimmedListing = listing.trim();
-        if (!Listing.isValidListing(trimmedListing)) {
-            throw new IllegalValueException(Listing.MESSAGE_CONSTRAINTS);
-        }
-        final Listing modelListing = new Listing(trimmedListing);
         if (postal == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Postal.class.getSimpleName()));
@@ -219,7 +205,7 @@ class JsonAdaptedProperty {
         }
         final Set<Uuid> modelSellingContactIds = new HashSet<>(tempSellingContactIds);
 
-        return new Property(modelUuid, modelAddress, modelBathroom, modelBedroom, modelFloorArea, modelListing,
+        return new Property(modelUuid, modelAddress, modelBathroom, modelBedroom, modelFloorArea,
                 modelPostal, modelPrice, modelStatus, modelType, modelOwner,
                 modelBuyingContactIds, modelSellingContactIds);
     }

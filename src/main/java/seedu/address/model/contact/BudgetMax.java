@@ -9,8 +9,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class BudgetMax {
 
-    public static final String MESSAGE_CONSTRAINTS = "Maximum Budget should be a non-negative integer.";
-    public static final String VALIDATION_REGEX = "^\\d*$"; // zero or more digits (allows empty string)
+    public static final String MESSAGE_CONSTRAINTS =
+            "Maximum Budget should be a non-negative integer below than or equals to 200 million";
+    public static final String VALIDATION_REGEX = "^\\d+$"; // allows empty string and leading zeros
 
     public final String value;
 
@@ -22,14 +23,22 @@ public class BudgetMax {
     public BudgetMax(String budgetMax) {
         requireNonNull(budgetMax);
         checkArgument(isValidBudgetMax(budgetMax), MESSAGE_CONSTRAINTS);
-        value = budgetMax;
+        value = String.valueOf(Long.parseLong(budgetMax)); // remove leading zeros
     }
 
     /**
      * Returns true if a given integer is a valid maximum budget.
      */
     public static boolean isValidBudgetMax(String test) {
-        return test != null && test.matches(VALIDATION_REGEX);
+        if (test == null || !test.matches(VALIDATION_REGEX)) {
+            return false;
+        }
+        try {
+            long value = Long.parseLong(test);
+            return value >= 0 && value <= 200_000_000_000L; // range check
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
     @Override

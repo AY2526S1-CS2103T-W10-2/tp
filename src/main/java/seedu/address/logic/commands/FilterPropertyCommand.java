@@ -1,13 +1,10 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_LIMIT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_OFFSET;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_BATHROOM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_BEDROOM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_FLOOR_AREA;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_LISTING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_OWNER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_POSTAL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_PRICE;
@@ -39,28 +36,20 @@ public class FilterPropertyCommand extends Command {
             + "[" + PREFIX_PROPERTY_FLOOR_AREA + "FLOORAREA] "
             + "[" + PREFIX_PROPERTY_STATUS + "STATUS] "
             + "[" + PREFIX_PROPERTY_PRICE + "PRICE] "
-            + "[" + PREFIX_PROPERTY_LISTING + "LISTING] "
-            + "[" + PREFIX_PROPERTY_OWNER + "CONTACT_ID] "
-            + "[" + PREFIX_LIMIT + "LIMIT] "
-            + "[" + PREFIX_OFFSET + "OFFSET]\n"
+            + "[" + PREFIX_PROPERTY_OWNER + "CONTACT_ID]\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_PROPERTY_POSTAL + "123000 "
             + PREFIX_PROPERTY_BEDROOM + "2 "
             + PREFIX_PROPERTY_BATHROOM + "3 "
-            + PREFIX_PROPERTY_PRICE + "500000 "
-            + PREFIX_PROPERTY_LISTING + "sale";
+            + PREFIX_PROPERTY_PRICE + "500000";
 
     private final PropertyMatchesFilterPredicate predicate;
-    private final int limit;
-    private final int offset;
 
     /**
      * Creates an FilterPropertyCommand to filter {@code Property} with given predicate.
      */
-    public FilterPropertyCommand(PropertyMatchesFilterPredicate predicate, int limit, int offset) {
+    public FilterPropertyCommand(PropertyMatchesFilterPredicate predicate) {
         this.predicate = predicate;
-        this.limit = limit;
-        this.offset = offset;
     }
 
     @Override
@@ -73,20 +62,10 @@ public class FilterPropertyCommand extends Command {
 
         int total = allMatches.size();
 
-        //Check if there is input limit, else it will equal to total.
-        int limit = this.limit;
-        if (limit == Integer.MAX_VALUE) {
-            limit = total;
-        }
-
-        int start = Math.min(offset, total);
-        int endExclusive = Math.min(offset + limit, total);
-        List<Property> page = allMatches.subList(start, endExclusive);
-
-        model.updateFilteredPropertyList(page::contains);
+        model.updateFilteredPropertyList(allMatches::contains);
 
         // Build “X properties matched”
-        String msg = String.format("%d properties matched", Math.min(limit, Math.max(total - offset, 0)));
+        String msg = String.format("%d properties matched", total);
 
         showPropertiesView();
 
@@ -97,8 +76,6 @@ public class FilterPropertyCommand extends Command {
     public boolean equals(Object other) {
         return other == this
                 || (other instanceof FilterPropertyCommand
-                && predicate.equals(((FilterPropertyCommand) other).predicate)
-                && limit == ((FilterPropertyCommand) other).limit
-                && offset == ((FilterPropertyCommand) other).offset);
+                && predicate.equals(((FilterPropertyCommand) other).predicate));
     }
 }

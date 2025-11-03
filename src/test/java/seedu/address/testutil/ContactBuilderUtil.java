@@ -14,8 +14,6 @@ import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Name;
 import seedu.address.model.contact.Notes;
 import seedu.address.model.contact.Phone;
-import seedu.address.model.contact.Tag;
-import seedu.address.model.util.SampleDataUtil;
 import seedu.address.model.uuid.Uuid;
 
 /**
@@ -29,7 +27,7 @@ public class ContactBuilderUtil {
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
     public static final String DEFAULT_BUDGET_MIN = "0";
-    public static final String DEFAULT_BUDGET_MAX = "1000";
+    public static final String DEFAULT_BUDGET_MAX = String.valueOf(200_000_000_000L);
     public static final String DEFAULT_NOTES = "No notes";
     public static final String DEFAULT_STATUS = "Active";
 
@@ -37,7 +35,6 @@ public class ContactBuilderUtil {
     private Phone phone;
     private Email email;
     private ContactAddress address;
-    private Set<Tag> tags;
     private BudgetMin budgetMin;
     private BudgetMax budgetMax;
     private Notes notes;
@@ -55,7 +52,6 @@ public class ContactBuilderUtil {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         address = new ContactAddress(DEFAULT_ADDRESS);
-        tags = new HashSet<>();
         budgetMin = new BudgetMin(DEFAULT_BUDGET_MIN);
         budgetMax = new BudgetMax(DEFAULT_BUDGET_MAX);
         notes = new Notes(DEFAULT_NOTES);
@@ -73,7 +69,6 @@ public class ContactBuilderUtil {
         phone = new Phone(contactToCopy.getPhone().value);
         email = new Email(contactToCopy.getEmail().value);
         address = new ContactAddress(contactToCopy.getAddress().value);
-        tags = new HashSet<>(contactToCopy.getTags());
         budgetMin = new BudgetMin(contactToCopy.getBudgetMin().value);
         budgetMax = new BudgetMax(contactToCopy.getBudgetMax().value);
         notes = new Notes(contactToCopy.getNotes().value);
@@ -95,14 +90,6 @@ public class ContactBuilderUtil {
      */
     public ContactBuilderUtil withName(String name) {
         this.name = new Name(name);
-        return this;
-    }
-
-    /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Contact} that we are building.
-     */
-    public ContactBuilderUtil withTags(String ... tags) {
-        this.tags = SampleDataUtil.getTagSet(tags);
         return this;
     }
 
@@ -190,7 +177,6 @@ public class ContactBuilderUtil {
                 phone,
                 email,
                 address,
-                tags,
                 budgetMin,
                 budgetMax,
                 notes,

@@ -67,6 +67,8 @@ public class LinkCommand extends Command {
 
         linkDescriptor.throwExceptionIfLinked(lastShownContactList, lastShownPropertyList);
 
+        linkDescriptor.throwExceptionIfAnyPropertyIsUnavailable(lastShownPropertyList);
+
         List<Contact> targetContacts = linkDescriptor.getContactsInList(lastShownContactList);
         List<Property> targetProperties = linkDescriptor.getPropertiesInList(lastShownPropertyList);
 
@@ -273,6 +275,12 @@ public class LinkCommand extends Command {
             }
             if (hasAnyContactLinkedAsSeller || hasAnyPropertyLinkedBySeller) {
                 throw new CommandException(Messages.MESSAGE_LINKING_ALREADY_LINKED_SELLER);
+            }
+        }
+
+        private void throwExceptionIfAnyPropertyIsUnavailable(List<Property> propertyList) throws CommandException {
+            if (getPropertiesInList(propertyList).stream().anyMatch(property -> property.getStatus().isUnavailable())) {
+                throw new CommandException(Messages.MESSAGE_LINKING_TO_UNAVAILABLE_PROPERTY);
             }
         }
 
