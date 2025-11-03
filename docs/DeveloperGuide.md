@@ -602,7 +602,7 @@ Related commands: [`addcontact`](#add-command-addcontact), [`filtercontact`](#fi
 
 | Parameter      | Prefix  | Constraints                                                                                                                |
 |----------------|---------|----------------------------------------------------------------------------------------------------------------------------|
-| Name           | n/      | Should only contain alphabetical characters (a-z, A-Z, 0-9) or spaces                                                      |
+| Name           | n/      | Should only contain alphanumerical characters (a-z, A-Z, 0-9) or spaces                                                    |
 | Phone Number   | p/      | Should only contain numbers (0-9), and it should be at least 3 digits long                                                 |
 | Email          | e/      | Should follow the format: name@example.com                                                                                 |
 | Address        | a/      | Can take any value. Maximum of 200 characters                                                                              |
@@ -616,18 +616,18 @@ Related commands: [`addcontact`](#add-command-addcontact), [`filtercontact`](#fi
 These are prefixes for purely property related commands.
 Related commands: [`addproperty`](#addpropertycommand-addproperty), [`filterproperty`](#filter-property-command-filterproperty)
 
-| Parameter      | Prefix  | Constraints                                                                                                        |
-|----------------|---------|--------------------------------------------------------------------------------------------------------------------|
+| Parameter      | Prefix  | Constraints                                                                                                       |
+|----------------|---------|-------------------------------------------------------------------------------------------------------------------|
 | Address        | a/      | Should only contain alphabetical 5 to 200 characters (a-z, A-Z, 0-9) or spaces, with at least 1 letter and 1 digit |
-| Postal code    | p/      | Should only contain numbers (0-9), and it should be exactly least 6 digits long. (Singaporean Postal Code)         |
-| Price          | price/  | Should be an integer from 1 to 1,000,000,000,000                                                                   |
-| Type           | t/      | Should only be these (case-insensitive): hdb, condo, landed, apartment, office, others                             |
-| Status         | status/ | Should only be these (case-insensitive): available, unavailable                                                    |
-| Bedroom count  | bed/    | Should be an integer from 0 to 20                                                                                  |
-| Bathroom count | bath/   | Should be an integer from 0 to 20                                                                                  |
-| Floor area     | f/      | Should be an integer from 50 to 100,000                                                                            |
-| Listing        | l/      | Should only be these (case-insensitive): sale                                                                      |
-| Owner ID       | o/      | Should be a valid Contact UUID                                                                                     |
+| Postal code    | p/      | Should only contain numbers (0-9), and it should be exactly least 6 digits long. (Singaporean Postal Code)        |
+| Price          | price/  | Should be an integer from 1 to 1 trillion                                                                         |
+| Type           | t/      | Should only be these (case-insensitive): hdb, condo, landed, apartment, office, others                            |
+| Status         | status/ | Should only be these (case-insensitive): available, unavailable                                                   |
+| Bedroom count  | bed/    | Should be an integer from 0 to 20                                                                                 |
+| Bathroom count | bath/   | Should be an integer from 0 to 20                                                                                 |
+| Floor area     | f/      | Should be an integer from 50 to 100000                                                                            |
+| Listing        | l/      | Should only be these (case-insensitive): sale                                                                     |
+| Owner ID       | o/      | Should be a valid Contact UUID                                                                                    |
 
 ### Others
 These are prefixes that are used over multiple commands.

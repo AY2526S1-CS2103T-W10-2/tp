@@ -132,7 +132,7 @@ public class FilterPropertyCommandParser implements Parser<FilterPropertyCommand
 
         Optional<String> maybeFloorArea = argMultimap.getValue(PREFIX_PROPERTY_FLOOR_AREA);
         if (maybeFloorArea.isPresent()) {
-            String t = maybeFloorArea.get().replace(",", "").trim();
+            String t = maybeFloorArea.get().trim();
             if (!FloorArea.isValidFloorArea(t)) {
                 throw new ParseException(FloorArea.MESSAGE_CONSTRAINTS);
             }
@@ -141,7 +141,7 @@ public class FilterPropertyCommandParser implements Parser<FilterPropertyCommand
 
         Optional<String> maybePrice = argMultimap.getValue(PREFIX_PROPERTY_PRICE);
         if (maybePrice.isPresent()) {
-            String t = maybePrice.get().replace(",", "").trim();
+            String t = maybePrice.get().trim();
             if (!Price.isValidPrice(t)) {
                 throw new ParseException(Price.MESSAGE_CONSTRAINTS);
             }
