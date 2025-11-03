@@ -28,6 +28,7 @@ Warns you of potential issues to should watch out for.
 </div>
 
 --------------------------------------------------------------------------------------------------------------------
+<div style="page-break-after: always;"></div>
 
 ## GUI Overview
 
@@ -76,7 +77,7 @@ Some example commands you can try:
 
 * `addcontact n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
 
-* `deletecontact 3` : Deletes the 3rd contact shown in the current list.
+* `deletecontact 3` : Deletes the contact with ID: 3 shown in the current list.
 
 * `clear` : Deletes all contacts and properties.
 
@@ -141,10 +142,7 @@ To switch to the list of contacts type: <code>filtercontact</code><br>
 To switch to the list of properties type: <code>filterproperty</code>
 </div>
 
-**Contact List**
-![list result contacts](images/listResultContacts.png)
-
-**Property List**
+**List Command done while on Property List**
 ![list result property](images/listResultProperties.png)
 
 ### Adding a contact : `addcontact`
@@ -234,7 +232,7 @@ Deletes the specified contact from the address book.
 Format: `deletecontact CONTACT_ID`
 
 * Deletes the contact with the specified `CONTACT_ID`.
-* The command only works on contacts currently visible in the property list panel. <br>Use the [list](#listing-all-contacts-and-properties-list) command first if needed.
+* The ID refers to the ID number of the contact shown in the displayed contact list.
 
 Examples:
 * `deletecontact 1`
@@ -436,12 +434,12 @@ Format: `exit`
 </div>
 
 
-### Saving the data
+## Saving the data
 
 TheRealDeal data is saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
 
-### Editing the data file
+## Editing the data file
 
 TheRealDeal data is saved automatically as two JSON files
 1. `[JAR file location]/data/addressbook.json`
@@ -566,7 +564,7 @@ Related commands: [`filtercontact`](#filtering-contacts--filtercontact), [`filte
 1. Determine the address of the folder where TheRealDeal is installed.
 2. Open "Powershell" on Windows or "Terminal" on MacOS and Linux.
 3. Type `cd ADDRESS`, where `ADDRESS` is the address where TheRealDeal is installed, and hit enter.
-4. Type `java -jar TheRealDeal.jar`, and hit enter, to run the application.
+4. Type `java -jar (NAME_OF_FILE).jar`, and hit enter, to run the application. <br>Replace `(NAME_OF_FILE)` with the name of the file downloaded. Note that the name of the file might differ based on the exact version installed.
 
 ## Glossary of Terms
 

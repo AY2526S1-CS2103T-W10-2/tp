@@ -2,7 +2,7 @@
 
 [![Java CI](https://github.com/AY2526S1-CS2103T-W10-2/tp/actions/workflows/gradle.yml/badge.svg?branch=master)](https://github.com/AY2526S1-CS2103T-W10-2/tp/actions/workflows/gradle.yml)
 [![codecov](https://codecov.io/github/AY2526S1-CS2103T-W10-2/tp/graph/badge.svg?token=UUW9ALD7RD)](https://codecov.io/github/AY2526S1-CS2103T-W10-2/tp)
-![Ui](docs/images/listResultContacts.png)
+![Ui](docs/images/GUI-UI.png)
 
 ## TheRealDeal
 TheRealDeal helps real estate agents streamline client management by providing quick access to client preferences and profiles.
