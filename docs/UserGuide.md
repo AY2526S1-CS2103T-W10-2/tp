@@ -202,6 +202,8 @@ Format: `filtercontact [n/NAME...] [p/PHONE...] [e/EMAIL...] [a/ADDRESS...] [min
 * Substring words will be matched e.g. `Bob` will match `Bobby`.
 * Contacts matching any one of the keyword will be shown (meeting only one of the criteria is enough).
 * Filtering is cumulative. Once you filter by name, you can filter by address subsequently.
+* Minimum budget will filter and show contacts with minimum budget more than or equals to the amount
+* Maximum budget will filter and show contacts with maximum budget less than or equals to the amount
 
 Examples:
 * `filtercontact a/yishun`
