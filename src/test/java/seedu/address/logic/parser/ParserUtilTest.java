@@ -24,7 +24,6 @@ import seedu.address.model.contact.Tag;
 import seedu.address.model.property.Bathroom;
 import seedu.address.model.property.Bedroom;
 import seedu.address.model.property.FloorArea;
-import seedu.address.model.property.Listing;
 import seedu.address.model.property.Owner;
 import seedu.address.model.property.Postal;
 import seedu.address.model.property.Price;
@@ -46,7 +45,6 @@ public class ParserUtilTest {
     private static final String INVALID_BEDROOM = "-1";
     private static final String INVALID_BATHROOM = "-1";
     private static final String INVALID_FLOOR_AREA = "49";
-    private static final String INVALID_LISTING = "lease";
     private static final String INVALID_OWNER = "owner 1";
 
     private static final String VALID_NAME = "Rachel Walker";
@@ -64,7 +62,6 @@ public class ParserUtilTest {
     private static final String VALID_BEDROOM = "3";
     private static final String VALID_BATHROOM = "2";
     private static final String VALID_FLOOR_AREA = "120";
-    private static final String VALID_LISTING = "sale";
     private static final String VALID_OWNER = "owner123";
     private static final Uuid VALID_PROPERTY_ID = new Uuid(1, PROPERTY);
 
@@ -434,29 +431,6 @@ public class ParserUtilTest {
         String withWhitespace = WHITESPACE + VALID_FLOOR_AREA + WHITESPACE;
         FloorArea expectedFloorArea = new FloorArea(VALID_FLOOR_AREA);
         assertEquals(expectedFloorArea, ParserUtil.parseFloorArea(withWhitespace));
-    }
-
-    @Test
-    public void parseListing_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseListing(null));
-    }
-
-    @Test
-    public void parseListing_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseListing(INVALID_LISTING));
-    }
-
-    @Test
-    public void parseListing_validValue_returnsListing() throws Exception {
-        Listing expectedListing = new Listing(VALID_LISTING);
-        assertEquals(expectedListing, ParserUtil.parseListing(VALID_LISTING));
-    }
-
-    @Test
-    public void parseListing_validValueWithWhitespace_returnsTrimmedListing() throws Exception {
-        String withWhitespace = WHITESPACE + VALID_LISTING + WHITESPACE;
-        Listing expectedListing = new Listing(VALID_LISTING);
-        assertEquals(expectedListing, ParserUtil.parseListing(withWhitespace));
     }
 
     @Test

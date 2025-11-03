@@ -16,7 +16,6 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.property.Bathroom;
 import seedu.address.model.property.Bedroom;
 import seedu.address.model.property.FloorArea;
-import seedu.address.model.property.Listing;
 import seedu.address.model.property.Owner;
 import seedu.address.model.property.Postal;
 import seedu.address.model.property.Price;
@@ -43,11 +42,11 @@ public class FilterPropertyCommandTest {
         model = new ModelManager();
 
         p1 = createProperty("123 Orchard Rd", "123000", "Condo", 3, 2,
-                "100", "1000000", "available", "alice", "sale");
+                "100", "1000000", "available", "alice");
         p2 = createProperty("456 Bedok Ave", "456000", "HDB", 4, 3,
-                "150", "750000", "unavailable", "bob", "sale");
+                "150", "750000", "unavailable", "bob");
         p3 = createProperty("789 Clementi St", "123456", "Landed", 5, 4,
-                "180", "2000000", "available", "carol", "rent");
+                "180", "2000000", "available", "carol");
 
         model.addProperty(p1);
         model.addProperty(p2);
@@ -59,14 +58,13 @@ public class FilterPropertyCommandTest {
      */
     private Property createProperty(
             String address, String postal, String type, int bedroom,
-            int bathroom, String floorArea, String price, String status, String ownerName, String listing) {
+            int bathroom, String floorArea, String price, String status, String ownerName) {
         return new Property(
                 null,
                 new PropertyAddress(address),
                 new Bathroom(String.valueOf(bathroom)),
                 new Bedroom(String.valueOf(bedroom)),
                 new FloorArea(floorArea),
-                new Listing(listing),
                 new Postal(postal),
                 new Price(price),
                 new Status(status),
@@ -177,20 +175,6 @@ public class FilterPropertyCommandTest {
     }
 
     @Test
-    public void execute_filterByListing_success() throws CommandException {
-        PropertyMatchesFilterPredicate predicate =
-                new PropertyMatchesFilterPredicate.Builder().withListing("sale").build();
-
-        FilterPropertyCommand command = new FilterPropertyCommand(predicate, Integer.MAX_VALUE, 0);
-        CommandResult result = command.execute(model);
-
-        List<Property> shown = model.getFilteredPropertyList();
-        assertEquals(2, shown.size());
-        assertTrue(shown.contains(p1));
-        assertEquals("2 properties matched", result.getFeedbackToUser());
-    }
-
-    @Test
     public void execute_filterWithLimitAndOffset_success() throws CommandException {
         PropertyMatchesFilterPredicate predicate =
                 new PropertyMatchesFilterPredicate.Builder().withStatus("available").build();
@@ -219,4 +203,3 @@ public class FilterPropertyCommandTest {
         assertNotEquals(firstCommand, "some string");
     }
 }
-

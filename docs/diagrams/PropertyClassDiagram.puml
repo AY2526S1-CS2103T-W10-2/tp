@@ -10,7 +10,6 @@ Class PropertyAddress
 Class Bathroom
 Class Bedroom
 Class FloorArea
-Class Listing
 Class Postal
 Class Price
 Class Status
@@ -24,7 +23,6 @@ Property *-left-> PropertyAddress
 Property *--> Bathroom
 Property *--> Bedroom
 Property *--> FloorArea
-Property *--> Listing
 Property *--> Postal
 Property *--> Price
 Property *--> Status

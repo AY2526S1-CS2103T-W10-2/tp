@@ -254,14 +254,14 @@ Use the <code>list</code> command to see the changes.
 
 Adds a property to the property list.
 
-Format: `addproperty a/ADDRESS p/POSTAL price/PRICE t/TYPE status/STATUS bed/BEDROOM bath/BATHROOM f/FLOOR_AREA l/LISTING o/CONTACT_ID`
+Format: `addproperty a/ADDRESS p/POSTAL price/PRICE t/TYPE status/STATUS bed/BEDROOM bath/BATHROOM f/FLOOR_AREA o/CONTACT_ID`
 
 * Duplicate properties (same address and postal code) will not be allowed to be added.
 * Each new property is assigned a (Universally Uniquely Identifier) UUID automatically.
 
 Examples:
-* `addproperty a/123 Orchard Rd p/238888 price/1950000 t/condo status/unavailable bed/3 bath/2 f/1023 l/sale o/1`
-* `addproperty a/55 Pasir Ris Dr 1 p/519884 price/450000 t/hdb status/available bed/4 bath/2 f/1050 l/rent o/5`
+* `addproperty a/123 Orchard Rd p/238888 price/1950000 t/condo status/unavailable bed/3 bath/2 f/1023 o/1`
+* `addproperty a/55 Pasir Ris Dr 1 p/519884 price/450000 t/hdb status/available bed/4 bath/2 f/1050 o/5`
 
 For more information on the parameters, click [here](#command-parameters).
 
@@ -269,7 +269,7 @@ For more information on the parameters, click [here](#command-parameters).
 
 Filters the properties based on the fields given.
 
-Format: `filterproperty [a/ADDRESS] [p/POSTAL] [t/TYPE] [bed/BEDROOM] [bath/BATHROOM] [f/FLOORAREA] [s/STATUS] [price/PRICE] [l/LISTING] [o/CONTACT_ID] [limit/LIMIT] [offset/OFFSET]`
+Format: `filterproperty [a/ADDRESS] [p/POSTAL] [t/TYPE] [bed/BEDROOM] [bath/BATHROOM] [f/FLOORAREA] [s/STATUS] [price/PRICE] [o/CONTACT_ID] [limit/LIMIT] [offset/OFFSET]`
 
 * The search is case-insensitive. e.g `clementi` will match `Clementi`.
 * Substring property addresses will be matched e.g. `Clementi` will match `CLementi Avenue 8`.
@@ -493,8 +493,8 @@ To see the detailed explanation of every feature, click [here](#features)<br>
 | **Edit Contact**            | `editcontact UUID [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [min/AMOUNT] [max/AMOUNT] [t/TAG]... [notes/TEXT] [s/STATUS]`<br> <br> e.g.,`editcontact 2 n/Bobby a/Block 321 Punggol`                                                                    |
 | **Filter Contact**          | `filtercontact [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [min/AMOUNT] [max/AMOUNT] [t/TAG]... [notes/TEXT] [s/STATUS] [limit/LIMIT] [offset/OFFSET]`<br> <br> e.g.,`filtercontact n/Tan s/active`                                                      |
 | **Delete Contact**          | `deletecontact UUID`<br> <br> e.g., `deletecontact 3`                                                                                                                                                                                                 |
-| **Add Property**            | `addproperty a/ADDRESS p/POSTAL price/PRICE t/TYPE s/STATUS bed/BEDROOM bath/BATHROOM f/FLOOR_AREA l/LISTING o/CONTACT_ID`<br> <br> e.g., `addproperty a/123 Orchard Rd p/238888 price/1950000 t/condo s/unavailable bed/3 bath/2 f/1023 l/sale o/1`|
-| **Filter Property**         | `filterproperty [a/ADDRESS] [p/POSTAL] [t/TYPE] [bed/BEDROOM] [bath/BATHROOM] [f/FLOORAREA] [s/STATUS] [price/PRICE] [l/LISTING] [o/CONTACT_ID] [limit/LIMIT] [offset/OFFSET]`<br> <br> e.g., `filterproperty bed/2 price/2000`                  |
+| **Add Property**            | `addproperty a/ADDRESS p/POSTAL price/PRICE t/TYPE s/STATUS bed/BEDROOM bath/BATHROOM f/FLOOR_AREA o/CONTACT_ID`<br> <br> e.g., `addproperty a/123 Orchard Rd p/238888 price/1950000 t/condo s/unavailable bed/3 bath/2 f/1023 o/1`|
+| **Filter Property**         | `filterproperty [a/ADDRESS] [p/POSTAL] [t/TYPE] [bed/BEDROOM] [bath/BATHROOM] [f/FLOORAREA] [s/STATUS] [price/PRICE] [o/CONTACT_ID] [limit/LIMIT] [offset/OFFSET]`<br> <br> e.g., `filterproperty bed/2 price/2000`                  |
 | **Delete Property**         | `deleteproperty UUID`<br> <br>  e.g., `deleteproperty 12`                                                                                                                                                                                             |
 | **Mark Property as Sold**   | `sold p/UUID...` <br><br> e.g. `sold p/1 p/2`                                                                                                                                                                                                         |
 | **Mark Property as Unsold** | `unsold p/UUID...` <br><br> e.g. `unsold p/2 p/3`                                                                                                                                                                                                     |
@@ -549,7 +549,6 @@ Related commands: [`addproperty`](#adding-a-property-addproperty), [`filterprope
 | Bedroom count  | bed/    | Should be an integer from 0 to 20                                                                                 |
 | Bathroom count | bath/   | Should be an integer from 0 to 20                                                                                 |
 | Floor area     | f/      | Should be an integer from 50 to 100000                                                                           |
-| Listing        | l/      | Should only be these (case-insensitive): sale, rent                                                               |
 | Owner ID       | o/      | Should be a valid Contact UUID                                                                                    |
 
 ### Others

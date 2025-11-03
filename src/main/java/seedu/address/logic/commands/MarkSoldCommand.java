@@ -88,7 +88,6 @@ public class MarkSoldCommand extends Command {
                     property.getBathroom(),
                     property.getBedroom(),
                     property.getFloorArea(),
-                    property.getListing(),
                     property.getPostal(),
                     property.getPrice(),
                     new Status("unavailable"),

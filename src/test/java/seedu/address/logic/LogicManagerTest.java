@@ -11,7 +11,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_BATHROOM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_BEDROOM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_FLOOR_AREA;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_LISTING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_OWNER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_POSTAL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_PRICE;
@@ -63,7 +62,6 @@ public class LogicManagerTest {
             " " + PREFIX_PROPERTY_BEDROOM + "3",
             " " + PREFIX_PROPERTY_BATHROOM + "2",
             " " + PREFIX_PROPERTY_FLOOR_AREA + "120",
-            " " + PREFIX_PROPERTY_LISTING + "sale",
             " " + PREFIX_PROPERTY_OWNER + "owner123");
 
     @TempDir
