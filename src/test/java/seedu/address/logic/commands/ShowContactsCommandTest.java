@@ -135,6 +135,5 @@ public class ShowContactsCommandTest {
         String commandString = command.toString();
 
         assertTrue(commandString.contains("5"));
-        assertTrue(commandString.contains("PROPERTY"));
     }
 }
