@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import seedu.address.model.property.Bathroom;
 import seedu.address.model.property.Bedroom;
 import seedu.address.model.property.FloorArea;
-import seedu.address.model.property.Listing;
 import seedu.address.model.property.Owner;
 import seedu.address.model.property.Postal;
 import seedu.address.model.property.Price;
@@ -33,7 +32,6 @@ public class PropertyMatchesFilterPredicateTest {
             new Bathroom("2"),
             new Bedroom("3"),
             new FloorArea("120"),
-            new Listing("sale"),
             new Postal("123456"),
             new Price("800000"),
             new Status("available"),
@@ -48,7 +46,6 @@ public class PropertyMatchesFilterPredicateTest {
             new Bathroom("1"),
             new Bedroom("2"),
             new FloorArea("80"),
-            new Listing("rent"),
             new Postal("654321"),
             new Price("400000"),
             new Status("unavailable"),
@@ -77,13 +74,6 @@ public class PropertyMatchesFilterPredicateTest {
         var predicate = new PropertyMatchesFilterPredicate.Builder().withFloorArea("80").build();
         assertTrue(predicate.test(hdbProperty));
         assertFalse(predicate.test(condoProperty));
-    }
-
-    @Test
-    public void testMatchesListingFailure() {
-        var predicate = new PropertyMatchesFilterPredicate.Builder().withListing("sale").build();
-        assertTrue(predicate.test(condoProperty));
-        assertFalse(predicate.test(hdbProperty));
     }
 
     @Test

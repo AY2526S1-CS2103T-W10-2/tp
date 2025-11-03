@@ -93,7 +93,7 @@ The bulk of the app's work is done by the following four components:
 
 **How the architecture components interact with each other**
 
-The *Sequence Diagram* below shows how the components interact when a user runs `addproperty address/123 Orchard Rd postal/238888 ...` to add a new listing.
+The *Sequence Diagram* below shows how the components interact when a user runs `addproperty address/123 Orchard Rd postal/238888 ...` to add a new property.
 
 <img src="images/ArchitectureSequenceDiagram.png" width="574" />
 
@@ -364,7 +364,6 @@ Compulsory fields:
 - Bedroom count (`bed/`)
 - Bathroom count (`bath/`)
 - Floor area (`f/`)
-- Listing type (`l/`)
 - Owner UUID (`o/`)
 
 Optional Fields:
@@ -416,7 +415,6 @@ Optional Fields:
 - Bedroom
 - Bathroom
 - Floor Area
-- Listing
 - Owner
 - Limit
 - Offset
@@ -573,11 +571,10 @@ Related commands: [`addproperty`](#addpropertycommand-addproperty), [`filterprop
 | Postal code    | p/      | Should only contain numbers (0-9), and it should be exactly least 6 digits long. (Singaporean Postal Code)        |
 | Price          | price/  | Should be an integer from 1 to 1 trillion                                                                  |
 | Type           | t/      | Should only be these (case-insensitive): hdb, condo, landed, apartment, office, others                            |
-| Status         | status/ | Should only be these (case-insensitive): available, unavailable                                                   |
+| Status         | s/      | Should only be these (case-insensitive): available, unavailable                                                   |
 | Bedroom count  | bed/    | Should be an integer from 0 to 20                                                                                 |
 | Bathroom count | bath/   | Should be an integer from 0 to 20                                                                                 |
 | Floor area     | f/      | Should be an integer from 50 to 100000                                                                           |
-| Listing        | l/      | Should only be these (case-insensitive): sale, rent                                                               |
 | Owner ID       | o/      | Should be a valid Contact UUID                                                                                    |
 
 ### Others
@@ -1240,7 +1237,7 @@ Variations:<br>
 
 ##### Adding a property linked to an existing owner
 
-Command: `addproperty a/21 Sunset Way postal/597145 price/1850000 type/condo status/available bed/3 bath/2 f/1180 l/sale o/1`
+Command: `addproperty a/21 Sunset Way postal/597145 price/1850000 type/condo status/available bed/3 bath/2 f/1180 o/1`
 
 To simulate:<br>
 - Run `list` to show both contacts and properties.
@@ -1257,7 +1254,7 @@ Variations:<br>
 
 ##### Owner contact does not exist
 
-Command: `addproperty a/21 Sunset Way postal/597145 price/1850000 type/condo status/available bed/3 bath/2 f/1180 l/sale o/9999`
+Command: `addproperty a/21 Sunset Way postal/597145 price/1850000 type/condo status/available bed/3 bath/2 f/1180 o/9999`
 
 To simulate:<br>
 - Ensure no contact currently has the UUID `9999`.
@@ -1277,7 +1274,7 @@ Command: `addproperty`
 
 To simulate:<br>
 - Run the command above with no parameters.
-- Repeat with `addproperty a/21 Sunset Way postal/597145 price/1850000 type/condo status/available bed/3 bath/2 f/1180 l/sale o/` to omit the owner ID.
+- Repeat with `addproperty a/21 Sunset Way postal/597145 price/1850000 type/condo status/available bed/3 bath/2 f/1180 o/` to omit the owner ID.
 
 Expected:<br>
 - Command fails with invalid format or constraint messages explaining the missing or malformed prefixes.
@@ -1774,7 +1771,7 @@ To simulate:<br>
 Expected:<br>
 - Opening the application will delete all contacts stored inside `addressbook.json`.
 - No contacts will be shown on the GUI.
-- Same steps can be carried out for `propertybook.json` by adding `abc` to `Property` Listing.
+- Same steps can be carried out for `propertybook.json` by adding `abc` to `Property` Status.
 
 ##### Editing data file while application is open
 To simulate:<br>

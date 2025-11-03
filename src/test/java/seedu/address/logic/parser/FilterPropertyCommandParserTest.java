@@ -8,7 +8,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_BATHROOM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_BEDROOM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_FLOOR_AREA;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_LISTING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_OWNER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_POSTAL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_PRICE;
@@ -61,13 +60,12 @@ public class FilterPropertyCommandParserTest {
                 + PREFIX_PROPERTY_ADDRESS + "Geylang 18 "
                 + PREFIX_PROPERTY_POSTAL + "123000 "
                 + PREFIX_PROPERTY_BATHROOM + "3 "
-                + PREFIX_PROPERTY_PRICE + "5000 "
-                + PREFIX_PROPERTY_LISTING + "rent";
+                + PREFIX_PROPERTY_PRICE + "5000";
         FilterPropertyCommand expected =
                 new FilterPropertyCommand(
                         new PropertyMatchesFilterPredicate.Builder()
                                 .withAddress("Geylang 18").withPostal("123000").withBathroom("3")
-                                .withPrice("5000").withListing("rent").build(),
+                                .withPrice("5000").build(),
                         Integer.MAX_VALUE, 0); // defaults
         assertEquals(expected, parser.parse(input));
     }
@@ -139,11 +137,6 @@ public class FilterPropertyCommandParserTest {
     }
 
     @Test
-    public void parseInvalidListingThrowsParseException() {
-        assertThrows(ParseException.class, () -> parser.parse(" " + PREFIX_PROPERTY_LISTING + "free"));
-    }
-
-    @Test
     public void parseInvalidLimitThrowsParseException() {
         assertThrows(ParseException.class, () -> parser.parse(" " + PREFIX_LIMIT + "0"));
     }
@@ -153,4 +146,3 @@ public class FilterPropertyCommandParserTest {
         assertThrows(ParseException.class, () -> parser.parse(" " + PREFIX_OFFSET + "-1"));
     }
 }
-

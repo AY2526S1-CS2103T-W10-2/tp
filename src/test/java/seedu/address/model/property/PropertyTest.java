@@ -25,7 +25,6 @@ class PropertyTest {
         assertEquals(new Bathroom("2"), property.getBathroom());
         assertEquals(new Bedroom("3"), property.getBedroom());
         assertEquals(new FloorArea("120"), property.getFloorArea());
-        assertEquals(new Listing("sale"), property.getListing());
         assertEquals(new Postal("123456"), property.getPostal());
         assertEquals(new Price("500000"), property.getPrice());
         assertEquals(new Status("unavailable"), property.getStatus());
@@ -51,7 +50,7 @@ class PropertyTest {
         Property property = PROPERTY_ALPHA;
         Property duplicateIdentity = new Property(null, new PropertyAddress("123 Main St 5"),
                 new Bathroom("1"), new Bedroom("4"),
-                new FloorArea("150"), new Listing("rent"), new Postal("123456"), new Price("600000"),
+                new FloorArea("150"), new Postal("123456"), new Price("600000"),
                 new Status("unavailable"), new Type("hdb"), new Owner("owner789"), new HashSet<>(), new HashSet<>());
         assertTrue(property.isSameProperty(duplicateIdentity));
     }

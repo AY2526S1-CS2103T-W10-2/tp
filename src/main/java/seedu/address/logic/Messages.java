@@ -98,11 +98,6 @@ public class Messages {
                 .append("; Floor Area: ")
                 .append(property.getFloorArea());
 
-        if (property.getListing() != null) {
-            builder.append("; Listing: ")
-                    .append(property.getListing());
-        }
-
         builder.append("; Postal: ")
                 .append(property.getPostal())
                 .append("; Price: ")
