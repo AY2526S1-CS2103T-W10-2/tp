@@ -35,10 +35,13 @@ public class UuidTest {
 
     @Test
     public void isValidUuid() {
-        assertFalse(Uuid.isValidUuid(0));
-        assertFalse(Uuid.isValidUuid(-10));
-        assertTrue(Uuid.isValidUuid(1));
-        assertTrue(Uuid.isValidUuid(100));
+        assertFalse(Uuid.isValidUuid("0"));
+        assertFalse(Uuid.isValidUuid("-10"));
+        assertFalse(Uuid.isValidUuid("2000001"));
+
+        assertTrue(Uuid.isValidUuid("2000000"));
+        assertTrue(Uuid.isValidUuid("1"));
+        assertTrue(Uuid.isValidUuid("100"));
     }
 
     @Test

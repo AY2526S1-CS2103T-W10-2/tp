@@ -36,7 +36,6 @@ import seedu.address.model.uuid.Uuid;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
-    public static final String MESSAGE_INVALID_UUID = "UUID is not a valid format.";
     public static final String DEFAULT_BUDGET_MIN = "0";
     public static final String DEFAULT_BUDGET_MAX = String.valueOf(200_000_000_000L);
 
@@ -68,8 +67,8 @@ public class ParserUtil {
     public static Uuid parseContactId(String contactId) throws ParseException {
         requireNonNull(contactId);
         String trimmedContactId = contactId.trim();
-        if (!StringUtil.isNonZeroUnsignedInteger(trimmedContactId)) {
-            throw new ParseException(MESSAGE_INVALID_UUID);
+        if (!Uuid.isValidUuid(trimmedContactId)) {
+            throw new ParseException(Uuid.MESSAGE_CONSTRAINTS);
         }
         return new Uuid(Integer.parseInt(trimmedContactId), CONTACT);
     }
@@ -238,8 +237,8 @@ public class ParserUtil {
     public static Uuid parsePropertyId(String propertyId) throws ParseException {
         requireNonNull(propertyId);
         String trimmedpropertyId = propertyId.trim();
-        if (!StringUtil.isNonZeroUnsignedInteger(trimmedpropertyId)) {
-            throw new ParseException(MESSAGE_INVALID_UUID);
+        if (!Uuid.isValidUuid(trimmedpropertyId)) {
+            throw new ParseException(Uuid.MESSAGE_CONSTRAINTS);
         }
         return new Uuid(Integer.parseInt(trimmedpropertyId), PROPERTY);
     }
