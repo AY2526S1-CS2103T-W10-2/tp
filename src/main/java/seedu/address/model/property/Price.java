@@ -8,10 +8,11 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Guarantees: immutable; is valid as declared in {@link #isValidPrice(String)}
  */
 public class Price {
-    public static final String MESSAGE_CONSTRAINTS = "Invalid price. Use a positive integer ≤ 1,000,000,000,000.";
+    public static final String MESSAGE_CONSTRAINTS =
+            "Invalid price. Use a positive integer ≤ 1000000000000 (1 trillion) without commas.";
 
     /*
-     * The price must be a positive integer up to 1,000,000,000,000 (1 trillion).
+     * The price must be a positive integer up to 1000000000000 (1 trillion).
      */
     public static final String VALIDATION_REGEX = "^(?:[1-9]\\d{0,11}|1000000000000)$";
 
@@ -25,8 +26,7 @@ public class Price {
     public Price(String price) {
         requireNonNull(price);
 
-        // Remove commas and spaces
-        price = price.replaceAll(",+", "").trim();
+        price = price.trim();
         checkArgument(isValidPrice(price), MESSAGE_CONSTRAINTS);
         value = price;
     }

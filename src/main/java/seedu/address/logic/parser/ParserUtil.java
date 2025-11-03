@@ -310,7 +310,7 @@ public class ParserUtil {
      */
     public static Price parsePrice(String price) throws ParseException {
         requireNonNull(price);
-        String trimmedPrice = price.replaceAll(",+", "").trim();
+        String trimmedPrice = price.trim();
         if (!Price.isValidPrice(trimmedPrice)) {
             throw new ParseException(Price.MESSAGE_CONSTRAINTS);
         }

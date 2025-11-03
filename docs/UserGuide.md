@@ -259,7 +259,7 @@ Format: `addproperty a/ADDRESS p/POSTAL price/PRICE t/TYPE status/STATUS bed/BED
 
 Examples:
 * `addproperty a/123 Orchard Rd p/238888 price/1950000 t/condo status/unavailable bed/3 bath/2 f/1023 l/sale o/1`
-* `addproperty a/55 Pasir Ris Dr 1 p/519884 price/450,000 t/hdb status/available bed/4 bath/2 f/1050 l/rent o/5`
+* `addproperty a/55 Pasir Ris Dr 1 p/519884 price/450000 t/hdb status/available bed/4 bath/2 f/1050 l/rent o/5`
 
 For more information on the parameters, click [here](#command-parameters).
 
@@ -511,7 +511,8 @@ This table shows every parameter and prefix used in TheRealDeal.
 **:information_source: Important:**<br>
 If the command states that the prefix is optional e.g. <code>n/NAME [t/TAG]</code><br>
 an empty parameter will be the same as not having the prefix<br>
-e.g. <code>n/NAME t/</code> is the same as <code>n/NAME</code>
+e.g. <code>n/NAME t/</code> is the same as <code>n/NAME</code><br><br>
+All parameters that expect integers must be entered as **plain digits** — without commas, dots, spaces, or any other separators.
 </div>
 
 ### Contact Management
@@ -538,12 +539,12 @@ Related commands: [`addproperty`](#adding-a-property-addproperty), [`filterprope
 |----------------|---------|-------------------------------------------------------------------------------------------------------------------|
 | Address        | a/      | Should only contain alphanumerical 5 to 200 characters (a-z, A-Z, 0-9) or spaces, with at least 1 letter and 1 digit|
 | Postal code    | p/      | Should only contain numbers (0-9), and it should be exactly least 6 digits long. (Singaporean Postal Code)        |
-| Price          | price/  | Should be an integer from 1 to 1,000,000,000,000 (with or without comma is both allowed)                          |
+| Price          | price/  | Should be an integer from 1 to 1 trillion                        |
 | Type           | t/      | Should only be these (case-insensitive): hdb, condo, landed, apartment, office, others                            |
 | Status         | s/      | Should only be these (case-insensitive): available, unavailable                                                   |
 | Bedroom count  | bed/    | Should be an integer from 0 to 20                                                                                 |
 | Bathroom count | bath/   | Should be an integer from 0 to 20                                                                                 |
-| Floor area     | f/      | Should be an integer from 50 to 100,000                                                                           |
+| Floor area     | f/      | Should be an integer from 50 to 100000                                                                           |
 | Listing        | l/      | Should only be these (case-insensitive): sale, rent                                                               |
 | Owner ID       | o/      | Should be a valid Contact UUID                                                                                    |
 

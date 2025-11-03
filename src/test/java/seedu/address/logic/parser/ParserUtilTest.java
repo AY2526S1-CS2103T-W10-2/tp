@@ -58,7 +58,7 @@ public class ParserUtilTest {
     private static final String VALID_PROPERTY_ADDRESS = "123 Main St 5";
     private static final String VALID_POSTAL = "123456";
     private static final String VALID_PRICE = "500000";
-    private static final String VALID_PRICE_WITH_COMMA = "450,000";
+    private static final String PRICE_WITH_COMMA = "450,000";
     private static final String VALID_TYPE = "HDB";
     private static final String VALID_STATUS = "unavailable";
     private static final String VALID_BEDROOM = "3";
@@ -317,9 +317,8 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parsePrice_validValueWithCommas_returnsSanitizedPrice() throws Exception {
-        Price expectedPrice = new Price("450000");
-        assertEquals(expectedPrice, ParserUtil.parsePrice(VALID_PRICE_WITH_COMMA));
+    public void parsePrice_valueWithCommas_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parsePrice(PRICE_WITH_COMMA));
     }
 
     @Test
