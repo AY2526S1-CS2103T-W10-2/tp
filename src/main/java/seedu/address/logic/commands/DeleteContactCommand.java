@@ -4,15 +4,18 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
+import seedu.address.logic.commands.UnlinkCommand.UnlinkDescriptor;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.property.Property;
 import seedu.address.model.uuid.Uuid;
 
 
@@ -63,6 +66,8 @@ public class DeleteContactCommand extends Command {
             throw new CommandException(String.format(MESSAGE_CONTACT_NOT_FOUND, targetUuid.getValue()));
         }
 
+        unlinkAllLinkedProperties(model);
+
         model.deleteContact(contactToDelete.get());
         logger.log(Level.INFO, "Successfully deleted contact: {0}", contactToDelete.get().getName());
 
@@ -70,6 +75,24 @@ public class DeleteContactCommand extends Command {
 
         return new CommandResult(String.format(
                 MESSAGE_DELETE_CONTACT_SUCCESS, Messages.format(contactToDelete.get())));
+    }
+
+    private void unlinkAllLinkedProperties(Model model) {
+        model.getPropertyBook().getPropertyList().stream()
+                .filter(property -> property.getBuyingContactIds().contains(targetUuid)
+                        || property.getSellingContactIds().contains(targetUuid))
+                .forEach(property -> unlinkProperty(property, model));
+    }
+
+    private void unlinkProperty(Property property, Model model) {
+        UnlinkDescriptor unlinkDescriptor = new UnlinkDescriptor();
+        unlinkDescriptor.setPropertyIds(Set.of(property.getUuid()));
+        unlinkDescriptor.setContactIds(Set.of(targetUuid));
+        try {
+            new UnlinkCommand(unlinkDescriptor).execute(model);
+        } catch (CommandException exception) {
+            assert false; //Should not happen
+        }
     }
 
     @Override

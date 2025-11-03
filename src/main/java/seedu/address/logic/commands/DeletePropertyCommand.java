@@ -4,11 +4,14 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
+import seedu.address.logic.commands.UnlinkCommand.UnlinkDescriptor;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.contact.Contact;
 import seedu.address.model.property.Property;
 import seedu.address.model.uuid.Uuid;
 
@@ -34,6 +37,7 @@ public class DeletePropertyCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        // assert false;
         requireNonNull(model);
         List<Property> lastShownList = model.getFilteredPropertyList();
 
@@ -42,11 +46,31 @@ public class DeletePropertyCommand extends Command {
                 .findFirst()
                 .orElseThrow(() -> new CommandException(Messages.MESSAGE_INVALID_PROPERTY_DISPLAYED_ID));
 
+        unlinkAllLinkedContacts(model);
+
         model.deleteProperty(propertyToDelete);
 
         showPropertiesView();
 
         return new CommandResult(String.format(MESSAGE_DELETE_PROPERTY_SUCCESS, Messages.format(propertyToDelete)));
+    }
+
+    private void unlinkAllLinkedContacts(Model model) {
+        model.getAddressBook().getContactList().stream()
+                .filter(contact -> contact.getBuyingPropertyIds().contains(targetPropertyId)
+                        || contact.getSellingPropertyIds().contains(targetPropertyId))
+                .forEach(contact -> unlinkContact(contact, model));
+    }
+
+    private void unlinkContact(Contact contact, Model model) {
+        UnlinkDescriptor unlinkDescriptor = new UnlinkDescriptor();
+        unlinkDescriptor.setContactIds(Set.of(contact.getUuid()));
+        unlinkDescriptor.setPropertyIds(Set.of(targetPropertyId));
+        try {
+            new UnlinkCommand(unlinkDescriptor).execute(model);
+        } catch (CommandException exception) {
+            assert false; //Should not happen
+        }
     }
 
     @Override
