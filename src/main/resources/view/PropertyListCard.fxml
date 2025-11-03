@@ -29,7 +29,6 @@
             <Label fx:id="floorArea" styleClass="cell_small_label" text="\$floorArea" />
             <Label fx:id="price" styleClass="cell_small_label" text="\$price" />
             <Label fx:id="status" styleClass="cell_small_label" text="\$status" />
-            <Label fx:id="listing" styleClass="cell_small_label" text="\$listing" />
             <Label fx:id="owner" styleClass="cell_small_label" text="\$owner" />
             <Label fx:id="buyerIds" styleClass="cell_small_label" text="\$buyerIds" />
             <Label fx:id="sellerIds" styleClass="cell_small_label" text="\$sellerIds" />

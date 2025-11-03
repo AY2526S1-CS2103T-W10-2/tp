@@ -5,7 +5,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_BATHROOM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_BEDROOM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_FLOOR_AREA;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_LISTING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_OWNER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_POSTAL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_PRICE;
@@ -19,7 +18,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.property.Bathroom;
 import seedu.address.model.property.Bedroom;
 import seedu.address.model.property.FloorArea;
-import seedu.address.model.property.Listing;
 import seedu.address.model.property.Owner;
 import seedu.address.model.property.Postal;
 import seedu.address.model.property.Price;
@@ -44,8 +42,6 @@ public class AddPropertyCommandParser implements Parser<AddPropertyCommand> {
             + "BATHROOM) is missing.\n";
     public static final String FLOOR_AREA_MISSING = "Floor Area parameter (" + PREFIX_PROPERTY_FLOOR_AREA
             + "FLOOR_AREA) is missing.\n";
-    public static final String LISTING_MISSING = "Listing parameter (" + PREFIX_PROPERTY_LISTING
-            + "LISTING) is missing.\n";
     public static final String OWNER_MISSING = "Owner parameter (" + PREFIX_PROPERTY_OWNER + "OWNER) is missing.\n";
 
     /**
@@ -61,7 +57,7 @@ public class AddPropertyCommandParser implements Parser<AddPropertyCommand> {
                 PREFIX_PROPERTY_POSTAL,
                 PREFIX_PROPERTY_PRICE, PREFIX_PROPERTY_TYPE, PREFIX_PROPERTY_STATUS,
                 PREFIX_PROPERTY_BEDROOM, PREFIX_PROPERTY_BATHROOM, PREFIX_PROPERTY_FLOOR_AREA,
-                PREFIX_PROPERTY_LISTING, PREFIX_PROPERTY_OWNER);
+                PREFIX_PROPERTY_OWNER);
 
         String missingPrefix = validateRequiredPrefixesPresent(argMultimap);
         if (missingPrefix != null) {
@@ -72,7 +68,7 @@ public class AddPropertyCommandParser implements Parser<AddPropertyCommand> {
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_PROPERTY_ADDRESS, PREFIX_PROPERTY_POSTAL,
                 PREFIX_PROPERTY_PRICE, PREFIX_PROPERTY_TYPE, PREFIX_PROPERTY_STATUS,
                 PREFIX_PROPERTY_BEDROOM, PREFIX_PROPERTY_BATHROOM, PREFIX_PROPERTY_FLOOR_AREA,
-                PREFIX_PROPERTY_LISTING, PREFIX_PROPERTY_OWNER);
+                PREFIX_PROPERTY_OWNER);
 
         PropertyAddress address = ParserUtil
                 .parsePropertyAddress(argMultimap.getValue(PREFIX_PROPERTY_ADDRESS).get());
@@ -83,10 +79,9 @@ public class AddPropertyCommandParser implements Parser<AddPropertyCommand> {
         Bedroom bedroom = ParserUtil.parseBedroom(argMultimap.getValue(PREFIX_PROPERTY_BEDROOM).get());
         Bathroom bathroom = ParserUtil.parseBathroom(argMultimap.getValue(PREFIX_PROPERTY_BATHROOM).get());
         FloorArea floorArea = ParserUtil.parseFloorArea(argMultimap.getValue(PREFIX_PROPERTY_FLOOR_AREA).get());
-        Listing listing = ParserUtil.parseListing(argMultimap.getValue(PREFIX_PROPERTY_LISTING).get());
         Owner owner = ParserUtil.parseOwner(argMultimap.getValue(PREFIX_PROPERTY_OWNER).get());
 
-        Property property = new Property(null, address, bathroom, bedroom, floorArea, listing,
+        Property property = new Property(null, address, bathroom, bedroom, floorArea,
                 postal, price, status, type, owner, new HashSet<>(), new HashSet<>());
 
         return new AddPropertyCommand(property);
@@ -103,7 +98,6 @@ public class AddPropertyCommandParser implements Parser<AddPropertyCommand> {
         boolean hasBedroom = argMultimap.arePrefixesPresent(PREFIX_PROPERTY_BEDROOM);
         boolean hasBathroom = argMultimap.arePrefixesPresent(PREFIX_PROPERTY_BATHROOM);
         boolean hasFloorArea = argMultimap.arePrefixesPresent(PREFIX_PROPERTY_FLOOR_AREA);
-        boolean hasListing = argMultimap.arePrefixesPresent(PREFIX_PROPERTY_LISTING);
         boolean hasOwner = argMultimap.arePrefixesPresent(PREFIX_PROPERTY_OWNER);
 
         if (!hasAddress) {
@@ -129,9 +123,6 @@ public class AddPropertyCommandParser implements Parser<AddPropertyCommand> {
         }
         if (!hasFloorArea) {
             return FLOOR_AREA_MISSING;
-        }
-        if (!hasListing) {
-            return LISTING_MISSING;
         }
         if (!hasOwner) {
             return OWNER_MISSING;

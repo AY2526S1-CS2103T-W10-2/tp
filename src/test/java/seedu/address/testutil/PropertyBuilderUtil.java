@@ -9,7 +9,6 @@ import java.util.Set;
 import seedu.address.model.property.Bathroom;
 import seedu.address.model.property.Bedroom;
 import seedu.address.model.property.FloorArea;
-import seedu.address.model.property.Listing;
 import seedu.address.model.property.Owner;
 import seedu.address.model.property.Postal;
 import seedu.address.model.property.Price;
@@ -30,7 +29,6 @@ public class PropertyBuilderUtil {
     public static final String DEFAULT_BATHROOM = "1";
     public static final String DEFAULT_BEDROOM = "2";
     public static final String DEFAULT_FLOORAREA = "2000";
-    public static final String DEFAULT_LISTING = "sale";
     public static final String DEFAULT_POSTAL = "886231";
     public static final String DEFAULT_PRICE = "210000";
     public static final String DEFAULT_STATUS = "unavailable";
@@ -43,7 +41,6 @@ public class PropertyBuilderUtil {
     private Bathroom bathroom;
     private Bedroom bedroom;
     private FloorArea floorArea;
-    private Listing listing;
     private Postal postal;
     private Price price;
     private Status status;
@@ -62,7 +59,6 @@ public class PropertyBuilderUtil {
         bathroom = new Bathroom(DEFAULT_BATHROOM);
         bedroom = new Bedroom(DEFAULT_BEDROOM);
         floorArea = new FloorArea(DEFAULT_FLOORAREA);
-        listing = new Listing(DEFAULT_LISTING);
         postal = new Postal(DEFAULT_POSTAL);
         price = new Price(DEFAULT_PRICE);
         status = new Status(DEFAULT_STATUS);
@@ -81,7 +77,6 @@ public class PropertyBuilderUtil {
         bathroom = new Bathroom(propertyToCopy.getBathroom().value);
         bedroom = new Bedroom(propertyToCopy.getBedroom().value);
         floorArea = new FloorArea(propertyToCopy.getFloorArea().value);
-        listing = new Listing(propertyToCopy.getListing().value);
         postal = new Postal(propertyToCopy.getPostal().value);
         price = new Price(propertyToCopy.getPrice().value);
         status = new Status(propertyToCopy.getStatus().value);
@@ -129,14 +124,6 @@ public class PropertyBuilderUtil {
      */
     public PropertyBuilderUtil withFloorArea(String floorArea) {
         this.floorArea = new FloorArea(floorArea);
-        return this;
-    }
-
-    /**
-     * Sets the {@code Listing} of the {@code Property} that we are building.
-     */
-    public PropertyBuilderUtil withListing(String listing) {
-        this.listing = new Listing(listing);
         return this;
     }
 
@@ -234,7 +221,7 @@ public class PropertyBuilderUtil {
      * Builds the {@code Property} that we are building.
      */
     public Property build() {
-        return new Property(uuid, propertyAddress, bathroom, bedroom, floorArea, listing, postal, price, status,
+        return new Property(uuid, propertyAddress, bathroom, bedroom, floorArea, postal, price, status,
                 type, owner, buyingContactIds, sellingContactIds);
     }
 
