@@ -27,7 +27,6 @@ Warns you of potential issues to should watch out for.
 </div>
 
 <div style="page-break-after: always;"></div>
-
 ## GUI Overview
 
 TheRealDeal Graphical User Interface (GUI) is organised into **five** key components:
@@ -40,7 +39,6 @@ TheRealDeal Graphical User Interface (GUI) is organised into **five** key compon
 * `List Card`: Displays key information about contacts or properties, depending on the user's command.
 * `Status Bar`: Displays whether contacts or properties are currently being shown.
 <div style="page-break-after: always;"></div>
-
 ## Quick start
 
 1. Ensure you have `Java 17` or above installed in your Computer.<br>
@@ -83,7 +81,6 @@ Some example commands you can try:
 To see the detailed explanation of every feature, click [here](#features)<br>
 To see the summary of every feature, click [here](#command-summary)
 <div style="page-break-after: always;"></div>
-
 ## Features
 
 <div markdown="block" class="alert alert-info">

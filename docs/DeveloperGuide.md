@@ -1824,11 +1824,12 @@ Expected:<br>
 
 Team size: 5
 
-1. **Allow special characters to be used in contact names.** The current validation for contact names requires it to only consist of alphanumeric characters and spaces. The does not support names with special characters like `/` or `-` (e.g. `s/o`, `John-Mary`). Future improvements aim to support this functionality.<br><br>
-2. **Perform verification of inputs for phone number and postal code to meet Singapore format.** Currently, postal codes like `000000` or phone numbers like `000000` are accepted by the application. Further improvements aim to verify that the inputs meet Singapore's standard for phone numbers and postal codes.<br><br>
-3. **Deleting a contact does not update the owner data of properties.** Future improvements aim to automatically update the owner when the contact is deleted.<br><br>
-4. **Filtering logic for filter contacts and filter property are different.** Future improvements aim to make them work similarly for clarity.
-
+1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the preferences.json file created by the application before running the application again.<br><br>
+2. **If you minimise the Help Window** and then run the help command (or use the Help menu, or the keyboard shortcut F1) again, the original Help Window will remain minimised, and no new Help Window will appear. The remedy is to manually restore the minimised Help Window.<br><br>
+3. **Allow special characters to be used in contact names.** The current validation for contact names requires it to only consist of alphanumeric characters and spaces. The does not support names with special characters like `/` or `-` (e.g. `s/o`, `John-Mary`). Future improvements aim to support this functionality.<br><br>
+4. **Perform verification of inputs for phone number and postal code to meet Singapore format.** Currently, postal codes like `000000` or phone numbers like `000000` are accepted by the application. Further improvements aim to verify that the inputs meet Singapore's standard for phone numbers and postal codes.<br><br>
+5. **Deleting a contact does not update the owner data of properties.** Future improvements aim to automatically update the owner when the contact is deleted.<br><br>
+6. **Filtering logic for filter contacts and filter property are different.** Future improvements aim to make them work similarly for clarity.
 
 ---------------------------------------------------------------------------------------------------------------------
 
