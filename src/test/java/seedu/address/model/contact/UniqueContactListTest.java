@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_BUYER;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalContacts.ALICE;
 import static seedu.address.testutil.TypicalContacts.BOB;
@@ -42,7 +41,7 @@ public class UniqueContactListTest {
     @Test
     public void contains_contactWithSameIdentityFieldsInList_returnsTrue() {
         uniqueContactList.add(ALICE);
-        Contact editedAlice = new ContactBuilderUtil(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_BUYER)
+        Contact editedAlice = new ContactBuilderUtil(ALICE).withAddress(VALID_ADDRESS_BOB)
                 .build();
         assertTrue(uniqueContactList.contains(editedAlice));
     }
@@ -85,7 +84,7 @@ public class UniqueContactListTest {
     @Test
     public void setContact_editedContactHasSameIdentity_success() {
         uniqueContactList.add(ALICE);
-        Contact editedAlice = new ContactBuilderUtil(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_BUYER)
+        Contact editedAlice = new ContactBuilderUtil(ALICE).withAddress(VALID_ADDRESS_BOB)
                 .build();
         uniqueContactList.setContact(ALICE, editedAlice);
         UniqueContactList expectedUniqueContactList = new UniqueContactList();

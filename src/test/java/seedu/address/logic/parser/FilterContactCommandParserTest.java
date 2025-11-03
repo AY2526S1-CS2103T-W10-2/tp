@@ -3,21 +3,18 @@ package seedu.address.logic.parser;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.BUDGET_MAX_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.BUDGET_MIN_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.STATUS_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_BUDGET_MAX_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_BUDGET_MIN_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STATUS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_BUYER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LIMIT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
@@ -42,7 +39,6 @@ import seedu.address.model.contact.Email;
 import seedu.address.model.contact.FilterContactPredicate;
 import seedu.address.model.contact.Name;
 import seedu.address.model.contact.Phone;
-import seedu.address.model.contact.Tag;
 
 public class FilterContactCommandParserTest {
 
@@ -61,7 +57,7 @@ public class FilterContactCommandParserTest {
                         Optional.empty(),
                         Optional.empty(),
                         Optional.empty(),
-                        Optional.empty(), Optional.empty()
+                        Optional.empty()
                 ));
 
         assertParseSuccess(parser, " "
@@ -142,7 +138,7 @@ public class FilterContactCommandParserTest {
         FilterContactPredicate predicate = new FilterContactPredicate(
                 Optional.of(Arrays.asList("Alice")),
                 Optional.empty(), Optional.empty(), Optional.empty(),
-                Optional.empty(), Optional.empty(), Optional.empty(),
+                Optional.empty(), Optional.empty(),
                 Optional.empty(), Optional.empty(),
                 Optional.of(5), Optional.of(10)
         );
@@ -188,11 +184,6 @@ public class FilterContactCommandParserTest {
                 NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB.replace(VALID_EMAIL_BOB, prefixLikeValue),
                 Email.MESSAGE_CONSTRAINTS);
 
-        // Tag containing prefix-like value
-        assertParseFailure(parser,
-                NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                        + TAG_DESC_BOB.replace(VALID_TAG_BUYER, prefixLikeValue),
-                String.format(Tag.MESSAGE_CONSTRAINTS, prefixLikeValue));
         // Budget Min containing prefix-like value
         assertParseFailure(parser,
                 NAME_DESC_BOB + PHONE_DESC_BOB
@@ -220,7 +211,6 @@ public class FilterContactCommandParserTest {
         FilterContactPredicate predicate = new FilterContactPredicate(
                 Optional.of(Arrays.asList("Alice")),
                 Optional.of(Arrays.asList("12345678")),
-                Optional.empty(),
                 Optional.empty(),
                 Optional.empty(),
                 Optional.empty(),

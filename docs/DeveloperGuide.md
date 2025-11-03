@@ -261,7 +261,6 @@ Optional Fields:
 - Email
 - Minimum Budget
 - Maximum Budget
-- Tag
 - Notes
 - Status
 
@@ -303,7 +302,6 @@ Optional Fields:
 - Email
 - Minimum Budget
 - Maximum Budget
-- Tag
 - Notes
 - Status
 
@@ -332,7 +330,6 @@ Optional Fields:
 - Email
 - Minimum Budget
 - Maximum Budget
-- Tag
 - Notes
 - Status
 - Limit
@@ -541,26 +538,25 @@ This table shows every parameter and prefix used in TheRealDeal.
 
 <div markdown="block" class="alert alert-info">
 **:information_source: Important:**<br>
-If the command states that the prefix is optional e.g. <code>n/NAME [t/TAG]</code><br>
+If the command states that the prefix is optional e.g. <code>n/NAME [notes/TEXT]</code><br>
 an empty parameter will be the same as not having the prefix<br>
-e.g. <code>n/NAME t/</code> is the same as <code>n/NAME</code>
+e.g. <code>n/NAME notes/</code> is the same as <code>n/NAME</code>
 </div>
 
 ### Contact Management
 These are prefixes for purely contact related commands.
 Related commands: [`addcontact`](#add-command-addcontact), [`filtercontact`](#filter-contact-command-filtercontact), [`editcontact`](#filter-contact-command-filtercontact)
 
-| Parameter      | Prefix  | Constraints                                                                                                                |
-|----------------|---------|----------------------------------------------------------------------------------------------------------------------------|
-| Name           | n/      | Should only contain alphabetical characters (a-z, A-Z, 0-9) or spaces                                                      |
-| Phone Number   | p/      | Should only contain numbers (0-9), and it should be at least 3 digits long                                                 |
-| Email          | e/      | Should follow the format: name@example.com                                                                                 |
-| Address        | a/      | Can take any value. Maximum of 200 characters                                                                              |
-| Tag            | t/      | Should only be these (case-insensitive): buyer, seller, tenant, landlord                                                   |
-| Minimum Budget | min/    | Should be a non-negative integer. If not provided, will have a default of $0                                               |
-| Maximum Budget | max/    | Should be a non-negative integer and more than the minimum budget. If not provided, will have a default of $200,000,000,000|
-| Notes          | notes/  | Can take any value. Maximum of 500 characters                                                                              |
-| Status         | status/ | Should only be these (case-insensitive): active, inactive                                                                  |
+| Parameter      | Prefix  | Constraints                                                                                                                 |
+|----------------|---------|-----------------------------------------------------------------------------------------------------------------------------|
+| Name           | n/      | Should only contain alphabetical characters (a-z, A-Z, 0-9) or spaces                                                       |
+| Phone Number   | p/      | Should only contain numbers (0-9), and it should be at least 3 digits long                                                  |
+| Email          | e/      | Should follow the format: name@example.com                                                                                  |
+| Address        | a/      | Can take any value. Maximum of 200 characters                                                                               |
+| Minimum Budget | min/    | Should be a non-negative integer. If not provided, will have a default of $0                                                |
+| Maximum Budget | max/    | Should be a non-negative integer and more than the minimum budget. If not provided, will have a default of $200,000,000,000 |
+| Notes          | notes/  | Can take any value. Maximum of 500 characters                                                                               |
+| Status         | status/ | Should only be these (case-insensitive): active, inactive                                                                   |
 
 ### Property Management
 These are prefixes for purely property related commands.
@@ -609,33 +605,32 @@ Related commands: [`filtercontact`](#filter-contact-command-filtercontact), [`fi
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a…                        | I want to…                                       | So that I can…                                                           |
-| -------- | ---------------------------- | ------------------------------------------------ | ------------------------------------------------------------------------ |
-| `* * *`  | user                         | add contacts                                     | keep track of my contacts                                                 |
-| `* * *`  | user                         | store properties                                 | keep track of my advertising properties                                  |
-| `* * *`  | user                         | delete contacts                                  | remove contacts that I no longer need                                    |
-| `* * *`  | user                         | delete properties                                | remove properties that I no longer need                                  |
-| `* * *`  | user                         | filter my contacts by their details              | find and prioritise contacts easily                                       |
+| Priority | As a…                        | I want to…                                       | So that I can…                                                             |
+|----------|------------------------------|--------------------------------------------------|----------------------------------------------------------------------------|
+| `* * *`  | user                         | add contacts                                     | keep track of my contacts                                                  |
+| `* * *`  | user                         | store properties                                 | keep track of my advertising properties                                    |
+| `* * *`  | user                         | delete contacts                                  | remove contacts that I no longer need                                      |
+| `* * *`  | user                         | delete properties                                | remove properties that I no longer need                                    |
+| `* * *`  | user                         | filter my contacts by their details              | find and prioritise contacts easily                                        |
 | `* * *`  | user                         | filter my properties by criteria                 | find my properties for my contacts easily and better match contact's needs |
-| `* * *`  | user                         | track contact associations to properties          | easily cross-reference contacts                                           |
-| `* * *`  | user                         | track when properties are sold                   | filter them from searches                                                |
-| `* * *`  | detail-oriented user         | view a contact’s full profile details             | prepare before meeting or calling them                                   |
-| `* *`    | user                         | edit stored information                          | avoid manually deleting and adding data back when something changes      |
-| `* *`    | collaborating user           | import Excel contact lists into the system       | avoid adding contacts one by one                                         |
-| `* *`    | user                         | record the dates of contact property visits       | maintain a clear history of interactions                                 |
-| `* *`    | collaborating user           | export data of contacts                          | pass the information to associated contacts                              |
-| `* *`    | user                         | draft messages based on contact profiles          | provide updates quickly and professionally                               |
-| `* *`    | user                         | mark contacts as “active” or “inactive”           |                                                                          |
-| `* *`    | user                         | store signed contracts                           | quickly retrieve them if disputes or clarifications arise                |
-| `* *`    | user                         | generate reports                                 | analyze performance and opportunities                                    |
-| `* *`    | user                         | tag contacts with labels                          | organise them better                                                     |
-| `* *`    | user                         | track commission earned from each deal           | measure my performance                                                   |
-| `* *`    | user                         | have a recent contact list                       |                                                                          |
-| `*`      | user dealing with complaints | see the whole interaction history                | understand the context fully and manage the situation well               |
-| `*`      | forgetful user               | set automatic reminders for contract expirations | avoid missing key dates                                                  |
-| `*`      | user                         | mark and track the negotiation stage of a deal   | see deal progress                                                        |
-| `*`      | user                         | generate detailed draft contracts automatically  | speed up the transaction process                                         |
-| `*`      | forgetful user               | set reminders for follow-ups with contacts        | avoid forgetting to contact them at the right time                       |
+| `* * *`  | user                         | track contact associations to properties         | easily cross-reference contacts                                            |
+| `* * *`  | user                         | track when properties are sold                   | filter them from searches                                                  |
+| `* * *`  | detail-oriented user         | view a contact’s full profile details            | prepare before meeting or calling them                                     |
+| `* *`    | user                         | edit stored information                          | avoid manually deleting and adding data back when something changes        |
+| `* *`    | collaborating user           | import Excel contact lists into the system       | avoid adding contacts one by one                                           |
+| `* *`    | user                         | record the dates of contact property visits      | maintain a clear history of interactions                                   |
+| `* *`    | collaborating user           | export data of contacts                          | pass the information to associated contacts                                |
+| `* *`    | user                         | draft messages based on contact profiles         | provide updates quickly and professionally                                 |
+| `* *`    | user                         | mark contacts as “active” or “inactive”          |                                                                            |
+| `* *`    | user                         | store signed contracts                           | quickly retrieve them if disputes or clarifications arise                  |
+| `* *`    | user                         | generate reports                                 | analyze performance and opportunities                                      |
+| `* *`    | user                         | track commission earned from each deal           | measure my performance                                                     |
+| `* *`    | user                         | have a recent contact list                       |                                                                            |
+| `*`      | user dealing with complaints | see the whole interaction history                | understand the context fully and manage the situation well                 |
+| `*`      | forgetful user               | set automatic reminders for contract expirations | avoid missing key dates                                                    |
+| `*`      | user                         | mark and track the negotiation stage of a deal   | see deal progress                                                          |
+| `*`      | user                         | generate detailed draft contracts automatically  | speed up the transaction process                                           |
+| `*`      | forgetful user               | set reminders for follow-ups with contacts       | avoid forgetting to contact them at the right time                         |
 
 ## Appendix: Use Cases
 
@@ -1017,23 +1012,7 @@ Expected:<br>
 - Status message shows number of contacts displayed.
 
 Variations:<br>
-- Add more conditions (e.g., `t/buyer`) to confirm multi-prefix filtering.
 - Test with mixed casing (e.g., `n/aLiCe`) to confirm case-insensitive matching.
-
-##### Filtering by tag with limits
-Command: `filtercontact t/buyer limit/10 offset/1`
-
-To simulate:<br>
-- Ensure contact list contains multiple tagged `buyer`.
-- Run the command above.
-
-Expected:<br>
-- Shows up to 10 contacts, skipping the first one.
-- Status message indicates count and offset.
-
-Variations:<br>
-- Change limit/offset values to confirm pagination.
-- Use invalid tags to confirm error messages.
 
 ##### Invalid filter command
 
@@ -1054,7 +1033,7 @@ Variations:<br>
 
 ##### Adding a contact with unique details
 
-Command: `addcontact n/Zara Lim p/91234567 e/zara.lim@example.com a/11 Green Lane t/buyer s/active notes/Prefers email`
+Command: `addcontact n/Zara Lim p/91234567 e/zara.lim@example.com a/11 Green Lane s/active notes/Prefers email`
 
 To simulate:<br>
 - Run `list` to show all contacts and confirm the sample data does not already contain the details above.
@@ -1065,12 +1044,12 @@ Expected:<br>
 - The contacts panel shows a new `Zara Lim` card appended with a newly generated UUID (note it for later tests).
 
 Variations:<br>
-- Reorder optional prefixes or include additional tags to ensure the command still succeeds.
+- Reorder optional prefixes to ensure the command still succeeds.
 - Repeat the command with extra whitespace around prefixes to confirm parsing tolerance.
 
 ##### Duplicate contact rejected
 
-Command: `addcontact n/Zara Lim p/91234567 e/zara.lim@example.com a/11 Green Lane t/buyer s/active notes/Prefers email`
+Command: `addcontact n/Zara Lim p/91234567 e/zara.lim@example.com a/11 Green Lane s/active notes/Prefers email`
 
 To simulate:<br>
 - Ensure the contact from the previous scenario still exists.

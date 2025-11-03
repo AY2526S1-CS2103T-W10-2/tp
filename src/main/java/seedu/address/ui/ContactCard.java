@@ -3,11 +3,8 @@ package seedu.address.ui;
 import static seedu.address.logic.parser.ParserUtil.DEFAULT_BUDGET_MAX;
 import static seedu.address.logic.parser.ParserUtil.DEFAULT_BUDGET_MIN;
 
-import java.util.Comparator;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.contact.Contact;
@@ -44,8 +41,6 @@ public class ContactCard extends UiPart<Region> {
     private Label address;
     @FXML
     private Label email;
-    @FXML
-    private FlowPane tags;
     @FXML
     private Label budgetMin;
     @FXML
@@ -85,9 +80,6 @@ public class ContactCard extends UiPart<Region> {
         // Budget fields with default value checks
         setLabelIfNotDefault(budgetMin, "Budget Minimum: $", contact.getBudgetMin().toString(), DEFAULT_BUDGET_MIN);
         setLabelIfNotDefault(budgetMax, "Budget Maximum: $", contact.getBudgetMax().toString(), DEFAULT_BUDGET_MAX);
-
-        // Tags
-        setTagsIfNotEmpty(contact);
 
         // Property IDs
         setIdsIfNotEmpty(buyingIds, "Buying Property IDs: ", contact.getBuyingPropertyIds());
@@ -132,22 +124,6 @@ public class ContactCard extends UiPart<Region> {
             hideLabel(label);
         } else {
             label.setText(prefix + value);
-        }
-    }
-
-    /**
-     * Sets tags if not empty, otherwise hides the tags
-     *
-     * @param contact The contact whose tags to display.
-     */
-    private void setTagsIfNotEmpty(Contact contact) {
-        if (contact.getTags().isEmpty()) {
-            tags.setVisible(false);
-            tags.setManaged(false);
-        } else {
-            contact.getTags().stream()
-                    .sorted(Comparator.comparing(tag -> tag.tagName))
-                    .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
         }
     }
 

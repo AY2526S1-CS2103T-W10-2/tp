@@ -20,13 +20,13 @@ public class FilterContactPredicateTest {
                 Optional.empty(), Optional.empty(),
                 Optional.empty(), Optional.empty(),
                 Optional.empty(), Optional.empty(),
-                Optional.empty(), Optional.empty(),
+                Optional.empty(),
                 Optional.empty(), Optional.empty());
 
         FilterContactPredicate secondPredicate = new FilterContactPredicate(
                 Optional.of(Arrays.asList("Alice", "Bob")),
                 Optional.empty(), Optional.empty(),
-                Optional.empty(), Optional.empty(),
+                Optional.empty(),
                 Optional.empty(), Optional.empty(),
                 Optional.empty(), Optional.empty(),
                 Optional.empty(), Optional.empty());
@@ -38,7 +38,7 @@ public class FilterContactPredicateTest {
                 Optional.of(Collections.singletonList("Alice")),
                 Optional.empty(), Optional.empty(),
                 Optional.empty(), Optional.empty(),
-                Optional.empty(), Optional.empty(),
+                Optional.empty(),
                 Optional.empty(), Optional.empty(),
                 Optional.empty(), Optional.empty());
 
@@ -62,7 +62,7 @@ public class FilterContactPredicateTest {
                 Optional.empty(), Optional.empty(),
                 Optional.empty(), Optional.empty(),
                 Optional.empty(), Optional.empty(),
-                Optional.empty(), Optional.empty());
+                Optional.empty());
 
         assertTrue(predicate.test(new ContactBuilderUtil().withName("Alice Bob").build()));
     }
@@ -75,7 +75,7 @@ public class FilterContactPredicateTest {
                 Optional.empty(), Optional.empty(), Optional.empty(),
                 Optional.empty(), Optional.empty(),
                 Optional.empty(), Optional.empty(),
-                Optional.empty(), Optional.empty());
+                Optional.empty());
 
         assertTrue(predicate.test(new ContactBuilderUtil().withPhone("12345").build()));
     }
@@ -88,7 +88,7 @@ public class FilterContactPredicateTest {
                 Optional.empty(), Optional.empty(),
                 Optional.empty(), Optional.empty(),
                 Optional.empty(), Optional.empty(),
-                Optional.empty(), Optional.empty());
+                Optional.empty());
 
         assertTrue(predicate.test(new ContactBuilderUtil().withEmail("email@example.com").build()));
     }
@@ -101,28 +101,16 @@ public class FilterContactPredicateTest {
                 Optional.empty(),
                 Optional.empty(), Optional.empty(),
                 Optional.empty(), Optional.empty(),
-                Optional.empty(), Optional.empty());
+                Optional.empty());
 
         assertTrue(predicate.test(new ContactBuilderUtil().withAddress("Main Street Apt 1").build()));
-    }
-
-    @Test
-    public void test_tagMatches_returnsTrue() {
-        FilterContactPredicate predicate = new FilterContactPredicate(
-                Optional.empty(), Optional.empty(), Optional.empty(),
-                Optional.empty(), Optional.of(Collections.singletonList("buyer")),
-                Optional.empty(), Optional.empty(),
-                Optional.empty(), Optional.empty(),
-                Optional.empty(), Optional.empty());
-
-        assertTrue(predicate.test(new ContactBuilderUtil().withTags("buyer").build()));
     }
 
     @Test
     public void test_budgetMinAndMaxMatches_returnsTrue() {
         FilterContactPredicate predicate = new FilterContactPredicate(
                 Optional.empty(), Optional.empty(), Optional.empty(),
-                Optional.empty(), Optional.empty(),
+                Optional.empty(),
                 Optional.of(100L), Optional.of(500L),
                 Optional.empty(), Optional.empty(),
                 Optional.empty(), Optional.empty());
@@ -135,7 +123,7 @@ public class FilterContactPredicateTest {
         FilterContactPredicate predicate = new FilterContactPredicate(
                 Optional.empty(), Optional.empty(), Optional.empty(),
                 Optional.empty(), Optional.empty(),
-                Optional.empty(), Optional.empty(),
+                Optional.empty(),
                 Optional.of(Collections.singletonList("important")),
                 Optional.empty(),
                 Optional.empty(), Optional.empty());
@@ -147,7 +135,7 @@ public class FilterContactPredicateTest {
     public void test_statusMatches_returnsTrue() {
         FilterContactPredicate predicate = new FilterContactPredicate(
                 Optional.empty(), Optional.empty(), Optional.empty(),
-                Optional.empty(), Optional.empty(),
+                Optional.empty(),
                 Optional.empty(), Optional.empty(),
                 Optional.empty(),
                 Optional.of(Collections.singletonList("active")),
@@ -160,7 +148,7 @@ public class FilterContactPredicateTest {
     public void test_statusActiveDoesNotMatchInactive() {
         FilterContactPredicate predicate = new FilterContactPredicate(
                 Optional.empty(), Optional.empty(), Optional.empty(),
-                Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(),
+                Optional.empty(), Optional.empty(), Optional.empty(),
                 Optional.empty(),
                 Optional.of(Collections.singletonList("active")),
                 Optional.empty(), Optional.empty()
@@ -189,7 +177,7 @@ public class FilterContactPredicateTest {
                 Optional.empty(), Optional.empty(),
                 Optional.empty(), Optional.empty(),
                 Optional.empty(), Optional.empty(),
-                Optional.empty(), Optional.empty());
+                Optional.empty());
 
         assertFalse(predicate.test(new ContactBuilderUtil().withName("Alice").build()));
     }
@@ -199,7 +187,6 @@ public class FilterContactPredicateTest {
         FilterContactPredicate predicate = new FilterContactPredicate(
                 Optional.of(Arrays.asList("Alice", "Bob")),
                 Optional.of(Arrays.asList("12345")),
-                Optional.empty(),
                 Optional.empty(),
                 Optional.empty(),
                 Optional.of(100L),
@@ -226,7 +213,7 @@ public class FilterContactPredicateTest {
                 Optional.empty(), Optional.empty(), Optional.empty(),
                 Optional.empty(), Optional.empty(), Optional.empty(),
                 Optional.empty(), Optional.empty(), Optional.empty(),
-                Optional.empty(), Optional.empty()
+                Optional.empty()
         );
 
         String result = predicate.toString();

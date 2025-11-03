@@ -9,7 +9,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTES;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -38,16 +37,13 @@ public class AddContactCommand extends Command {
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_BUDGET_MIN + "AMOUNT] "
             + "[" + PREFIX_BUDGET_MAX + "AMOUNT] "
-            + "[" + PREFIX_TAG + "TAG]..."
             + "[" + PREFIX_NOTES + "NOTES] "
             + "[" + PREFIX_STATUS + "STATUS]\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
             + PREFIX_PHONE + "98765432 "
             + PREFIX_EMAIL + "johnd@example.com "
-            + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
-            + PREFIX_TAG + "buyer "
-            + PREFIX_TAG + "seller";
+            + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 ";
 
     public static final String MESSAGE_SUCCESS = "New contact added:\n%1$s";
     public static final String MESSAGE_DUPLICATE_CONTACT = "This contact already exists in the address book";

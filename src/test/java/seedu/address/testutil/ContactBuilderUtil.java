@@ -14,7 +14,6 @@ import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Name;
 import seedu.address.model.contact.Notes;
 import seedu.address.model.contact.Phone;
-import seedu.address.model.contact.Tag;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.model.uuid.Uuid;
 
@@ -37,7 +36,6 @@ public class ContactBuilderUtil {
     private Phone phone;
     private Email email;
     private ContactAddress address;
-    private Set<Tag> tags;
     private BudgetMin budgetMin;
     private BudgetMax budgetMax;
     private Notes notes;
@@ -55,7 +53,6 @@ public class ContactBuilderUtil {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         address = new ContactAddress(DEFAULT_ADDRESS);
-        tags = new HashSet<>();
         budgetMin = new BudgetMin(DEFAULT_BUDGET_MIN);
         budgetMax = new BudgetMax(DEFAULT_BUDGET_MAX);
         notes = new Notes(DEFAULT_NOTES);
@@ -73,7 +70,6 @@ public class ContactBuilderUtil {
         phone = new Phone(contactToCopy.getPhone().value);
         email = new Email(contactToCopy.getEmail().value);
         address = new ContactAddress(contactToCopy.getAddress().value);
-        tags = new HashSet<>(contactToCopy.getTags());
         budgetMin = new BudgetMin(contactToCopy.getBudgetMin().value);
         budgetMax = new BudgetMax(contactToCopy.getBudgetMax().value);
         notes = new Notes(contactToCopy.getNotes().value);
@@ -95,14 +91,6 @@ public class ContactBuilderUtil {
      */
     public ContactBuilderUtil withName(String name) {
         this.name = new Name(name);
-        return this;
-    }
-
-    /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Contact} that we are building.
-     */
-    public ContactBuilderUtil withTags(String ... tags) {
-        this.tags = SampleDataUtil.getTagSet(tags);
         return this;
     }
 
@@ -190,7 +178,6 @@ public class ContactBuilderUtil {
                 phone,
                 email,
                 address,
-                tags,
                 budgetMin,
                 budgetMax,
                 notes,

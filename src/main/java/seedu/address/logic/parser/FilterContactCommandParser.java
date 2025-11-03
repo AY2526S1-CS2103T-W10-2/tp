@@ -13,7 +13,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTES;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_OFFSET;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -44,7 +43,7 @@ public class FilterContactCommandParser implements Parser<FilterContactCommand> 
     // Define the set of allowed prefixes
     private static final Set<Prefix> VALID_PREFIXES = new HashSet<>(Arrays.asList(
             PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
-            PREFIX_ADDRESS, PREFIX_TAG,
+            PREFIX_ADDRESS,
             PREFIX_BUDGET_MIN, PREFIX_BUDGET_MAX,
             PREFIX_NOTES, PREFIX_STATUS,
             PREFIX_LIMIT, PREFIX_OFFSET
@@ -92,7 +91,6 @@ public class FilterContactCommandParser implements Parser<FilterContactCommand> 
                 getKeywords(argMultimap.getValue(PREFIX_PHONE), PREFIX_PHONE),
                 getKeywords(argMultimap.getValue(PREFIX_EMAIL), PREFIX_EMAIL),
                 getKeywords(argMultimap.getValue(PREFIX_ADDRESS), PREFIX_ADDRESS),
-                getKeywords(argMultimap.getValue(PREFIX_TAG), PREFIX_TAG),
                 budgetMin,
                 budgetMax,
                 getKeywords(argMultimap.getValue(PREFIX_NOTES), PREFIX_NOTES),
@@ -138,9 +136,6 @@ public class FilterContactCommandParser implements Parser<FilterContactCommand> 
                 break;
             case CliSyntax.PREFIX_ADDRESS_RAW:
                 ParserUtil.parseAddress(keyword);
-                break;
-            case CliSyntax.PREFIX_TAG_RAW:
-                ParserUtil.parseTag(keyword);
                 break;
             case CliSyntax.PREFIX_BUDGET_MIN_RAW:
                 ParserUtil.parseBudgetMin(keyword);

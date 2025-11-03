@@ -182,7 +182,7 @@ public class ModelManagerTest {
                 Optional.empty(), Optional.empty(), Optional.empty(),
                 Optional.empty(), Optional.empty(), Optional.empty(),
                 Optional.empty(), Optional.empty(),
-                Optional.empty(), Optional.empty()
+                Optional.empty()
         ));
         assertFalse(modelManager.equals(new ModelManager(addressBook, propertyBook, userPrefs)));
 

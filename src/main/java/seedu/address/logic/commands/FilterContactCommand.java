@@ -12,7 +12,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTES;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_OFFSET;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.List;
 
@@ -39,7 +38,6 @@ public class FilterContactCommand extends Command {
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_BUDGET_MIN + "MIN_BUDGET] "
             + "[" + PREFIX_BUDGET_MAX + "MAX_BUDGET] "
-            + "[" + PREFIX_TAG + "TAG]... "
             + "[" + PREFIX_NOTES + "NOTES] "
             + "[" + PREFIX_STATUS + "STATUS] "
             + "[" + PREFIX_LIMIT + "LIMIT] "

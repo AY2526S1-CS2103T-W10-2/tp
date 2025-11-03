@@ -10,8 +10,6 @@ import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
@@ -19,9 +17,6 @@ import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.address.logic.commands.CommandTestUtil.STATUS_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_BUYER;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_TENANT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_BUDGET_MAX_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_BUDGET_MIN_BOB;
@@ -29,8 +24,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STATUS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_BUYER;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_TENANT;
 import static seedu.address.logic.parser.AddContactCommandParser.NAME_AND_PHONE_MISSING;
 import static seedu.address.logic.parser.AddContactCommandParser.NAME_MISSING;
 import static seedu.address.logic.parser.AddContactCommandParser.PHONE_MISSING;
@@ -57,7 +50,6 @@ import seedu.address.model.contact.ContactStatus;
 import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Name;
 import seedu.address.model.contact.Phone;
-import seedu.address.model.contact.Tag;
 import seedu.address.testutil.ContactBuilderUtil;
 
 public class AddContactCommandParserTest {
@@ -65,25 +57,17 @@ public class AddContactCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Contact expectedContact = new ContactBuilderUtil(BOB).withTags(VALID_TAG_BUYER).build();
+        Contact expectedContact = new ContactBuilderUtil(BOB).build();
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_BUYER, new AddContactCommand(expectedContact));
-
-
-        // multiple tags - all accepted
-        Contact expectedContactMultipleTags = new ContactBuilderUtil(BOB).withTags(VALID_TAG_BUYER, VALID_TAG_TENANT)
-                .build();
-        assertParseSuccess(parser,
-                NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_TENANT + TAG_DESC_BUYER,
-                new AddContactCommand(expectedContactMultipleTags));
+                + ADDRESS_DESC_BOB, new AddContactCommand(expectedContact));
     }
 
     @Test
     public void parse_repeatedNonTagValue_failure() {
         String validExpectedContactString = NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_BUYER;
+                + ADDRESS_DESC_BOB;
 
         // multiple names
         assertParseFailure(parser, NAME_DESC_AMY + validExpectedContactString,
@@ -143,7 +127,6 @@ public class AddContactCommandParserTest {
         Contact expectedContact = new ContactBuilderUtil(AMY)
                 .withEmail("")
                 .withAddress("")
-                .withTags()
                 .withBudgetMin("0")
                 .withBudgetMax("200000000000")
                 .withNotes("")
@@ -176,7 +159,6 @@ public class AddContactCommandParserTest {
                         .withPhone(VALID_PHONE_BOB)
                         .withEmail("")
                         .withAddress(VALID_ADDRESS_BOB)
-                        .withTags()
                         .withBudgetMin("0")
                         .withBudgetMax("200000000000")
                         .withNotes("")
@@ -200,20 +182,16 @@ public class AddContactCommandParserTest {
     @Test
     public void parse_invalidValue_failure() {
         // invalid name
-        assertParseFailure(parser, INVALID_NAME_DESC + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + TAG_DESC_TENANT + TAG_DESC_BUYER, Name.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, INVALID_NAME_DESC + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB,
+                Name.MESSAGE_CONSTRAINTS);
 
         // invalid phone
-        assertParseFailure(parser, NAME_DESC_BOB + INVALID_PHONE_DESC + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + TAG_DESC_TENANT + TAG_DESC_BUYER, Phone.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, NAME_DESC_BOB + INVALID_PHONE_DESC + EMAIL_DESC_BOB + ADDRESS_DESC_BOB,
+                Phone.MESSAGE_CONSTRAINTS);
 
         // invalid email
-        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + INVALID_EMAIL_DESC + ADDRESS_DESC_BOB
-                + TAG_DESC_TENANT + TAG_DESC_BUYER, Email.MESSAGE_CONSTRAINTS);
-
-        // invalid tag
-        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + INVALID_TAG_DESC, String.format(Tag.MESSAGE_CONSTRAINTS, INVALID_TAG));
+        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + INVALID_EMAIL_DESC + ADDRESS_DESC_BOB,
+                Email.MESSAGE_CONSTRAINTS);
 
         // one invalid value
         assertParseFailure(parser, INVALID_NAME_DESC + PHONE_DESC_BOB + EMAIL_DESC_BOB,
@@ -221,7 +199,7 @@ public class AddContactCommandParserTest {
 
         // non-empty preamble
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_TENANT + TAG_DESC_BUYER,
+                + ADDRESS_DESC_BOB,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddContactCommand.MESSAGE_USAGE));
     }
 
@@ -253,11 +231,6 @@ public class AddContactCommandParserTest {
                 NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB.replace(VALID_EMAIL_BOB, prefixLikeValue),
                     Email.MESSAGE_CONSTRAINTS);
 
-        // Tag containing prefix-like value
-        assertParseFailure(parser,
-                NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                        + TAG_DESC_BOB.replace(VALID_TAG_BUYER, prefixLikeValue),
-                        String.format(Tag.MESSAGE_CONSTRAINTS, prefixLikeValue));
         // Budget Min containing prefix-like value
         assertParseFailure(parser,
                 NAME_DESC_BOB + PHONE_DESC_BOB

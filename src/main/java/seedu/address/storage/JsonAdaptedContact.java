@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -22,7 +21,6 @@ import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Name;
 import seedu.address.model.contact.Notes;
 import seedu.address.model.contact.Phone;
-import seedu.address.model.contact.Tag;
 import seedu.address.model.uuid.Uuid;
 
 
@@ -38,7 +36,6 @@ class JsonAdaptedContact {
     private final String phone;
     private final String email;
     private final String address;
-    private final List<JsonAdaptedTag> tags = new ArrayList<>();
     private final String budgetMin;
     private final String budgetMax;
     private final String notes;
@@ -55,7 +52,6 @@ class JsonAdaptedContact {
                               @JsonProperty("phone") String phone,
                               @JsonProperty("email") String email,
                               @JsonProperty("address") String address,
-                              @JsonProperty("tags") List<JsonAdaptedTag> tags,
                               @JsonProperty("budgetMin") String budgetMin,
                               @JsonProperty("budgetMax") String budgetMax,
                               @JsonProperty("notes") String notes,
@@ -71,9 +67,6 @@ class JsonAdaptedContact {
         this.budgetMax = budgetMax;
         this.notes = notes;
         this.status = status;
-        if (tags != null) {
-            this.tags.addAll(tags);
-        }
         if (buyingPropertyIds != null) {
             this.buyingPropertyIds.addAll(buyingPropertyIds);
         }
@@ -95,10 +88,6 @@ class JsonAdaptedContact {
         budgetMax = source.getBudgetMax().value;
         notes = source.getNotes().value;
         status = source.getStatus().value;
-
-        tags.addAll(source.getTags().stream()
-                .map(JsonAdaptedTag::new)
-                .collect(Collectors.toList()));
         buyingPropertyIds.addAll(source
                 .getBuyingPropertyIds()
                 .stream()
@@ -117,10 +106,6 @@ class JsonAdaptedContact {
      * @throws IllegalValueException if there were any data constraints violated in the adapted contact.
      */
     public Contact toModelType() throws IllegalValueException {
-        final List<Tag> contactTags = new ArrayList<>();
-        for (JsonAdaptedTag tag : tags) {
-            contactTags.add(tag.toModelType());
-        }
 
         if (uuid == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Uuid"));
@@ -193,9 +178,6 @@ class JsonAdaptedContact {
         }
         final ContactStatus modelStatus = new ContactStatus(status);
 
-        final Set<Tag> modelTags = new HashSet<>(contactTags);
-
-
         final List<Uuid> tempBuyingPropertyIds = new ArrayList<>();
         for (Integer id : this.buyingPropertyIds) {
             tempBuyingPropertyIds.add(new Uuid(id, PROPERTY));
@@ -209,7 +191,7 @@ class JsonAdaptedContact {
         final Set<Uuid> modelSellingPropertyIds = new HashSet<>(tempSellingPropertyIds);
 
         return new Contact(modelUuid, modelName, modelPhone, modelEmail, modelAddress,
-                          modelTags, modelBudgetMin, modelBudgetMax, modelNotes, modelStatus,
+                          modelBudgetMin, modelBudgetMax, modelNotes, modelStatus,
                 modelBuyingPropertyIds, modelSellingPropertyIds);
     }
 
