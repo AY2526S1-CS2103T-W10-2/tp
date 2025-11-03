@@ -504,7 +504,7 @@ Furthermore, certain edits can cause the TheRealDeal to behave in unexpected way
 
 6. **Filtering logic for filter contacts and filter property are different.** Future improvements aim to make them work similarly for clarity.
 
---------------------------------------------------------------------------------------------------------------------
+<div style="page-break-after: always;"></div>
 
 ## Command summary
 To see the detailed explanation of every feature, click [here](#features)<br>
@@ -528,7 +528,7 @@ To see the detailed explanation of every feature, click [here](#features)<br>
 | **Clear**                   | `clear`                                                                                                                                                                                                                               |
 | **Help**                    | `help`                                                                                                                                                                                                                                |
 
---------------------------------------------------------------------------------------------------------------------
+<div style="page-break-after: always;"></div>
 
 ## Command Parameters
 This table shows every parameter and prefix used in TheRealDeal.

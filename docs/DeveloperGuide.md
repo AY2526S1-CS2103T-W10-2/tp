@@ -425,7 +425,7 @@ Validation done:
 The UI is then updated based on which properties that match the predicate.
 
 #### <u>Mark Property as Sold Command</u> (`sold`)
-The `sold` command finds properties by they ID and changes the status of the property to unavailable.
+The `sold` command finds properties by their ID and changes the status of the property to unavailable.
 
 Compulsory fields:
 - ID (using `p/` prefix)
@@ -442,7 +442,7 @@ Validation done:
 The `MarkSoldCommand` executes by retrieving the `Property` object for each ID and creating a new `Property` object with the same attributes but with its `Status` as unavailable to replace the old `Property`.
 
 #### <u>Mark Property as Unsold Command</u> (`unsold`)
-The `unsold` command finds properties by they ID and changes the status of the property to unavailable.
+The `unsold` command finds properties by their ID and changes the status of the property to unavailable.
 
 Compulsory fields:
 - ID (using `p/` prefix)
@@ -586,7 +586,7 @@ This table shows every parameter and prefix used in TheRealDeal.
 If the command states that the prefix is optional e.g. <code>n/NAME [notes/TEXT]</code><br>
 an empty parameter will be the same as not having the prefix<br>
 e.g. <code>n/NAME notes/</code> is the same as <code>n/NAME</code><br><br>
-All parameters that expect integers must be entered as **plain digits** — without commas, dots, spaces, or any other separators.
+All parameters that expect integers must be entered as **plain digits** (0-9) — without commas, dots, spaces, or any other separators.
 </div>
 
 ### Contact Management
@@ -618,17 +618,17 @@ Related commands: [`addproperty`](#add-property-command-addproperty), [`filterpr
 | Bedroom count  | bed/   | Should be an integer from 0 to 20                                                                                    |
 | Bathroom count | bath/  | Should be an integer from 0 to 20                                                                                    |
 | Floor area     | f/     | Should be an integer from 50 to 100000                                                                               |
-| Owner ID       | o/     | Should be a valid Contact ID                                                                                       |
+| Owner ID       | o/     | Should be a valid Contact ID                                                                                         |
 
 ### Others
 These are prefixes that are used over multiple commands.
 Related commands: [`filtercontact`](#filter-contact-command-filtercontact), [`filterproperty`](#filter-property-command-filterproperty), [`sold`](#mark-property-as-sold-command-sold), [`unsold`](#mark-property-as-unsold-command-unsold), [`link`](#link-command-link), [`unlink`](#unlink-command-unlink), [`showproperties`](#show-properties-command-showproperties), [`showcontacts`](#show-contacts-command-showcontacts)
 
-| Parameter      | Prefix  | Constraints                                            |
-|----------------|---------|--------------------------------------------------------|
-| Contact ID   | c/      | Should be a valid Contact ID                         |
-| Property ID  | p/      | Should be a valid Property ID                        |
-| Relationship   | r/      | Should only be these (case-insensitive): buyer, seller |
+| Parameter    | Prefix | Constraints                                            |
+|--------------|--------|--------------------------------------------------------|
+| Contact ID   | c/     | Should be a valid Contact ID                           |
+| Property ID  | p/     | Should be a valid Property ID                          |
+| Relationship | r/     | Should only be these (case-insensitive): buyer, seller |
 
 ## Appendix: Product Scope
 
