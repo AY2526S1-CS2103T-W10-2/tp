@@ -38,7 +38,7 @@ public class PropertyMatchesFilterPredicate implements Predicate<Property> {
         this.bedroom = norm(bedroom);
         this.bathroom = norm(bathroom);
         this.floorarea = norm(floorarea == null ? null : floorarea.replace(" ", ""));
-        this.price = norm(price == null ? null : price.replace(",", "")); // accept "500,000"
+        this.price = norm(price == null ? null : price.trim());
         this.status = norm(status);
         this.owner = norm(owner);
         this.listing = norm(listing);

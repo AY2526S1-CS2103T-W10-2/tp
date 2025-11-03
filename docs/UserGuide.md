@@ -29,6 +29,7 @@ Warns you of potential issues to should watch out for.
 
 --------------------------------------------------------------------------------------------------------------------
 <div style="page-break-after: always;"></div>
+<div style="page-break-after: always;"></div>
 
 ## GUI Overview
 
@@ -531,7 +532,7 @@ Related commands: [`addcontact`](#adding-a-contact--addcontact), [`filtercontact
 | Minimum Budget | min/    | Should be a non-negative integer. If not provided, will have a default of $0                                               |
 | Maximum Budget | max/    | Should be a non-negative integer and more than the minimum budget. If not provided, will have a default of $200,000,000,000|
 | Notes          | notes/  | Can take any value. Maximum of 500 characters                                                                              |
-| Status         | s/      | Should only be these (case-insensitive): available, unavailable                                                            |
+| Status         | status/ | Should only be these (case-insensitive): active, inactive                                                                |
 
 ### Property Management
 These are prefixes for purely property related commands.

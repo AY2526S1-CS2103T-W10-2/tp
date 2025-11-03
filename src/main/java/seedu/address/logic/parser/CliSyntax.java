@@ -39,7 +39,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_PROPERTY_FLOOR_AREA = new Prefix("f/");
     public static final Prefix PREFIX_PROPERTY_LISTING = new Prefix("l/");
     public static final Prefix PREFIX_PROPERTY_POSTAL = new Prefix("p/");
-    public static final Prefix PREFIX_PROPERTY_STATUS = new Prefix("status/");
+    public static final Prefix PREFIX_PROPERTY_STATUS = new Prefix("s/");
     public static final Prefix PREFIX_PROPERTY_OWNER = new Prefix("o/");
     public static final Prefix PREFIX_PROPERTY_PRICE = new Prefix("price/");
     public static final Prefix PREFIX_PROPERTY_TYPE = new Prefix("t/");
