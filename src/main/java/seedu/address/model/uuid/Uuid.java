@@ -8,11 +8,11 @@ import java.util.stream.Collectors;
 
 /**
  * Represents a Contact or Properties's unique identifier in the address or property book.
- * Guarantees: immutable; is valid as declared in {@link #isValidUuid(int)}.
+ * Guarantees: immutable; is valid as declared in {@link #isValidUuid(String)}.
  */
 public class Uuid {
 
-    public static final String MESSAGE_CONSTRAINTS = "UUID should be a positive integer.";
+    public static final String MESSAGE_CONSTRAINTS = "UUID should be a positive integer. (maximum of 2000000)";
 
     private final int value;
     private final StoredItem itemType;
@@ -33,7 +33,7 @@ public class Uuid {
      */
     public Uuid(int uuid, StoredItem itemType) {
         requireNonNull(uuid);
-        checkArgument(isValidUuid(uuid), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidUuid(String.valueOf(uuid)), MESSAGE_CONSTRAINTS);
         value = uuid;
         this.itemType = itemType;
     }
@@ -52,8 +52,13 @@ public class Uuid {
     /**
      * Returns true if a given integer is a valid UUID.
      */
-    public static boolean isValidUuid(int test) {
-        return test > 0;
+    public static boolean isValidUuid(String test) {
+        try { // maximum UUID is 2 million to ensure integer won't overflow
+            float value = Float.parseFloat(test);
+            return value > 0 && value <= 2_000_000;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
     /**

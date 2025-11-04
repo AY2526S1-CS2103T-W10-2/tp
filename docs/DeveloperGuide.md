@@ -28,14 +28,12 @@ title: Developer Guide
 13. [Appendix: Efforts](#appendix-effort)
 14. [Appendix: Continuous Integration](#appendix-continuous-integration--continuous-deployment)
 
----------------------------------------------------------------------------------------------------------------------
-
 ## Acknowledgements
 
 TheRealDeal is a brownfield group project that is based on [addressbook-level3](https://github.com/se-edu/addressbook-level3) (AB3) created by [SE-EDU](https://se-education.org/).
 
 ## Legend
-These boxes in the Developer Guide has additional information that you should take note of.
+These boxes in the Developer Guide have additional information that you should take note of.
 
 <div markdown="block" class="alert alert-info">
 **:information_source: Important:**<br>
@@ -49,21 +47,16 @@ Provides you with helpful advice like keyboard shortcuts to use the application 
 
 <div markdown="span" class="alert alert-warning">
 :exclamation: **Caution:**<br>
-Warns you of potential issues to should watch out for.
+Warns you of potential issues to watch out for.
 </div>
-
----------------------------------------------------------------------------------------------------------------------
 
 ## 1. Setting up
 
 Refer to the guide [_Setting up and getting started_](SettingUp.md).
 
----------------------------------------------------------------------------------------------------------------------
-
 ## 2. Design
 
 <div markdown="span" class="alert alert-primary">
-
 :bulb: **Tip:** The `.puml` files used to create diagrams are in the `docs/diagrams` folder. <br>
 Click [here](https://se-education.org/guides/tutorials/plantUml.html) to learn how to create and edit the diagrams.
 </div>
@@ -432,7 +425,7 @@ Validation done:
 The UI is then updated based on which properties that match the predicate.
 
 #### <u>Mark Property as Sold Command</u> (`sold`)
-The `sold` command finds properties by they ID and changes the status of the property to unavailable.
+The `sold` command finds properties by their ID and changes the status of the property to unavailable.
 
 Compulsory fields:
 - ID (using `p/` prefix)
@@ -449,7 +442,7 @@ Validation done:
 The `MarkSoldCommand` executes by retrieving the `Property` object for each ID and creating a new `Property` object with the same attributes but with its `Status` as unavailable to replace the old `Property`.
 
 #### <u>Mark Property as Unsold Command</u> (`unsold`)
-The `unsold` command finds properties by they ID and changes the status of the property to unavailable.
+The `unsold` command finds properties by their ID and changes the status of the property to unavailable.
 
 Compulsory fields:
 - ID (using `p/` prefix)
@@ -593,7 +586,7 @@ This table shows every parameter and prefix used in TheRealDeal.
 If the command states that the prefix is optional e.g. <code>n/NAME [notes/TEXT]</code><br>
 an empty parameter will be the same as not having the prefix<br>
 e.g. <code>n/NAME notes/</code> is the same as <code>n/NAME</code><br><br>
-All parameters that expect integers must be entered as **plain digits** — without commas, dots, spaces, or any other separators.
+All parameters that expect integers must be entered as **plain digits** (0-9) — without commas, dots, spaces, or any other separators.
 </div>
 
 ### Contact Management
@@ -625,17 +618,17 @@ Related commands: [`addproperty`](#add-property-command-addproperty), [`filterpr
 | Bedroom count  | bed/   | Should be an integer from 0 to 20                                                                                    |
 | Bathroom count | bath/  | Should be an integer from 0 to 20                                                                                    |
 | Floor area     | f/     | Should be an integer from 50 to 100000                                                                               |
-| Owner ID       | o/     | Should be a valid Contact ID                                                                                       |
+| Owner ID       | o/     | Should be a valid Contact ID                                                                                         |
 
 ### Others
 These are prefixes that are used over multiple commands.
 Related commands: [`filtercontact`](#filter-contact-command-filtercontact), [`filterproperty`](#filter-property-command-filterproperty), [`sold`](#mark-property-as-sold-command-sold), [`unsold`](#mark-property-as-unsold-command-unsold), [`link`](#link-command-link), [`unlink`](#unlink-command-unlink), [`showproperties`](#show-properties-command-showproperties), [`showcontacts`](#show-contacts-command-showcontacts)
 
-| Parameter      | Prefix  | Constraints                                            |
-|----------------|---------|--------------------------------------------------------|
-| Contact ID   | c/      | Should be a valid Contact ID                         |
-| Property ID  | p/      | Should be a valid Property ID                        |
-| Relationship   | r/      | Should only be these (case-insensitive): buyer, seller |
+| Parameter    | Prefix | Constraints                                            |
+|--------------|--------|--------------------------------------------------------|
+| Contact ID   | c/     | Should be a valid Contact ID                           |
+| Property ID  | p/     | Should be a valid Property ID                          |
+| Relationship | r/     | Should only be these (case-insensitive): buyer, seller |
 
 ## Appendix: Product Scope
 
@@ -1616,14 +1609,14 @@ To simulate:<br>
 - Run the above command with CONTACT_ID replaced with the ID of said contact, PROPERTY_ID replaced with the ID of said property.
 
 Expected:<br>
-- Displays the following error message:<br>`A property id provided is invalid`
+- Displays the following error message:<br>`A property ID provided is invalid`
 - No change to the GUI.
 
 Variations:<br>
 - Change relationship from buyer to seller.
 - Add more parameters with prefix p/ with valid property IDs.<br>A similar output should display as long as at least 1 property ID input is invalid.
 - Add more parameters with prefix c/ with valid contact IDs.<br>A similar output should display as long as at least 1 property ID input is invalid.
-- Repeat with valid PROPERTY_ID but not present CONTACT_ID.<br>Alternate error message:<br>`A contact id provided is invalid`
+- Repeat with valid PROPERTY_ID but not present CONTACT_ID.<br>Alternate error message:<br>`A contact ID provided is invalid`
 - Using a ID that is less than or equal to 0.<br>Alternate error message:<br>`ID is not a valid format.`
 - Using a RELATIONSHIP other than `buyer` or `seller`.<br>Alternate error message:<br>`The relationship provided is invalid`
 - Add arbitrary whitespace.
@@ -1688,7 +1681,7 @@ To simulate:<br>
 - Run the above command with CONTACT_ID replaced with the ID of said contact, PROPERTY_ID replaced with the ID of said property.
 
 Expected:<br>
-- Displays the following error message:<br>`A property id provided is invalid`
+- Displays the following error message:<br>`A property ID provided is invalid`
 - No change to the GUI.
 
 Variations:<br>
@@ -1827,9 +1820,12 @@ Expected:<br>
 
 Team size: 5
 
-1. **Allow special characters to be used in contact names.** The current validation for contact names requires it to only consist of alphanumeric characters and spaces. The does not support names with special characters like `/` or `-` (e.g. `s/o`, `John-Mary`). Future improvements aim to support this functionality.
-2. **Deleting a contact does not update the owner data of properties.** Future improvements aim to automatically update the owner when the contact is deleted.
-3. **Marking a property as sold or unsold after doing the filter command removes property from UI.** One way to circumvent this is to use the `list` command so that the property reappears.  Future improvements aim to allow the property to remain on the UI after marking as sold or unsold.
+1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the preferences.json file created by the application before running the application again.<br><br>
+2. **If you minimise the Help Window** and then run the help command (or use the Help menu, or the keyboard shortcut F1) again, the original Help Window will remain minimised, and no new Help Window will appear. The remedy is to manually restore the minimised Help Window.<br><br>
+3. **Allow special characters to be used in contact names.** The current validation for contact names requires it to only consist of alphanumeric characters and spaces. The does not support names with special characters like `/` or `-` (e.g. `s/o`, `John-Mary`). Future improvements aim to support this functionality.<br><br>
+4. **Perform verification of inputs for phone number and postal code to meet Singapore format.** Currently, postal codes like `000000` or phone numbers like `000000` are accepted by the application. Further improvements aim to verify that the inputs meet Singapore's standard for phone numbers and postal codes.<br><br>
+5. **Deleting a contact does not update the owner data of properties.** Future improvements aim to automatically update the owner when the contact is deleted.<br><br>
+6. **Filtering logic for filter contacts and filter property are different.** Future improvements aim to make them work similarly for clarity.
 
 ---------------------------------------------------------------------------------------------------------------------
 
@@ -1866,7 +1862,6 @@ SEP has been carried out as follows:
 #### Unit Testing and Test Coverage Analysis
 Unit testing has been carried out in the form of [JUnit](https://docs.junit.org/current/user-guide/) tests of almost all Java classes. There are currently over 600 different test cases which can be seen [here](https://github.com/AY2526S1-CS2103T-W10-2/tp/tree/master/src/test). <br> <br>
 Test coverage refers to the extent in which the code is tested, and we have utilised [CodeCov](https://about.codecov.io/) to measure our code coverage. The code coverage can be seen [here](https://app.codecov.io/github/AY2526S1-CS2103T-W10-2/tp). <br> <br>
-As of v1.5, the test coverage is above 80%.
 
 #### Integrated GitHub tests (Continuous Integration / Continuous Deployment)
 We have utilised _**GitHub Actions**_ to carry out automated testing on Windows, MacOS and Ubuntu devices on every push or pull request. Through these tests, feature branches can be tested before they are merged to the master branch, which ensures that regressions are caught early and are not deployed.

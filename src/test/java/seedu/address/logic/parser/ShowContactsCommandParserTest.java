@@ -40,17 +40,17 @@ public class ShowContactsCommandParserTest {
 
     @Test
     public void parse_invalidUuidNonNumeric_throwsParseException() {
-        assertParseFailure(parser, " abc", ParserUtil.MESSAGE_INVALID_UUID);
+        assertParseFailure(parser, " abc", Uuid.MESSAGE_CONSTRAINTS);
     }
 
     @Test
     public void parse_invalidUuidNegative_throwsParseException() {
-        assertParseFailure(parser, " -1", ParserUtil.MESSAGE_INVALID_UUID);
+        assertParseFailure(parser, " -1", Uuid.MESSAGE_CONSTRAINTS);
     }
 
     @Test
     public void parse_invalidUuidZero_throwsParseException() {
-        assertParseFailure(parser, " 0", ParserUtil.MESSAGE_INVALID_UUID);
+        assertParseFailure(parser, " 0", Uuid.MESSAGE_CONSTRAINTS);
     }
 
     @Test

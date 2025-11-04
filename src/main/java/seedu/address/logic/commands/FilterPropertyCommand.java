@@ -11,12 +11,14 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_STATUS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_TYPE;
 
-import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.property.Property;
 import seedu.address.model.property.predicates.PropertyMatchesFilterPredicate;
+import seedu.address.model.uuid.Uuid;
 
 /**
  * Filters properties using various optional attributes with pagination.
@@ -56,13 +58,16 @@ public class FilterPropertyCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        List<Property> allMatches = model.getFilteredPropertyList().stream()
+        Set<Uuid> allMatches = model.getFilteredPropertyList().stream()
                 .filter(predicate)
-                .toList();
+                .toList()
+                .stream()
+                .map(Property::getUuid)
+                .collect(Collectors.toSet());
 
         int total = allMatches.size();
 
-        model.updateFilteredPropertyList(allMatches::contains);
+        model.updateFilteredPropertyList(p -> allMatches.contains(p.getUuid()));
 
         // Build “X properties matched”
         String msg = String.format("%d properties matched", total);
