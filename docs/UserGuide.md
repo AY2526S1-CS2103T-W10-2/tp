@@ -81,6 +81,7 @@ Some example commands you can try:
 To see the detailed explanation of every feature, click [here](#features)<br>
 To see the summary of every feature, click [here](#command-summary)
 <div style="page-break-after: always;"></div>
+
 ## Features
 
 <div markdown="block" class="alert alert-info">
@@ -542,7 +543,7 @@ All parameters that expect integers must be entered as **plain digits** (0-9) â€
 </div>
 
 ### Contact Management
-These are prefixes for purely contact related commands.
+These are prefixes for purely contact related commands.<br>
 Related commands: [`addcontact`](#adding-a-contact--addcontact), [`filtercontact`](#filtering-contacts--filtercontact), [`editcontact`](#editing-a-contact--editcontact)
 
 | Parameter      | Prefix  | Constraints                                                                                                                 |
@@ -557,7 +558,7 @@ Related commands: [`addcontact`](#adding-a-contact--addcontact), [`filtercontact
 | Status         | status/ | Should only be these (case-insensitive): active, inactive                                                                   |
 
 ### Property Management
-These are prefixes for purely property related commands.
+These are prefixes for purely property related commands.<br>
 Related commands: [`addproperty`](#adding-a-property-addproperty), [`filterproperty`](#filtering-properties--filterproperty)
 
 | Parameter      | Prefix | Constraints                                                                                                          |
@@ -573,7 +574,7 @@ Related commands: [`addproperty`](#adding-a-property-addproperty), [`filterprope
 | Owner ID       | o/     | Should be a valid Contact ID                                                                                         |
 
 ### Others
-These are prefixes that are used over multiple commands.
+These are prefixes that are used over multiple commands.<br>
 Related commands: [`filtercontact`](#filtering-contacts--filtercontact), [`filterproperty`](#filtering-properties--filterproperty), [`sold`](#mark-property-as-sold--sold), [`unsold`](#mark-property-as-unsold--unsold), [`link`](#linking-people-and-properties--link), [`unlink`](#unlinking-people-and-properties--unlink), [`showproperties`](#showing-properties-associated-with-a-contact--showproperties), [`showcontacts`](#showing-contacts-associated-with-a-property--showcontacts)
 
 | Parameter     | Prefix  | Constraints                                            |
