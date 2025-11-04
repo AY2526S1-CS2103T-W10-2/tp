@@ -22,7 +22,8 @@ public class Messages {
             "Multiple values specified for the following single-valued field(s): ";
     public static final String MESSAGE_INVALID_PROPERTY_DISPLAYED_INDEX = "A property index provided is invalid";
     public static final String MESSAGE_INVALID_RELATIONSHIP = "The relationship provided is invalid";
-    public static final String MESSAGE_INVALID_PROPERTY_DISPLAYED_ID = "A property ID provided is either invalid or is not shown on the UI";
+    public static final String MESSAGE_INVALID_PROPERTY_DISPLAYED_ID = "A property ID provided is either invalid"
+                                                                        + "or is not shown on the UI";
     public static final String MESSAGE_LINKING_ALREADY_LINKED_BUYER =
             "A contact is already linked to one of the properties as buyer";
     public static final String MESSAGE_LINKING_ALREADY_LINKED_SELLER =
