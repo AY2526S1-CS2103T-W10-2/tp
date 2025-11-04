@@ -68,7 +68,7 @@ Mac Users: <code>⌘ + F</code>
 Type a command in the command box and press Enter to execute it. e.g. typing `help` and pressing the `Enter` key on the keyboard will open the help window.<br>
 Some example commands you can try:
 
-* `list` : Lists all contacts.
+* `list` : Lists all contacts or properties, depending on whether currently viewing contacts or properties.
 
 * `addcontact n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
 
