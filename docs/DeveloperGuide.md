@@ -242,7 +242,7 @@ As TheRealDeal is a CLI-based application, the `ExitCommand` can be used to exit
 All contacts are stored as `Contact` objects inside the `UniqueContactList` object under the `AddressBook` component. <br><br>
 There is also an additional `FilteredList<Contact>` inside the `ModelManager` that stores the `Contact` that are displayed on the UI which is updated whenever the user issues a command that changes the UI.
 
-#### <u>Add Command</u> (`addcontact`)
+#### <u>Add Contact Command</u> (`addcontact`)
 The `addcontact` command is designed to add a new contact to the address book.
 
 Compulsory fields:
@@ -272,7 +272,7 @@ Validation done:
 ##### Execution
 The `AddContactCommand` class generates the ID for the `Contact` object and checks for duplicates in the address book before adding the new contact.
 
-#### <u>Delete Command</u> (`deletecontact`)
+#### <u>Delete Contact Command</u> (`deletecontact`)
 The `deletecontact` command is designed to delete an existing contact from the address book, identified by their ID.
 
 Compulsory fields:
@@ -289,7 +289,7 @@ Validation done:
 ##### Execution
 The `DeleteContactCommand` class retrieves the contact based on the ID given and also ensures that the contact exists. If the contact exists, it is deleted from the address book. It also unlinks any properties linked to the deleted contact.
 
-#### <u>Edit Command</u> (`editcontact`)
+#### <u>Edit Contact Command</u> (`editcontact`)
 The `editcontact` command is designed to edit a contact in the address book, identified by their ID.
 
 Compulsory fields:
@@ -571,11 +571,11 @@ The predicate checks if a property is associated with the contact by using the `
 
 ### 4. Documentation, Logging, Testing, Configuration, Dev-Ops
 
-[Documentation guide](Documentation.md)<br>
-[Logging guide](Logging.md)<br>
-[Testing guide](Testing.md)<br>
-[Configuration guide](Configuration.md)<br>
-[DevOps guide](DevOps.md)
+* [Documentation guide](Documentation.md)<br>
+* [Logging guide](Logging.md)<br>
+* [Testing guide](Testing.md)<br>
+* [Configuration guide](Configuration.md)<br>
+* [DevOps guide](DevOps.md)
 
 
 ## Appendix: Command Parameters
@@ -590,8 +590,8 @@ All parameters that expect integers must be entered as **plain digits** (0-9) â€
 </div>
 
 ### Contact Management
-These are prefixes for purely contact related commands.
-Related commands: [`addcontact`](#add-command-addcontact), [`filtercontact`](#filter-contact-command-filtercontact), [`editcontact`](#filter-contact-command-filtercontact)
+These are prefixes for purely contact related commands.<br>
+Related commands: [`addcontact`](#add-contact-command-addcontact), [`filtercontact`](#filter-contact-command-filtercontact), [`editcontact`](#edit-contact-command-editcontact)
 
 | Parameter      | Prefix  | Constraints                                                                                                                 |
 |----------------|---------|-----------------------------------------------------------------------------------------------------------------------------|
@@ -605,7 +605,7 @@ Related commands: [`addcontact`](#add-command-addcontact), [`filtercontact`](#fi
 | Status         | status/ | Should only be these (case-insensitive): active, inactive                                                                   |
 
 ### Property Management
-These are prefixes for purely property related commands.
+These are prefixes for purely property related commands.<br>
 Related commands: [`addproperty`](#add-property-command-addproperty), [`filterproperty`](#filter-property-command-filterproperty)
 
 | Parameter      | Prefix | Constraints                                                                                                          |
@@ -621,7 +621,7 @@ Related commands: [`addproperty`](#add-property-command-addproperty), [`filterpr
 | Owner ID       | o/     | Should be a valid Contact ID                                                                                         |
 
 ### Others
-These are prefixes that are used over multiple commands.
+These are prefixes that are used over multiple commands.<br>
 Related commands: [`filtercontact`](#filter-contact-command-filtercontact), [`filterproperty`](#filter-property-command-filterproperty), [`sold`](#mark-property-as-sold-command-sold), [`unsold`](#mark-property-as-unsold-command-unsold), [`link`](#link-command-link), [`unlink`](#unlink-command-unlink), [`showproperties`](#show-properties-command-showproperties), [`showcontacts`](#show-contacts-command-showcontacts)
 
 | Parameter    | Prefix | Constraints                                            |
@@ -1484,7 +1484,7 @@ Expected:<br>
 
 Variations:<br>
 - Add more parameters with prefix p/ with valid or invalid property IDs.<br>A similar output should display as long as one property ID cannot be found.
-- Using a ID that is less than or equal to 0.<br>Alternate error message:<br>`ID is not a valid format.`
+- Using a ID that is less than or equal to 0.
 - Add arbitrary whitespace.
 
 ##### Marking as sold with unknown parameters
@@ -1546,7 +1546,7 @@ Expected:<br>
 
 Variations:<br>
 - Add more parameters with prefix p/ with valid or invalid property IDs.<br>A similar output should display as long as one property ID cannot be found.
-- Using a ID that is less than or equal to 0.<br>Alternate error message:<br>`ID is not a valid format.`
+- Using a ID that is less than or equal to 0.
 - Add arbitrary whitespace.
 
 ##### Marking as unsold with unknown parameters
@@ -1609,16 +1609,16 @@ To simulate:<br>
 - Run the above command with CONTACT_ID replaced with the ID of said contact, PROPERTY_ID replaced with the ID of said property.
 
 Expected:<br>
-- Displays the following error message:<br>`A property ID provided is invalid`
+- Displays the following error message:<br>`A property ID provided is either invalid or is not shown on the UI`
 - No change to the GUI.
 
 Variations:<br>
 - Change relationship from buyer to seller.
 - Add more parameters with prefix p/ with valid property IDs.<br>A similar output should display as long as at least 1 property ID input is invalid.
 - Add more parameters with prefix c/ with valid contact IDs.<br>A similar output should display as long as at least 1 property ID input is invalid.
-- Repeat with valid PROPERTY_ID but not present CONTACT_ID.<br>Alternate error message:<br>`A contact ID provided is invalid`
-- Using a ID that is less than or equal to 0.<br>Alternate error message:<br>`ID is not a valid format.`
-- Using a RELATIONSHIP other than `buyer` or `seller`.<br>Alternate error message:<br>`The relationship provided is invalid`
+- Repeat with valid PROPERTY_ID but not present CONTACT_ID.
+- Using a ID that is less than or equal to 0.
+- Using a RELATIONSHIP other than `buyer` or `seller`.
 - Add arbitrary whitespace.
 
 ##### Linking with unknown parameters
@@ -1681,14 +1681,14 @@ To simulate:<br>
 - Run the above command with CONTACT_ID replaced with the ID of said contact, PROPERTY_ID replaced with the ID of said property.
 
 Expected:<br>
-- Displays the following error message:<br>`A property ID provided is invalid`
+- Displays the following error message:<br>`A property ID provided is either invalid or is not shown on the UI`
 - No change to the GUI.
 
 Variations:<br>
 - Add more parameters with prefix p/ with valid property IDs.<br>A similar output should display as long as at least 1 property ID input is invalid.
 - Add more parameters with prefix c/ with valid contact IDs.<br>A similar output should display as long as at least 1 property ID input is invalid.
-- Repeat with valid PROPERTY_ID but not present CONTACT_ID.<br>Alternate error message:<br>`A contact id provided is invalid`
-- Using a ID that is less than or equal to 0.<br>Alternate error message:<br>`ID is not a valid format.`
+- Repeat with valid PROPERTY_ID but not present CONTACT_ID.
+- Using a ID that is less than or equal to 0.
 - Add arbitrary whitespace.
 
 ##### Unlinking with unknown parameters
@@ -1731,7 +1731,7 @@ Expected:<br>
 - No change to the GUI.
 
 Variations:<br>
-- Using a ID that is less than or equal to 0.<br>Alternate error message:<br>`ID is not a valid format.`
+- Using a ID that is less than or equal to 0.
 - Add arbitrary whitespace.
 
 ##### Show contacts with unknown parameters
@@ -1774,7 +1774,7 @@ Expected:<br>
 - No change to the GUI.
 
 Variations:<br>
-- Using a ID that is less than or equal to 0.<br>Alternate error message:<br>`ID is not a valid format.`
+- Using a ID that is less than or equal to 0.
 - Add arbitrary whitespace.
 
 ##### Show properties with unknown parameters

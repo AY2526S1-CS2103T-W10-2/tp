@@ -68,7 +68,7 @@ Mac Users: <code>⌘ + F</code>
 Type a command in the command box and press Enter to execute it. e.g. typing `help` and pressing the `Enter` key on the keyboard will open the help window.<br>
 Some example commands you can try:
 
-* `list` : Lists all contacts.
+* `list` : Lists all contacts or properties, depending on whether currently viewing contacts or properties.
 
 * `addcontact n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
 
@@ -81,6 +81,7 @@ Some example commands you can try:
 To see the detailed explanation of every feature, click [here](#features)<br>
 To see the summary of every feature, click [here](#command-summary)
 <div style="page-break-after: always;"></div>
+
 ## Features
 
 <div markdown="block" class="alert alert-info">
@@ -98,7 +99,7 @@ To see the summary of every feature, click [here](#command-summary)
   e.g. `[n/NAME...]` can be used as ` ` (i.e. 0 times), `n/John`, `n/John Alex` etc.
 
 * Parameters can be in any order.<br>
-  e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+  e.g. if the command specifies `n/NAME p/PHONE`, `p/PHONE n/NAME` is also acceptable.
 
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
@@ -284,7 +285,7 @@ Format: `filterproperty [a/ADDRESS] [p/POSTAL] [price/PRICE] [t/TYPE] [s/STATUS]
 * Substring property addresses will be matched e.g. `Clementi` will match `CLementi Avenue 8`.
 * Properties matching all the filters will be returned.
 * Filtering is cumulative. Once you filter by type, you can filter by number of bathrooms subsequently.
-* Filtering by price will show properties with price lesser than or equals to the price given. e.g. `filterproperty price/310000` will match all properties with price equal to or less than 3000
+* Filtering by price will show properties with price lesser than or equals to the price given. e.g. `filterproperty price/3000` will match all properties with price equal to or less than 3000
 * Only one filter per field is accepted. e.g. `t/condo hdb` is not accepted.
 
 Examples:
@@ -299,7 +300,7 @@ To reset all filters, you can type <code>list</code>
 <div markdown="span" class="alert alert-primary">
 :bulb: **Tip:**<br>
 To filter for: Type is `HDB` and Address contains `Punggol`<br>
-Type: `filterproperty t/hdb a/sengkang`<br><br>
+Type: `filterproperty t/hdb a/punggol`<br><br>
 </div>
 
 For more information on the parameters, click [here](#command-parameters).
@@ -512,14 +513,14 @@ To see the detailed explanation of every feature, click [here](#features)<br>
 | Action                      | Format, Examples                                                                                                                                                                                                                      |
 |-----------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Add Contact**             | `addcontact n/NAME p/PHONE [e/EMAIL] [a/ADDRESS] [min/AMOUNT] [max/AMOUNT] [notes/TEXT] [status/STATUS]` <br> <br> e.g., `addcontact n/Alex p/91423123 a/982 Yishun Road status/active notes/wants near school min/100000 max/300000` |
-| **Edit Contact**            | `editcontact ID [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [min/AMOUNT] [max/AMOUNT] [notes/TEXT] [status/STATUS]`<br> <br> e.g.,`editcontact 2 n/Bobby a/Block 321 Punggol`                                                            |
-| **Filter Contact**          | `filtercontact [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [min/AMOUNT] [max/AMOUNT] [notes/TEXT] [status/STATUS]`<br> <br> e.g.,`filtercontact n/Tan status/active`                                                                     |
-| **Delete Contact**          | `deletecontact ID`<br> <br> e.g., `deletecontact 3`                                                                                                                                                                                   |
+| **Edit Contact**            | `editcontact CONTACT_ID [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [min/AMOUNT] [max/AMOUNT] [notes/TEXT] [status/STATUS]`<br> <br> e.g.,`editcontact 2 n/Bobby a/Block 321 Punggol`                                                    |
+| **Filter Contact**          | `filtercontact [n/NAME...] [p/PHONE...] [e/EMAIL...] [a/ADDRESS...] [min/AMOUNT] [max/AMOUNT] [notes/TEXT...] [status/STATUS...]`<br> <br> e.g.,`filtercontact n/Tan status/active`                                                   |
+| **Delete Contact**          | `deletecontact CONTACT_ID`<br> <br> e.g., `deletecontact 3`                                                                                                                                                                           |
 | **Add Property**            | `addproperty a/ADDRESS p/POSTAL price/PRICE t/TYPE s/STATUS bed/BEDROOM bath/BATHROOM f/FLOOR_AREA o/CONTACT_ID`<br> <br> e.g., `addproperty a/123 Orchard Rd p/238888 price/1950000 t/condo s/unavailable bed/3 bath/2 f/1023 o/1`   |
 | **Filter Property**         | `filterproperty [a/ADDRESS] [p/POSTAL] [price/PRICE] [t/TYPE] [s/STATUS] [bed/BEDROOM] [bath/BATHROOM] [f/FLOORAREA] [o/CONTACT_ID]`<br> <br> e.g., `filterproperty bed/2 price/2000`                                                 |
-| **Delete Property**         | `deleteproperty ID`<br> <br>  e.g., `deleteproperty 12`                                                                                                                                                                               |
-| **Mark Property as Sold**   | `sold p/ID...` <br><br> e.g. `sold p/1 p/2`                                                                                                                                                                                           |
-| **Mark Property as Unsold** | `unsold p/ID...` <br><br> e.g. `unsold p/2 p/3`                                                                                                                                                                                       |
+| **Delete Property**         | `deleteproperty PROPERTY_ID`<br> <br>  e.g., `deleteproperty 12`                                                                                                                                                                      |
+| **Mark Property as Sold**   | `sold p/PROPERTY_ID...` <br><br> e.g. `sold p/1 p/2`                                                                                                                                                                                  |
+| **Mark Property as Unsold** | `unsold p/PROPERTY_ID...` <br><br> e.g. `unsold p/2 p/3`                                                                                                                                                                              |
 | **Link**                    | `link c/CONTACT_ID... r/RELATIONSHIP p/PROPERTY_ID...`<br> <br>  e.g., `link c/12 r/buyer p/12 p/4`                                                                                                                                   |
 | **Unlink**                  | `unlink c/CONTACT_ID... p/PROPERTY_ID...`<br> <br> e.g., `unlink c/1 p/14 c/2`                                                                                                                                                        |
 | **Show linked properties**  | `showproperties CONTACT_ID`<br> <br>  e.g., `showproperties 2`                                                                                                                                                                        |
@@ -542,7 +543,7 @@ All parameters that expect integers must be entered as **plain digits** (0-9) �
 </div>
 
 ### Contact Management
-These are prefixes for purely contact related commands.
+These are prefixes for purely contact related commands.<br>
 Related commands: [`addcontact`](#adding-a-contact--addcontact), [`filtercontact`](#filtering-contacts--filtercontact), [`editcontact`](#editing-a-contact--editcontact)
 
 | Parameter      | Prefix  | Constraints                                                                                                                 |
@@ -557,7 +558,7 @@ Related commands: [`addcontact`](#adding-a-contact--addcontact), [`filtercontact
 | Status         | status/ | Should only be these (case-insensitive): active, inactive                                                                   |
 
 ### Property Management
-These are prefixes for purely property related commands.
+These are prefixes for purely property related commands.<br>
 Related commands: [`addproperty`](#adding-a-property-addproperty), [`filterproperty`](#filtering-properties--filterproperty)
 
 | Parameter      | Prefix | Constraints                                                                                                          |
@@ -573,7 +574,7 @@ Related commands: [`addproperty`](#adding-a-property-addproperty), [`filterprope
 | Owner ID       | o/     | Should be a valid Contact ID                                                                                         |
 
 ### Others
-These are prefixes that are used over multiple commands.
+These are prefixes that are used over multiple commands.<br>
 Related commands: [`filtercontact`](#filtering-contacts--filtercontact), [`filterproperty`](#filtering-properties--filterproperty), [`sold`](#mark-property-as-sold--sold), [`unsold`](#mark-property-as-unsold--unsold), [`link`](#linking-people-and-properties--link), [`unlink`](#unlinking-people-and-properties--unlink), [`showproperties`](#showing-properties-associated-with-a-contact--showproperties), [`showcontacts`](#showing-contacts-associated-with-a-property--showcontacts)
 
 | Parameter     | Prefix  | Constraints                                            |
