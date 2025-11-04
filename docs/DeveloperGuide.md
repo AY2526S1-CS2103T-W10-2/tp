@@ -1484,7 +1484,7 @@ Expected:<br>
 
 Variations:<br>
 - Add more parameters with prefix p/ with valid or invalid property IDs.<br>A similar output should display as long as one property ID cannot be found.
-- Using a ID that is less than or equal to 0.<br>Alternate error message:<br>`ID is not a valid format.`
+- Using a ID that is less than or equal to 0.
 - Add arbitrary whitespace.
 
 ##### Marking as sold with unknown parameters
@@ -1546,7 +1546,7 @@ Expected:<br>
 
 Variations:<br>
 - Add more parameters with prefix p/ with valid or invalid property IDs.<br>A similar output should display as long as one property ID cannot be found.
-- Using a ID that is less than or equal to 0.<br>Alternate error message:<br>`ID is not a valid format.`
+- Using a ID that is less than or equal to 0.
 - Add arbitrary whitespace.
 
 ##### Marking as unsold with unknown parameters
@@ -1609,16 +1609,16 @@ To simulate:<br>
 - Run the above command with CONTACT_ID replaced with the ID of said contact, PROPERTY_ID replaced with the ID of said property.
 
 Expected:<br>
-- Displays the following error message:<br>`A property ID provided is invalid`
+- Displays the following error message:<br>`A property ID provided is either invalid or is not shown on the UI`
 - No change to the GUI.
 
 Variations:<br>
 - Change relationship from buyer to seller.
 - Add more parameters with prefix p/ with valid property IDs.<br>A similar output should display as long as at least 1 property ID input is invalid.
 - Add more parameters with prefix c/ with valid contact IDs.<br>A similar output should display as long as at least 1 property ID input is invalid.
-- Repeat with valid PROPERTY_ID but not present CONTACT_ID.<br>Alternate error message:<br>`A contact ID provided is invalid`
-- Using a ID that is less than or equal to 0.<br>Alternate error message:<br>`ID is not a valid format.`
-- Using a RELATIONSHIP other than `buyer` or `seller`.<br>Alternate error message:<br>`The relationship provided is invalid`
+- Repeat with valid PROPERTY_ID but not present CONTACT_ID.
+- Using a ID that is less than or equal to 0.
+- Using a RELATIONSHIP other than `buyer` or `seller`.
 - Add arbitrary whitespace.
 
 ##### Linking with unknown parameters
@@ -1681,14 +1681,14 @@ To simulate:<br>
 - Run the above command with CONTACT_ID replaced with the ID of said contact, PROPERTY_ID replaced with the ID of said property.
 
 Expected:<br>
-- Displays the following error message:<br>`A property ID provided is invalid`
+- Displays the following error message:<br>`A property ID provided is either invalid or is not shown on the UI`
 - No change to the GUI.
 
 Variations:<br>
 - Add more parameters with prefix p/ with valid property IDs.<br>A similar output should display as long as at least 1 property ID input is invalid.
 - Add more parameters with prefix c/ with valid contact IDs.<br>A similar output should display as long as at least 1 property ID input is invalid.
-- Repeat with valid PROPERTY_ID but not present CONTACT_ID.<br>Alternate error message:<br>`A contact id provided is invalid`
-- Using a ID that is less than or equal to 0.<br>Alternate error message:<br>`ID is not a valid format.`
+- Repeat with valid PROPERTY_ID but not present CONTACT_ID.
+- Using a ID that is less than or equal to 0.
 - Add arbitrary whitespace.
 
 ##### Unlinking with unknown parameters
@@ -1731,7 +1731,7 @@ Expected:<br>
 - No change to the GUI.
 
 Variations:<br>
-- Using a ID that is less than or equal to 0.<br>Alternate error message:<br>`ID is not a valid format.`
+- Using a ID that is less than or equal to 0.
 - Add arbitrary whitespace.
 
 ##### Show contacts with unknown parameters
@@ -1774,7 +1774,7 @@ Expected:<br>
 - No change to the GUI.
 
 Variations:<br>
-- Using a ID that is less than or equal to 0.<br>Alternate error message:<br>`ID is not a valid format.`
+- Using a ID that is less than or equal to 0.
 - Add arbitrary whitespace.
 
 ##### Show properties with unknown parameters

@@ -284,7 +284,7 @@ Format: `filterproperty [a/ADDRESS] [p/POSTAL] [price/PRICE] [t/TYPE] [s/STATUS]
 * Substring property addresses will be matched e.g. `Clementi` will match `CLementi Avenue 8`.
 * Properties matching all the filters will be returned.
 * Filtering is cumulative. Once you filter by type, you can filter by number of bathrooms subsequently.
-* Filtering by price will show properties with price lesser than or equals to the price given. e.g. `filterproperty price/310000` will match all properties with price equal to or less than 3000
+* Filtering by price will show properties with price lesser than or equals to the price given. e.g. `filterproperty price/3000` will match all properties with price equal to or less than 3000
 * Only one filter per field is accepted. e.g. `t/condo hdb` is not accepted.
 
 Examples:
@@ -299,7 +299,7 @@ To reset all filters, you can type <code>list</code>
 <div markdown="span" class="alert alert-primary">
 :bulb: **Tip:**<br>
 To filter for: Type is `HDB` and Address contains `Punggol`<br>
-Type: `filterproperty t/hdb a/sengkang`<br><br>
+Type: `filterproperty t/hdb a/punggol`<br><br>
 </div>
 
 For more information on the parameters, click [here](#command-parameters).
@@ -512,14 +512,14 @@ To see the detailed explanation of every feature, click [here](#features)<br>
 | Action                      | Format, Examples                                                                                                                                                                                                                      |
 |-----------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Add Contact**             | `addcontact n/NAME p/PHONE [e/EMAIL] [a/ADDRESS] [min/AMOUNT] [max/AMOUNT] [notes/TEXT] [status/STATUS]` <br> <br> e.g., `addcontact n/Alex p/91423123 a/982 Yishun Road status/active notes/wants near school min/100000 max/300000` |
-| **Edit Contact**            | `editcontact ID [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [min/AMOUNT] [max/AMOUNT] [notes/TEXT] [status/STATUS]`<br> <br> e.g.,`editcontact 2 n/Bobby a/Block 321 Punggol`                                                            |
-| **Filter Contact**          | `filtercontact [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [min/AMOUNT] [max/AMOUNT] [notes/TEXT] [status/STATUS]`<br> <br> e.g.,`filtercontact n/Tan status/active`                                                                     |
-| **Delete Contact**          | `deletecontact ID`<br> <br> e.g., `deletecontact 3`                                                                                                                                                                                   |
+| **Edit Contact**            | `editcontact CONTACT_ID [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [min/AMOUNT] [max/AMOUNT] [notes/TEXT] [status/STATUS]`<br> <br> e.g.,`editcontact 2 n/Bobby a/Block 321 Punggol`                                                            |
+| **Filter Contact**          | `filtercontact [n/NAME...] [p/PHONE...] [e/EMAIL...] [a/ADDRESS...] [min/AMOUNT] [max/AMOUNT] [notes/TEXT...] [status/STATUS...]`<br> <br> e.g.,`filtercontact n/Tan status/active`                                                                     |
+| **Delete Contact**          | `deletecontact CONTACT_ID`<br> <br> e.g., `deletecontact 3`                                                                                                                                                                                   |
 | **Add Property**            | `addproperty a/ADDRESS p/POSTAL price/PRICE t/TYPE s/STATUS bed/BEDROOM bath/BATHROOM f/FLOOR_AREA o/CONTACT_ID`<br> <br> e.g., `addproperty a/123 Orchard Rd p/238888 price/1950000 t/condo s/unavailable bed/3 bath/2 f/1023 o/1`   |
 | **Filter Property**         | `filterproperty [a/ADDRESS] [p/POSTAL] [price/PRICE] [t/TYPE] [s/STATUS] [bed/BEDROOM] [bath/BATHROOM] [f/FLOORAREA] [o/CONTACT_ID]`<br> <br> e.g., `filterproperty bed/2 price/2000`                                                 |
-| **Delete Property**         | `deleteproperty ID`<br> <br>  e.g., `deleteproperty 12`                                                                                                                                                                               |
-| **Mark Property as Sold**   | `sold p/ID...` <br><br> e.g. `sold p/1 p/2`                                                                                                                                                                                           |
-| **Mark Property as Unsold** | `unsold p/ID...` <br><br> e.g. `unsold p/2 p/3`                                                                                                                                                                                       |
+| **Delete Property**         | `deleteproperty PROPERTY_ID`<br> <br>  e.g., `deleteproperty 12`                                                                                                                                                                               |
+| **Mark Property as Sold**   | `sold p/PROPERTY_ID...` <br><br> e.g. `sold p/1 p/2`                                                                                                                                                                                           |
+| **Mark Property as Unsold** | `unsold p/PROPERTY_ID...` <br><br> e.g. `unsold p/2 p/3`                                                                                                                                                                                       |
 | **Link**                    | `link c/CONTACT_ID... r/RELATIONSHIP p/PROPERTY_ID...`<br> <br>  e.g., `link c/12 r/buyer p/12 p/4`                                                                                                                                   |
 | **Unlink**                  | `unlink c/CONTACT_ID... p/PROPERTY_ID...`<br> <br> e.g., `unlink c/1 p/14 c/2`                                                                                                                                                        |
 | **Show linked properties**  | `showproperties CONTACT_ID`<br> <br>  e.g., `showproperties 2`                                                                                                                                                                        |
