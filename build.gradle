@@ -68,7 +68,7 @@ dependencies {
 
 shadowJar {
     archiveBaseName = 'TheRealDeal'
-    archiveVersion = 'v1.5'
+    archiveVersion = 'v1.6'
 }
 
 run {
